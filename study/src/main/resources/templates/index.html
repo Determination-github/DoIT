@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DoIT</title>
+    <link href="css/index-style.css" th:href="@{/css/index-style.css}" rel="stylesheet">
+    <link href="../css/default.css" th:href="@{css/default.css}" rel="stylesheet">
+</head>
+<body>
+<div id="wrap">
+    <a href="./members/login.html" class="login_move_button"></a>
+</div>
+<div style="text-align: right;">
+    <button onclick="location.href='/members/join'"><h2>로그인</h2></button>
+</div>
+<div style="text-align: right;">
+    <button onclick="location.href='/members/join'"><h2>회원가입</h2></button>
+</div>
+<div style="text-align: right;">
+    <button onclick="location.href='/board/list'"><h2>게시글 리스트</h2></button>
+</div>
+</body>
+</html>

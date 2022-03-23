@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link href="../css/join-style.css" th:href="@{css/join-style.css}" rel="stylesheet">
+  <link href="../css/default.css" th:href="@{css/default.css}" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/0c4f9b09f5.js" crossorigin="anonymous"></script>
+  <title>회원가입 페이지</title>
+</head>
+<body>
+<div id="wrap">
+  <header id="header">
+    <h1 class="header_join">회원가입</h1>
+  </header>
+  <main id="main">
+    <div class="main_join_wrap">
+      <div class="main_join_box1">
+        <p>닉네임</p>
+        <div class="main_join_input_group main_join_input_box">
+          <input class="main_join_input main_join_input1" type="text" placeholder="선택입력" th:placeholder="@{선택입력}" name="userNICKNAME" maxlength="41">
+        </div>
+      </div>
+      <div class="main_join_box2">
+        <p>이메일</p>
+        <div class="main_join_input_group main_join_input_box">
+          <input class="main_join_input main_join_input2" type="text" placeholder="선택입력" th:placeholder="@{선택입력}}" name="userID" maxlength="41">
+        </div>
+      </div>
+      <div class="main_join_box3">
+        <p>비밀번호</p>
+        <div class="main_join_input_box">
+          <input class="main_join_input main_join_input3" type="password" placeholder="비밀번호" th:placeholder="@{비밀번호}" name="userPW" maxlength="41">
+        </div>
+      </div>
+      <div class="main_join_box4">
+        <p>비밀번호 확인</p>
+        <div class="main_join_input_box">
+          <input class="main_join_input main_join_input4" type="password" placeholder="비밀번호 확인" th:placeholder="@{비밀번호 확인}" name="userPWA" maxlength="41">
+        </div>
+      </div>
+      <div class="main_join_box5 main_join_box_group">
+        <p>생년월일</p>
+        <div class="main_join_input_box5">
+          <input class="main_join_input main_join_input5_year" type="date" placeholder="생년월일" th:placeholder="@{생년월일}" name="userDate" maxlength="41">
+        </div>
+      </div>
+      <div class="main_join_box6 main_join_box_group">
+        <p>성별</p>
+        <div class="main_join_input_box6">
+          <select id="main_join_input_sex_select" class="main_join_input_sex_select">
+            <option>성별</option>
+            <option>남</option>
+            <option>여</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <p class="main_join_category">관심있는 스터디 카테고리를 선택해 주세요. (최대 3개)</p>
+      </div>
+      <div class="categoryListWrap">
+        <div>
+          <select id="categoryList1" class="categoryList">
+            <option value="none">선택해 주세요.</option>
+            <option value="1">정보처리</option>
+            <option value="2">자바</option>
+            <option value="3">C언어</option>
+            <option value="4">웹</option>
+          </select>
+        </div>
+        <div>
+          <select id="categoryList2" class="categoryList">
+            <option value="none">선택해 주세요.</option>
+            <option value="1">정보처리</option>
+            <option value="2">자바</option>
+            <option value="3">C언어</option>
+            <option value="4">웹</option>
+          </select>
+        </div>
+        <div>
+          <select id="categoryList3" class="categoryList">
+            <option value="none">선택해 주세요.</option>
+            <option value="1">정보처리</option>
+            <option value="2">자바</option>
+            <option value="3">C언어</option>
+            <option value="4">웹</option>
+          </select>
+        </div>
+      </div>
+      <div class="main_join_last">
+        <input class="main_join_BTN" type="submit" value="가입하기">
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
