@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DoIT 로그인</title>
+    <link href="../css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+    <link href="../css/default.css" th:href="@{css/default.css}" rel="stylesheet">
+</head>
+<body>
+<div id="wrap">
+    <header id="header">
+        <section id="header_section">
+            <div class="header_logo"></div>
+            <p class="header_login_message" th:text="${loginMessage}">DoIT</p>
+        </section>
+    </header>
+    <main id="main">
+        <section id="main_section">
+            <div class="main_section_wrap">
+                <p class="main_login_title">DoIT에 오신것을 환영합니다!</p>
+
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

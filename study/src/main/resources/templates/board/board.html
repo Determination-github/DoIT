@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org">
+<head>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="js/vendor/modernizr-3.8.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="http://java.sun.com/jsp/jstl/core"></script>
+    <script src="http://java.sun.com/jsp/jstl/functions"></script>
+    <script>window.jQuery || document.write('<script src="@{/js/vendor/jquery-3.4.1.min.js}"><\/script>')</script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+
+
+<body>
+    <div class="container">
+        <p id="board_Id">글번호 : [[${board.board_Id}]]</p>
+        <p id="board_Title">글제목 : [[${board.board_Title}]]</p>
+        <p>글내용 :
+        <div id="board_Content">
+        <textarea readonly="readonly" class="form-control"
+                  th:text="${board.board_Content}"></textarea></p>
+        </div>
+        <p>조회수 : [[${board.board_Count}]]</p>
+    </div>
+    <button id="deleteBtn" class="btn btn-danger btn-sm float-right">글 삭제</button>
+    <button id="updateBtn" class="btn btn-info btn-sm float-right">글 수정</button>
+    <form id="form" th:action="@{/}" method="post"></form>
+<script th:inline="javascript">
+    $(document).on("ready", function (e) {
+        var form= $("#form");
+        var board_Id= [[${board.board_Id}]];
+        $(document).on('click', '#deleteBtn', function (e){
+          $('#form').attr("action", "remove");
+          form.append("<input type='hidden' name='board_Id' value='"+board_Id+"'>");
+          form.append("<input type='hidden' name='_method' value='post'>");
+          form.submit();
+        })
+        $(document).on('click','#updateBtn', function (e) {
+            var str="<input class='form-control' width='250'" +
+                "placeholder='제목 입력' id='updateBoard_Title'>";
+            $("#board_Title").html(str);
+            str="<textarea class='form-control' placeholder='내용 입력'" +
+                "id='updateBoard_Content'></textarea>";
+            $("#board_Content").html(str);
+            $("#updateBtn").attr("id", "updateConfirmBtn");
+        })
+        $(document).on('click','#updateConfirmBtn', function (e){
+            $('#form').attr("action", "modify");
+            var updateBoard_Title= $('#updateBoard_Title').val();
+            var updateBoard_Content= $('#updateBoard_Content').val();
+            form.append("<input type='hidden' name='board_Id' value='"+board_Id+"'>");
+            form.append("<input type='hidden' name='_method' value='post'>");
+            form.append("<input type='hidden' name='board_Title' value='"+updateBoard_Title+"'>");
+            form.append("<input type='hidden' name='board_Content' value='"+updateBoard_Content+"'>");
+            form.submit();
+        })
+    })
+</script>
+</body>
+</html>

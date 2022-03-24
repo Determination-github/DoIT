@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<style>
+    table, td, th {
+        border: 1px solid black;
+    }
+
+    th {
+        background: #F3F5F5;
+    }
+
+    table {
+        margin-top: 5%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        width: 80%;
+    }
+
+    a:link {
+        color: red;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    a:visited {
+        color: black;
+        text-decoration: none;
+    }
+
+    .paginate {
+        padding: 0;
+        line-height: normal;
+        text-align: center;
+        position: relative;
+        margin: 20px 0 20px 0;
+        z-index: 1;
+    }
+
+    .paginate .paging {
+        text-align: center;
+    }
+
+    .paginate{
+        margin: 0;
+        padding: 0;
+        width: 20px;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+        color: #848484;
+        display: inline;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .paginate .paging a:hover, .paginate .paging strong {
+        color: #DAA520;
+        font-weight: 600;
+        font-weight: normal;
+    }
+
+    .paginate .paging img {
+        vertical-align: middle;
+    }
+
+    .bottom select {
+        background: transparent;
+        color: #aaa;
+        cursor: pointer;
+    }
+
+    .paginate {
+        padding: 0;
+        line-height: normal;
+        text-align: center;
+        position: relative;
+        margin: 20px 0 20px 0;
+    }
+
+    .paginate .paging {
+        text-align: center;
+    }
+
+    .paginate .paging a, .paginate .paging strong {
+        margin: 0;
+        padding: 0;
+        width: 20px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        color: #999;
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .paginate .paging a:hover, .paginate .paging strong {
+        color: #C40639;
+        font-weight: 600;
+        font-weight: normal;
+    }
+
+    .paginate .paging img {
+        vertical-align: middle;
+    }
+
+</style>
+
+<body>
+
+<div class ="container">
+    <table class="table table-hover">
+        <thead>
+        <th>id</th>
+        <th>title</th>
+        <th>content</th>
+        <th>count</th>
+        <th>comment</th>
+        <th>date</th>
+        </thead>
+        <tr th:each="list :${list}">
+            <td>[[${list.board_Id}]]</td>
+            <td><a th:href="@{/board/read(board_Id = ${list.board_Id})}">[[${list.board_Title}]]</a></td>
+            <td>[[${list.board_Content}]]</td>
+            <td>[[${list.board_Count}]]</td>
+            <td>[[${list.board_Comment}]]</td>
+            <td>[[${list.board_Date}]]</td>
+        </tr>
+    </table>
+    <br>
+</div>
+    <div style="text-align: right;">
+        <button onclick="location.href='/board/write'">글작성</button>
+    </div>
+<div class="paginate">
+    <div class="paging" style="white-space:nowrap;">
+            <a th:href="@{/board/list(currentPage = ${pagination.currentPage}-1)}">&lt; </a>
+        <div class="paginate" th:each="idx : ${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">
+            <a  th:href="@{'/board/list?currentPage='+${idx}}"
+                th:text="${idx}" style="font-weight:700;"></a>
+        </div>
+          <a th:href="@{/board/list(currentPage = ${pagination.currentPage}+1)}">&gt; </a>
+    </div>
+</div>
+</body>
+</html>

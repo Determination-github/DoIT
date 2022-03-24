@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>DoIT 로그인</title>
+	<link href="../css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+	<link href="../css/default.css" th:href="@{css/default.css}" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/0c4f9b09f5.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="wrap">
+	<header id="header">
+		<section id="header_section">
+			<div class="header_logo"></div>
+			<p class="header_login_message" th:utext="${loginMessage}">로그인</p>
+		</section>
+	</header>
+	<main id="main">
+		<section id="main_section">
+			<div class="main_section_wrap">
+				<p class="main_login_title"></p>
+				<form action="/member/login" th:action="@{/member/login}" method="post">
+					<div class="main_login_wrap">
+						<div class="main_login_ID_wrap">
+							<p class="main_login_ID_group main_login_ID_img"></p>
+							<div class="main_login_ID_group main_login_ID_padding">
+								<input class="main_login_ID" type="text" placeholder="이메일 주소" th:placeholder="@{이메일 주소}" name="userID" maxlength="41">
+							</div>
+						</div>
+						<div class="main_login_PW_wrap">
+							<p class="main_login_PW_group main_login_PW_img"></p>
+							<div class="main_login_PW_group main_login_PW_padding">
+								<input class="main_login_PW" type="password" placeholder="비밀번호" th:placeholder="@{비밀번호}" name="userPW" maxlength="90">
+							</div>
+						</div>
+						<div class="main_login_checkBox_wrap">
+							<input class="main_login_checkBox_bro main_login_checkBox" type="checkbox" name="userAuto">
+							<p class="main_login_checkBox_bro main_login_checkBox_text">자동 로그인</p>
+						</div>
+						<div class="main_login_BTN_wrap">
+							<input class="main_login_BTN" type="submit" value="로그인">
+						</div>
+						<div class="main_login_join_BTN_wrap">
+							<p class="main_login_join">
+								<a href="./join" th:href="@{/member/join}" class="main_login_join_BTN">회원가입</a>
+							</p>
+							<p class="main_login_IDPW">
+								<a href="#" th:href="@{/member/IDPW}" class="main_login_IDPW_BTN">아이디 또는 비밀번호 찾기</a>
+							</p>
+						</div>
+						<div class="main_login_border_wrap">
+							<span class="main_login_border">간편로그인</span>
+						</div>
+						<div class="main_login_naver_wrap">
+							<button class="main_login_kakao">카카오 계정으로 로그인</button>
+							<button class="main_login_naver">네이버 계정으로 로그인</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+	</main>
+</div>
+</body> 
+</html>
