@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" class="fontawesome-i2svg-active fontawesome-i2svg-complete">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoIT</title>
+  <link rel="stylesheet" href="new.css">
+  <link rel="stylesheet" href="daterangepicker.css">
+  <script src="Category.js" defer></script>
+</head>
+<body class="d-flex flex-column h-100">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #283673 !important;">
+    <div class="container">
+      <a class="navbar-brand" href="/src/Page.html">
+        <img src="../image/come.png" width="100" height="100" class="d-inline-block align-top" alt>
+      </a>
+      <button class="navbar-toggler togglerNoBorder" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse pl-2 pt-1 collapse show" id="navbarNavDropdown" style>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown navDropdown">
+            <a class="nav-link" href="notice.html" id="navbarDropdown" style="font-weight: bold;">공지 게시판</a>
+          </li>
+        </ul>
+        <div class="my-2 my-lg-0 mobile-display-none">
+          <ul class="navbar-nav float-right">
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#" id="loginDrop" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                <svg class="svg-inline--fa fa-user-circle fa-w-16 fa-2x" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-circle" role="img" xmlns="http:www.w3.org/2000/svg"
+                viewBox="0 0 496 512" data-fa-i2svg>
+                <path fill="currentColor" d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 
+                39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7
+                24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"></path>
+                </svg>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="loginDrop">
+                <a class="dropdown-item" href="login.html">로그인</a>
+                <a class="dropdown-item" href="join.html">회원가입</a>
+                <a class="dropdown-item" href="mypage.html">마이페이지</a>
+                <a class="dropdown-item" href="poem.html">쪽지확인</a>
+                <a class="dropdown-item" href="joinstudy.html">참여중인 스터디</a>
+                <a class="dropdown-item" href="logout.html">로그아웃</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <main class="flex-shrink-0">
+    <section class="py-5">
+      <div class="container col-lg-10">
+        <div class="row gx-5">
+          <div class="col-sm-2"></div>
+          <h2 class="col-sm-8">스터디 개설</h2>
+          <div class="col-sm-2"></div>
+        </div>
+        <div class="row gx-5">
+          <div  class="col-lg-2"></div>
+          <div class="col-lg-8">
+            <article>
+              <div  class="row mt-3">
+                <form class="col-lg-12 needs-validation" name="frmResister" action="/groups/new" method="post" novalidate>
+                  <input type="hidden" name="_csrf" value="46b06b5c-25e2-41bc-bf6a-0cb8ccfb3c26">
+                  <div class="form-row">
+                    <div class="form-group required col">
+                      <label for="firstCategory">1차 카테고리</label>
+                      <select id="firstCategory" class="form-control" name="firstCategory" aria-describedby="categroyHelp" required>
+                        <option value>선택하세요</option>
+                        <option value="1">개발</option>
+                        <option value="2">언어</option>
+                        <option value="3">자격증</option>
+                      </select>
+                      <small id="categoryHelp" class="form-text text-muted"></small>
+                    </div>
+                    <div class="form-group required col">
+                      <label for="categoryName">2차 카테고리</label>
+                      <select id="categoryId" required  disabled>
+                        <option>없음</option>
+                      </select>
+                      <small class="invalid-feedback">2차 카테고리를 선택해주세요</small>
+                    </div>
+                    <div  class="form-group col">
+                      <label for="applicationRangeDate">모집기간</label>
+                      <input id="applicationRangeDate" class="form-control rangeDatePicker" style="background-color: white;"
+                      placeholder="모집 기간을 선택하세요" aria-describedby="applicationRangeDateHelp" readonly>
+                      <small id="applicationRangeDateHelp" class="form-text text-muted">모집기간 설정을 원하시면 설정해주세요</small>
+                      <input type="hidden" class="form-control singleDatePicker" id="endDateTime" name="endDateTime" value>
+                    </div>
+                  </div>
+                  <div class="form-group required">
+                    <label for="title">스터디 이름</label>
+                    <input id="title" type="text" class="form-control" aria-describedby="titleHelp" required max="50" name="title" value>
+                    <small class="invalid-feedback">스터디 이름을 50자 이내로 입력하세요</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="description">짧은 소개</label>
+                    <textarea id="description" type="textarea" class="form-control" placeholder="스터디를 짧게 소개해 주세요" aria-describedby="description"></textarea>
+                    <small class="invalid-feedback">스터디 그룹을 짧게 50자 이내로 소개해주세요</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="contact">연락할 곳</label>
+                    <input id="contact" type="text" class="form-control" aria-describedby="contactHelp" required max="500"
+                    placeholder="참여하고자 하는 회원들이 연락할 오픈채팅 URL, 카카오톡 ID 등을 입력해주세요" name="contact" value>
+                    <small id="contactHelp" class="form-text text-muted">
+                      해당 정보는 로그인한 회원이 '연락처보기' 버튼을 클릭시에만 보여지게 됩니다.
+                      <br>
+                      상세소개에 연락처를 기입하시면 모든 사람이 볼 수 있다는 점을 참고해주세요.
+                    </small>
+                    <small class="invalid-feedback">짧은 소개를 입력하세요</small>
+                  </div>
+                  <div class="form-group required">
+                    <label for="content">상세 소개</label>
+                    <textarea id="content" type="textarea" class="editor form-control" placeholder="스터디를 자세히 설명해주세요"
+                    aria-describedby="contentHelp" required name="content" style="display: none;" aria-hidden="true"></textarea>
+                    <div role="application" class="tox tox-tinymce" aria-disabled="false" style="visibility: hidden; height: 500px;">
+                      <div class="tox-editor-container">
+                        <div data-alloy-vertical-dir="toptobottom" class="tox-editor-header">
+                          <div role="group" class="tox-toolbar-overlord" aria-disabled="false">
+                            <div role="group" class="tox-toolbar_primary">
+                              <div title role="toolbar" data-alloy-tabstop="true" tabindex="-1" class="tox-toolbar_group">
+                                <button aria-label="Undo" title="Undo" type="button" tabindex="-1" class="tox-tbtn tox-tbtn--disabled" aria-disabled="true">
+                                  <span class="tox-icon tox-tbtn_icon-wrap">
+                                    <svg width="24" height="24">
+                                      <path d="M6.4 8H12c3.7 0 6.2 2 6.8 5.1.6 2.7-.4 5.6-2.3 6.8a1 1 0 01-1-1.8c1.1-.6 1.8-2.7 1.4-4.6-.5-2.1-2.1-3.5-4.9-3.5H6.4l3.3 3.3a1 1 0 11-1.4 1.4l-5-5a1 1 0 010-1.4l5-5a1 1 0 011.4 1.4L6.4 8z" fill-rule="nonzero"></path>
+                                    </svg>
+                                  </span>
+                                </button>
+                                <button aria-label="Redo" title="Redo" type="button" tabindex="-1" class="tox-tbtn tox-tbtn--disabled" aria-disabled="true">
+                                  <span class="tox-icon tox-tbtn_icon-wrap">
+                                    <svg width="24" height="24">
+                                      <path d="M17.6 10H12c-2.8 0-4.4 1.4-4.9 3.5-.4 2 .3 4 1.4 4.6a1 1 0 11-1 1.8c-2-1.2-2.9-4.1-2.3-6.8.6-3 3-5.1 6.8-5.1h5.6l-3.3-3.3a1 1 0 111.4-1.4l5 5a1 1 0 010 1.4l-5 5a1 1 0 01-1.4-1.4l3.3-3.3z" fill-rule="nonzero"></path>
+                                    </svg>
+                                  </span>
+                                </button>
+                              </div>
+                              <div title role="toolbar" data-alloy-tabstop="true" tabindex="-1" class="tox-toolbar_group">
+                                <button title="Font sizes" aria-label="Font sizes" aria-haspopup="true" type="button" unselectable="on" tabindex="-1" class="tox-tbtn tox-tbtn--select tox-tbtn--bespoke" aria-expanded="false" style="user-select: none;">
+                                  <span class="tox-tbtn_select-label">16px</span>
+                                  <div class="tox-tbtn_select-chevron">
+                                    <svg width="10" height="10">
+                                      <path d="M8.7 2.2c.3-.3.8-.3 1 0 .4.4.4.9 0 1.2L5.7 7.8c-.3.3-.9.3-1.2 0L.2 3.4a.8.8 0 010-1.2c.3-.3.8-.3 1.1 0L5 6l3.7-3.8z" fill-rule="nonzero"></path>
+                                    </svg>
+                                  </div>
+                                </button>
+                              </div>
+                              <div title role="toolbar" data-alloy-tabstop="true" tabindex="-1" class="tox-toolbar_group">
+                                <div aria-pressed="false" aria-label="Text Color" title="Text color" role="button" aria-haspopup="true" unselectable="on" tabindex="-1"
+                                class="tox-split-button" aria-disabled="false" aria-expanded="false" aria-describedby="aria_1114922751891648026655176" style="user-select: none;">
+                                <span role="presentation" tabindex="-1" class="tox-tbtn" aria-disabled="false">
+                                  <span class="tox-icon tox-tbtn_icon-wrap">
+                                    <svg width="24" height="24">
+                                      <g fill-rule="evenodd">
+                                        <path id="tox-icon-text-color_color" d="M3 18h18v3D3z"></path>
+                                        <path d="M8.7 16h-.8a.5.5 0 01-.5-.6l2.7-9c.1-.3.3-.4.5-.4h2.8c.2 0 .4.1.5.4l2.7 9a.5.5 0 01-.5.6h-.8a.5.5 0 01-.4-.4l-.7-2.2c0-.3-.3-.4-.5-.4h-3.4c-.2 0-.4.1-.5.4l-.7 2.2c0 .3-.2.4-.4.4zm2.6-7.6l-.6 2a.5.5 0 00.5.6h1.6a.5.5 0 00.5-.6l-.6-2c0-.3-.3-.4-.5-.4h-.4c-.2 0-.4.1-.5.4z"></path>
+                                      </g>
+                                    </svg>
+                                  </span>
+                                </span>
+                                <span role="presentation" tabindex="-1" class="tox-tbtn tox-split-button_chevron" aria-disabled="false">
+                                  <svg width="10" height="10">
+                                    <path d="M8.7 2.2c.3-.3.8-.3 1 0 .4.4.4.9 0 1.2L5.7 7.8c-.3.3-.9.3-1.2 0L.2 3.4a.8.8 0 010-1.2c.3-.3.8-.3 1.1 0L5 6l3.7-3.8z" fill-rule="nonzero"></path>
+                                  </svg>
+                                </span>
+                                <span aria-hidden="true" id="aria_1114922781591648026655176" style="display: none;">To open the popup, press Shift + Enter</span>
+                                </div>
+                              </div>
+                              <div title role="toolbar" data-alloy-tabstop="true" tabindex="-1" class="tox-toolbar_group">
+                                <button aria-label="Bold" title="Bold" type="button" tabindex="-1" class="tox-tbtn" aria-disabled="false" aria-pressed="false">
+                                  <span class="tox-icon tox-tbtn_icon-wrap">
+                                    <svg width="24" height="24">
+                                      <path d="M7.8 19c-.3 0-.5 0-.6-.2l-.2-.5V5.7c0-.2 0-.4.2-.5l.6-.2h5c1.5 0 2.7.3 3.5 1 .7.6 1.1 1.4 1.1 2.5a3 3 0 01-.6 1.9c-.4.6-1 1-1.6 1.2.4.1.9.3 1.3.6s.8.7 1 1.2c.4.4.5 1 .5 1.6 0 1.3-.4 2.3-1.3 3-.8.7-2.1 1-3.8 1H7.8zm5-8.3c.6 0 1.2-.1 1.6-.5.4-.3.6-.7.6-1.3 0-1.1-.8-1.7-2.3-1.7H9.3v3.5h3.4zm.5 6c.7 0 1.3-.1 1.7-.4.4-.4.6-.9.6-1.5s-.2-1-.7-1.4c-.4-.3-1-.4-2-.4H9.4v3.8h4z" fill-rule="evenodd"></path>
+                                    </svg>
+                                  </span>
+                                </button>
+                                <button aria-label="Italic" title="Italic" type="button" tabindex="-1" class="tox-tbtn" aria-disabled="false" aria-pressed="false">
+                                  <span class="tox-icon tox-tbtn_icon-wrap">
+                                    <svg width="24" height="24">
+                                      <path d="M16.7 4.7l-.1.9h-.3c-.6 0-1 0-1.4.3-.3.3-.4.6-.5 1.1l-2.1 9.8v.6c0 .5.4.8 1.4.8h.2l-.2.8H8l.2-.8h.2c1.1 0 1.8-.5 2-1.5l2-9.8.1-.5c0-.6-.4-.8-1.4-.8h-.3l.2-.9h5.8z" fill-rule="evenodd"></path>
+                                    </svg>
+                                  </span>
+                                </button>
+                                <button aria-label="Strikethrough" title="Strikethrough" type="button" tabindex="-1" class="tox-tbtn" aria-disabled="false" aria-pressed="false">
+                                  <span class="tox-icon tox-tbtn_icon-wrap">
+                                    <svg width="24" height="24">
+                                      <g fill-rule="evenodd">
+                                        <path d="M15.6 8.5c-.5-.7-1-1.1-1.3-1.3-.6-.4-1.3-.6-2-.6-2.7 0-2.8 1.7-2.8 2.1 0 1.6 1.8 2 3.2 2.3 4.4.9 4.6 2.8 4.6 3.9 0 1.4-.7 4.1-5 4.1A6.2 6.2 0 017 16.4l1.5-1.1c.4.6 1.6 2 3.7 2 1.6 0 2.5-.4 3-1.2.4-.8.3-2-.8-2.6-.7-.4-1.6-.7-2.9-1-1-.2-3.9-.8-3.9-3.6C7.6 6 10.3 5 12.4 5c2.9 0 4.2 1.6 4.7 2.4l-1.5 1.1z"></path>
+                                        <path d="M5 11h14a1 1 0 010 2H5a1 1 0 010-2z" fill-rule="nonzero"></path>
+                                      </g>
+                                    </svg>
+                                  </span>
+                                </button>
+                                <button aria-label="Underline" title="Underline" type="button" tabindex="-1" class="tox-tbtn" aria-disabled="false" aria-pressed="false">
+                                  <span class="tox-icon tox-tbtn_icon-wrap">
+                                    <svg width="24" height="24">
+                                      <path d="M16 5c.6 0 1 .4 1 1v5.5a4 4 0 01-.4 1.8l-1 1.4a5.3 5.3 0 01-5.5 1 5 5 0 01-1.6-1c-.5-.4-.8-.9-1.1-1.4a4 4 0 01-.4-1.8V6c0-.6.4-1 1-1s1 .4 1 1v5.5c0 .3 0 .6.2 1l.6.7a3.3 3.3 0 002.2.8 3.4 3.4 0 002.2-.8c.3-.2.4-.5.6-.8l.2-.9V6c0-.6.4-1 1-1zM8 17h8c.6 0 1 .4 1 1s-.4 1-1 1H8a1 1 0 010-2z" fill-rule="evenodd"></path>
+                                    </svg>
+                                  </span>
+                                </button>
+                              </div>
+                              <div role="toolbar" data-alloy-tabstop="true" tabindex="-1" class="tox-toolbar_group">
+                                <button aria-label="More..." title="More..." aria-haspopup="true" type="button" data-alloy-tabstop="true" tabindex="-1" class="tox-tbtn" aria-expanded="false">
+                                  <span class="tox-icon tox-tbtn_icon-wrap">
+                                    <svg width="24" height="24">
+                                      <path d="M6 10a2 2 0 00-2 2c0 1.1.9 2 2 2a2 2 0 002-2 2 2 0 00-2-2zm12 0a2 2 0 00-2 2c0 1.1.9 2 2 2a2 2 0 002-2 2 2 0 00-2-2zm-6 0a2 2 0 00-2 2c0 1.1.9 2 2 2a2 2 0 002-2 2 2 0 00-2-2z" fill-rule="nonzero"></path>
+                                    </svg>
+                                  </span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="tox-anchorbar"></div>
+                        </div>
+                        <div class="tox-sidebar-wrap">
+                          <div class="tox-edit-area">
+                            <iframe id="content_ifr" frameborder="0" allowtransparency="true" title="Rich Text Area. Press ALT-0 for help" class="tox-edit-area_iframe">
+                              #document
+                              <html style="height: auto;" data-mce-style="height: auto;">
+                                <head>
+                                  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                                  <link rel="stylesheet" type="text/css" id="mce-u0" href="https://groovee.io/node_modules/tinymce/skins/ui/oxide/content.min.css">
+                                  <link rel="stylesheet" type="text/css" id="mce-u1" href="https://groovee.io/node_modules/tinymce/skins/content/default/content.css">
+                                </head>
+                                <body id="tinymce" class="mce-content-body" data-id="content" contenteditable="true" spellcheck="false" style="overflow-y: hidden; padding-left: 1px; padding-right: 1px; min-height: 0px;"
+                                data-mce-style="overflow-y: hidden; padding-left: 1px; padding-right: 1px; min-height: 0px" data-mce-placeholder="스터디를 자세히 설명해 주세요" aria-placeholder="스터디를 자세히 설명해주세요">
+                                  <p>
+                                    <br data-mce-bogus="1">
+                                  </p>
+                                </body>
+                              </html>
+                            </iframe>
+                          </div>
+                          <div role="complementary" class="tox-sidebar">
+                            <div data-alloy-tabstop="true" tabindex="-1" class="tox-sidebar_slider tox-sidebar--sliding-closed" style="width: 0px;">
+                              <div class="tox-sidebar_pane-container"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tox-statusbar">
+                        <div class="tox-statusbar_text-container">
+                          <div role="navigation" data-alloy-tabstop="true" class="tox-statusbar_path" aria-disabled="false">
+                            <div role="button" data-index="0" tab-index="-1" aria-level="1" tabindex="-1" class="tox-statusbar_path-item" aria-disabled="false">p</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div aria-hidden="true" class="tox-throbber" style="display: none;"></div>
+                    </div>
+                    <small id="contentHelp" class="form-text text-muted">
+                      스터디 그룹의 목표, 일정, 방식, 모집 중인 스터디원 등에 대해 자세히 작성해주시면 더 좋습니다 !
+                    </small>
+                    <small class="invalid-feedback">상세 소개를 입력하세요</small>
+                  </div>
+                  <div class="form-group zoneTags">
+                    <div>
+                      <label class="d-inline" for="zones">주요 활동지역</label>
+                      <div class="form-check pull-right mr-0">
+                        <input class="form-check-input" type="checkbox" name="isOnline" id="isOnline" value="Y">
+                        <input type="hidden" name="_isOnline" value="on">
+                        <label class="form-check-label" for="isOnline">
+                          <b>Online</b>
+                        </label>
+                      </div>
+                    </div>
+                    <div id="zoneList" hidden>
+
+                    </div>
+                    <span contenteditable data-placeholder="&ZeroWidthSpace;" aria-placeholder class="tagify_input form-control" role="textbox"
+                    aria-autocomplete="both" aria-multiline="false">
+                    </span>
+                    <tags class="tagify tagify-outside tagify--noTags tagify--empty" tabindex="-1" aria-expanded="false"></tags>
+                    <input id="zones" type="text" class="tagify-outside" aria-describedby="zoneHelp" style="margin-left: 0;">
+                    <small id="zoneHelp" class="form-text text-muted">스터디 그룹이 활동할 지역을 입력해주세요</small>
+                  </div>
+                  <div class="form-group">
+                    <input id="profileImage" type="hidden" class="form-control">
+                  </div>
+                  <div class="form-group hashtags">
+                    <label for="tags">해시태그</label>
+                    <div id="tagList" hidden>
+                      ["C++", "javascript", "파이썬", "assembly", "OpenGL"]
+                    </div>
+                    <span contenteditable data-placeholder="&ZeroWidthSpace;" aria-placeholder class="tagify_input form-control" role="textbox"
+                    aria-autocomplete="both" aria-multiline="false">
+                    </span>
+                    <tags class="tagify tagify-outside required tagify--noTags tagify--empty" required tabindex="-1"></tags>
+                    <input id="tag" type="text" class="tagify-outside required" aria-describedby="tagHelp" style="margin-left: 0;" value required>
+                    <small id="tagHelp" class="form-text text-muted">해당 스터디그룹에 해시태그를 입력해주세요</small>
+                    <small class="invalid-feedback">해시태그를 작성해주세요</small>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-primary btn-block" id="register-btn" type="button" aria-describedby="submitHelp">등록하기</button>
+                  </div>
+                </form>
+              </div>
+            </article>
+          </div>
+          <div class="col-sm-2"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div class="daterangepicker ltr show-calendar opensright" style="top: 248.975px; left:auto; right: 0px; display: none;">
+    <div class="ranges"></div>
+    <div class="drp-calendar left">
+      <div class="calendar-table">
+        <table class="table-condensed">
+          <thead>
+            <tr>
+              <th></th>
+              <th colspan="5" class="month">
+                <select class="monthselect">
+                  <option value="0" disabled="disabled">1월</option>
+                  <option value="1" disabled="disabled">2월</option>
+                  <option value="2" disabled="selectd">3월</option>
+                  <option value="3">4월</option>
+                  <option value="4">5월</option>
+                  <option value="5">6월</option>
+                  <option value="6">7월</option>
+                  <option value="7">8월</option>
+                  <option value="8">9월</option>
+                  <option value="9">10월</option>
+                  <option value="10">11월</option>
+                  <option value="11">12월</option>
+                </select>
+                <select class="yearselect">
+                  <option value="2022" selected="selected">2022</option>
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                  <option value="2028">2028</option>
+                  <option value="2029">2029</option>
+                  <option value="2030">2030</option>
+                </select>
+              </th>
+              <th></th>
+            </tr>
+            <tr>
+              <th>일</th>
+              <th>월</th>
+              <th>화</th>
+              <th>수</th>
+              <th>목</th>
+              <th>금</th>
+              <th>토</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="weekend off ends off disable" data-title="r0c0">27</td>
+              <td class="off ends off disabled" data-title="r0c1">28</td>
+              <td class="off disabled" data-title="r0c2">1</td>
+              <td class="off disabled" data-title="r0c3">2</td>
+              <td class="off disabled" data-title="r0c4">3</td>
+              <td class="off disabled" data-title="r0c5">4</td>
+              <td class="weekend off disabled" data-title="r0c6">5</td>
+            </tr>
+            <tr>
+              <td class="weekend off disable" data-title="r1c0">6</td>
+              <td class="off disabled" data-title="r1c1">7</td>
+              <td class="off disabled" data-title="r1c2">8</td>
+              <td class="off disabled" data-title="r1c3">9</td>
+              <td class="off disabled" data-title="r1c4">10</td>
+              <td class="off disabled" data-title="r1c5">11</td>
+              <td class="weekend off disabled" data-title="r0c6">12</td>
+            </tr>
+            <tr>
+              <td class="weekend off disable" data-title="r2c0">13</td>
+              <td class="off disabled" data-title="r2c1">14</td>
+              <td class="off disabled" data-title="r2c2">15</td>
+              <td class="off disabled" data-title="r2c3">16</td>
+              <td class="off disabled" data-title="r2c4">17</td>
+              <td class="off disabled" data-title="r2c5">18</td>
+              <td class="weekend off disabled" data-title="r2c6">19</td>
+            </tr>
+            <tr>
+              <td class="weekend off disable" data-title="r3c0">20</td>
+              <td class="off disabled" data-title="r3c1">21</td>
+              <td class="off disabled" data-title="r3c2">22</td>
+              <td class="today active start-date active end-date in-range available" data-title="r3c3">23</td>
+              <td class="available" data-title="r3c4">24</td>
+              <td class="available" data-title="r3c5">25</td>
+              <td class="weekend available" data-title="r3c6">26</td>
+            </tr>
+            <tr>
+              <td class="weekend available" data-title="r4c0">27</td>
+              <td class="available" data-title="r4c1">28</td>
+              <td class="available" data-title="r4c2">29</td>
+              <td class="available" data-title="r4c3">30</td>
+              <td class="available" data-title="r4c4">31</td>
+              <td class="off ends available" data-title="r4c5">1</td>
+              <td class="weekend off ends available" data-title="r4c6">2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="calendar-time" style="display: none;"></div>
+    </div>
+    <div class="drp-calendar right">
+      <div class="calendar-table">
+        <table class="table-condensed">
+          <thead>
+            <tr>
+              <th></th>
+              <th colspan="5" class="month">
+                <select class="monthselect">
+                  <option value="0" disabled="disabled">1월</option>
+                  <option value="1" disabled="disabled">2월</option>
+                  <option value="2">3월</option>
+                  <option value="3" selected="selected">4월</option>
+                  <option value="4">5월</option>
+                  <option value="5">6월</option>
+                  <option value="6">7월</option>
+                  <option value="7">8월</option>
+                  <option value="8">9월</option>
+                  <option value="9">10월</option>
+                  <option value="10">11월</option>
+                  <option value="11">12월</option>
+                </select>
+                <select class="yearselect">
+                  <option value="2022" selected="selected">2022</option>
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                  <option value="2028">2028</option>
+                  <option value="2029">2029</option>
+                  <option value="2030">2030</option>
+                </select>
+              </th>
+              <th class="next-available">
+                <span></span>
+              </th>
+            </tr>
+            <tr>
+              <th>일</th>
+              <th>월</th>
+              <th>화</th>
+              <th>수</th>
+              <th>목</th>
+              <th>금</th>
+              <th>토</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="weekend off ends available" data-title="r0c0">27</td>
+              <td class="off ends available" data-title="r0c1">28</td>
+              <td class="off ends available" data-title="r0c2">29</td>
+              <td class="off ends available" data-title="r0c3">30</td>
+              <td class="off ends available" data-title="r0c4">31</td>
+              <td class="available" data-title="r0c5">1</td>
+              <td class="weekend disabled" data-title="r0c6">2</td>
+            </tr>
+            <tr>
+              <td class="weekend available" data-title="r1c0">3</td>
+              <td class="available" data-title="r1c1">4</td>
+              <td class="available" data-title="r1c2">5</td>
+              <td class="available" data-title="r1c3">6</td>
+              <td class="available" data-title="r1c4">7</td>
+              <td class="available" data-title="r1c5">8</td>
+              <td class="weekend available" data-title="r1c6">9</td>
+            </tr>
+            <tr>
+              <td class="weekend available" data-title="r2c0">10</td>
+              <td class="available" data-title="r2c1">11</td>
+              <td class="available" data-title="r2c2">12</td>
+              <td class="available" data-title="r2c3">13</td>
+              <td class="available" data-title="r2c4">14</td>
+              <td class="available" data-title="r2c5">15</td>
+              <td class="weekend available" data-title="r2c6">16</td>
+            </tr>
+            <tr>
+              <td class="weekend available" data-title="r3c0">17</td>
+              <td class="available" data-title="r3c1">18</td>
+              <td class="available" data-title="r3c2">19</td>
+              <td class="available" data-title="r3c3">20</td>
+              <td class="available" data-title="r3c4">21</td>
+              <td class="available" data-title="r3c5">22</td>
+              <td class="weekend available" data-title="r3c6">23</td>
+            </tr>
+            <tr>
+              <td class="weekend available" data-title="r4c0">24</td>
+              <td class="available" data-title="r4c1">25</td>
+              <td class="available" data-title="r4c2">26</td>
+              <td class="available" data-title="r4c3">27</td>
+              <td class="available" data-title="r4c4">28</td>
+              <td class="available" data-title="r4c5">29</td>
+              <td class="weekend available" data-title="r4c6">30</td>
+            </tr>
+            <tr>
+              <td class="weekend off ends available" data-title="r5c0">1</td>
+              <td class="off ends available" data-title="r4c1">2</td>
+              <td class="off ends available" data-title="r4c2">3</td>
+              <td class="off ends available" data-title="r4c3">4</td>
+              <td class="off ends available" data-title="r4c4">5</td>
+              <td class="off ends available" data-title="r4c5">6</td>
+              <td class="weekend off ends available" data-title="r4c6">7</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="calendar-time" style="display: none;"></div>
+    </div>
+    <div class="drp-buttons">
+      <span class="drp-selected">2022-03-23 - 2022-03-23</span>
+      <button class="cancelBtn btn btn-sm btn-default" type="button">초기화</button>
+      <button class="applyBtn btn btn-sm btn-primary" type="button">선택</button>
+    </div>
+  </div>
+  <div class="tox tox-silver-sink tox-tinymce-aux" style="position: relative;"></div>
+</body>
+</html>
