@@ -12,7 +12,6 @@ public class NaverLoginApi extends DefaultApi20 {
         private static final NaverLoginApi INSTANCE = new NaverLoginApi();
     }
 
-
     public static NaverLoginApi instance() {
         return InstanceHolder.INSTANCE;
     }
