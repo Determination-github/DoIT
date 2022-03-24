@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.oracle.database.ha:simplefan:21.3.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.oracle.database.ha/simplefan/21.3.0.0/4e0c68aaae6b99fb210b5e829004ae2f30786790/simplefan-21.3.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.oracle.database.ha/simplefan/21.3.0.0/bc15f00ebacbeb0669f0ed925917c177912db7af/simplefan-21.3.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

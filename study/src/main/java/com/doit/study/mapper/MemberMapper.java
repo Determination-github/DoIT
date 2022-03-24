@@ -1,26 +1,35 @@
 package com.doit.study.mapper;
 
 import com.doit.study.member.domain.Member;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface MemberMapper {
 
+    //회원가입
     @Insert(MemberSQL.insert)
-    public Integer insert(@Param("member") final Member member);
+    Integer insert(@Param("member") Member member);
 
-    public List<Member> selectAll() throws Exception;
+    //이메일로 아이디 찾기
+    @Select(MemberSQL.findByEmail)
+    @Results({
+            @Result(property = "user_id", column = "USER_ID")
+    })
+    Optional<Member> findByEmail(@Param("email") String email);
 
-    public List<Member> findById(String id) throws Exception;
+    //닉네임 중복 체크
+    @Select(MemberSQL.checkNickname)
+    int checkNickname(@Param("nickname") String nickname);
 
-    public int update(Member member) throws Exception;
+    //이메일 중복 체크
+    @Select(MemberSQL.checkEmail)
+    int checkEmail(@Param("email") String email);
 
-    public int delete(Member member) throws Exception;
+    int update(Member member);
 
-
+    int delete(Member member);
 
 }
