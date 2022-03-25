@@ -68,5 +68,19 @@ public class MemberServiceImpl implements MemberService{
         return memberMapper.checkEmail(email);
     }
 
+    @Override
+    public MemberDto findNaverMember(String email) {
+
+        Optional<Member> findMember = memberMapper.findByEmail(email);
+        log.info("findMember는 findMember={}", findMember);
+
+        if(findMember.isPresent()) {
+            Member member = findMember.get();
+            return new MemberDto().toDto(member);
+        }
+
+        return null;
+    }
+
 
 }
