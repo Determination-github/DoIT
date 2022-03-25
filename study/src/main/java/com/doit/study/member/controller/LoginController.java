@@ -1,5 +1,6 @@
 package com.doit.study.member.controller;
 
+import com.doit.study.member.SessionConst;
 import com.doit.study.member.dto.LoginDto;
 import com.doit.study.member.dto.MemberDto;
 import com.doit.study.member.naver.NaverLoginBO;
@@ -64,17 +65,17 @@ public class LoginController {
         //로그인 성공 시
         //세션에 회원 정보 저장
         HttpSession session = request.getSession();
-        session.setAttribute("LoginDto", loginDto);
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginDto);
 
         return "redirect:" + redirectURL;
     }
 
-    @PostMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if(session != null) {
-            session.invalidate();
-        }
-        return "redirect:/";
-    }
+//    @PostMapping("/logout")
+//    public String logout(HttpServletRequest request) {
+//        HttpSession session = request.getSession(false);
+//        if(session != null) {
+//            session.invalidate();
+//        }
+//        return "redirect:/";
+//    }
 }
