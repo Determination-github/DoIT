@@ -20,7 +20,7 @@ public class MemberServiceImpl implements MemberService{
     public MemberDto join(MemberDto memberDto) {
         String user_id = UUID.randomUUID().toString();
         Member member = memberDto.toEntity(user_id, memberDto);
-        
+
         //member 객체 저장값 출력
         log.info("user_id={}, name={}, email={}, password={}, sex={}," +
                         "interest1={}, interest2={}, interest3={}, nickname={}",

@@ -2,11 +2,13 @@ package com.doit.study.board.service;
 
 //import com.doit.study.Board.domain.Board;
 import com.doit.study.board.domain.Pagination;
+import com.doit.study.board.domain.SearchCondition;
 import com.doit.study.board.dto.BoardDto;
 import com.doit.study.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -53,9 +55,31 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public int remove(Integer board_Id, String Board_Writer) throws Exception {
-        return boardMapper.delete(board_Id, Board_Writer);
+    public int remove(BoardDto boardDto) throws Exception {
+        return boardMapper.delete(boardDto);
     }
 
+    @Override
+    public int remove(String board_Writer) throws Exception {
+        return boardMapper.delete(board_Writer);
+    }
 
+//    @Override
+//    public int searchResultCount() throws Exception {
+//        return boardMapper.searchResultCount();
+//    }
+//
+//    @Override
+//    public List<BoardDto> searchSelectPage(Pagination pagination) throws Exception {
+//        return boardMapper.searchSelectPage(pagination);
+
+    @Override
+    public int searchResultCount(SearchCondition sc) throws Exception {
+        return boardMapper.searchResultCount(sc);
+    }
+
+    @Override
+    public List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception {
+        return boardMapper.searchSelectPage(sc);
+    }
 }

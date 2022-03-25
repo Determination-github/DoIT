@@ -1,7 +1,9 @@
 package com.doit.study.board.service;
 
 import com.doit.study.board.domain.Pagination;
+import com.doit.study.board.domain.SearchCondition;
 import com.doit.study.board.dto.BoardDto;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -13,7 +15,12 @@ public interface BoardService {
     BoardDto read(Integer board_Id) throws Exception;
     int modify(BoardDto boardDto) throws Exception;
     int write(BoardDto boardDto) throws Exception;
-    int remove(Integer board_Id, String board_Writer) throws Exception;
+    int remove(BoardDto boardDto) throws Exception;
+    int remove(String board_Writer) throws Exception;
+//    int searchResultCount() throws Exception;
+//    List<BoardDto> searchSelectPage(Pagination pagination) throws Exception;
+    int searchResultCount(SearchCondition sc) throws Exception;
+    List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception;
 }
 
 

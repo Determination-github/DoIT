@@ -17,7 +17,7 @@ public class BoardSQL {
             "values (board_id_seq.NEXTVAL, #{board_Title}, #{board_Content}, '0', '0', sysdate, 'tr', #{board_Writer})";
 
     public static final String selectAll =
-            "SELECT board_Id, board_Title, board_Content, board_Count, board_Comment, TO_CHAR(BOARD_DATE, 'YYYY.MM.DD DAY HH:MI:SS') " +
+            "SELECT board_Id, board_Title, board_Content, board_Count, board_Comment, to_char(board_date,'YYYYMMDD') " +
             "FROM BO_STUDY_TB " +
             "ORDER BY BOARD_ID DESC";
 
@@ -48,4 +48,21 @@ public class BoardSQL {
             "UPDATE BO_STUDY_TB " +
             "SET board_Count = board_Count + 1 " +
             "WHERE board_Id = #{board_Id}";
+
+    public static final String searchSelectPage =
+            "SELECT board_Id, board_Title, board_Content, board_Count, board_Comment, board_date " +
+                    "FROM ( " +
+                    "         SELECT rownum rnum, A.* " +
+                    "         from ( " +
+                    "                  select board_Id, board_Title, board_Content, board_Count, board_Comment, board_date " +
+                    "                  from BO_STUDY_TB " +
+                    "                  order by board_Id desc " +
+                    "              ) A " +
+                    "     ) " +
+                    "where rnum > ${firstRecordIndex} AND rnum <= ${lastRecordIndex} " +
+                    "and board_Title like '%${board_Title}%' ";
+
+    public static final String searchResultCount =
+            "select COUNT (*) " +
+            "where board_Title like '%#{board_Title}%'";
 }

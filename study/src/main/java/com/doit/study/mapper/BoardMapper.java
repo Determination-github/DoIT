@@ -2,6 +2,7 @@ package com.doit.study.mapper;
 
 //import com.doit.study.Board.domain.Board;
 import com.doit.study.board.domain.Pagination;
+import com.doit.study.board.domain.SearchCondition;
 import com.doit.study.board.dto.BoardDto;
 import org.apache.ibatis.annotations.*;
 
@@ -19,8 +20,13 @@ public interface BoardMapper {
     @Delete(BoardSQL.deleteAll)
     public int deleteAll();
 
+//    @Delete(BoardSQL.delete)
+//    public int delete(Integer board_Id, String board_Writer);
     @Delete(BoardSQL.delete)
-    public int delete(Integer board_Id, String board_Writer);
+    public int delete(BoardDto boardDto);
+
+//    @Delete(BoardSQL.delete)
+    public int delete(String board_Title);
 
     @Insert(BoardSQL.insert)
     public int insert(BoardDto boardDto);
@@ -37,5 +43,16 @@ public interface BoardMapper {
     @Update(BoardSQL.increaseViewCount)
     public int increaseViewCount(Integer board_Id);
 
+//    @Select(BoardSQL.searchSelectPage)
+//    public List<BoardDto> searchSelectPage(Pagination pagination);
+//
+//    @Select(BoardSQL.searchResultCount)
+//    public int searchResultCount();
+
+    @Select(BoardSQL.searchSelectPage)
+    public List<BoardDto> searchSelectPage(SearchCondition sc);
+
+    @Select(BoardSQL.searchResultCount)
+    public int searchResultCount(SearchCondition sc);
 }
 

@@ -143,7 +143,8 @@
         </thead>
         <tr th:each="list :${list}">
             <td>[[${list.board_Id}]]</td>
-            <td><a th:href="@{/board/read(board_Id = ${list.board_Id})}">[[${list.board_Title}]]</a></td>
+            /board/read${ph.sc.queryString}&(board_Id=${list.board_Id})
+            <td><a th:href="@{/board/read${ph.sc.queryString}(board_Id = ${list.board_Id}) }">[[${list.board_Title}]]</a></td>
             <td>[[${list.board_Content}]]</td>
             <td>[[${list.board_Count}]]</td>
             <td>[[${list.board_Comment}]]</td>
