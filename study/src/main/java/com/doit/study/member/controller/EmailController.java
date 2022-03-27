@@ -15,7 +15,6 @@ public class EmailController {
 
     @PostMapping("mailCheck")
     public String mailCheck(@RequestParam("email") String email) {
-        
         //메일에 보낸 key번호 반환
         return emailService.mailSend(email);
     }
