@@ -6,7 +6,6 @@ import com.doit.study.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 @Slf4j
@@ -69,7 +68,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public MemberDto findNaverMember(String email) {
+    public MemberDto findSocialMember(String email) {
 
         Optional<Member> findMember = memberMapper.findByEmail(email);
         log.info("findMember는 findMember={}", findMember);
@@ -81,6 +80,4 @@ public class MemberServiceImpl implements MemberService{
 
         return null;
     }
-
-
 }

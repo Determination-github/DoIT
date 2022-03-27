@@ -3,8 +3,9 @@ package com.doit.study.member.controller;
 import com.doit.study.member.SessionConst;
 import com.doit.study.member.dto.LoginDto;
 import com.doit.study.member.dto.MemberDto;
-import com.doit.study.member.naver.NaverLoginBO;
+import com.doit.study.member.service.KakaoService;
 import com.doit.study.member.service.MemberService;
+import com.doit.study.member.service.NaverService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -23,18 +24,24 @@ import javax.validation.Valid;
 public class LoginController {
 
     private final MemberService memberService;
-    private final NaverLoginBO naverLoginBO;
+    private final NaverService naverService;
+    private final KakaoService kakaoService;
 
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginDto") LoginDto loginDto, Model model, HttpSession session) {
         /* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
-        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+        String naverAuthUrl = naverService.getAuthorizationUrl(session);
         //https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
         //redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
         log.info("네이버: " + naverAuthUrl);
 
+        //카카오 콜백 url 생성
+        String kakaoAuthUrl = kakaoService.getKaKaoCallbackUrl();
+        log.info("카카오: " + kakaoAuthUrl);
+
         //네이버
-        model.addAttribute("url", naverAuthUrl);
+        model.addAttribute("naverUrl", naverAuthUrl);
+        model.addAttribute("kakaoUrl", kakaoAuthUrl);
 
         return "members/loginForm";
     }
@@ -70,12 +77,13 @@ public class LoginController {
         return "redirect:" + redirectURL;
     }
 
-//    @PostMapping("/logout")
-//    public String logout(HttpServletRequest request) {
-//        HttpSession session = request.getSession(false);
-//        if(session != null) {
-//            session.invalidate();
-//        }
-//        return "redirect:/";
-//    }
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if(session != null) {
+            session.invalidate();
+        }
+        return "redirect:/";
+    }
+
 }
