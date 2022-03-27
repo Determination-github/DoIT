@@ -179,12 +179,11 @@
 <h3 style="color: #4e4e4e">  원하는 스터디 그룹을 찾아보세요!</h3>
 
 <div>
-    <form action="/board/searchList?board_Title=${searchBoardDto.board_Title}" method="get" class="form-horizontal" role="form">
+    <form action="/board/searchList" method="get" class="form-horizontal" role="form">
         <input type="hidden" name="currentPage" value="1" />
         <input type="hidden" name="pageSize" value="4" />
         <div class="npt">
-            <label>제목</label>
-            <input type="text" name="board_Title" value=""/>
+            <label>글제목</label><input type="text" name="board_Title">
             <button type="submit" class="btn btn-info search-btn" value="검색">
             </button>
         </div>

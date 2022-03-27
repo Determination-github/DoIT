@@ -1,9 +1,11 @@
 package com.doit.study.mapper;
 
 //import com.doit.study.Board.domain.Board;
+import com.doit.study.board.domain.Criteria;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.domain.SearchCondition;
 import com.doit.study.board.dto.BoardDto;
+import com.doit.study.board.dto.SearchBoardDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -50,9 +52,15 @@ public interface BoardMapper {
 //    public int searchResultCount();
 
     @Select(BoardSQL.searchSelectPage)
-    public List<BoardDto> searchSelectPage(SearchCondition sc);
+    public List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto);
 
     @Select(BoardSQL.searchResultCount)
-    public int searchResultCount(SearchCondition sc);
+    public int searchResultCount(SearchBoardDto searchBoardDto);
+
+    public List<BoardDto> selectBoardList(Criteria criteria);
+
+    public int selectBoardTotalCount(Criteria criteria);
+
+
 }
 

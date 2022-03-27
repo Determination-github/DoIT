@@ -4,6 +4,7 @@ package com.doit.study.board.service;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.domain.SearchCondition;
 import com.doit.study.board.dto.BoardDto;
+import com.doit.study.board.dto.SearchBoardDto;
 import com.doit.study.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +65,16 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.delete(board_Writer);
     }
 
+    @Override
+    public int searchResultCount(SearchBoardDto searchBoardDto) throws Exception {
+        return boardMapper.searchResultCount(searchBoardDto);
+    }
+
+    @Override
+    public List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto) throws Exception {
+        return boardMapper.searchSelectPage(searchBoardDto);
+    }
+
 //    @Override
 //    public int searchResultCount() throws Exception {
 //        return boardMapper.searchResultCount();
@@ -73,13 +84,15 @@ public class BoardServiceImpl implements BoardService {
 //    public List<BoardDto> searchSelectPage(Pagination pagination) throws Exception {
 //        return boardMapper.searchSelectPage(pagination);
 
-    @Override
-    public int searchResultCount(SearchCondition sc) throws Exception {
-        return boardMapper.searchResultCount(sc);
-    }
+//    @Override
+//    public int searchResultCount(SearchCondition sc) throws Exception {
+//        return boardMapper.searchResultCount(sc);
+//    }
+//
+//    @Override
+//    public List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception {
+//        return boardMapper.searchSelectPage(sc);
+//    }
 
-    @Override
-    public List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception {
-        return boardMapper.searchSelectPage(sc);
-    }
+
 }

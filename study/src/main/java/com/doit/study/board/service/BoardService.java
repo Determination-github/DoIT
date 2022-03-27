@@ -3,6 +3,7 @@ package com.doit.study.board.service;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.domain.SearchCondition;
 import com.doit.study.board.dto.BoardDto;
+import com.doit.study.board.dto.SearchBoardDto;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -19,8 +20,10 @@ public interface BoardService {
     int remove(String board_Writer) throws Exception;
 //    int searchResultCount() throws Exception;
 //    List<BoardDto> searchSelectPage(Pagination pagination) throws Exception;
-    int searchResultCount(SearchCondition sc) throws Exception;
-    List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception;
+//    int searchResultCount(SearchCondition sc) throws Exception;
+//    List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception;
+    int searchResultCount(SearchBoardDto searchBoardDto) throws Exception;
+    List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto) throws Exception;
 }
 
 

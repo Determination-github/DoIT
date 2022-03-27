@@ -49,6 +49,23 @@ public class BoardSQL {
             "SET board_Count = board_Count + 1 " +
             "WHERE board_Id = #{board_Id}";
 
+//    public static final String searchSelectPage =
+//            "SELECT board_Id, board_Title, board_Content, board_Count, board_Comment, board_date " +
+//                    "FROM ( " +
+//                    "         SELECT rownum rnum, A.* " +
+//                    "         from ( " +
+//                    "                  select board_Id, board_Title, board_Content, board_Count, board_Comment, board_date " +
+//                    "                  from BO_STUDY_TB " +
+//                    "                  order by board_Id desc " +
+//                    "              ) A " +
+//                    "     ) " +
+//                    "where rnum > ${firstRecordIndex} AND rnum <= ${lastRecordIndex} " +
+//                    "and board_Title like '%${board_Title}%' ";
+//
+//    public static final String searchResultCount =
+//            "select COUNT (*) " +
+//            "where board_Title like '%#{board_Title}%'";
+
     public static final String searchSelectPage =
             "SELECT board_Id, board_Title, board_Content, board_Count, board_Comment, board_date " +
                     "FROM ( " +
@@ -60,9 +77,11 @@ public class BoardSQL {
                     "              ) A " +
                     "     ) " +
                     "where rnum > ${firstRecordIndex} AND rnum <= ${lastRecordIndex} " +
-                    "and board_Title like '%${board_Title}%' ";
+                    "and board_Title like '${board_Title}' ";
 
     public static final String searchResultCount =
-            "select COUNT (*) " +
-            "where board_Title like '%#{board_Title}%'";
+//            "select COUNT (*) from BO_STUDY_TB " +
+//                    "where board_Title like '#{board_Title}'";
+    "select COUNT (*) from BO_STUDY_TB ";
+
 }
