@@ -1,5 +1,6 @@
 package com.doit.study.mapper;
 
+
 import com.doit.study.member.domain.Member;
 import org.apache.ibatis.annotations.*;
 
@@ -30,5 +31,7 @@ public interface MemberMapper {
     int update(Member member);
 
     int delete(Member member);
+
+
 
 }

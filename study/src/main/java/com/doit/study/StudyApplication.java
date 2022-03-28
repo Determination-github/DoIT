@@ -1,6 +1,7 @@
 package com.doit.study;
 
 import com.doit.study.config.EmailConfig;
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

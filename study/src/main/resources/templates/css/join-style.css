@@ -20,6 +20,7 @@
 .main_join_input_group{
   display:inline-block;
 }
+<<<<<<< HEAD
 .main_join_input_box{
   width:70%;
   padding:19px 0;
@@ -29,6 +30,74 @@
 }
 .main_join_input{
   width:85%;
+=======
+.main_join_box1 p{
+  margin-bottom:10px;
+  font-weight: 900;
+}
+.main_join_box2 p{
+  margin-bottom:10px;
+  font-weight: 900;
+}
+.main_join_box3 p{
+  margin-bottom:10px;
+  font-weight: 900;
+}
+.main_join_box4 p{
+  margin-bottom:10px;
+  font-weight: 900;
+}
+.main_join_box5 p{
+  margin-bottom:10px;
+  font-weight: 900;
+}
+.main_join_box6 p{
+  margin-bottom:10px;
+  font-weight: 900;
+}
+#main_join_input_sex_select{
+  padding:5px 10px;
+  margin-left:15px;
+}
+.main_join_box5{
+  width:70%;
+}
+.main_join_input_box5{
+  width:100%;
+  padding:10px 0;
+  border:1px solid #777777;
+  border-radius: 10px;
+  margin:0 0 20px 0;
+}
+.main_join_input5_year{
+  font-size:20px;
+  font-weight:900;
+}
+.main_join_box6{
+  width:20%;
+  margin-left:44px;
+}
+.main_join_input_box6{
+  width:100%;
+  padding:15px 0;
+  border:1px solid #777777;
+  border-radius: 10px;
+  margin-bottom:20px;
+}
+.main_join_box_group{
+  display:inline-block;
+}
+.main_join_input_box{
+  width:100%;
+  padding:15px 0;
+  border:1px solid #777777;
+  border-radius: 10px;
+  margin-bottom:20px;
+}
+
+.main_join_input{
+  width:90%;
+>>>>>>> origin/jeongyong
   padding:5px 10px;
   margin-left:15px;
 }
@@ -51,6 +120,13 @@
   border-radius: 10px;
   margin-bottom:10px;
 }
+<<<<<<< HEAD
+=======
+.main_join_last{
+  width:100%;
+  height:300px;
+}
+>>>>>>> origin/jeongyong
 .main_join_BTN{
   width:100%;
   padding:20px 0;

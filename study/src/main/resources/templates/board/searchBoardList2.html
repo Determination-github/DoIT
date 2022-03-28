@@ -117,49 +117,6 @@
         vertical-align: middle;
     }
 
-
-    .dropdown.dropdown-lg .dropdown-menu {
-        margin-top: -1px;
-        padding: 6px 20px;
-    }
-    .input-group-btn .btn-group {
-        display: flex !important;
-    }
-    .btn-group .btn {
-        border-radius: 0;
-        margin-left: -1px;
-    }
-    .btn-group .btn:last-child {
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
-    }
-    .btn-group .form-horizontal .btn[type="submit"] {
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-    }
-    .form-horizontal .form-group {
-        margin-left: 0;
-        margin-right: 0;
-    }
-    .form-group .form-control:last-child {
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-    }
-
-    @media screen and (min-width: 768px) {
-        #adv-search {
-            width: 500px;
-            margin: 0 auto;
-        }
-        .dropdown.dropdown-lg {
-            position: static !important;
-        }
-        .dropdown.dropdown-lg .dropdown-menu {
-            min-width: 500px;
-        }
-    }
-
-
 </style>
 
 <body class="d-flex flex-column h-100">
@@ -175,21 +132,6 @@
         </div>
     </div>
 </nav>
-<br>
-<h3 style="color: #4e4e4e">  원하는 스터디 그룹을 찾아보세요!</h3>
-
-<div>
-    <form action="/board/searchList?board_Title=${searchBoardDto.board_Title}" method="get" class="form-horizontal" role="form">
-        <input type="hidden" name="currentPage" value="1" />
-        <input type="hidden" name="pageSize" value="4" />
-        <div class="npt">
-            <label>제목</label>
-            <input type="text" name="board_Title" value=""/>
-            <button type="submit" class="btn btn-info search-btn" value="검색">
-            </button>
-        </div>
-    </form>
-</div>
 
 <table class="table table-hover">
     <thead>
@@ -200,7 +142,7 @@
     <th>comment</th>
     <th>date</th>
     </thead>
-    <tr class="boardtable" th:each="list :${list}">
+    <tr th:each="list :${list}">
         <td>[[${list.board_Id}]]</td>
         <td><a th:href="@{/board/read(board_Id = ${list.board_Id})}">[[${list.board_Title}]]</a></td>
         <td>[[${list.board_Content}]]</td>
@@ -211,41 +153,20 @@
 </table>
 <br>
 </div>
+<div style="text-align: right;">
+    <button onclick="location.href='/board/write'">글작성</button>
+</div>
 <div style="flex: auto">
     <div class="paginate">
         <div class="paging" style="white-space:nowrap; text-align: center">
-            <a th:href="@{/board/list(currentPage = ${pagination.currentPage}-1)}">&lt; </a>
+            <a href="/board/searchlist?${sc.getQueryString}(currentPage = ${pagination.currentPage}-1)}">&lt; </a>
             <div class="paginate"  style="white-space:nowrap" th:each="idx : ${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">
-                <a  th:href="@{'/board/list?currentPage='+${idx}}"
+                <a  th:href="@{'/board/searchlist?currentPage='+${idx}}"
                     th:text="${idx}" style="font-weight:700;"></a>
             </div>
-            <a th:href="@{/board/list(currentPage = ${pagination.currentPage}+1)}">&gt; </a>
+            <a th:href="@{/board/searchlist(currentPage = ${pagination.currentPage}+1)}">&gt; </a>
         </div>
     </div>
 </div>
->>>>>>> jeongyong
-
 </body>
-<!--<Script>
-    function searchBoard(form) {
-        if (isEmpty(form) == true) {
-            var searchBoardTitle = document.getElementById("board_Title");
-            if (isEmpty(searchBoardTitle.value) == true) {
-                alert("키워드를 입력해 주세요.");
-                searchBoardTitle.focus();
-                return false;
-            }
-
-            form = document.getElementById("search-form");
-            form.board_Title.value = searchBoardTitle.value;
-            form.submit();
-        }
-
-        if (isEmpty(form.board_Title.value) == true) {
-            alert("키워드를 입력해 주세요.");
-            form.searchBoardTitle.focus();
-            return false;
-        }
-    }
-</Script>-->
 </html>
