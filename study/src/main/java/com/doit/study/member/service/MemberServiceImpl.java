@@ -6,7 +6,6 @@ import com.doit.study.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 @Slf4j
@@ -68,5 +67,17 @@ public class MemberServiceImpl implements MemberService{
         return memberMapper.checkEmail(email);
     }
 
+    @Override
+    public MemberDto findSocialMember(String email) {
 
+        Optional<Member> findMember = memberMapper.findByEmail(email);
+        log.info("findMember는 findMember={}", findMember);
+
+        if(findMember.isPresent()) {
+            Member member = findMember.get();
+            return new MemberDto().toDto(member);
+        }
+
+        return null;
+    }
 }

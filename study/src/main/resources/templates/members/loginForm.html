@@ -73,9 +73,8 @@
                     </div>
                 </form>
                 <div class="main_login_naver_wrap">
-                    <button class="main_login_kakao">카카오 계정으로 로그인</button>
-                    <button class="main_login_naver" th:onclick="'location.href=\''+ @{${url}} + '\''">네이버 계정으로 로그인</button>
-                    <!--                            <button onclick="showLoginPopup();" class="main_login_naver">네이버 계정으로 로그인</button>-->
+                    <button class="main_login_kakao" th:onclick="'location.href=\''+ @{${kakaoUrl}} + '\''">카카오 계정으로 로그인</button>
+                    <button class="main_login_naver" th:onclick="'location.href=\''+ @{${naverUrl}} + '\''">네이버 계정으로 로그인</button>
                 </div>
             </div>
         </section>

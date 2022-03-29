@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
 public class JoinController {
 
     private final MemberService memberService;
+    private String pattern;
 
     @ModelAttribute("first_categories")
     public List<FirstInterestCategory> firstCategory() {
@@ -80,16 +81,29 @@ public class JoinController {
         return "redirect:/";
     }
 
+    @PostMapping("nameCheck")
+    @ResponseBody
+    public int nameCheck(@RequestParam("name") String name) {
+        log.info("name은 ? "+ name);
+        int result = 0;
+        pattern = "^[가-힣]+$";
+        if(!Pattern.matches(pattern, name)){
+            return result = 1;
+        }
+        return result;
+
+    }
+
     @PostMapping("nicknameCheck")
     @ResponseBody
     public int nicknameCheck(@RequestParam("nickname") String nickname) {
         log.info("nickname은 ? "+ nickname);
         int result;
-        String pattern = "^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$";
+        pattern = "^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$";
         if(!Pattern.matches(pattern, nickname)){
-            return result = 2;
+            return result = 1;
         } else if(nickname.length() > 10 || nickname.length() < 2) {
-            return result = 3;
+            return result = 2;
         } else {
             result = memberService.findNickname(nickname);
             return result;
@@ -101,6 +115,10 @@ public class JoinController {
     public int emailCheck(@RequestParam("email") String email) {
         log.info("email은 ? "+ email);
         int result;
+        pattern = "^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$";
+        if(!Pattern.matches(pattern, email)){
+            return result = 1;
+        }
         result = memberService.findEmail(email);
         return result;
 

@@ -159,12 +159,12 @@
 <div style="flex: auto">
     <div class="paginate">
         <div class="paging" style="white-space:nowrap; text-align: center">
-            <a href="/board/searchlist?${sc.getQueryString}(currentPage = ${pagination.currentPage}-1)}">&lt; </a>
+            <a href="/board/searchlist?${sc.getQueryString}(currentPage = ${pagination.currentPage}-1)}">&lt </a>
             <div class="paginate"  style="white-space:nowrap" th:each="idx : ${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">
-                <a  th:href="@{'/board/searchlist?currentPage='+${idx}}"
+                <a  th:href="@{'/board/searchList?currentPage='+${idx}}"
                     th:text="${idx}" style="font-weight:700;"></a>
             </div>
-            <a th:href="@{/board/searchlist(currentPage = ${pagination.currentPage}+1)}">&gt; </a>
+            <a th:href="@{/board/searchList(currentPage = ${pagination.currentPage}+1)}">&gt </a>
         </div>
     </div>
 </div>

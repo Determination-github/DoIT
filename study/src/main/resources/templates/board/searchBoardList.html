@@ -132,23 +132,36 @@
         </div>
     </div>
 </nav>
+<br>
+<h3 style="color: #4e4e4e">  원하는 스터디 그룹을 찾아보세요!</h3>
 
+<div>
+    <form action="/board/searchList" method="get" class="form-horizontal" role="form">
+        <input type="hidden" name="currentPage" value="1" />
+        <input type="hidden" name="pageSize" value="4" />
+        <div class="npt">
+            <label>글제목</label><input type="text" name="board_Title">
+            <button type="submit" class="btn btn-info search-btn" value="검색">
+            </button>
+        </div>
+    </form>
+</div>
 <table class="table table-hover">
     <thead>
     <th>id</th>
-    <th>title</th>
+    <th>subtitle</th>
     <th>content</th>
     <th>count</th>
     <th>comment</th>
-    <th>date</th>
+    <th>regdate</th>
     </thead>
     <tr th:each="searchList :${searchList}">
         <td>[[${searchList.board_Id}]]</td>
         <td><a th:href="@{/board/read(board_Id = ${searchList.board_Id})}">[[${searchList.board_Title}]]</a></td>
-        <td>[[${searchList.board_Content}]]</td>
+        <td>[[${searchList.board_SubTitle}]]</td>
         <td>[[${searchList.board_Count}]]</td>
         <td>[[${searchList.board_Comment}]]</td>
-        <td>[[${searchList.board_Date}]]</td>
+        <td>[[${searchList.board_RegDate}]]</td>
     </tr>
 </table>
 <br>
@@ -160,10 +173,12 @@
     <div class="searchBoardDto">
         <div class="paging" style="white-space:nowrap; text-align: center">
             <a th:href="@{/board/searchList(currentPage = ${searchBoardDto.currentPage}-1, board_Title = ${searchBoardDto.board_Title})}">&lt; </a>
+
             <div class="paginate"  style="white-space:nowrap" th:each="idx : ${#numbers.sequence(searchBoardDto.firstPage,searchBoardDto.lastPage)}">
-<!--                <a  th:href="@{/board/searchList?currentPage='+${idx}'+'&'+board_Title = ${searchBoardDto.board_Title}}"-->
+                <a  th:href="@{|/board/searchList?currentPage=${idx}&board_Title=${searchBoardDto.board_Title}|}"
                     th:text="${idx}" style="font-weight:700;"></a>
             </div>
+
             <a th:href="@{/board/searchList(currentPage = ${searchBoardDto.currentPage}+1, board_Title = ${searchBoardDto.board_Title})}">&gt; </a>
         </div>
     </div>

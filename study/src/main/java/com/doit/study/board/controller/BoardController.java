@@ -27,7 +27,6 @@ import java.util.List;
 @RequestMapping("/board")
 @Slf4j
 public class BoardController {
-
     private final BoardService boardService;
 
 //    @GetMapping("/list")
@@ -93,14 +92,18 @@ public class BoardController {
     @GetMapping("/searchList")
     public String searchList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
                              @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
-                             @ModelAttribute("searchBoardDto") SearchBoardDto searchBoardDto,
+                             @ModelAttribute("searchBoardDto") SearchBoardDto searchBoardDto, BoardDto boardDto,
                              ServletRequest request, Model m)
             throws Exception {
 //        if(!loginCheck(request))
 //            return "redirect:/login/login?toURL="+request.getRequestURL();
         int totalRecordCount = boardService.searchResultCount(searchBoardDto);
         searchBoardDto.doPaging(totalRecordCount);
+        log.info("totalRecordCount =" + totalRecordCount );
+
         List<SearchBoardDto> searchList = boardService.searchSelectPage(searchBoardDto);
+        List<BoardDto> searchList2 = boardService.getList();
+        log.info("searchBoardDto ="+ searchBoardDto);
         m.addAttribute("searchList", searchList);
         return "/board/searchBoardList";
     }

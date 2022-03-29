@@ -21,7 +21,7 @@ repositories {
 dependencies {
 	//테스트용 데이터 베이스
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	runtimeOnly 'com.h2database:h2'
+//	runtimeOnly 'com.h2database:h2'
 
 	//OAuth 2.0 네이버 로그인
 	implementation 'com.github.scribejava:scribejava-apis:2.8.1'
@@ -32,9 +32,7 @@ dependencies {
 	//메일
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
-
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation ('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
 	implementation group: 'com.oracle.database.jdbc', name: 'ojdbc6', version: '11.2.0.4'
@@ -42,7 +40,6 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
 }
 
 tasks.named('test') {

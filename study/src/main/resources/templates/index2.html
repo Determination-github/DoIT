@@ -194,18 +194,18 @@
     <thead>
     <th>id</th>
     <th>title</th>
-    <th>content</th>
+    <th>subTitle</th>
     <th>count</th>
     <th>comment</th>
-    <th>date</th>
+    <th>regDate</th>
     </thead>
     <tr class="boardtable" th:each="list :${list}">
         <td>[[${list.board_Id}]]</td>
         <td><a th:href="@{/board/read(board_Id = ${list.board_Id})}">[[${list.board_Title}]]</a></td>
-        <td>[[${list.board_Content}]]</td>
+        <td>[[${list.board_SubTitle}]]</td>
         <td>[[${list.board_Count}]]</td>
         <td>[[${list.board_Comment}]]</td>
-        <td>[[${list.board_Date}]]</td>
+        <td>[[${list.board_RegDate}]]</td>
     </tr>
 </table>
 <br>
@@ -213,12 +213,14 @@
 <div style="flex: auto">
     <div class="paginate">
         <div class="paging" style="white-space:nowrap; text-align: center">
-            <a th:href="@{/board/list(currentPage = ${pagination.currentPage}-1)}">&lt; </a>
+            <a th:href="@{/board/list(currentPage = ${pagination.currentPage}-1)}">&lt </a>
+
             <div class="paginate"  style="white-space:nowrap" th:each="idx : ${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">
                 <a  th:href="@{'/board/list?currentPage='+${idx}}"
                     th:text="${idx}" style="font-weight:700;"></a>
             </div>
-            <a th:href="@{/board/list(currentPage = ${pagination.currentPage}+1)}">&gt; </a>
+
+            <a th:href="@{/board/list(currentPage = ${pagination.currentPage}+1)}">&gt </a>
         </div>
     </div>
 </div>

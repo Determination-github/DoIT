@@ -1,12 +1,7 @@
 package com.doit.study.mapper;
 
-
 import com.doit.study.member.domain.Member;
 import org.apache.ibatis.annotations.*;
-
-import com.doit.study.member.domain.Member;
-import org.apache.ibatis.annotations.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -35,9 +30,5 @@ public interface MemberMapper {
     int update(Member member);
 
     int delete(Member member);
-
-    List<Member> selectAll();
-
-
 
 }

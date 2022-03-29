@@ -7,7 +7,6 @@ import lombok.Data;
  * 성별
  * M : 남자
  * F : 여자
- *
  */
 @Data
 @AllArgsConstructor

@@ -1,7 +1,6 @@
 package com.doit.study.member.domain;
 
 import lombok.*;
-
 import javax.validation.constraints.NotEmpty;
 
 @Getter

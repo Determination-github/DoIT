@@ -2,7 +2,6 @@ package com.doit.study.config;
 
 import com.doit.study.interceptor.JoinCheckInterceptor;
 import com.doit.study.interceptor.LoginCheckInterceptor;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
