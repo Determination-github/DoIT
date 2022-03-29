@@ -1,21 +1,16 @@
 package com.doit.study;
 
 import com.doit.study.board.domain.Pagination;
-import com.doit.study.board.domain.SearchCondition;
 import com.doit.study.board.dto.BoardDto;
-import com.doit.study.board.dto.SearchBoardDto;
 import com.doit.study.board.service.BoardService;
 //import com.doit.study.member.SessionConst;
 //import com.doit.study.member.dto.KakaoDto;
-import com.doit.study.member.dto.LoginDto;
 //import com.doit.study.member.dto.NaverDto;
-import com.doit.study.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -64,7 +59,7 @@ public class HomeController {
         m.addAttribute("list", boardService.getPage(pagination));
         log.info("list ="+ boardService.getPage(pagination));
         m.addAttribute("board", boardDto);
-        return "/index2";
+        return "index";
     }
 }
 

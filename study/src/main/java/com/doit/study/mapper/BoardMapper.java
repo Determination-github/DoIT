@@ -1,9 +1,7 @@
 package com.doit.study.mapper;
 
 //import com.doit.study.Board.domain.Board;
-import com.doit.study.board.domain.Criteria;
 import com.doit.study.board.domain.Pagination;
-import com.doit.study.board.domain.SearchCondition;
 import com.doit.study.board.dto.BoardDto;
 import com.doit.study.board.dto.SearchBoardDto;
 import org.apache.ibatis.annotations.*;
@@ -24,6 +22,7 @@ public interface BoardMapper {
 
 //    @Delete(BoardSQL.delete)
 //    public int delete(Integer board_Id, String board_Writer);
+
     @Delete(BoardSQL.delete)
     public int delete(BoardDto boardDto);
 
@@ -45,22 +44,11 @@ public interface BoardMapper {
     @Update(BoardSQL.increaseViewCount)
     public int increaseViewCount(Integer board_Id);
 
-//    @Select(BoardSQL.searchSelectPage)
-//    public List<BoardDto> searchSelectPage(Pagination pagination);
-//
-//    @Select(BoardSQL.searchResultCount)
-//    public int searchResultCount();
-
     @Select(BoardSQL.searchSelectPage)
     public List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto);
 
     @Select(BoardSQL.searchResultCount)
     public int searchResultCount(SearchBoardDto searchBoardDto);
-
-    public List<BoardDto> selectBoardList(Criteria criteria);
-
-    public int selectBoardTotalCount(Criteria criteria);
-
 
 }
 

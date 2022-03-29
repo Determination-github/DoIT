@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/doit.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/doit.iml" afterDir="false" />
+    <list default="true" id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="Feat: &quot;검색 기능 업데이트&quot;&#10;&#10;게시판검색 이후 게시물이 한 페이지에 3개가 보이지않던 현상 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/SearchBoardDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/SearchBoardDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/domain/Criteria.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/index2.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,7 +284,8 @@
     <MESSAGE value="chore JDK Version Downgrade" />
     <MESSAGE value="test: &quot;웅섭님 깃 pull&quot;" />
     <MESSAGE value="Merge branch 'woongseop' of https://github.com/Determination-github/DoIT into jeongyong&#10;&#10; Conflicts:&#10;&#9;.idea/compiler.xml&#10;&#9;.idea/encodings.xml&#10;&#9;.idea/gradle.xml&#10;&#9;.idea/jarRepositories.xml&#10;&#9;.idea/misc.xml&#10;&#9;.idea/modules.xml&#10;&#9;.idea/modules/study.test.iml&#10;&#9;study/src/main/java/com/doit/study/HomeController.java&#10;&#9;study/src/main/java/com/doit/study/StudyApplication.java&#10;&#9;study/src/main/java/com/doit/study/mapper/MemberMapper.java&#10;&#9;study/src/main/resources/application.properties&#10;&#9;study/src/main/resources/templates/index.html" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'woongseop' of https://github.com/Determination-github/DoIT into jeongyong&#10;&#10; Conflicts:&#10;&#9;.idea/compiler.xml&#10;&#9;.idea/encodings.xml&#10;&#9;.idea/gradle.xml&#10;&#9;.idea/jarRepositories.xml&#10;&#9;.idea/misc.xml&#10;&#9;.idea/modules.xml&#10;&#9;.idea/modules/study.test.iml&#10;&#9;study/src/main/java/com/doit/study/HomeController.java&#10;&#9;study/src/main/java/com/doit/study/StudyApplication.java&#10;&#9;study/src/main/java/com/doit/study/mapper/MemberMapper.java&#10;&#9;study/src/main/resources/application.properties&#10;&#9;study/src/main/resources/templates/index.html" />
+    <MESSAGE value="Feat: &quot;검색 기능 업데이트&quot;&#10;&#10;게시판검색 이후 게시물이 한 페이지에 3개가 보이지않던 현상 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: &quot;검색 기능 업데이트&quot;&#10;&#10;게시판검색 이후 게시물이 한 페이지에 3개가 보이지않던 현상 수정" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
