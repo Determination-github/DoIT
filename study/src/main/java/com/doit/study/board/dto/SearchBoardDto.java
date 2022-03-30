@@ -19,6 +19,10 @@ public class SearchBoardDto {
     private Boolean board_Notify;
     private String  board_Writer;
 
+    private String  board_File;
+    private String  board_FilePath;
+
+
     private Integer currentPage = 1;
     private Integer pageSize = 4;
     private Integer firstRecordIndex = 1;

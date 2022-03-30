@@ -4,16 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="Feat: &quot;검색 기능 업데이트&quot;&#10;&#10;게시판검색 이후 게시물이 한 페이지에 3개가 보이지않던 현상 수정">
+    <list default="true" id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="Refactor: &quot;검색 기능 개선&quot;">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/study.test.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/HomeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/domain/Criteria.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/SearchBoardDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/SearchBoardDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/board.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/board.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/insert.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/insert.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/index2.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +56,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
@@ -255,6 +265,8 @@
       <workItem from="1648458050481" duration="22144000" />
       <workItem from="1648486983090" duration="1244000" />
       <workItem from="1648535888020" duration="11448000" />
+      <workItem from="1648571004630" duration="224000" />
+      <workItem from="1648623516502" duration="9549000" />
     </task>
     <task id="LOCAL-00001" summary="chore JDK Version Downgrade">
       <created>1648110197034</created>
@@ -285,7 +297,8 @@
     <MESSAGE value="test: &quot;웅섭님 깃 pull&quot;" />
     <MESSAGE value="Merge branch 'woongseop' of https://github.com/Determination-github/DoIT into jeongyong&#10;&#10; Conflicts:&#10;&#9;.idea/compiler.xml&#10;&#9;.idea/encodings.xml&#10;&#9;.idea/gradle.xml&#10;&#9;.idea/jarRepositories.xml&#10;&#9;.idea/misc.xml&#10;&#9;.idea/modules.xml&#10;&#9;.idea/modules/study.test.iml&#10;&#9;study/src/main/java/com/doit/study/HomeController.java&#10;&#9;study/src/main/java/com/doit/study/StudyApplication.java&#10;&#9;study/src/main/java/com/doit/study/mapper/MemberMapper.java&#10;&#9;study/src/main/resources/application.properties&#10;&#9;study/src/main/resources/templates/index.html" />
     <MESSAGE value="Feat: &quot;검색 기능 업데이트&quot;&#10;&#10;게시판검색 이후 게시물이 한 페이지에 3개가 보이지않던 현상 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: &quot;검색 기능 업데이트&quot;&#10;&#10;게시판검색 이후 게시물이 한 페이지에 3개가 보이지않던 현상 수정" />
+    <MESSAGE value="Refactor: &quot;검색 기능 개선&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor: &quot;검색 기능 개선&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

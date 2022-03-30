@@ -51,20 +51,33 @@ public class BoardSQL {
             "WHERE board_Id = #{board_Id}";
 
     public static final String searchSelectPage =
-            "SELECT board_Id, board_Title, board_SubTitle, board_Count, board_Comment, board_date\n" +
+//            "SELECT board_Id, board_Title, board_SubTitle, board_Count, board_Comment, board_date\n" +
+//                    "FROM (\n" +
+//                    "SELECT rownum rnum, A.*\n" +
+//                    " from (\n" +
+//                    "  select board_Id, board_Title, board_SubTitle, board_Count, board_Comment, board_date\n" +
+//                    "  from BO_STUDY_TB\n" +
+//                    "  where board_Title like '${board_Title}'\n" +
+//                    " order by board_Id desc\n" +
+//                    "  ) A\n" +
+//                    " )\n" +
+//                    " where rnum > ${firstRecordIndex} AND rnum <= ${lastRecordIndex}";
+    "SELECT board_Id, board_Title, board_SubTitle, board_Count, board_Comment, board_date\n" +
                     "FROM (\n" +
                     "SELECT rownum rnum, A.*\n" +
                     " from (\n" +
                     "  select board_Id, board_Title, board_SubTitle, board_Count, board_Comment, board_date\n" +
                     "  from BO_STUDY_TB\n" +
-                    "  where board_Title like '${board_Title}'\n" +
+                    "  where board_Title like'%' || #{board_Title} || '%'\n" +
                     " order by board_Id desc\n" +
                     "  ) A\n" +
                     " )\n" +
                     " where rnum > ${firstRecordIndex} AND rnum <= ${lastRecordIndex}";
 
     public static final String searchResultCount =
-            "select COUNT (*) from BO_STUDY_TB " +
-                    "where board_Title like #{board_Title}";
+//            "select COUNT (*) from BO_STUDY_TB " +
+//                    "where board_Title like #{board_Title}";
+    "select COUNT (*) from BO_STUDY_TB\n" +
+            "                    where board_Title like'%' || #{board_Title} || '%'";
 
 }

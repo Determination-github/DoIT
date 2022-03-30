@@ -30,7 +30,7 @@ public interface BoardMapper {
     public int delete(String board_Title);
 
     @Insert(BoardSQL.insert)
-    public int insert(BoardDto boardDto);
+    public void insert(BoardDto boardDto);
 
     @Select(BoardSQL.select)
     public BoardDto selectOne(Integer board_Id);

@@ -88,18 +88,10 @@ public class BoardController {
     }
 
     @PostMapping("/write")
-    public String write(BoardDto boardDto, HttpSession session){
+    public String write(BoardDto boardDto, HttpSession session) throws Exception {
 //        String writer = session.getAttribute("id");
-        try {
-            int result = boardService.write(boardDto);
-            if(result!=1)
-                throw new Exception("Write failed.");
-
+            boardService.write(boardDto);
             return "redirect:/board/list";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "board/board";
-        }
     }
 
     @PostMapping("/modify")
