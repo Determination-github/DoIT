@@ -23,7 +23,7 @@
         <section id="main_section">
             <div class="main_section_wrap">
                 <p class="main_login_title"></p>
-                <form action="/members/login" th:action th:object="${loginDto}" method="post">
+                <form action="/login" th:action th:object="${loginDto}" method="post">
 
                     <div class="main_login_wrap">
 
@@ -60,10 +60,10 @@
 
                         <div class="main_login_join_BTN_wrap">
                             <p class="main_login_join">
-                                <a href="#" th:href="@{/members/join}" class="main_login_join_BTN">회원가입</a>
+                                <a href="#" th:href="@{/join}" class="main_login_join_BTN">회원가입</a>
                             </p>
                             <p class="main_login_IDPW">
-                                <a href="#" th:href="@{/members/}" class="main_login_IDPW_BTN">아이디 또는 비밀번호 찾기</a>
+                                <a href="#" th:href="@{/}" class="main_login_IDPW_BTN">아이디 또는 비밀번호 찾기</a>
                             </p>
                         </div>
 

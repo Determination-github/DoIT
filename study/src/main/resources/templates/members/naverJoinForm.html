@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/join-style.css}" href="../css/join-style.css" rel="stylesheet">
+    <link th:href="@{/css/default.css}" href="../css/default.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/0c4f9b09f5.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <title>네이버 회원 가입 페이지</title>
+
+    <style>
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+
+</head>
+<body>
+<div id="wrap">
+    <header id="header">
+            <h1 class="header_join">회원가입</h1>
+    </header>
+    <main id="main">
+        <form action="/join/naver" th:action th:object="${naverDto}" method="post">
+
+        <div class="main_join_wrap">
+
+            <div class="main_join_box1">
+                <p>이름</p>
+                <div class="main_join_input_group main_join_input_box">
+                    <input class="main_join_input main_join_input" type="text" id="name" th:value="${naverDto.naverName}"
+                           readonly>
+                </div>
+                <span id="nameCheck"></span>
+            </div>
+
+            <div class="main_join_box1">
+                <p>닉네임</p>
+                <div class="main_join_input_group main_join_input_box">
+                    <input class="main_join_input main_join_input1" type="text" id="nickname" th:field="*{naverNickname}"
+                           th:placeholder="@{닉네임을 입력하세요.}" th:errorclass="field-error">
+                </div>
+                <span id="nicknameCheck"></span>
+                <div class="field-error" th:errors="*{naverNickname}" />
+            </div>
+
+            <div class="main_join_box2">
+                <p>이메일</p>
+                <div class="main_join_input_group main_join_input_box">
+                    <p th:if="${not #strings.isEmpty(naverDto.naverEmail)}">
+                        <input class="main_join_input main_join_input2" type="email" id="emailNaver"
+                               th:value="${naverDto.naverEmail}" readonly>
+                    </p>
+                </div>
+            </div>
+
+            <div class="main_join_box6 main_join_box_group">
+                <p>성별</p>
+                <div class="main_join_input_box6">
+                    <select readonly th:if="${not #strings.isEmpty(naverDto.naverGender)}" id="main_join_input_sex_select2" class="main_join_input_sex_select"
+                            th:value="${naverDto.naverGender}">
+                        <th:block th:if="${#strings.equals(naverDto.naverGender, 'M')}">
+                            <option th:value="${naverDto.naverGender}" th:text="남자">
+                            </option>
+                        </th:block>
+                        <th:block th:if="${#strings.equals(naverDto.naverGender, 'F')}">
+                            <option th:value="${naverDto.naverGender}" th:text="여자">
+                            </option>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <p class="main_join_category">관심있는 스터디 카테고리를 선택해 주세요. (최대 3개)</p>
+            </div>
+
+            <div class="categoryListWrap">
+                <div>
+                    <select id="categoryList1" class="categoryList" th:field="*{naverInterest1}">
+                        <option value="">1차 카테고리를 선택하세요.</option>
+                        <option th:each="first_category : ${first_categories}" th:value="${first_category.code}"
+                                th:text="${first_category.category}"></option>
+                    </select>
+                </div>
+                <div>
+                    <select id="categoryList2" class="categoryList" th:field="*{naverInterest2}">
+                        <option value="">2차 카테고리를 선택하세요.</option>
+                        <option th:each="second_category : ${second_categories}" th:value="${second_category.code}"
+                                th:text="${second_category.category}"></option>
+                    </select>
+                </div>
+                <div>
+                    <select id="categoryList3" class="categoryList" th:field="*{naverInterest3}">
+                        <option value="">3차 카테고리를 선택하세요.</option>
+                        <option th:each="third_category : ${third_categories}" th:value="${third_category.code}"
+                                th:text="${third_category.category}"></option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button class="main_join_BTN" type="submit">가입하기</button>
+            </div>
+        </div>
+        </form>
+    </main>
+</div>
+<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+
+		$('#nickname').focusout(function() {
+		    let nickname = $('#nickname').val();
+		    if(nickname != '') {
+                $.ajax({
+                    url : "/join/nicknameCheck",
+                    type : "post",
+                    data : {nickname:nickname},
+                    dataType : 'json',
+                    success : function(result) {
+                        if(result == 0) {
+                            $('#nicknameCheck').text('사용 가능한 닉네임입니다.');
+                            $('#nicknameCheck').css("color","green");
+                        } else if(result == 1) {
+                            $('#nicknameCheck').text('공백 혹은 특수 문자는 입력하실 수 없습니다.');
+                            $('#nicknameCheck').css("color","red");
+                        } else if(result == 2) {
+                            $('#nicknameCheck').text('닉네임은 2~10자리 이내여야 합니다.');
+                            $('#nicknameCheck').css("color","red");
+                        } else {
+                            $('#nicknameCheck').text('사용할 수 없는 닉네임입니다.');
+                            $('#nicknameCheck').css("color","red");
+                        }
+                    },
+                    error : function() {
+                        alert("서버 요청 실패");
+                    }
+                })
+            }
+        })
+
+		/*]]>*/
+</script>
+</body>
+</html>

@@ -6,7 +6,7 @@
     <link th:href="@{/css/default.css}" href="../css/default.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/0c4f9b09f5.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <title>회원가입 페이지</title>
+    <title>카카오 회원 가입 페이지</title>
 
     <style>
         .field-error {
@@ -22,76 +22,73 @@
             <h1 class="header_join">회원가입</h1>
     </header>
     <main id="main">
-        <form action="/join" th:action th:object="${memberDto}" method="post">
+        <form action="/join/kakao" th:action th:object="${kakaoDto}" method="post">
 
         <div class="main_join_wrap">
 
             <div class="main_join_box1">
                 <p>이름</p>
                     <div class="main_join_input_group main_join_input_box">
-                        <input class="main_join_input main_join_input1" type="text" id="name" th:field="*{name}"
-                               th:placeholder="@{이름을 입력하세요.}" th:errorclass="field-error">
+                        <input class="main_join_input main_join_input" type="text" id="name" th:value="${kakaoDto.kakaoName}"
+                               readonly>
                     </div>
                 <span id="nameCheck"></span>
-                <div class="field-error" th:errors="*{name}" />
             </div>
 
             <div class="main_join_box1">
                 <p>닉네임</p>
                 <div class="main_join_input_group main_join_input_box">
-                    <input class="main_join_input main_join_input1" type="text" id="nickname" th:field="*{nickname}"
+                    <input class="main_join_input main_join_input1" type="text" id="nickname" th:field="*{kakaoNickname}"
                            th:placeholder="@{닉네임을 입력하세요.}" th:errorclass="field-error">
                 </div>
                 <span id="nicknameCheck"></span>
-                <div class="field-error" th:errors="*{nickname}" />
+                <div class="field-error" th:errors="*{kakaoNickname}" />
             </div>
 
             <div class="main_join_box2">
                 <p>이메일</p>
                 <div class="main_join_input_group main_join_input_box">
-                    <p>
-                        <input class="main_join_input main_join_input2" type="email" id="email" th:field="*{email}"
-                               th:placeholder="@{이메일을 입력하세요.}" th:errorclass="field-error">
-                        <span id="emailChk" class="doubleChk">인증번호 보내기</span><br/>
-                        <input id="sm_email" type="text" name="sm_email" title="인증번호 입력" disabled required/>
-                        <span id="emailChk2" class="doubleChk">이메일인증</span>
-                        <span class="point successEmailChk">이메일 입력후 인증번호 보내기를 해주십시오.</span>
-                        <input type="hidden" id="emailDoubleChk"/>
-                        <div class="field-error" th:errors="*{email}"/>
-                        <span id="emailCheck"></span>
+                    <div th:if="${#strings.isEmpty(kakaoDto.kakaoEmail)}">
+                        <p>
+                            <input class="main_join_input main_join_input2" type="email" id="email" th:field="*{kakaoEmail}"
+                                   th:placeholder="@{이메일을 입력하세요.}" th:errorclass="field-error">
+                            <span id="emailChk" class="doubleChk">인증번호 보내기</span><br/>
+                            <input id="sm_email" type="text" name="sm_email" title="인증번호 입력" disabled required/>
+                            <span id="emailChk2" class="doubleChk">이메일인증</span>
+                            <span class="point successEmailChk">이메일 입력후 인증번호 보내기를 해주십시오.</span>
+                            <input type="hidden" id="emailDoubleChk"/>
+                            <div class="field-error" th:errors="*{kakaoEmail}"/>
+                            <span id="emailCheck"></span>
+                        </p>
+                    </div>
+                    <p th:if="${not #strings.isEmpty(kakaoDto.kakaoEmail)}">
+                        <input class="main_join_input main_join_input2" type="email" id="emailKakao"
+                               th:value="${kakaoDto.kakaoEmail}" readonly>
                     </p>
                 </div>
-            </div>
-
-            <div class="main_join_box3">
-                <p>비밀번호</p>
-                <div class="main_join_input_box">
-                    <input class="main_join_input main_join_input3" type="password" id="password" th:field="*{password}"
-                           th:placeholder="@{비밀번호를 입력하세요.}" th:errorclass="field-error">
-                </div>
-                <div class="field-error" th:errors="*{password}"/>
-            </div>
-
-            <div class="main_join_box3">
-                <p>비밀번호 확인</p>
-                <div class="main_join_input_box">
-                    <input class="main_join_input main_join_input4" type="password" id="password_check"
-                           th:placeholder="@{비밀번호 중복 확인}">
-                </div>
-                <span id="same"></span>
-                <div class="field-error" th:errors="*{password}"/>
             </div>
 
             <div class="main_join_box6 main_join_box_group">
                 <p>성별</p>
                 <div class="main_join_input_box6">
-                    <select id="main_join_input_sex_select" class="main_join_input_sex_select"
-                    th:field="*{sex}">
+                    <select th:if="${#strings.isEmpty(kakaoDto.kakaoGender)}" id="main_join_input_sex_select" class="main_join_input_sex_select"
+                            th:field="*{kakaoGender}">
                         <option value="">성별</option>
-                        <option th:each="sex : ${gender}" th:value="${sex.code}"
-                                th:text="${sex.gender}"></option>
+                        <option th:each="sex : ${gender}"
+                                th:value="${sex?.code}"
+                                th:text="${sex?.gender}"></option>
                     </select>
-                    <div class="field-error" th:errors="*{sex}"/>
+                    <select readonly th:if="${not #strings.isEmpty(kakaoDto.kakaoGender)}" id="main_join_input_sex_select2" class="main_join_input_sex_select"
+                            th:value="${kakaoDto.kakaoGender}">
+                        <th:block th:if="${#strings.equals(kakaoDto.kakaoGender, 'male')}">
+                            <option th:value="${kakaoDto.kakaoGender}" th:text="남자">
+                            </option>
+                        </th:block>
+                        <th:block th:if="${#strings.equals(kakaoDto.kakaoGender, 'female')}">
+                            <option th:value="${kakaoDto.kakaoGender}" th:text="여자">
+                            </option>
+                        </th:block>
+                    </select>
                 </div>
             </div>
 
@@ -101,32 +98,29 @@
 
             <div class="categoryListWrap">
                 <div>
-                    <select id="categoryList1" class="categoryList" th:field="*{interest1}">
+                    <select id="categoryList1" class="categoryList" th:field="*{kakaoInterest1}">
                         <option value="">1차 카테고리를 선택하세요.</option>
                         <option th:each="first_category : ${first_categories}" th:value="${first_category.code}"
                                 th:text="${first_category.category}"></option>
                     </select>
-                    <div class="field-error" th:errors="*{interest1}"/>
                 </div>
                 <div>
-                    <select id="categoryList2" class="categoryList" th:field="*{interest2}">
+                    <select id="categoryList2" class="categoryList" th:field="*{kakaoInterest2}">
                         <option value="">2차 카테고리를 선택하세요.</option>
                         <option th:each="second_category : ${second_categories}" th:value="${second_category.code}"
                                 th:text="${second_category.category}"></option>
                     </select>
-                    <div class="field-error" th:errors="*{interest2}"/>
                 </div>
                 <div>
-                    <select id="categoryList3" class="categoryList" th:field="*{interest3}">
+                    <select id="categoryList3" class="categoryList" th:field="*{kakaoInterest3}">
                         <option value="">3차 카테고리를 선택하세요.</option>
                         <option th:each="third_category : ${third_categories}" th:value="${third_category.code}"
                                 th:text="${third_category.category}"></option>
                     </select>
-                    <div class="field-error" th:errors="*{interest3}"/>
                 </div>
             </div>
             <div>
-                <button class="main_join_BTN" id="button" type="submit" >가입하기</button>
+                <button class="main_join_BTN" type="submit">가입하기</button>
             </div>
         </div>
         </form>
@@ -134,33 +128,6 @@
 </div>
 <script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
-
-
-		$('#name').focusout(function() {
-            let name = $('#name').val();
-            if(name != '') {
-                $.ajax({
-                    url : "/join/nameCheck",
-                    type : "post",
-                    data : {name:name},
-                    dataType : 'json',
-                    success : function(result) {
-                        if(result == 1) {
-                            $('#nameCheck').text('한글 이름 형태로 입력해주세요.');
-                            $('#nameCheck').css("color","red");
-                            $('#button').attr("disabled", true);
-                        } else {
-                            $('#nameCheck').text('사용 가능한 이름입니다.');
-                            $('#nameCheck').css("color","green");
-                        }
-                    },
-                    error : function() {
-                        alert("서버 요청 실패");
-                            $('#button').attr("disabled", true);
-                    }
-                })
-            }
-        })
 
 		$('#nickname').focusout(function() {
 		    let nickname = $('#nickname').val();
@@ -174,24 +141,19 @@
                         if(result == 0) {
                             $('#nicknameCheck').text('사용 가능한 닉네임입니다.');
                             $('#nicknameCheck').css("color","green");
-                            state += 1;
                         } else if(result == 1) {
                             $('#nicknameCheck').text('공백 혹은 특수 문자는 입력하실 수 없습니다.');
                             $('#nicknameCheck').css("color","red");
-                            $('#button').attr("disabled", true);
                         } else if(result == 2) {
                             $('#nicknameCheck').text('닉네임은 2~10자리 이내여야 합니다.');
                             $('#nicknameCheck').css("color","red");
-                            $('#button').attr("disabled", true);
                         } else {
                             $('#nicknameCheck').text('사용할 수 없는 닉네임입니다.');
                             $('#nicknameCheck').css("color","red");
-                            $('#button').attr("disabled", true);
                         }
                     },
                     error : function() {
                         alert("서버 요청 실패");
-                            $('#button').attr("disabled", true);
                     }
                 })
             }
@@ -210,42 +172,20 @@
                         if(result == 0) {
                             $('#emailCheck').text('사용 가능한 이메일입니다.');
                             $('#emailCheck').css("color","green");
-                        } else if(result == 2) {
+                        } else if(result == 1) {
                             $('#emailCheck').text('이메일 형식에 맞지 않습니다.');
                             $('#emailCheck').css("color","red");
-                            $('#button').attr("disabled", true);
                         } else {
                             $('#emailCheck').text('이미 사용 중인 이메일입니다.');
                             $('#emailCheck').css("color","red");
-                            $('#button').attr("disabled", true);
                         }
                     },
                     error : function() {
                         alert("서버 요청 실패");
-                            $('#button').attr("disabled", true);
                     }
                 })
             }
         })
-
-        $(function(){
-        //비밀번호 확인
-            $('#password_check').blur(function(){
-               if($('#password').val() != $('#password_check').val()){
-                    if($('#password_check').val()!=''){
-                        $('#same').text('비밀번호가 일치하지 않습니다.');
-                        $('#same').css("color","red");
-                        $('#button').attr("disabled", true);
-                    }
-               }
-               else if($('#password').val() == $('#password_check').val())  {
-                   if($('#password_check').val()!=''){
-                        $('#same').text('비밀번호가 일치합니다.');
-                        $('#same').css("color","green");
-                   }
-               }
-            })
-        });
 
         //이메일 인증
         var code = "";
@@ -263,7 +203,6 @@
                         $("#email").attr("autofocus",true);
                         $(".successEmailChk").text("유효한 이메일 주소를 입력해주세요.");
                         $(".successEmailChk").css("color","red");
-                        $('#button').attr("disabled", true);
                     }else{
                         alert("인증번호 발송이 완료되었습니다.\n입력한 이메일에서 인증번호 확인을 해주십시오.");
                         $("#sm_email").attr("disabled",false);
@@ -278,28 +217,19 @@
 
         //이메일 인증번호 대조
         $("#emailChk2").click(function(){
-            if($("#sm_email").val() != '') {
-                if($("#sm_email").val() == code){
-                    $(".successEmailChk").text("인증번호가 일치합니다.");
-                    $(".successEmailChk").css("color","green");
-                    $("#emailDoubleChk").val("true");
-                    $("#sm_email").attr("disabled",true);
-                    $('#button').attr("disabled", false);
-                }else{
-                    $(".successEmailChk").text("인증번호가 일치하지 않습니다. 확인해주시기 바랍니다.");
-                    $(".successEmailChk").css("color","red");
-                    $("#emailDoubleChk").val("false");
-                    $("#sm_email").attr("autofocus",true);
-                    $('#button').attr("disabled", true);
-                }
-            }
-            else if($("#sm_email").val().length == 0) {
-                    $(".successEmailChk").text("인증번호를 입력해주세요.");
-                    $(".successEmailChk").css("color","red");
-                    $('#button').attr("disabled", true);
+            if($("#sm_email").val() == code){
+                $(".successEmailChk").text("인증번호가 일치합니다.");
+                $(".successEmailChk").css("color","green");
+                $("#emailDoubleChk").val("true");
+                $("#sm_email").attr("disabled",true);
+                //$("#email").attr("disabled",true);
+            }else{
+                $(".successEmailChk").text("인증번호가 일치하지 않습니다. 확인해주시기 바랍니다.");
+                $(".successEmailChk").css("color","red");
+                $("#emailDoubleChk").val("false");
+                $("#sm_email").attr("autofocus",true);
             }
         });
-
 		/*]]>*/
 </script>
 </body>

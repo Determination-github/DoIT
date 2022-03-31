@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>알림창</title>
+</head>
+
+<body>
+<form th:object="${kakaoDto}" name="dataForm" th:action="${url}" method="get" style="display: none;">
+    <input type="hidden" th:field="*{kakaoName}"/>
+    <input type="hidden" th:field="*{kakaoEmail}"/>
+    <input type="hidden" th:field="*{kakaoGender}"/>
+    <input type="hidden" th:field="*{kakaoId}"/>
+</form>
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+    var url = [[${url}]];
+    var message = [[${msg}]];
+    alert(message);
+    document.dataForm.submit();
+
+</script>
+</body>
+</html>
