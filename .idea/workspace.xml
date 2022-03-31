@@ -4,146 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03465c6a-8f56-4fb8-b41c-7e58ce55a404" name="Changes" comment="chore JDK Version Downgrade">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/doit.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_qos_logback_logback_classic_1_2_10.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_qos_logback_logback_core_1_2_10.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_classmate_1_5_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_annotations_2_13_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_core_2_13_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_databind_2_13_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_13_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_13_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_module_jackson_module_parameter_names_2_13_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_scribejava_scribejava_apis_2_8_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_scribejava_scribejava_core_2_8_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_googlecode_json_simple_json_simple_1_1_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_h2database_h2_1_4_200.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jayway_jsonpath_json_path_2_6_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_oracle_database_ha_ons_21_3_0_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_oracle_database_ha_simplefan_21_3_0_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_oracle_database_jdbc_ojdbc6_11_2_0_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_oracle_database_jdbc_ucp_21_3_0_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_oracle_database_security_oraclepki_21_3_0_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_oracle_database_security_osdt_cert_21_3_0_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_oracle_database_security_osdt_core_21_3_0_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sun_activation_jakarta_activation_1_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sun_mail_jakarta_mail_1_6_7.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_vaadin_external_google_android_json_0_0_20131108_vaadin1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_zaxxer_HikariCP_4_0_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__jakarta_activation_jakarta_activation_api_1_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__jakarta_annotation_jakarta_annotation_api_1_3_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__jakarta_validation_jakarta_validation_api_2_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__jakarta_xml_bind_jakarta_xml_bind_api_2_3_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_13_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_bytebuddy_byte_buddy_1_11_22.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_bytebuddy_byte_buddy_agent_1_11_22.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_minidev_accessors_smart_2_4_8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_minidev_json_smart_2_4_8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_logging_log4j_log4j_api_2_17_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_logging_log4j_log4j_to_slf4j_2_17_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_tomcat_embed_tomcat_embed_core_9_0_58.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_tomcat_embed_tomcat_embed_el_9_0_58.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_58.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apiguardian_apiguardian_api_1_1_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_assertj_assertj_core_3_21_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_attoparser_attoparser_2_0_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hibernate_validator_hibernate_validator_6_2_2_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_logging_jboss_logging_3_4_3_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_5_8_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_api_5_8_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_engine_5_8_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_params_5_8_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_commons_1_8_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_engine_1_8_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mockito_mockito_core_4_0_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mockito_mockito_junit_jupiter_4_0_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mybatis_mybatis_3_5_9.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mybatis_mybatis_spring_2_0_7.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mybatis_spring_boot_mybatis_spring_boot_autoconfigure_2_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mybatis_spring_boot_mybatis_spring_boot_starter_2_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_objenesis_objenesis_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_opentest4j_opentest4j_1_2_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ow2_asm_asm_9_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_projectlombok_lombok_1_18_22.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_skyscreamer_jsonassert_1_5_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_jul_to_slf4j_1_7_36.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_slf4j_api_1_7_36.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_2_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_autoconfigure_2_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_2_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_jdbc_2_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_json_2_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_logging_2_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_mail_2_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_test_2_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_thymeleaf_2_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_tomcat_2_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_validation_2_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_web_2_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_test_2_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_test_autoconfigure_2_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_aop_5_3_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_beans_5_3_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_context_5_3_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_context_support_5_3_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_core_5_3_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_expression_5_3_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_jcl_5_3_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_jdbc_5_3_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_test_5_3_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_tx_5_3_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_web_5_3_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_webmvc_5_3_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_thymeleaf_extras_thymeleaf_extras_java8time_3_0_4_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_thymeleaf_thymeleaf_3_0_15_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_thymeleaf_thymeleaf_spring5_3_0_15_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_unbescape_unbescape_1_1_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_xmlunit_xmlunit_core_2_8_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_yaml_snakeyaml_1_29.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/study.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/study.main.iml" beforeDir="false" />
+    <list default="true" id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="Refactor: &quot;검색 기능 개선&quot;">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/study.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Category.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Page.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Page.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Zone.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/groups/apple.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/groups/new.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/groups/new.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/groups/one.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/groups/one.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/groups/three.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/groups/two.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/image/come.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/image/geo-alt.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/image/people.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/image/네이버.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/image/셀카.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/image/코딩왕.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/image/파밀리아 성당.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/profile/profile.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/profile/profileone.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/NaverLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/NaverLoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/domain/Gender.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/domain/Gender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/naver/NaverLoginBO.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/naver/NaverLoginBO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/MemberServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/email.properties" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/email.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/Home.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/css/Page.css" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/css/page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/SearchBoardDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/SearchBoardDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/board.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/board.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/insert.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/insert.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,12 +38,7 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="study" type="f1a62948:ProjectNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -186,6 +56,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
@@ -222,6 +97,9 @@
       </RecentBranches>
     </option>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/study/build.gradle" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -234,24 +112,30 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="ToolWindowPull Requests.ShowToolbar" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/study/build.gradle" />
-    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/study/src/main/resources/templates/board" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.43333334" />
+    <property name="project.structure.side.proportion" value="0.20689656" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jypar\IdeaProjects\DoIT\study\src\main\resources\templates\board" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\css" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\css" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static" />
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\java\com\doit\study" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -269,7 +153,7 @@
       <recent name="com.doit.study.interceptor" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.StudyApplication">
+  <component name="RunManager" selected="Spring Boot.StudyApplication">
     <configuration name="StudyApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.doit.study.StudyApplication" />
       <module name="study.main" />
@@ -351,6 +235,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="StudyApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="study.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.doit.study.StudyApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.StudyApplication" />
@@ -364,11 +255,18 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="03465c6a-8f56-4fb8-b41c-7e58ce55a404" name="Changes" comment="" />
+      <changelist id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="" />
       <created>1647085072989</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1647085072989</updated>
+      <workItem from="1648452053903" duration="1111000" />
+      <workItem from="1648453238101" duration="3279000" />
+      <workItem from="1648458050481" duration="22144000" />
+      <workItem from="1648486983090" duration="1244000" />
+      <workItem from="1648535888020" duration="11448000" />
+      <workItem from="1648571004630" duration="224000" />
+      <workItem from="1648623516502" duration="9549000" />
     </task>
     <task id="LOCAL-00001" summary="chore JDK Version Downgrade">
       <created>1648110197034</created>
@@ -379,6 +277,9 @@
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -393,7 +294,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="chore JDK Version Downgrade" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore JDK Version Downgrade" />
+    <MESSAGE value="test: &quot;웅섭님 깃 pull&quot;" />
+    <MESSAGE value="Merge branch 'woongseop' of https://github.com/Determination-github/DoIT into jeongyong&#10;&#10; Conflicts:&#10;&#9;.idea/compiler.xml&#10;&#9;.idea/encodings.xml&#10;&#9;.idea/gradle.xml&#10;&#9;.idea/jarRepositories.xml&#10;&#9;.idea/misc.xml&#10;&#9;.idea/modules.xml&#10;&#9;.idea/modules/study.test.iml&#10;&#9;study/src/main/java/com/doit/study/HomeController.java&#10;&#9;study/src/main/java/com/doit/study/StudyApplication.java&#10;&#9;study/src/main/java/com/doit/study/mapper/MemberMapper.java&#10;&#9;study/src/main/resources/application.properties&#10;&#9;study/src/main/resources/templates/index.html" />
+    <MESSAGE value="Feat: &quot;검색 기능 업데이트&quot;&#10;&#10;게시판검색 이후 게시물이 한 페이지에 3개가 보이지않던 현상 수정" />
+    <MESSAGE value="Refactor: &quot;검색 기능 개선&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor: &quot;검색 기능 개선&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -10,10 +10,12 @@ import java.util.Date;
 public class BoardDto {
     private int     board_Id;
     private String  board_Title;
+    private String  board_SubTitle;
     private String  board_Content;
     private int     board_Count;
     private int     board_Comment;
     private Date    board_Date;
+    private Date    board_RegDate;
     private Boolean board_Notify;
     private String  board_Writer;
 

@@ -27,34 +27,8 @@ import java.util.List;
 @RequestMapping("/board")
 @Slf4j
 public class BoardController {
-
     private final BoardService boardService;
 
-//    @GetMapping("/list")
-//    public String list(SearchCondition sc,
-//                       Model m, HttpServletRequest request){
-////        if(!loginCheck(request))
-////            return "redirect:/login/login?toURL="+request.getRequestURL();
-//
-//        try {
-//            int totalRecordCount = boardService.searchResultCount(sc);
-//            m.addAttribute("totalRecordCount", totalRecordCount);
-//
-//            Pagination pagination = new Pagination(totalRecordCount, sc);
-//
-//            List<BoardDto> list = boardService.searchSelectPage(sc);
-//
-//            m.addAttribute("pagination", pagination);
-//            m.addAttribute("list", list);
-//
-//            Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
-//            m.addAttribute("startOfToday", startOfToday.toEpochMilli());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return "/board/boardList2";
-//    }
-        // list
     @GetMapping("/list")
     public String list(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
                        @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
@@ -76,60 +50,25 @@ public class BoardController {
         }
         return "/";
     }
-//    @GetMapping("/searchList")
-//    public String searchList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-//                             @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
-//                             @ModelAttribute("searchBoardDto") SearchBoardDto searchBoardDto)
-//            throws Exception {
-////        if(!loginCheck(request))
-////            return "redirect:/login/login?toURL="+request.getRequestURL();
-//        int totalRecordCount = boardService.searchResultCount(searchBoardDto);
-//        System.out.println(totalRecordCount);
-//        searchBoardDto.doPaging(100);
-//        List<SearchBoardDto> searchList = boardService.searchSelectPage(searchBoardDto);
-//
-//        return "/board/searchBoardList";
-//    }
+
     @GetMapping("/searchList")
     public String searchList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
                              @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
-                             @ModelAttribute("searchBoardDto") SearchBoardDto searchBoardDto,
+                             @ModelAttribute("searchBoardDto") SearchBoardDto searchBoardDto, BoardDto boardDto,
                              ServletRequest request, Model m)
             throws Exception {
 //        if(!loginCheck(request))
 //            return "redirect:/login/login?toURL="+request.getRequestURL();
         int totalRecordCount = boardService.searchResultCount(searchBoardDto);
-        log.info("totalRecordCount = " + totalRecordCount);
         searchBoardDto.doPaging(totalRecordCount);
+        log.info("totalRecordCount =" + totalRecordCount );
+
         List<SearchBoardDto> searchList = boardService.searchSelectPage(searchBoardDto);
-        m.addAttribute("searchLists", searchList);
+        List<BoardDto> searchList2 = boardService.getList();
+        log.info("searchBoardDto ="+ searchBoardDto);
+        m.addAttribute("searchList", searchList);
         return "/board/searchBoardList";
     }
-
-//    @GetMapping("/searchList")
-//    public String searchList(SearchCondition sc, Model m, HttpServletRequest request){
-////        if(!loginCheck(request))
-////            return "redirect:/login/login?toURL="+request.getRequestURL();
-//
-//        try {
-//            int totalRecordCount = boardService.searchResultCount(sc);
-//            m.addAttribute("totalRecordCount", totalRecordCount);
-//
-//            Pagination pagination = new Pagination(totalRecordCount, sc);
-//
-//            List<BoardDto> list = boardService.searchSelectPage(sc);
-//
-//            m.addAttribute("pagination", pagination);
-//            m.addAttribute("list", list);
-//
-//            Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
-//            m.addAttribute("startOfToday", startOfToday.toEpochMilli());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return "/board/searchBoardList";
-//    }
-
 
     @GetMapping("/read")
     public String read(Integer board_Id, Model m){
@@ -149,18 +88,10 @@ public class BoardController {
     }
 
     @PostMapping("/write")
-    public String write(BoardDto boardDto, HttpSession session){
+    public String write(BoardDto boardDto, HttpSession session) throws Exception {
 //        String writer = session.getAttribute("id");
-        try {
-            int result = boardService.write(boardDto);
-            if(result!=1)
-                throw new Exception("Write failed.");
-
+            boardService.write(boardDto);
             return "redirect:/board/list";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "board/board";
-        }
     }
 
     @PostMapping("/modify")

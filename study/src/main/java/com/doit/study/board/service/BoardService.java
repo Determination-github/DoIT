@@ -15,7 +15,7 @@ public interface BoardService {
     List<BoardDto> getPage(Pagination pagination) throws Exception;
     BoardDto read(Integer board_Id) throws Exception;
     int modify(BoardDto boardDto) throws Exception;
-    int write(BoardDto boardDto) throws Exception;
+    void write(BoardDto boardDto) throws Exception;
     int remove(BoardDto boardDto) throws Exception;
     int remove(String board_Writer) throws Exception;
 //    int searchResultCount() throws Exception;

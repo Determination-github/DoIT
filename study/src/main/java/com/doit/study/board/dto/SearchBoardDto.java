@@ -2,8 +2,6 @@ package com.doit.study.board.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 
@@ -12,16 +10,22 @@ import java.util.Date;
 public class SearchBoardDto {
     private int     board_Id;
     private String  board_Title;
+    private String  board_SubTitle;
     private String  board_Content;
     private int     board_Count;
     private int     board_Comment;
-    private Date board_Date;
+    private Date    board_Date;
+    private Date    board_RegDate;
     private Boolean board_Notify;
     private String  board_Writer;
 
+    private String  board_File;
+    private String  board_FilePath;
+
+
     private Integer currentPage = 1;
     private Integer pageSize = 4;
-    private Integer firstRecordIndex = 0;
+    private Integer firstRecordIndex = 1;
     private Integer lastRecordIndex = 3;
     // 한 페이지당 게시물 갯수
     public final int countPerPage = 3;
@@ -75,7 +79,7 @@ public class SearchBoardDto {
     public void calculation() {
 
         // 전체 페이지 수 (현재 페이지 번호가 전체 페이지 수보다 크면 현재 페이지 번호에 전체 페이지 수를 저장)
-        totalPageCount = ((totalRecordCount - 1) / this.getPageSize()) + 1;
+        this.totalPageCount = ((totalRecordCount - 1) / this.getPageSize()) + 1;
         if (this.getCurrentPage() > totalPageCount) {
             this.setCurrentPage(totalPageCount);
         }
