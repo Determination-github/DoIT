@@ -27,6 +27,7 @@ import java.util.List;
 @RequestMapping("/board")
 @Slf4j
 public class BoardController {
+
     private final BoardService boardService;
 
     @GetMapping("/list")
@@ -64,7 +65,6 @@ public class BoardController {
         log.info("totalRecordCount =" + totalRecordCount );
 
         List<SearchBoardDto> searchList = boardService.searchSelectPage(searchBoardDto);
-        List<BoardDto> searchList2 = boardService.getList();
         log.info("searchBoardDto ="+ searchBoardDto);
         m.addAttribute("searchList", searchList);
         return "/board/searchBoardList";

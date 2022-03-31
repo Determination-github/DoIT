@@ -80,4 +80,9 @@ public class BoardSQL {
     "select COUNT (*) from BO_STUDY_TB\n" +
             "                    where board_Title like'%' || #{board_Title} || '%'";
 
+    public static final String updateCommentCount =
+            "UPDATE BO_STUDY_TB " +
+                    "SET board_Comment = board_Comment + #{count} " +
+                    "where board_Id = #{board_Id}";
+
 }

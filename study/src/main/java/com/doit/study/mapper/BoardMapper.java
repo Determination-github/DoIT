@@ -50,5 +50,7 @@ public interface BoardMapper {
     @Select(BoardSQL.searchResultCount)
     public int searchResultCount(SearchBoardDto searchBoardDto);
 
+    @Update(BoardSQL.updateCommentCount)
+    public int updateCommentCount(Integer board_Id, int count);
 }
 

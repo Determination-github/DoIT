@@ -6,19 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="Refactor: &quot;검색 기능 개선&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/study.test.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/SearchBoardDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/SearchBoardDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/board.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/board.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/insert.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/insert.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,8 +42,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
-        <option value="Interface" />
         <option value="HTML File" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -267,6 +260,7 @@
       <workItem from="1648535888020" duration="11448000" />
       <workItem from="1648571004630" duration="224000" />
       <workItem from="1648623516502" duration="9549000" />
+      <workItem from="1648714727081" duration="16453000" />
     </task>
     <task id="LOCAL-00001" summary="chore JDK Version Downgrade">
       <created>1648110197034</created>

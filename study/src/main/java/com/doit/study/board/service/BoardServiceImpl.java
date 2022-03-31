@@ -11,13 +11,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
-
     private final BoardMapper boardMapper;
 
     @Override
@@ -75,6 +76,10 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.searchSelectPage(searchBoardDto);
     }
 
+    @Override
+    public int updateCommentCount(Integer board_Id, int count){
+        return boardMapper.updateCommentCount(board_Id, count);
+    }
 //    @Override
 //    public int searchResultCount() throws Exception {
 //        return boardMapper.searchResultCount();
