@@ -44,12 +44,24 @@ public class HomeController {
         log.info("kakaoDto = " + kakaoDto);
         log.info("memberDto = " + memberDto);
 
+        String id;
+        String nickName;
+
         if(naverDto != null) {
-            session.setAttribute("naverDto", naverDto);
+            id = naverDto.getNaverId();
+            nickName = naverDto.getNaverNickname();
+            session.setAttribute("id", id);
+            session.setAttribute("nickName", nickName);
         } else if(kakaoDto != null) {
-            session.setAttribute("kakaoDto", kakaoDto);
+            id = kakaoDto.getKakaoId();
+            nickName = kakaoDto.getKakaoNickname();
+            session.setAttribute("id", id);
+            session.setAttribute("nickName", nickName);
         } else if(memberDto != null) {
-            session.setAttribute("memberDto", memberDto);
+            id = memberDto.getUser_id();
+            nickName = memberDto.getNickname();
+            session.setAttribute("id", id);
+            session.setAttribute("nickName", nickName);
         }
 
         BoardDto boardDto = new BoardDto();
@@ -60,8 +72,8 @@ public class HomeController {
         log.info("totalRecordCount = " + totalRecordCount);
         model.addAttribute("pagination", pagination);
         log.info("pagination = " + pagination);
-        model.addAttribute("lists", boardService.getPage(pagination));
-        log.info("lists = " + boardService.getPage(pagination));
+        model.addAttribute("list", boardService.getPage(pagination));
+        log.info("list = " + boardService.getPage(pagination));
         model.addAttribute("board", boardDto);
         return "/index";
     }
