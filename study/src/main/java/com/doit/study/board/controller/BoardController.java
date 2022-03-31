@@ -99,9 +99,10 @@ public class BoardController {
 //        if(!loginCheck(request))
 //            return "redirect:/login/login?toURL="+request.getRequestURL();
         int totalRecordCount = boardService.searchResultCount(searchBoardDto);
+        log.info("totalRecordCount = " + totalRecordCount);
         searchBoardDto.doPaging(totalRecordCount);
         List<SearchBoardDto> searchList = boardService.searchSelectPage(searchBoardDto);
-        m.addAttribute("searchList", searchList);
+        m.addAttribute("searchLists", searchList);
         return "/board/searchBoardList";
     }
 
