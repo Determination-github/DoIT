@@ -2,14 +2,12 @@ package com.doit.study.board.service;
 
 //import com.doit.study.Board.domain.Board;
 import com.doit.study.board.domain.Pagination;
-import com.doit.study.board.domain.SearchCondition;
 import com.doit.study.board.dto.BoardDto;
 import com.doit.study.board.dto.SearchBoardDto;
 import com.doit.study.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +33,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardDto> getPage(Pagination pagination) throws Exception {
+        log.info("BoardDto = " + boardMapper.selectPage(pagination));
         return boardMapper.selectPage(pagination);
     }
 

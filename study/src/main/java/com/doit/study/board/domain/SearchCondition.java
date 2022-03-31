@@ -31,5 +31,5 @@ public class SearchCondition {
 
     public String getQueryString(){
         return getQueryString(currentPage);
-        }
+    }
 }

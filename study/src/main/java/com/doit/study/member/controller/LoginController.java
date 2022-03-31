@@ -18,7 +18,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
-@RequestMapping("/members")
 @Controller
 @Slf4j
 public class LoginController {
@@ -27,25 +26,37 @@ public class LoginController {
     private final NaverService naverService;
     private final KakaoService kakaoService;
 
+    /**
+     * 네이버/카카오 콜백 url 생성 및 로그인 컨트롤러
+     * @param loginDto
+     * @param model
+     * @param session
+     */
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginDto") LoginDto loginDto, Model model, HttpSession session) {
-        /* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
+        
+        //네이보 로그인을 위한 콜백 url 생성
         String naverAuthUrl = naverService.getAuthorizationUrl(session);
-        //https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
-        //redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
         log.info("네이버: " + naverAuthUrl);
 
         //카카오 콜백 url 생성
         String kakaoAuthUrl = kakaoService.getKaKaoCallbackUrl();
         log.info("카카오: " + kakaoAuthUrl);
 
-        //네이버
+        //네이버, 카카오 콜백 url 저장
         model.addAttribute("naverUrl", naverAuthUrl);
         model.addAttribute("kakaoUrl", kakaoAuthUrl);
 
         return "members/loginForm";
     }
 
+    /**
+     * 일반 로그인 오류 검증 컨트롤러
+     * @param loginDto
+     * @param bindingResult
+     * @param redirectURL
+     * @param request
+     */
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("loginDto") LoginDto loginDto,
                         BindingResult bindingResult,
@@ -55,28 +66,33 @@ public class LoginController {
         //유효성 검사
         if(bindingResult.hasErrors()) {
             log.info("타입 오류 발생, error={}", bindingResult);
-            return "members/loginForm";
+            return "/members/loginForm";
         }
 
         log.info("login값 email={}, password={}", loginDto.getEmail(), loginDto.getPassword());
 
+        //입력한 이메일과 비밀번호로 회원 정보 가져오기
         MemberDto memberDto = memberService.login(loginDto);
         log.info("memberDto={}", memberDto);
 
         //로그인 실패 시
         if(memberDto == null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 일치하지 않습니다.");
-            return "members/loginForm";
+            return "/members/loginForm";
         }
 
         //로그인 성공 시
         //세션에 회원 정보 저장
         HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.LOGIN_MEMBER, loginDto);
+        session.setAttribute(SessionConst.LOGIN_MEMBER, memberDto);
 
         return "redirect:" + redirectURL;
     }
 
+    /**
+     * 로그아웃 컨트롤러
+     * @param request
+     */
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -85,5 +101,4 @@ public class LoginController {
         }
         return "redirect:/";
     }
-
 }

@@ -19,6 +19,7 @@ public class EmailService {
     @Value("${spring.mail.title}")
     private String title;
 
+    //인증 메일 전송 메서드
     public String mailSend(String email) {
         int key = (int)((Math.random()* (99999 - 10000 + 1)) + 10000);
         log.info("key = "+ key);

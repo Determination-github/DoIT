@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>알림창</title>
+</head>
+
+<body>
+<form th:object="${naverDto}" name="dataForm" th:action="${url}" method="get" style="display: none;">
+    <input type="hidden" th:field="*{naverName}"/>
+    <input type="hidden" th:field="*{naverEmail}"/>
+    <input type="hidden" th:field="*{naverGender}"/>
+    <input type="hidden" th:field="*{naverId}"/>
+</form>
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+    var url = [[${url}]];
+    var message = [[${msg}]];
+    alert(message);
+    document.dataForm.submit();
+
+</script>
+</body>
+</html>
