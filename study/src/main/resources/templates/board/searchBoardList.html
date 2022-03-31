@@ -142,7 +142,7 @@
     <th>comment</th>
     <th>date</th>
     </thead>
-    <tr th:each="searchList :${searchList}">
+    <tr th:each="searchList :${searchLists}">
         <td>[[${searchList.board_Id}]]</td>
         <td><a th:href="@{/board/read(board_Id = ${searchList.board_Id})}">[[${searchList.board_Title}]]</a></td>
         <td>[[${searchList.board_Content}]]</td>
@@ -160,10 +160,12 @@
     <div class="searchBoardDto">
         <div class="paging" style="white-space:nowrap; text-align: center">
             <a th:href="@{/board/searchList(currentPage = ${searchBoardDto.currentPage}-1, board_Title = ${searchBoardDto.board_Title})}">&lt; </a>
+
             <div class="paginate"  style="white-space:nowrap" th:each="idx : ${#numbers.sequence(searchBoardDto.firstPage,searchBoardDto.lastPage)}">
-<!--                <a  th:href="@{/board/searchList?currentPage='+${idx}'+'&'+board_Title = ${searchBoardDto.board_Title}}"-->
+                <a  th:href="@{|/board/searchList?currentPage=${idx}&board_Title=${searchBoardDto.board_Title}|}"
                     th:text="${idx}" style="font-weight:700;"></a>
             </div>
+
             <a th:href="@{/board/searchList(currentPage = ${searchBoardDto.currentPage}+1, board_Title = ${searchBoardDto.board_Title})}">&gt; </a>
         </div>
     </div>
