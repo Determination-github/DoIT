@@ -3,7 +3,7 @@ package com.doit.study;
 
 import com.doit.study.member.SessionConst;
 import com.doit.study.member.dto.KakaoDto;
-import com.doit.study.member.dto.LoginDto;
+import com.doit.study.member.dto.MemberDto;
 import com.doit.study.member.dto.NaverDto;
 import com.doit.study.member.service.MemberService;
 
@@ -18,7 +18,6 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -37,9 +36,9 @@ public class HomeController {
             @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
             Model model) throws Exception {
 
-        Object naverDto = session.getAttribute(SessionConst.NAVER_MEMBER);
-        Object kakaoDto = session.getAttribute(SessionConst.KAKAO_MEMBER);
-        Object memberDto = session.getAttribute(SessionConst.LOGIN_MEMBER);
+        NaverDto naverDto = (NaverDto) session.getAttribute(SessionConst.NAVER_MEMBER);
+        KakaoDto kakaoDto = (KakaoDto) session.getAttribute(SessionConst.KAKAO_MEMBER);
+        MemberDto memberDto = (MemberDto) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         log.info("naverDto = " + naverDto);
         log.info("kakaoDto = " + kakaoDto);
@@ -64,6 +63,6 @@ public class HomeController {
         model.addAttribute("lists", boardService.getPage(pagination));
         log.info("lists = " + boardService.getPage(pagination));
         model.addAttribute("board", boardDto);
-        return "/index2";
+        return "/index";
     }
 }

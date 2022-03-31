@@ -18,11 +18,15 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         log.info("인증 체크 인터셉터 실행 {}", requestURI);
 
         HttpSession session = request.getSession(false);
+        log.info("session 값 = " +session);
 
-        if (session == null || session.getAttribute("LoginDto") == null) {
+        if (
+                session == null ||
+                session.getAttribute("LoginDto") == null
+        ) {
             log.info("미인증 사용자 요청");
             //로그인으로 redirect
-            response.sendRedirect("/members/login?redirectURL=" + requestURI);
+            response.sendRedirect("/login?redirectURL=" + requestURI);
             return false;
         }
 

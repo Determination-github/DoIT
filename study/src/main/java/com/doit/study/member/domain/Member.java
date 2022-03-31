@@ -8,8 +8,9 @@ import javax.validation.constraints.NotEmpty;
 public class Member {
 
     @NotEmpty
-    private String user_id, name, email, password, sex,
+    private String user_id, name, email, sex, password,
                 interest1, interest2, interest3 ,nickname;
+
 
     @Builder
     public Member(String user_id, String name, String email, String password, String sex,
