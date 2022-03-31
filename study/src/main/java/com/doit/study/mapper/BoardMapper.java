@@ -3,6 +3,7 @@ package com.doit.study.mapper;
 //import com.doit.study.Board.domain.Board;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
+import com.doit.study.board.dto.SearchBoardDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -11,30 +12,42 @@ import java.util.List;
 public interface BoardMapper {
 
     @Select(BoardSQL.selectAll)
-    List<BoardDto> selectAll();
+    public List<BoardDto> selectAll();
 
     @Select(BoardSQL.count)
-    int count();
+    public int count();
 
     @Delete(BoardSQL.deleteAll)
-    int deleteAll();
+    public int deleteAll();
+
+//    @Delete(BoardSQL.delete)
+//    public int delete(Integer board_Id, String board_Writer);
 
     @Delete(BoardSQL.delete)
-    int delete(Integer board_Id, String board_Writer);
+    public int delete(BoardDto boardDto);
+
+    //    @Delete(BoardSQL.delete)
+    public int delete(String board_Title);
 
     @Insert(BoardSQL.insert)
-    int insert(BoardDto boardDto);
+    public void insert(BoardDto boardDto);
 
     @Select(BoardSQL.select)
-    BoardDto selectOne(Integer board_Id);
+    public BoardDto selectOne(Integer board_Id);
 
     @Select(BoardSQL.selectPage)
-    List<BoardDto> selectPage(Pagination pagination);
+    public List<BoardDto> selectPage(Pagination pagination);
 
     @Update(BoardSQL.update)
-    int update(BoardDto boardDto);
+    public int update(BoardDto boardDto);
 
     @Update(BoardSQL.increaseViewCount)
-    int increaseViewCount(Integer board_Id);
-}
+    public int increaseViewCount(Integer board_Id);
 
+    @Select(BoardSQL.searchSelectPage)
+    public List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto);
+
+    @Select(BoardSQL.searchResultCount)
+    public int searchResultCount(SearchBoardDto searchBoardDto);
+
+}

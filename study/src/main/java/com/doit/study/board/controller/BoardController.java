@@ -7,8 +7,6 @@ import com.doit.study.board.dto.SearchBoardDto;
 import com.doit.study.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import oracle.ucp.proxy.annotation.Post;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 
 
@@ -90,8 +85,8 @@ public class BoardController {
     @PostMapping("/write")
     public String write(BoardDto boardDto, HttpSession session) throws Exception {
 //        String writer = session.getAttribute("id");
-            boardService.write(boardDto);
-            return "redirect:/board/list";
+        boardService.write(boardDto);
+        return "redirect:/board/list";
     }
 
     @PostMapping("/modify")
@@ -100,7 +95,7 @@ public class BoardController {
         try {
             int result = boardService.modify(boardDto);
             if(result!=1);
-                throw new Exception("Modify failed.");
+            throw new Exception("Modify failed.");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +108,7 @@ public class BoardController {
         try {
             int result = boardService.remove(boardDto);
             if(result!=1);
-                throw new Exception("Delete failed.");
+            throw new Exception("Delete failed.");
 
         } catch (Exception e) {
             e.printStackTrace();
