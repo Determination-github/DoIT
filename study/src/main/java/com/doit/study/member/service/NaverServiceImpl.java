@@ -1,5 +1,9 @@
 package com.doit.study.member.service;
 
+import com.doit.study.mapper.MemberMapper;
+import com.doit.study.member.domain.Social;
+import com.doit.study.member.dto.KakaoDto;
+import com.doit.study.member.dto.NaverDto;
 import com.doit.study.member.naver.NaverLoginApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;
@@ -7,6 +11,7 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -21,11 +26,15 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.HashMap;
+import java.util.Optional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 @PropertySource("classpath:login.properties")
 public class NaverServiceImpl implements NaverService {
+
+    private final MemberMapper memberMapper;
 
     /* 인증 요청문을 구성하는 파라미터 */
     //client_id: 애플리케이션 등록 후 발급받은 클라이언트 아이디
@@ -52,12 +61,13 @@ public class NaverServiceImpl implements NaverService {
     private void setSession(HttpSession session, String state){
         session.setAttribute(SESSION_STATE, state);
     }
+    
     /* http session에서 데이터 가져오기 */
     private String getSession(HttpSession session){
         return (String) session.getAttribute(SESSION_STATE);
     }
 
-
+    //state 생성 메서드
     public String generateState()
     {
         SecureRandom random = new SecureRandom();
@@ -70,6 +80,7 @@ public class NaverServiceImpl implements NaverService {
 
         /* 세션 유효성 검증을 위하여 난수를 생성 */
         String state = generateState();
+        
         /* 생성한 난수 값을 session에 저장 */
         setSession(session,state);
 
@@ -81,6 +92,7 @@ public class NaverServiceImpl implements NaverService {
                 .state(state) //앞서 생성한 난수값을 인증 URL생성시 사용함
                 .build(NaverLoginApi.instance());
 
+        //인증 URL 리턴
         return oauthService.getAuthorizationUrl();
     }
 
@@ -121,6 +133,7 @@ public class NaverServiceImpl implements NaverService {
         return response.getBody();
     }
 
+    //네이버 로그인 회원 정보 가져오기
     @Override
     public HashMap<String, String> getNaverUserInfo(String apiResult) throws ParseException {
         JSONParser parser = new JSONParser();
@@ -128,23 +141,58 @@ public class NaverServiceImpl implements NaverService {
         JSONObject jsonObj = (JSONObject) obj;
         log.info("jsonObj = "+jsonObj);
 
-        //3. 데이터 파싱
-        //Top레벨 단계 _response 파싱
+
         JSONObject response_obj = (JSONObject)jsonObj.get("response");
         log.info("response_obj = "+response_obj);
 
-        //response의 값 파싱
+        //회원정보 가져오기
+        String id = (String)response_obj.get("id");
         String email = (String)response_obj.get("email");
         String gender = (String)response_obj.get("gender");
         String name = (String)response_obj.get("name");
-        log.info("email={}, gender={}, name={} ",email, gender, name);
+        log.info("id={}, email={}, gender={}, name={} ", id, email, gender, name);
 
         HashMap<String, String> userInfo = new HashMap<>();
 
+        //회원정보 저장
+        userInfo.put("id", id);
         userInfo.put("name", name);
         userInfo.put("email", email);
         userInfo.put("gender", gender);
 
         return userInfo;
+    }
+
+    @Override
+    public NaverDto joinSocial(NaverDto naverDto) {
+        Social social = naverDto.toEntity(naverDto);
+
+        //소셜회원 객체 저장값 출력
+        log.info("user_id={}, name={}, email={}, sex={}," +
+                        "interest1={}, interest2={}, interest3={}, nickname={}",
+                social.getUser_id(), social.getName(), social.getEmail(),
+                social.getSex(), social.getInterest1(), social.getInterest2(),
+                social.getInterest3(), social.getNickname());
+
+        Integer result = memberMapper.insertSocial(social);
+
+        if(result != null) {
+            return new NaverDto().toDto(social);
+        }
+        return null;
+    }
+
+    //네이버 로그인한 회원 정보 찾기
+    @Override
+    public NaverDto findSocialMember(String id) {
+        Optional<Social> findMember = memberMapper.findSocialMemberById(id);
+        log.info("findMember는 findMember={}", findMember);
+
+        if(findMember.isPresent()) {
+            Social social = findMember.get();
+            return new NaverDto().toDto(social);
+        }
+
+        return null;
     }
 }

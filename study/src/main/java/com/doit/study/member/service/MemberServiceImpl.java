@@ -36,6 +36,8 @@ public class MemberServiceImpl implements MemberService{
         return null;
     }
 
+
+
     @Override
     public MemberDto login(LoginDto loginDto) {
         String email = loginDto.getEmail();
@@ -46,6 +48,10 @@ public class MemberServiceImpl implements MemberService{
 
         Optional<Member> findMember = memberMapper.findByEmail(email);
         log.info("findMember는 findMember={}", findMember);
+        if(!findMember.isPresent()) {
+            return null;
+        }
+
         Member member = findMember.get();
         log.info("member={}", member);
         log.info("password={}", member.getPassword());
@@ -65,19 +71,5 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public int findEmail(String email) {
         return memberMapper.checkEmail(email);
-    }
-
-    @Override
-    public MemberDto findSocialMember(String email) {
-
-        Optional<Member> findMember = memberMapper.findByEmail(email);
-        log.info("findMember는 findMember={}", findMember);
-
-        if(findMember.isPresent()) {
-            Member member = findMember.get();
-            return new MemberDto().toDto(member);
-        }
-
-        return null;
     }
 }
