@@ -155,7 +155,7 @@
     <th>comment</th>
     <th>regDate</th>
     </thead>
-    <tr th:each="searchList :${searchLists}">
+    <tr th:each="searchList :${searchList}">
         <td>[[${searchList.board_Id}]]</td>
         <td><a th:href="@{/board/read(board_Id = ${searchList.board_Id})}">[[${searchList.board_Title}]]</a></td>
         <td>[[${searchList.board_SubTitle}]]</td>
