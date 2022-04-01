@@ -5,17 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/HomeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/BoardDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/BoardDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/SearchBoardDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/SearchBoardDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/dto/MemberDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/board.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/board.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/insert.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/insert.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" afterDir="false" />
     </list>
@@ -271,7 +273,7 @@
       <workItem from="1648741034016" duration="27000" />
       <workItem from="1648741558121" duration="2467000" />
       <workItem from="1648776863137" duration="7558000" />
-      <workItem from="1648799992985" duration="2982000" />
+      <workItem from="1648799992985" duration="16217000" />
     </task>
     <task id="LOCAL-00001" summary="chore JDK Version Downgrade">
       <created>1648110197034</created>
@@ -301,7 +303,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648778290915</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Refactor: &quot;게시글 페이징 수정&quot;">
+      <created>1648803054402</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1648803054402</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -326,7 +335,8 @@
     <MESSAGE value="Refactor: &quot;검색 기능 개선&quot;" />
     <MESSAGE value="Refactor: &quot;게시글 쿼리 추가&quot;&#10;&#10;스터디게시글 댓글 관련 쿼리 추가" />
     <MESSAGE value="Chore: &quot;게시글 페이징 수정&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chore: &quot;게시글 페이징 수정&quot;" />
+    <MESSAGE value="Refactor: &quot;게시글 페이징 수정&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor: &quot;게시글 페이징 수정&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

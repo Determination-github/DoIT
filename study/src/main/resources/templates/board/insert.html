@@ -20,6 +20,7 @@
     <form th:action="@{/board/write}" method="post" enctype="multipart/form-data">
         <p><input type="text" name="board_Title"   placeholder="내용을 입력해주세요"></p>
         <p><input type="text" name="board_SubTitle" placeholder="내용을 입력해주세요"></p>
+        <input type="hidden" name="board_Writer" value="${board_Writer}">
         <p><input type="file"></p>
         <p><input type="text" name="board_Content" placeholder="스터디를 자세히 설명해 주세요"></p>
         <p><button type="submit">글작성</button></p>

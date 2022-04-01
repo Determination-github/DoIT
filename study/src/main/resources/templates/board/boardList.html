@@ -133,8 +133,6 @@
     </div>
 </nav>
 <h3 style="color: #4e4e4e">  원하는 스터디 그룹을 찾아보세요!</h3>
-session = [[${session.memberDto}]]
-session = [[${writer}]]
 <div>
     <form action="/board/searchList?board_Title=${searchBoardDto.board_Title}" method="get" class="form-horizontal" role="form">
         <input type="hidden" name="currentPage" value="1" />
@@ -152,6 +150,7 @@ session = [[${writer}]]
         <th>id</th>
         <th>title</th>
         <th>subTitle</th>
+        <th>writer</th>
         <th>count</th>
         <th>comment</th>
         <th>regDate</th>
@@ -160,6 +159,7 @@ session = [[${writer}]]
             <td>[[${list.board_Id}]]</td>
             <td><a th:href="@{/board/read(board_Id = ${list.board_Id})}">[[${list.board_Title}]]</a></td>
             <td>[[${list.board_SubTitle}]]</td>
+            <td>[[${list.board_Writer}]]</td>
             <td>[[${list.board_Count}]]</td>
             <td>[[${list.board_Comment}]]</td>
             <td>[[${list.board_RegDate}]]</td>

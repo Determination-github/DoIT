@@ -134,8 +134,6 @@
 </nav>
 <br>
 <h3 style="color: #4e4e4e">  원하는 스터디 그룹을 찾아보세요!</h3>
-session = [[${session.memberDto}]]
-session = [[${writer}]]
 <div>
     <form action="/board/searchList" method="get" class="form-horizontal" role="form">
         <input type="hidden" name="currentPage" value="1" />
@@ -150,8 +148,9 @@ session = [[${writer}]]
 <table class="table table-hover">
     <thead>
     <th>id</th>
-    <th>subtitle</th>
-    <th>content</th>
+    <th>title</th>
+    <th>subTitle</th>
+    <th>writer</th>
     <th>count</th>
     <th>comment</th>
     <th>regDate</th>
@@ -160,6 +159,7 @@ session = [[${writer}]]
         <td>[[${searchList.board_Id}]]</td>
         <td><a th:href="@{/board/read(board_Id = ${searchList.board_Id})}">[[${searchList.board_Title}]]</a></td>
         <td>[[${searchList.board_SubTitle}]]</td>
+        <td>[[${searchList.board_Writer}]]</td>
         <td>[[${searchList.board_Count}]]</td>
         <td>[[${searchList.board_Comment}]]</td>
         <td>[[${searchList.board_RegDate}]]</td>
@@ -173,12 +173,12 @@ session = [[${writer}]]
 <div style="flex: auto">
     <div class="searchBoardDto">
         <div class="paging" style="white-space:nowrap; text-align: center">
-            <a th:if="${searchBoardDto.hasPreviousPage}" th:href="@{/board/searchList(currentPage = ${searchBoardDto.currentPage}-${searchBoardDto.pageSize}, board_Title = ${searchBoardDto.board_Title})}">&lt; </a>
-            <div class="paginate"  style="white-space:nowrap" th:each="idx : ${#numbers.sequence(searchBoardDto.firstPage,searchBoardDto.lastPage)}">
-                <a  th:href="@{|/board/searchList?currentPage=${idx}&board_Title=${searchBoardDto.board_Title}|}"
+            <a th:if="${boardDto.hasPreviousPage}" th:href="@{/board/searchList(currentPage = ${boardDto.currentPage}-${boardDto.pageSize}, board_Title = ${boardDto.board_Title})}">&lt; </a>
+            <div class="paginate"  style="white-space:nowrap" th:each="idx : ${#numbers.sequence(boardDto.firstPage,boardDto.lastPage)}">
+                <a  th:href="@{|/board/searchList?currentPage=${idx}&board_Title=${boardDto.board_Title}|}"
                     th:text="${idx}" style="font-weight:700;"></a>
             </div>
-            <a th:if="${searchBoardDto.hasNextPage}" th:href="@{/board/searchList(currentPage = ${searchBoardDto.currentPage}+${searchBoardDto.pageSize}, board_Title = ${searchBoardDto.board_Title})}">&gt; </a>
+            <a th:if="${boardDto.hasNextPage}" th:href="@{/board/searchList(currentPage = ${boardDto.currentPage}+${boardDto.pageSize}, board_Title = ${boardDto.board_Title})}">&gt; </a>
         </div>
     </div>
 </div>

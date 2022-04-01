@@ -3,7 +3,7 @@ package com.doit.study.board.service;
 //import com.doit.study.Board.domain.Board;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
-import com.doit.study.board.dto.SearchBoardDto;
+//import com.doit.study.board.dto.SearchBoardDto;
 import com.doit.study.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<SearchBoardDto> getPage(Pagination pagination) throws Exception {
+    public List<BoardDto> getPage(Pagination pagination) throws Exception {
         log.info("BoardDto = " + boardMapper.selectPage(pagination));
         return boardMapper.selectPage(pagination);
     }
@@ -66,13 +66,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public int searchResultCount(SearchBoardDto searchBoardDto) throws Exception {
-        return boardMapper.searchResultCount(searchBoardDto);
+    public int searchResultCount(BoardDto boardDto) throws Exception {
+        return boardMapper.searchResultCount(boardDto);
     }
 
     @Override
-    public List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto) throws Exception {
-        return boardMapper.searchSelectPage(searchBoardDto);
+    public List<BoardDto> searchSelectPage(BoardDto boardDto) throws Exception {
+        return boardMapper.searchSelectPage(boardDto);
     }
 
     @Override

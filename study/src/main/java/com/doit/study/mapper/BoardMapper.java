@@ -3,7 +3,7 @@ package com.doit.study.mapper;
 //import com.doit.study.Board.domain.Board;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
-import com.doit.study.board.dto.SearchBoardDto;
+//import com.doit.study.board.dto.SearchBoardDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public interface BoardMapper {
     public BoardDto selectOne(Integer board_Id);
 
       @Select(BoardSQL.selectPage)
-      public List<SearchBoardDto> selectPage(Pagination pagination);
+      public List<BoardDto> selectPage(Pagination pagination);
 
     @Update(BoardSQL.update)
     public int update(BoardDto boardDto);
@@ -45,10 +45,10 @@ public interface BoardMapper {
     public int increaseViewCount(Integer board_Id);
 
     @Select(BoardSQL.searchSelectPage)
-    public List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto);
+    public List<BoardDto> searchSelectPage(BoardDto boardDto);
 
     @Select(BoardSQL.searchResultCount)
-    public int searchResultCount(SearchBoardDto searchBoardDto);
+    public int searchResultCount(BoardDto boardDto);
 
     @Update(BoardSQL.updateCommentCount)
     public int updateCommentCount(Integer board_Id, int count);

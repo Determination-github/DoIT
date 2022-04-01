@@ -3,7 +3,7 @@ package com.doit.study.board.controller;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.domain.SearchCondition;
 import com.doit.study.board.dto.BoardDto;
-import com.doit.study.board.dto.SearchBoardDto;
+//import com.doit.study.board.dto.SearchBoardDto;
 import com.doit.study.board.service.BoardService;
 import com.doit.study.member.domain.Member;
 import com.doit.study.member.dto.MemberDto;
@@ -49,22 +49,25 @@ public class BoardController {
     @GetMapping("/searchList")
     public String searchList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
                              @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
-                             @ModelAttribute("searchBoardDto") SearchBoardDto searchBoardDto, BoardDto boardDto,
-                             ServletRequest request, Model m, SearchCondition sc)
+                             BoardDto boardDto, ServletRequest request, Model m, SearchCondition sc)
             throws Exception {
-        int totalRecordCount = boardService.searchResultCount(searchBoardDto);
-        searchBoardDto.doPaging(totalRecordCount, sc);
+        int totalRecordCount = boardService.searchResultCount(boardDto);
+        boardDto.doPaging(totalRecordCount, sc);
         log.info("totalRecordCount =" + totalRecordCount );
-        log.info("searchBoardDto ="+ searchBoardDto);
-        m.addAttribute("searchList", boardService.searchSelectPage(searchBoardDto));
+        log.info("searchBoardDto ="+ boardDto);
+        m.addAttribute("searchList", boardService.searchSelectPage(boardDto));
         return "/board/searchBoardList";
     }
 
     @GetMapping("/read")
-    public String read(Integer board_Id, Model m){
+    public String read(Integer board_Id, Model m, HttpSession session, BoardDto boardDto){
+        String board_Writer = (String)session.getAttribute("memberDto");
+        boardDto.setBoard_Writer(board_Writer);
+        log.info("board_Writer = "+board_Writer);
         try {
-            BoardDto boardDto = boardService.read(board_Id);
+            boardDto = boardService.read(board_Id);
             m.addAttribute("board", boardDto);
+            m.addAttribute("board_Writer", board_Writer);
         } catch (Exception e) {
             e.printStackTrace();
             return "redirect:/board/list";
@@ -78,10 +81,12 @@ public class BoardController {
     }
 
     @PostMapping("/write")
-    public String write(BoardDto boardDto, MemberDto memberDto, HttpSession session, HttpServletRequest request) throws Exception {
-//        String writer = (String) session.getAttribute("boardDto", memberDto.getUser_id);
-//        log.info("wrtier = " + writer);
+    public String write(BoardDto boardDto, MemberDto memberDto, HttpSession session, HttpServletRequest request, Model m) throws Exception {
+        String board_Writer = (String)session.getAttribute("memberDto");
+        boardDto.setBoard_Writer(board_Writer);
+        log.info("board_Writer = "+board_Writer);
         boardService.write(boardDto);
+        m.addAttribute("board_Writer", board_Writer);
         return "redirect:/board/list";
     }
 
