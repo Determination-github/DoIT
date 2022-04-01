@@ -61,11 +61,6 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public int remove(String board_Writer) throws Exception {
-        return boardMapper.delete(board_Writer);
-    }
-
-    @Override
     public int searchResultCount(BoardDto boardDto) throws Exception {
         return boardMapper.searchResultCount(boardDto);
     }
@@ -79,24 +74,5 @@ public class BoardServiceImpl implements BoardService {
     public int updateCommentCount(Integer board_Id, int count){
         return boardMapper.updateCommentCount(board_Id, count);
     }
-//    @Override
-//    public int searchResultCount() throws Exception {
-//        return boardMapper.searchResultCount();
-//    }
-//
-//    @Override
-//    public List<BoardDto> searchSelectPage(Pagination pagination) throws Exception {
-//        return boardMapper.searchSelectPage(pagination);
-
-//    @Override
-//    public int searchResultCount(SearchCondition sc) throws Exception {
-//        return boardMapper.searchResultCount(sc);
-//    }
-//
-//    @Override
-//    public List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception {
-//        return boardMapper.searchSelectPage(sc);
-//    }
-
 
 }

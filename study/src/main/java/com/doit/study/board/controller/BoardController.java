@@ -3,9 +3,7 @@ package com.doit.study.board.controller;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.domain.SearchCondition;
 import com.doit.study.board.dto.BoardDto;
-//import com.doit.study.board.dto.SearchBoardDto;
 import com.doit.study.board.service.BoardService;
-import com.doit.study.member.domain.Member;
 import com.doit.study.member.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -61,7 +58,7 @@ public class BoardController {
 
     @GetMapping("/read")
     public String read(Integer board_Id, Model m, HttpSession session, BoardDto boardDto){
-        String board_Writer = (String)session.getAttribute("memberDto");
+        String board_Writer = (String)session.getAttribute("nickName");
         boardDto.setBoard_Writer(board_Writer);
         log.info("board_Writer = "+board_Writer);
         try {
@@ -82,7 +79,7 @@ public class BoardController {
 
     @PostMapping("/write")
     public String write(BoardDto boardDto, MemberDto memberDto, HttpSession session, HttpServletRequest request, Model m) throws Exception {
-        String board_Writer = (String)session.getAttribute("memberDto");
+        String board_Writer = (String)session.getAttribute("nickName");
         boardDto.setBoard_Writer(board_Writer);
         log.info("board_Writer = "+board_Writer);
         boardService.write(boardDto);
@@ -92,7 +89,6 @@ public class BoardController {
 
     @PostMapping("/modify")
     public String modify(BoardDto boardDto){
-//        String writer = session.getAttribute("id");
         try {
             int result = boardService.modify(boardDto);
             if(result!=1);
@@ -116,15 +112,6 @@ public class BoardController {
         }
         return "redirect:/board/list";
     }
-
-//    @PostMapping("/remove")
-//    public String remove(@RequestParam("board_Writer")String board_Writer) throws Exception {
-////        String board_writer = session.getAttribute("id");
-//
-//        boardService.remove(board_Writer);
-//
-//        return "redirect:/board/list";
-//    }
 
     private boolean loginCheck(HttpServletRequest request) {
         HttpSession session = request.getSession(false);

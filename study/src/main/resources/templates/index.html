@@ -161,8 +161,6 @@
 
 
 </style>
-<span th:text="${session.id}"></span>
-<span th:text="${session.nickName}"></span>
 
 <body class="d-flex flex-column h-100">
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #283673 !important;">
@@ -213,7 +211,7 @@
 </table>
 <br>
 </div>
-<div th:if="${session.memberDto}" style="text-align: right;">
+<div th:if="${session.id}" style="text-align: right;">
     <button onclick="location.href='/board/write'">글작성</button>
 </div>
 <div style="flex: auto">
@@ -232,26 +230,4 @@
 </div>
 
 </body>
-<!--<Script>
-    function searchBoard(form) {
-        if (isEmpty(form) == true) {
-            var searchBoardTitle = document.getElementById("board_Title");
-            if (isEmpty(searchBoardTitle.value) == true) {
-                alert("키워드를 입력해 주세요.");
-                searchBoardTitle.focus();
-                return false;
-            }
-
-            form = document.getElementById("search-form");
-            form.board_Title.value = searchBoardTitle.value;
-            form.submit();
-        }
-
-        if (isEmpty(form.board_Title.value) == true) {
-            alert("키워드를 입력해 주세요.");
-            form.searchBoardTitle.focus();
-            return false;
-        }
-    }
-</Script>-->
 </html>

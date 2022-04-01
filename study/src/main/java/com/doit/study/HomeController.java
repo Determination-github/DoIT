@@ -44,15 +44,26 @@ public class HomeController {
         log.info("kakaoDto = " + kakaoDto);
         log.info("memberDto = " + memberDto);
 
-        if(naverDto != null) {
-            session.setAttribute("naverDto", naverDto);
-        } else if(kakaoDto != null) {
-            session.setAttribute("kakaoDto", kakaoDto);
-        } else if(memberDto != null) {
-//            session.setAttribute("memberDto", memberDto);
-            /////////////  테스트 //////////
-            session.setAttribute("memberDto", memberDto.getNickname()); // test123
-            /////////////  테스트 //////////
+        String id;
+        String nickName;
+
+        if(session!=null) {
+            if (naverDto != null) {
+                id = naverDto.getNaverId();
+                nickName = naverDto.getNaverNickname();
+                session.setAttribute("id", id);
+                session.setAttribute("nickName", nickName);
+            } else if (kakaoDto != null) {
+                id = kakaoDto.getKakaoId();
+                nickName = kakaoDto.getKakaoNickname();
+                session.setAttribute("id", id);
+                session.setAttribute("nickName", nickName);
+            } else if (memberDto != null) {
+                id = memberDto.getUser_id();
+                nickName = memberDto.getNickname();
+                session.setAttribute("id", id);
+                session.setAttribute("nickName", nickName);
+            }
         }
 
         BoardDto boardDto = new BoardDto();
