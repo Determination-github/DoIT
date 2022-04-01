@@ -60,8 +60,8 @@ public class HomeController {
         log.info("totalRecordCount = " + totalRecordCount);
         model.addAttribute("pagination", pagination);
         log.info("pagination = " + pagination);
-        model.addAttribute("lists", boardService.getPage(pagination));
-        log.info("lists = " + boardService.getPage(pagination));
+        model.addAttribute("list", boardService.getPage(pagination));
+        log.info("list = " + boardService.getPage(pagination));
         model.addAttribute("board", boardDto);
         return "/index";
     }

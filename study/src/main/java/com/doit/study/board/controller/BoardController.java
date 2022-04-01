@@ -29,9 +29,6 @@ public class BoardController {
     public String list(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
                        @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
                        Model m, HttpServletRequest request){
-//        if(!loginCheck(request))
-//            return "redirect:/login/login?toURL="+request.getRequestURL();
-
         try {
             int totalRecordCount = boardService.getCount();
             Pagination pagination = new Pagination(currentPage, pageSize);
@@ -53,8 +50,6 @@ public class BoardController {
                              @ModelAttribute("searchBoardDto") SearchBoardDto searchBoardDto, BoardDto boardDto,
                              ServletRequest request, Model m)
             throws Exception {
-//        if(!loginCheck(request))
-//            return "redirect:/login/login?toURL="+request.getRequestURL();
         int totalRecordCount = boardService.searchResultCount(searchBoardDto);
         searchBoardDto.doPaging(totalRecordCount);
         log.info("totalRecordCount =" + totalRecordCount );

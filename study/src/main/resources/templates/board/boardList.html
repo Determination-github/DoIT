@@ -172,12 +172,12 @@
 <div style="flex: auto">
 <div class="paginate">
     <div class="paging" style="white-space:nowrap; text-align: center">
-            <a th:href="@{/board/list(currentPage = ${pagination.currentPage}-1)}">&lt; </a>
+            <a th:if="${pagination.hasPreviousPage}" th:href="@{/board/list(currentPage = ${pagination.currentPage}-1)}">&lt; </a>
         <div class="paginate"  style="white-space:nowrap" th:each="idx : ${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">
             <a  th:href="@{'/board/list?currentPage='+${idx}}"
                 th:text="${idx}" style="font-weight:700;"></a>
         </div>
-          <a th:href="@{/board/list(currentPage = ${pagination.currentPage}+1)}">&gt; </a>
+          <a th:if="${pagination.hasNextPage}" th:href="@{/board/list(currentPage = ${pagination.currentPage}+1)}">&gt; </a>
     </div>
 </div>
 </div>

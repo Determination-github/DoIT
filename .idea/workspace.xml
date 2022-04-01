@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/email.properties" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/email.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" afterDir="false" />
     </list>
@@ -259,7 +262,10 @@
       <workItem from="1648571004630" duration="224000" />
       <workItem from="1648623516502" duration="9549000" />
       <workItem from="1648714727081" duration="18067000" />
-      <workItem from="1648739175543" duration="1218000" />
+      <workItem from="1648739175543" duration="1777000" />
+      <workItem from="1648741034016" duration="27000" />
+      <workItem from="1648741558121" duration="2467000" />
+      <workItem from="1648776863137" duration="1189000" />
     </task>
     <task id="LOCAL-00001" summary="chore JDK Version Downgrade">
       <created>1648110197034</created>
@@ -275,7 +281,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648737792279</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Refactor: &quot;게시글 쿼리 추가&quot;&#10;&#10;스터디게시글 댓글 관련 쿼리 추가">
+      <created>1648740486145</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1648740486145</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
