@@ -32,7 +32,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<BoardDto> getPage(Pagination pagination) throws Exception {
+    public List<SearchBoardDto> getPage(Pagination pagination) throws Exception {
         log.info("BoardDto = " + boardMapper.selectPage(pagination));
         return boardMapper.selectPage(pagination);
     }

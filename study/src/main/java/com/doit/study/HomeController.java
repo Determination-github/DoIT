@@ -49,20 +49,28 @@ public class HomeController {
         } else if(kakaoDto != null) {
             session.setAttribute("kakaoDto", kakaoDto);
         } else if(memberDto != null) {
-            session.setAttribute("memberDto", memberDto);
+//            session.setAttribute("memberDto", memberDto);
+            /////////////
+            session.setAttribute("memberDto", memberDto.getNickname());
+            /////////////
         }
 
         BoardDto boardDto = new BoardDto();
         int totalRecordCount = boardService.getCount();
         Pagination pagination = new Pagination(currentPage, pageSize);
         pagination.setTotalRecordCount(totalRecordCount);
-
+        /////////////
+        String writer = (String)session.getAttribute("memberDto");
+        log.info("memberDto Session = " + session.getAttribute("memberDto"));
+        log.info("writer Session = " + writer);
+        /////////////
         log.info("totalRecordCount = " + totalRecordCount);
         model.addAttribute("pagination", pagination);
         log.info("pagination = " + pagination);
         model.addAttribute("list", boardService.getPage(pagination));
         log.info("list = " + boardService.getPage(pagination));
         model.addAttribute("board", boardDto);
+        model.addAttribute("writer", writer);
         return "/index";
     }
 }

@@ -14,6 +14,7 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 public class MemberDto {
 
+    public Object getUser_id;
     private String user_id;
 
     @NotEmpty

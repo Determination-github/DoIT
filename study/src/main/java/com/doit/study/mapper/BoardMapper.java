@@ -36,7 +36,7 @@ public interface BoardMapper {
     public BoardDto selectOne(Integer board_Id);
 
       @Select(BoardSQL.selectPage)
-      public List<BoardDto> selectPage(Pagination pagination);
+      public List<SearchBoardDto> selectPage(Pagination pagination);
 
     @Update(BoardSQL.update)
     public int update(BoardDto boardDto);

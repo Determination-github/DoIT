@@ -5,6 +5,8 @@ import com.doit.study.board.domain.SearchCondition;
 import com.doit.study.board.dto.BoardDto;
 import com.doit.study.board.dto.SearchBoardDto;
 import com.doit.study.board.service.BoardService;
+import com.doit.study.member.domain.Member;
+import com.doit.study.member.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -48,15 +50,13 @@ public class BoardController {
     public String searchList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
                              @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
                              @ModelAttribute("searchBoardDto") SearchBoardDto searchBoardDto, BoardDto boardDto,
-                             ServletRequest request, Model m)
+                             ServletRequest request, Model m, SearchCondition sc)
             throws Exception {
         int totalRecordCount = boardService.searchResultCount(searchBoardDto);
-        searchBoardDto.doPaging(totalRecordCount);
+        searchBoardDto.doPaging(totalRecordCount, sc);
         log.info("totalRecordCount =" + totalRecordCount );
-
-        List<SearchBoardDto> searchList = boardService.searchSelectPage(searchBoardDto);
         log.info("searchBoardDto ="+ searchBoardDto);
-        m.addAttribute("searchList", searchList);
+        m.addAttribute("searchList", boardService.searchSelectPage(searchBoardDto));
         return "/board/searchBoardList";
     }
 
@@ -78,8 +78,9 @@ public class BoardController {
     }
 
     @PostMapping("/write")
-    public String write(BoardDto boardDto, HttpSession session) throws Exception {
-//        String writer = session.getAttribute("id");
+    public String write(BoardDto boardDto, MemberDto memberDto, HttpSession session, HttpServletRequest request) throws Exception {
+//        String writer = (String) session.getAttribute("boardDto", memberDto.getUser_id);
+//        log.info("wrtier = " + writer);
         boardService.write(boardDto);
         return "redirect:/board/list";
     }

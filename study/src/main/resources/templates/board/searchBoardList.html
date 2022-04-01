@@ -134,7 +134,8 @@
 </nav>
 <br>
 <h3 style="color: #4e4e4e">  원하는 스터디 그룹을 찾아보세요!</h3>
-
+session = [[${session.memberDto}]]
+session = [[${writer}]]
 <div>
     <form action="/board/searchList" method="get" class="form-horizontal" role="form">
         <input type="hidden" name="currentPage" value="1" />
@@ -166,20 +167,18 @@
 </table>
 <br>
 </div>
-<div style="text-align: right;">
+<div th:if="${session.memberDto}" style="text-align: right;">
     <button onclick="location.href='/board/write'">글작성</button>
 </div>
 <div style="flex: auto">
     <div class="searchBoardDto">
         <div class="paging" style="white-space:nowrap; text-align: center">
-            <a th:if="${pagination.hasPreviousPage}" th:href="@{/board/searchList(currentPage = ${searchBoardDto.currentPage}-1, board_Title = ${searchBoardDto.board_Title})}">&lt; </a>
-
+            <a th:if="${searchBoardDto.hasPreviousPage}" th:href="@{/board/searchList(currentPage = ${searchBoardDto.currentPage}-${searchBoardDto.pageSize}, board_Title = ${searchBoardDto.board_Title})}">&lt; </a>
             <div class="paginate"  style="white-space:nowrap" th:each="idx : ${#numbers.sequence(searchBoardDto.firstPage,searchBoardDto.lastPage)}">
                 <a  th:href="@{|/board/searchList?currentPage=${idx}&board_Title=${searchBoardDto.board_Title}|}"
                     th:text="${idx}" style="font-weight:700;"></a>
             </div>
-
-            <a th:if="${pagination.hasNextPage}" th:href="@{/board/searchList(currentPage = ${searchBoardDto.currentPage}+1, board_Title = ${searchBoardDto.board_Title})}">&gt; </a>
+            <a th:if="${searchBoardDto.hasNextPage}" th:href="@{/board/searchList(currentPage = ${searchBoardDto.currentPage}+${searchBoardDto.pageSize}, board_Title = ${searchBoardDto.board_Title})}">&gt; </a>
         </div>
     </div>
 </div>

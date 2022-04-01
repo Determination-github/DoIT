@@ -10,7 +10,7 @@ public interface BoardService {
 
     List<BoardDto> getList() throws Exception;
     int getCount() throws Exception;
-    List<BoardDto> getPage(Pagination pagination) throws Exception;
+    List<SearchBoardDto> getPage(Pagination pagination) throws Exception;
     BoardDto read(Integer board_Id) throws Exception;
     int modify(BoardDto boardDto) throws Exception;
     void write(BoardDto boardDto) throws Exception;

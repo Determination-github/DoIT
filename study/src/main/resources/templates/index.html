@@ -191,7 +191,8 @@
         </div>
     </form>
 </div>
-
+session = [[${session.memberDto}]]
+session = [[${writer}]]
 <table class="table table-hover">
     <thead>
     <th>id</th>
@@ -211,6 +212,9 @@
     </tr>
 </table>
 <br>
+</div>
+<div th:if="${session.memberDto}" style="text-align: right;">
+    <button onclick="location.href='/board/write'">글작성</button>
 </div>
 <div style="flex: auto">
     <div class="paginate">
