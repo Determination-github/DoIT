@@ -1,0 +1,146 @@
+@charset "UTF-8";
+#main{
+  width:100%;
+  height:auto;
+}
+#study_main_section1{
+  position:relative;
+  width:100%;
+  height:70px;
+  padding-top:20px;
+  padding-bottom:50px;
+
+}
+.study_main_studyAdd{
+  position:absolute;
+  width:200px;
+  height:70px;
+  right:150px;
+  background-color:#283673;
+  border-radius: 10px;
+}
+.study_main_studyAdd p{
+  display:inline-block;
+}
+.study_main_add_icon{
+  width:25px;
+  height:25px;
+  background-image:url(../img/circle-plus-solid.svg);
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:25px 25px;
+  border-radius: 50%;
+}
+.study_main_add_text{
+  font-size:20px;
+  color:white;
+  background:none;
+}
+#stydy_main_section2{
+  width:100%;
+  height:auto;
+  margin-top:30px;
+}
+.main_study_card_wrap{
+  width:70%;
+  height:auto;
+  margin:0 auto;
+}
+.main_study_card{
+  width:400px;
+  height:250px;
+  border:2px solid black;
+  border-radius: 30px;
+  display:inline-block;
+  margin-left:30px;
+  margin-top:50px;
+}
+/*---카드 섹션------------------------------------------------------------------------------------------------------*/
+.main_study_card_content_wrap{
+  width:100%;
+  height:auto;
+  border-radius: 30px;
+}
+.main_study_card_content_wrap>li{
+  margin-left:15px;
+}
+.main_study_lang_group{
+  margin:10px 15px;
+  display:flex;
+  justify-content: space-between;
+}
+.main_study_lang{
+  width:50px;
+  height:24px;
+  text-align:center;
+  background:#00AA00;
+  border-radius: 20px;
+  color:#FFFFFF;
+  font-weight:bold
+}
+.main_study_recruitment{
+  width:80px;
+  height:24px;
+  text-align:center;
+  background:#283673;
+  border-radius: 20px;
+  color:#FFFFFF;
+  font-weight:bold
+}
+.main_study_program{
+  width:auto;
+  height:auto;
+  margin-top:15px;
+  margin-bottom:5px;
+}
+.main_study_program p{
+  font-size:20px;
+}
+.main_study_text{
+  width:auto;
+  height:auto;
+  margin-bottom:20px;
+}
+.main_study_hash{
+  width:auto;
+  margin-bottom:5px;
+}
+.main_study_hash a{
+  margin-right:5px;
+}
+.main_study_location{
+  width:auto;
+  margin-bottom:10px;
+}
+.main_study_location p{
+  display:inline-block;
+}
+.main_study_location_image{
+  width:14px;
+  height:14px;
+  margin-top:4px;
+  background-image:url(../img/location-dot-solid.svg);
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:14px 14px;
+}
+.main_study_box_wrap{
+  width:90%;
+}
+.main_study_box{
+  width:100%;
+}
+.main_study_box>li{
+  display:inline-block;
+}
+.main_study_box_image{
+  width:50px;
+  height:50px;
+  margin-right:20px;
+  background-color:aqua;
+  border-radius: 50%;
+}
+.main_study_box_wish{
+  margin-top:15px;
+  margin-left:70px;
+}

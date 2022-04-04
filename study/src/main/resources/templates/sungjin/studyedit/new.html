@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoIT</title>
+  <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css}" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" th:href="@{/testcss/bootstrap.css}" href="../testcss/bootstrap.css">
+  <link rel="stylesheet" th:href="@{/testcss/page_style.css}" href="../testcss/page_style.css">
+  <link rel="stylesheet" th:href="@{/css/new.css}" href="./new.css">
+
+</head>
+<body class="d-flex flex-column h-100">
+<nav th:replace="/fragment/nav :: fragment_nav"></nav>
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+  <div id="dropdown_menu_wrap" class="dropdown_menu_wrap">
+    <dl class="dropdown_menu1">
+      <!-- <dt class="dropdown_menu1_title">로그인</dt> -->
+      <dd class="nav_list_dd_border nav_list_dd_border_bottom"><a class="dropdown-item" tabindex="-1" href="login.html">로그인</a></dd>
+      <dd class="nav_list_dd_border"><a class="dropdown-item" tabindex="-1" href="join.html">회원가입</a></dd>
+    </dl>
+    <dl id="dropdown_menu2" class="dropdown_menu2">
+      <!-- <dt class="dropdown_menu2_title">마이페이지</dt> -->
+      <dd class="nav_list_dd_border"><a id="dropdown_menu2_mypage" class="test dropdown-item dropdown-toggle"tabindex="-1" href="javascript:">마이페이지</a>
+        <ul class="dropdown_menu2_menu">
+          <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="edit.html">회원 수정</a></li>
+          <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="mywrite.html">내가 쓴 글 보기</a></li>
+          <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="poem.html">쪽지</a></li>
+        </ul>
+      </dd>
+    </dl>
+    <dl id="dropdown_menu3" class="dropdown_menu3">
+      <!-- <dt class="dropdown_menu3_title">스터디</dt> -->
+      <dd class="nav_list_dd_border"><a id="dropdown_menu3_study" class="test dropdown-item dropdown-toggle"tabindex="-1" href="javascript:">스터디</a>
+        <ul class="dropdown_menu3_menu">
+          <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="wishlist.html">찜 목록</a></li>
+          <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="joinstudy.html">참여한 그룹 보기</a></li>
+        </ul>
+      </dd>
+    </dl>
+  </div>
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+  <main class="flex-shrink-0">
+    <section class="py-5">
+      <div class="container col-lg-10">
+        <div class="row gx-5">
+          <div class="col-sm-2"></div>
+          <h2 class="col-sm-8">스터디 개설</h2>
+          <div class="col-sm-2"></div>
+        </div>
+        <form>
+          <div class="row gx-5">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+              <article>
+                <div class="row mt-3">
+                  <form class="col-lg-12 needs-validation" name="frmResister" action="/groups/new" method="post" novalidate>
+                    <input type="hidden" name="_csrf" value="46b06b5c-25e2-41bc-bf6a-0cb8ccfb3c26">
+                    <div class="form-row">
+                      <div class="form-group required col">
+                        <label for="firstCategory">1차 카테고리</label>
+                        <select id="firstCategory" class="form-control" name="firstCategory" onchange="category_change(this.value, secondCategory)">
+                          <option>선택하세요</option>
+                          <option value="1">개발</option>
+                          <option value="2">언어</option>
+                          <option value="3">자격증</option>
+                        </select>
+                        <small id="categoryHelp" class="form-text text-muted"></small>
+                      </div>
+                      <div class="form-group required col">
+                        <label for="secondCategory">2차 카테고리</label>
+                        <select id="secondCategory" class="form-control" name="secondCategory">
+                          <option>없음</option>
+                        </select>
+                        <small class="invalid-feedback">2차 카테고리를 선택해주세요</small>
+                      </div>
+                      <div class="form-group required col">
+                        <label for="thirdcategory">3차 카테고리</label>
+                        <select id="thirdcategory" class="form-control" name="thirdcategory">
+                          <option>없음</option>
+                        </select>
+                        <small class="invalid-feedback">3차 카테고리를 선택해주세요</small>
+                      </div>
+                      <div  class="form-group col">
+                        <label for="applicationRangeDate">모집기간</label>
+                        <input id="applicationRangeDate" class="form-control rangeDatePicker" style="background-color: white;"
+                        placeholder="모집 기간을 선택하세요" aria-describedby="applicationRangeDateHelp" readonly>
+                        <small id="applicationRangeDateHelp" class="form-text text-muted">모집기간 설정을 원하시면 설정해주세요</small>
+                        <input type="hidden" class="form-control singleDatePicker" id="endDateTime" name="endDateTime" value>
+                      </div>
+                      <div class="form-group required col">
+                        <label for="firstZone">1차 지역</label>
+                        <select id="firstZone" name="firstZone" class="form-control" onchange="zone_change(this.value, secondZone)">
+                          <option>선택하세요.</option>
+                          <option value="1">서울특별시</option>
+                          <option value="2">부산광역시</option>
+                          <option value="3">대구광역시</option>
+                          <option value="4">인천광역시</option>
+                          <option value="5">광주광역시</option>
+                          <option value="6">대전광역시</option>
+                          <option value="7">울산광역시</option>
+                          <option value="8">강원도</option>
+                          <option value="9">경기도</option>
+                          <option value="10">경상남도</option>
+                          <option value="11">경상북도</option>
+                          <option value="12">전라남도</option>
+                          <option value="13">전라북도</option>
+                          <option value="14">충청남도</option>
+                          <option value="15">충청북도</option>
+                          <option value="16">제주도</option>
+                        </select>
+                        <small id="categoryHelp" class="form-text text-muted"></small>
+                      </div>
+                      <div class="form-group required col">
+                        <label for="secondZone">2차 지역</label>
+                        <select id="secondZone" name="secondZone" class="form-control">
+                          <option>선택하세요</option>
+                        </select>
+                      </div>
+                      <div class="form-check pull-right mr-0">
+                        <input class="form-check-input" type="checkbox" name="isOnline" id="isOnline" value="Y">
+                        <input type="hidden" name="_isOnline" value="on">
+                        <label class="form-check-label" for="isOnline">
+                          <b>Online</b>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="form-group required">
+                      <label for="title">스터디 이름</label>
+                      <input id="title" type="text" class="form-control" aria-describedby="titleHelp" required max="50" name="title" value>
+                      <small class="invalid-feedback">스터디 이름을 50자 이내로 입력하세요</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="description">짧은 소개</label>
+                      <textarea id="description" type="textarea" class="form-control" placeholder="스터디를 짧게 소개해 주세요" aria-describedby="description"></textarea>
+                      <small class="invalid-feedback">스터디 그룹을 짧게 50자 이내로 소개해주세요</small>
+                    </div>
+                    <div class="form-group">
+                      <p>해시태그 구현</p>
+                        <div class="form-group">
+                          <input type="hidden" value="" name="tag" id="rdTag" />
+                        </div>
+                          <ul id="tag-list"></ul>
+                        <div class="form-group">
+                          <input type="text" id="tag" class="form-control" placeholder="엔터로 해시태그를 등록해주세요.">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <a class="btn btn-primary btn-block" id="register-btn" type="button" aria-describedby="submitHelp" href="newtwo.html">다음</a>
+                    </div>
+                  </form>
+                </div>
+              </article>
+            </div>
+            <div class="col-sm-2"></div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+</body>
+<script type="text/javascript" th:src="@{https://code.jquery.com/jquery-3.3.1.js}" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" th:src="@{/testjs/bootstrap.bundle.min.js}" src="../js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" th:src="@{/testjs/category.js}" src="category.js"></script>
+<script type="text/javascript" th:src="@{/testjs/page_style.js}" src="./page_style.js"></script>
+<script type="text/javascript" th:src="@{/testjs/zone.js}" src="../zone.js"></script>
+<script type="text/javascript" th:src="@{/testjs/new.js}" src="./new.js"></script>
+</html>

@@ -10,7 +10,7 @@ category2_num[1] = new Array(4, 5);
 category2_name[1] = new Array('Back-End', 'Front-End');
 
 category2_num[2] = new Array(6, 7, 8, 9, 10);
-category_name[2] = new Array('C++', 'javascript', '파이썬', 'assembly', 'OpenGL');
+category2_name[2] = new Array('C++', 'javascript', '파이썬', 'assembly', 'OpenGL');
 
 category2_num[3] = new Array(11, 12);
 category2_name[3] = new Array('정보처리기사', '정보처리산업기사');

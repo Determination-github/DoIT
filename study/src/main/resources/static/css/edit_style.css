@@ -1,0 +1,88 @@
+@charset "UTF-8";
+button{
+    border:0;
+    background-color:#FFF;
+}
+
+#main{
+    width:100%;
+    height:auto;
+}
+.main_wrap{
+    width:900px;
+    margin:0 auto;
+}
+.main_text_wrap{
+    text-align: center;
+}
+.main_text_wrap h1{
+    margin-top:100px;
+}
+.main_text{
+    font-size: 50px;
+    font-weight: 900;
+}
+#main_container{
+    width:100%;
+    height:auto;
+    margin-top:60px;
+}
+.main_text_group{
+    display:inline-block;
+}
+.main_input_group{
+    width:75%;
+}
+.main_form_text{
+    font-size:25px;
+    font-weight: 700;
+}
+.main_input_group input{
+    width:100%;
+    padding:10px 15px;
+    border-radius: 10px;
+    margin-top:10px;
+    margin-left:110px;
+}
+.main_password input{
+    margin-left:85px;
+}
+.main_password_2 input{
+    margin-left:25px;
+}
+.main_form_select{
+    width:20%;
+    padding:10px 15px;
+    border-radius: 10px;
+    margin-top:10px;
+    margin-left:110px;
+}
+.main_select_wrap1{
+    width:100%;
+}
+.main_form_select2{
+    width:25%;
+    margin-left:17px;
+}
+.main_form_select3{
+    width:25%;
+    margin-left:17px;
+}
+.main_form_select{
+    display:inline-block;
+}
+.main_btn_wrap{
+    width:100%;
+    height:auto;
+    margin-top:100px;
+    text-align: right;
+}
+.main_btn_wrap li{
+    display: inline-block;
+    margin-left:30px;
+}
+.main_btn{
+    border:1px solid #AAAAAA;
+    border-radius: 10px;
+    padding: 10px 30px;
+}

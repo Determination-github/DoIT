@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .flex-column {
   flex-direction: column;
 }
@@ -50,12 +51,17 @@
   border-color: rgba(0, 0, 0, 0.1);
 }
 
-button:not(:disabled), [type=button]:not(:disabled) {
+button:not(:disabled) {
   cursor: pointer;
 }
 
-.navbar-light .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+.navbar-expand-lg .navbar-nav {
+  flex-direction: row;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 .collapse:not(.show) {
@@ -78,7 +84,6 @@ button:not(:disabled), [type=button]:not(:disabled) {
 
 .navbar-nav {
   display: flex;
-  flex-direction: column;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
@@ -114,13 +119,17 @@ button:not(:disabled), [type=button]:not(:disabled) {
   border-top: 1px solid rgba(0, 0, 0, 0.15);
 }
 
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+  position: absolute;
+}
+
+.navbar-expand-lg .navbar-toggler {
+  display: none;
+}
+
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-}
-
-.mobile-display-none {
-  display: none;
 }
 
 svg:not(:root) .svg-inline--fa {
@@ -142,8 +151,11 @@ svg:not(:root) .svg-inline--fa {
 }
 
 .navbar-nav .dropdown-menu {
-  position: static;
   float: none;
+}
+
+#nav-link-btn:hover .dropdown-menu{
+  display: block;
 }
 
 .dropdown-menu {
@@ -156,7 +168,7 @@ svg:not(:root) .svg-inline--fa {
   color: #212529;
   text-align: left;
   list-style: none;
-  background-color: #fff;
+  background-color: #ffffff;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
@@ -171,6 +183,7 @@ svg:not(:root) .svg-inline--fa {
   color: #212529;
   text-align: inherit;
   text-decoration: none;
+  white-space: nowrap;
   background-color: transparent;
   border: 0;
 }
@@ -210,8 +223,8 @@ svg:not(:root) .svg-inline--fa {
   list-style: none;
 }
 
-.float-letf {
-  float: left;
+.float-right {
+  float: right;
 }
 
 .mr-2 {

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DoIT 로그인</title>
+    <link th:href="@{/css/style.css}" href="../css/style.css" rel="stylesheet">
+
+    <style>
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+
+<body>
+<div id="wrap">
+    <header id="header">
+        <section id="header_section">
+            <div class="header_logo"></div>
+        </section>
+    </header>
+    <main id="main">
+        <section id="main_section">
+            <div class="main_section_wrap">
+                <p class="main_login_title"></p>
+                <form action="/members/login" th:action th:object="${loginDto}" method="post">
+
+                    <div class="main_login_wrap">
+
+                        <div class="main_login_ID_wrap">
+                            <p class="main_login_ID_group main_login_ID_img"></p>
+                            <div class="main_login_ID_group main_login_ID_padding">
+                                <input class="main_login_ID" type="text" id="loginEmail" th:field="*{email}"
+                                       placeholder="아이디를 입력하세요." th:errorclass="field-error">
+                            </div>
+                        </div>
+                        <div class="field-error" th:errors="*{email}" />
+
+                        <div class="main_login_PW_wrap">
+                            <p class="main_login_PW_group main_login_PW_img"></p>
+                            <div class="main_login_PW_group main_login_PW_padding">
+                                <input class="main_login_PW" type="password" id="password" th:field="*{password}"
+                                       placeholder="비밀번호를 입력하세요." th:errorclass="field-error">
+                            </div>
+                        </div>
+                        <div class="field-error" th:errors="*{password}" />
+
+                        <div th:if="${#fields.hasGlobalErrors()}">
+                            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+                        </div>
+
+                        <div class="main_login_checkBox_wrap">
+                            <input class="main_login_checkBox_bro main_login_checkBox" type="checkbox" name="userAuto">
+                            <p class="main_login_checkBox_bro main_login_checkBox_text">자동 로그인</p>
+                        </div>
+
+                        <div class="main_login_BTN_wrap">
+                            <button class="main_login_BTN" type="submit">로그인</button>
+                        </div>
+
+                        <div class="main_login_join_BTN_wrap">
+                            <p class="main_login_join">
+                                <a href="#" th:href="@{/members/join}" class="main_login_join_BTN">회원가입</a>
+                            </p>
+                            <p class="main_login_IDPW">
+                                <a href="#" th:href="@{/members/}" class="main_login_IDPW_BTN">아이디 또는 비밀번호 찾기</a>
+                            </p>
+                        </div>
+
+                        <div class="main_login_border_wrap">
+                            <span class="main_login_border">간편로그인</span>
+                        </div>
+                    </div>
+                </form>
+                <div class="main_login_naver_wrap">
+                    <button class="main_login_kakao">카카오 계정으로 로그인</button>
+                    <button class="main_login_naver" th:onclick="'location.href=\''+ @{${url}} + '\''">네이버 계정으로 로그인</button>
+                    <!--                            <button onclick="showLoginPopup();" class="main_login_naver">네이버 계정으로 로그인</button>-->
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

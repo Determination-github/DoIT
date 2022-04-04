@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" class="fontawesome-i2svg-active fontawesome-i2svg-complete" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css}" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" th:href="@{/testcss/bootstrap.css}" href="../testcss/bootstrap.css">
+  <link rel="stylesheet" th:href="@{/testcss/page_style.css}" href="../testcss/page_style.css">
+  <script th:src="@{https://code.jquery.com/jquery-3.3.1.js}" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script th:src="@{/testjs/bootstrap.bundle.min.js}" src="../testjs/bootstrap.bundle.min.js"></script>
+  <script th:src="@{/testjs/page_style.js}" src="../testjs/page_style.js" defer></script>
+</head>
+<body class="d-flex flex-column h-100">
+<nav th:replace="/fragment/nav :: fragment_nav"></nav>
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+  <div id="dropdown_menu_wrap" class="dropdown_menu_wrap">
+    <dl class="dropdown_menu1">
+      <!-- <dt class="dropdown_menu1_title">로그인</dt> -->
+      <dd class="nav_list_dd_border nav_list_dd_border_bottom"><a class="dropdown-item" tabindex="-1" href="login.html">로그인</a></dd>
+      <dd class="nav_list_dd_border"><a class="dropdown-item" tabindex="-1" href="join.html">회원가입</a></dd>
+    </dl>
+    <dl id="dropdown_menu2" class="dropdown_menu2">
+      <!-- <dt class="dropdown_menu2_title">마이페이지</dt> -->
+      <dd class="nav_list_dd_border"><a id="dropdown_menu2_mypage" class="test dropdown-item dropdown-toggle"tabindex="-1" href="javascript:">마이페이지</a>
+        <ul class="dropdown_menu2_menu">
+          <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="edit.html">회원 수정</a></li>
+          <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="mywrite.html">내가 쓴 글 보기</a></li>
+          <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="poem.html">쪽지</a></li>
+        </ul>
+      </dd>
+    </dl>
+    <dl id="dropdown_menu3" class="dropdown_menu3">
+      <!-- <dt class="dropdown_menu3_title">스터디</dt> -->
+      <dd class="nav_list_dd_border"><a id="dropdown_menu3_study" class="test dropdown-item dropdown-toggle"tabindex="-1" href="javascript:">스터디</a>
+        <ul class="dropdown_menu3_menu">
+          <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="wishlist.html">찜 목록</a></li>
+          <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="joinstudy.html">참여한 그룹 보기</a></li>
+        </ul>
+      </dd>
+    </dl>
+  </div>
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+  <main class="flex-shrink-0">
+    <section class="py-5">
+      <div class="container col-lg-10">
+        <div class="row gx-5">
+          <div class="col-lg-3">
+            <div class="mobile-display-none">
+              <a href="./profilethree.html" class="text-decoration-none">
+                <div class="d-flex align-items-center mt-lg-5 mb-4">
+                  <div class="ms-3">
+                    <h5 class="fw-bold text-dark">스터디 홈</h5>
+                  </div>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="../join/profilethree" class="text-decoration-none">
+                <div class="d-flex-align-items-center mt-lg-5 mb-4">
+                  <div class="ms-3">
+                    <h5 class="fw-bold text-dark">참여한 스터디</h5>
+                  </div>
+                </div>
+              </a>
+              <a href="../open/profilethree" class="text-decoration-none">
+                <div class="d-flex-align-items-center mt-lg-5 mb-4">
+                  <div class="ms-3">
+                    <h5 class="fw-bold text-dark">개설한 스터디</h5>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-9">
+            <article>
+              <header class="mb-4">
+                <h1 class="fw-bolder mb-1"></h1>
+                <div class="text-muted fst-italic mb-2">2022.02.02</div>
+              </header>
+              <div class="card card-primary card-outline">
+                <div class="card-body box-profile row">
+                  <div class="col-md-6 row">
+                    <div class="col-md-12">
+                      <div class="text-center">
+                        <img class="profile-user-img img-fluid image-circle" src="../image/셀카.jpg" alt="User profile picture"
+                        style="width: 120px; height: 120px;">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <h3 class="profile-username text-center pt-3">셀카</h3>
+                    </div>
+                  </div>
+                  <div class="row col-md-6 pl-5">
+                    <div class="col-6 mt-5">
+                      <div class="text-center">
+                        <strong>참여횟수</strong>
+                      </div>
+                      <p class="text-center">
+                        <span class="badge badge-primary font-size-16 mt-2">0</span>
+                      </p>
+                    </div>
+                    <div class="col-6 mt-5">
+                      <div class="text-center">
+                        <strong>개설횟수</strong>
+                      </div>
+                      <p class="text-center">
+                        <span class="badge badge-info font-size-16 mt-2">0</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card card-primary mt-lg-5 mobile-mt-5">
+                <div class="card-header">
+                  <h3 class="card-title">About Me</h3>
+                </div>
+                <div class="card-body">
+                  <strong>
+                    <i class="bi bi-pencil-fill"></i>
+                    역량
+                  </strong>
+                  <p class="text-muted pt-2"> </p>
+                  <hr>
+                  <strong>
+                    <i class="bi bi-geo-alt-fill"></i>
+                    활동지역
+                  </strong>
+                  <p class="text-muted pt-2"> </p>
+                  <hr>
+                  <strong>
+                    <i class="bi bi-book"></i>
+                    직업 및 경력
+                  </strong>
+                  <p class="text-muted pt-2"> </p>
+                  <hr>
+                  <strong>
+                    <i class="bi bi-file-earmark"></i>
+                    포트폴리오
+                  </strong>
+                  <p class="text-muted pt-2">
+                    <a href class="text-decoration-none" target="_blank"></a>
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoIT</title>
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css}" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/testcss/bootstrap.css}" href="../css/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/notice.css}" href="notice.css">
+
+    <!-- summernote css -->
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css}" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css">
+
+</head>
+
+<body class="d-flex flex-column h-100">
+<nav th:replace="/fragment/nav :: fragment_nav"></nav>
+    <!-------------------------------------------------------------------------------------------------------->
+    <!-------------------------------------------------------------------------------------------------------->
+    <!-------------------------------------------------------------------------------------------------------->
+    <div id="dropdown_menu_wrap" class="dropdown_menu_wrap">
+        <dl class="dropdown_menu1">
+            <!-- <dt class="dropdown_menu1_title">로그인</dt> -->
+            <dd class="nav_list_dd_border"><a class="dropdown-item" tabindex="-1" href="studymanage_admin.html">스터디
+                    관리</a></dd>
+            <dd class="nav_list_dd_border"><a class="dropdown-item" tabindex="-1" href="siren.html">신고 받은 글</a></dd>
+        </dl>
+    </div>
+    <!-------------------------------------------------------------------------------------------------------->
+    <!-------------------------------------------------------------------------------------------------------->
+    <!-------------------------------------------------------------------------------------------------------->
+    <script>
+        $(document).ready(function () {
+            $('#summernote').summernote({
+                height: 300,
+                minHeight: null,
+                maxHeight: null,
+                focus: true,
+                callbacks: {
+                    onImageUpload: function (files, editor, welEditable) {
+                        for (var i = 0; i < files.length; i++) {
+                            sendFile(files[i], this);
+                        }
+                    }
+                }
+            });
+        });
+
+        function sendFile(file, el) {
+            var form_data = new FormData();
+            form_data.append('file', file);
+            $.ajax({
+                data: form_data,
+                type: "POST",
+                url: '/attachedFile',
+                cache: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                processData: false,
+                success: function (url) {
+                    $(el).summernote('insertImage', url, function ($image) {
+                        $image.css('width', "25%");
+                    });
+                }
+            });
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#summernote').summernote({
+                placeholder: 'content',
+                minHeight: 370,
+                maxHeight: null,
+                focus: true,
+                lang: 'ko-KR'
+            });
+        });
+    </script>
+</body>
+
+<div>
+
+    <div style="width: 60%; margin: auto;">
+        <form method="post" action="/write">
+            <br>
+            <input type="text" name="title" style="width: 40%;" placeholder="제목" /><br>
+            <input type="file" name="attachFile" style="width: 40%;" placeholder="첨부파일" />
+            <br><br>
+            <textarea id="summernote" name="content"></textarea>
+            <input id="subBtn" type="submit" value="완료" style="float: right;" onclick="goWrite(this.form)" />
+        </form>
+    </div>
+
+</div>
+<script type="text/javascript" th:src="@{https://code.jquery.com/jquery-3.3.1.js}" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" th:src="@{/testjs/bootstrap.bundle.min.js}" src="../js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" th:src="@{/testjs/page_style.js}" src="./page_style.js"></script>
+
+<script type="text/javascript" th:src="@{https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js}" src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<!-- include summernote-ko-KR -->
+<script type="text/javascript" th:src="@{summernote/lang/summernote-ko-KR.js}" src="../../summernote-0.8.18-dist/lang/summernote-ko-KR.js"></script>
+</html>
