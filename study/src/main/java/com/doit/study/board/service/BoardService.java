@@ -1,8 +1,10 @@
 package com.doit.study.board.service;
 
+import com.doit.study.board.domain.Board;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.domain.SearchCondition;
 import com.doit.study.board.dto.BoardDto;
+import com.doit.study.board.dto.BoardWriteDto;
 import com.doit.study.board.dto.SearchBoardDto;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,6 +26,11 @@ public interface BoardService {
 //    List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception;
     int searchResultCount(SearchBoardDto searchBoardDto) throws Exception;
     List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto) throws Exception;
+
+    String insertStudyBoard(BoardWriteDto boardWriteDto);
+
+    BoardWriteDto findStudyById(String study_id, BoardWriteDto boardWriteDto);
+
 }
 
 

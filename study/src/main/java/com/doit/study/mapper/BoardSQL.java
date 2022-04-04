@@ -12,9 +12,21 @@ public class BoardSQL {
             "DELETE FROM BO_STUDY_TB WHERE board_Id = #{board_Id}";
 
     public static final String insert =
-            "insert into BO_STUDY_TB (board_Id, board_Title, board_SubTitle, board_Content, board_Count, " +
+            "insert into BO_STUDY_TB (study_id, user_id, recruit_start, recruit_end, board_Count, " +
                     "board_Comment, board_RegDate, board_Writer) " +
                     "values (board_id_seq.NEXTVAL, #{board_Title}, #{board_SubTitle}, #{board_Content}, '0', '0', sysdate, 'Hodong')";
+
+    public static final String insertBoard =
+            "insert into SR_MOIM_TB (study_id, user_id, schedule_start, schedule_end, " +
+                    "title, content, address, moim_flag, " +
+                    "interest1, interest2, interest3, sub_title, reg_date) " +
+                    "values (#{board.study_id}, #{board.user_id}, #{board.schedule_start}, " +
+                    "#{board.schedule_end}, #{board.title}, #{board.content}, " +
+                    "#{board.address}, #{board.moim_flag}, #{board.interest1}, " +
+                    "#{board.interest2}, #{board.interest3}, #{board.sub_title}, sysdate)";
+
+    public static final String getBoard =
+            "SELECT * FROM SR_MOIM_TB WHERE study_id = #{study_id}";
 
     public static final String selectAll =
             "SELECT board_Id, board_Title, board_SubTitle, board_Content, board_Count, board_Comment, to_char(board_date,'YYYYMMDD') " +

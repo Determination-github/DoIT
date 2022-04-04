@@ -1,20 +1,21 @@
 package com.doit.study.board.controller;
 
+import com.doit.study.board.domain.Board;
 import com.doit.study.board.domain.Pagination;
-import com.doit.study.board.domain.SearchCondition;
-import com.doit.study.board.dto.BoardDto;
-import com.doit.study.board.dto.SearchBoardDto;
+import com.doit.study.board.dto.*;
 import com.doit.study.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.util.*;
 
 
 @RequiredArgsConstructor
@@ -23,6 +24,7 @@ import java.util.List;
 @Slf4j
 public class BoardController {
     private final BoardService boardService;
+
 
     @GetMapping("/list")
     public String list(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
@@ -52,23 +54,20 @@ public class BoardController {
                              @ModelAttribute("searchBoardDto") SearchBoardDto searchBoardDto, BoardDto boardDto,
                              ServletRequest request, Model m)
             throws Exception {
-//        if(!loginCheck(request))
-//            return "redirect:/login/login?toURL="+request.getRequestURL();
         int totalRecordCount = boardService.searchResultCount(searchBoardDto);
         searchBoardDto.doPaging(totalRecordCount);
         log.info("totalRecordCount =" + totalRecordCount );
 
         List<SearchBoardDto> searchList = boardService.searchSelectPage(searchBoardDto);
-        List<BoardDto> searchList2 = boardService.getList();
         log.info("searchBoardDto ="+ searchBoardDto);
-        m.addAttribute("searchList", searchList);
+        m.addAttribute("searchLists", searchList);
         return "/board/searchBoardList";
     }
 
     @GetMapping("/read")
-    public String read(Integer board_Id, Model m){
+    public String read(Integer board_id, Model m){
         try {
-            BoardDto boardDto = boardService.read(board_Id);
+            BoardDto boardDto = boardService.read(board_id);
             m.addAttribute("board", boardDto);
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,15 +77,79 @@ public class BoardController {
     }
 
     @GetMapping("/write")
-    public String write(Model m) {
-        return "/board/insert";
+    public String write(HttpServletRequest request,
+                        @ModelAttribute("firstStudyDto") FirstStudyDto firstStudyDto) {
+        HttpSession session = request.getSession(false);
+        if(session != null && session.getAttribute("id")!=null) {
+            String id = (String) session.getAttribute("id");
+            String nickName = (String) session.getAttribute("nickName");
+            firstStudyDto.setWriterId(id);
+            firstStudyDto.setNickName(nickName);
+            return "/board/firstInsert";
+        } else {
+            return "redirect:/login";
+        }
     }
 
     @PostMapping("/write")
-    public String write(BoardDto boardDto, HttpSession session) throws Exception {
-//        String writer = session.getAttribute("id");
-        boardService.write(boardDto);
-        return "redirect:/board/list";
+    public String write(
+            @ModelAttribute("firstStudyDto") FirstStudyDto firstStudyDto,
+            RedirectAttributes redirectAttributes)
+    {
+        redirectAttributes.addFlashAttribute("firstStudyDto", firstStudyDto);
+        log.info("firstStudyDto = " + firstStudyDto);
+
+        return "redirect:/board/secondWrite";
+    }
+
+    @GetMapping("/secondWrite")
+    public String secondWrite(@ModelAttribute("boardWriteDto") BoardWriteDto boardWriteDto,
+                              HttpServletRequest request,
+                              Model model) {
+        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+        if(inputFlashMap != null) {
+            FirstStudyDto firstStudyDto = (FirstStudyDto) inputFlashMap.get("firstStudyDto");
+            model.addAttribute("firstStudyDto", firstStudyDto);
+
+            boardWriteDto.toBoardWriteDto(firstStudyDto, boardWriteDto);
+
+            log.info("secondWrite 화면으로..");
+            log.info("boardWriteDto = " + boardWriteDto);
+            return "/board/secondInsert";
+        }
+
+        return null;
+    }
+
+    @PostMapping("/secondWrite")
+    public String secondWrite(@ModelAttribute("boardWriteDto") BoardWriteDto boardWriteDto,
+                              RedirectAttributes redirectAttributes) {
+        log.info("두 번째 writeForm");
+        log.info("boardWriteDto = " + boardWriteDto);
+
+        String study_id = boardService.insertStudyBoard(boardWriteDto);
+        log.info("study_id={}", study_id);
+
+        redirectAttributes.addFlashAttribute("boardWriteDto", boardWriteDto);
+
+        return "redirect:/board/secondWrite/" + study_id;
+    }
+
+    @GetMapping("/secondWrite/{id}")
+    public String getStudyBoard(Model model,
+                                HttpServletRequest request,
+                                @PathVariable String id) {
+        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+        if(inputFlashMap!=null) {
+            BoardWriteDto boardWriteDto = (BoardWriteDto) inputFlashMap.get("boardWriteDto");
+            log.info("boardWriteDto = " + boardWriteDto);
+            boardWriteDto = boardService.findStudyById(id, boardWriteDto);
+            log.info("boardWriteDto 갱신={}", boardWriteDto);
+            model.addAttribute("boardWriteDto", boardWriteDto);
+            return "/board/test";
+        }
+
+        return null;
     }
 
     @PostMapping("/modify")
@@ -96,12 +159,12 @@ public class BoardController {
             int result = boardService.modify(boardDto);
             if(result!=1);
             throw new Exception("Modify failed.");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "redirect:/board/list";
     }
+
     @PostMapping("/remove")
     public String remove(Integer board_Id, String board_Writer,BoardDto boardDto){
 //        String writer = session.getAttribute("id");
@@ -115,6 +178,7 @@ public class BoardController {
         }
         return "redirect:/board/list";
     }
+
 
 //    @PostMapping("/remove")
 //    public String remove(@RequestParam("board_Writer")String board_Writer) throws Exception {

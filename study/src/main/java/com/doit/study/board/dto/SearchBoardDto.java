@@ -29,16 +29,22 @@ public class SearchBoardDto {
     private Integer lastRecordIndex = 3;
     // 한 페이지당 게시물 갯수
     public final int countPerPage = 3;
+
     // 전체 데이터 개수
     private int totalRecordCount;
+
     // 전체 페이지 개수
     private int totalPageCount;
+
     // 페이지 리스트의 첫 페이지 번호
     private int firstPage;
+
     // 페이지 리스트의 마지막 페이지 번호
     private int lastPage;
+
     // 이전 페이지 존재 여부
     private boolean hasPreviousPage;
+
     // 다음 페이지 존재 여부
     private boolean hasNextPage;
 

@@ -156,12 +156,12 @@
         <th>regDate</th>
         </thead>
         <tr th:each="list :${list}">
-            <td>[[${list.board_Id}]]</td>
-            <td><a th:href="@{/board/read(board_Id = ${list.board_Id})}">[[${list.board_Title}]]</a></td>
-            <td>[[${list.board_SubTitle}]]</td>
-            <td>[[${list.board_Count}]]</td>
-            <td>[[${list.board_Comment}]]</td>
-            <td>[[${list.board_RegDate}]]</td>
+            <td>[[${list.board_id}]]</td>
+            <td><a th:href="@{/board/read(board_id = ${list.board_id})}">[[${list.board_title}]]</a></td>
+            <td>[[${list.board_subTitle}]]</td>
+            <td>[[${list.board_viewCount}]]</td>
+            <td>[[${list.board_commentCount}]]</td>
+            <td>[[${list.board_regDate}]]</td>
         </tr>
     </table>
     <br>

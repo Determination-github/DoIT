@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="notice.css">
 </head>
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <style>
@@ -168,7 +167,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #283673 !important;">
     <div class="container">
         <a class="navbar-brand" href="/">
-            <img src="../img/logocopy.png" width="100" height="100" class="d-inline-block align-top" alt>
+            <img src="/img/logocopy.png" width="100" height="100" class="d-inline-block align-top" alt>
         </a>
         <button class="navbar-toggler togglerNoBorder" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -202,15 +201,18 @@
     <th>regDate</th>
     </thead>
     <tr class="boardtable" th:each="list :${list}">
-        <td>[[${list.board_Id}]]</td>
-        <td><a th:href="@{/board/read(board_Id = ${list.board_Id})}">[[${list.board_Title}]]</a></td>
-        <td>[[${list.board_SubTitle}]]</td>
-        <td>[[${list.board_Count}]]</td>
-        <td>[[${list.board_Comment}]]</td>
-        <td>[[${list.board_RegDate}]]</td>
+        <td>[[${list.board_id}]]</td>
+        <td><a th:href="@{/board/read(board_id = ${list.board_id})}">[[${list.board_title}]]</a></td>
+        <td>[[${list.board_subTitle}]]</td>
+        <td>[[${list.board_viewCount}]]</td>
+        <td>[[${list.board_commentCount}]]</td>
+        <td>[[${list.board_regDate}]]</td>
     </tr>
 </table>
 <br>
+</div>
+<div style="text-align: right;">
+    <button onclick="location.href='/board/write'">글작성</button>
 </div>
 <div style="flex: auto">
     <div class="paginate">

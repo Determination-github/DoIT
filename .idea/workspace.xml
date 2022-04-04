@@ -5,20 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="Refactor: &quot;검색 기능 개선&quot;">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/study.test.iml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/secondInsert.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/study/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/study/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/HomeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/BoardDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/BoardDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/SearchBoardDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/SearchBoardDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/board.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/board.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/insert.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/insert.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/insert.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/css/Page.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/css/default.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/css/index-style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/css/join-style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/css/new.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/css/one.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/css/profile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/css/style.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/js/Zone.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/profile/profileone.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/profile/profileone.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +50,12 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="study" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -49,9 +66,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
-        <option value="Interface" />
         <option value="HTML File" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -122,26 +139,30 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/study/src/main/resources/templates/board" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/study/src/main/resources/static/js/ckeditor" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.20689656" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.web.browsers" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\jypar\IdeaProjects\DoIT\study\src\main\resources\templates\board" />
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\css" />
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\css" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\js\ckeditor" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates" />
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\js" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\css" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\css\summernote" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\members" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\js\ckeditor" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\js" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\js\ckeditor" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\css\summernote" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\js\summernote" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.doit.study.member.controller" />
@@ -153,7 +174,7 @@
       <recent name="com.doit.study.interceptor" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.StudyApplication">
+  <component name="RunManager" selected="Application.StudyApplication">
     <configuration name="StudyApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.doit.study.StudyApplication" />
       <module name="study.main" />
