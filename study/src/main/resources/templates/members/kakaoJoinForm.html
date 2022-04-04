@@ -28,7 +28,7 @@
 
             <div class="main_join_box1">
                 <p>이름</p>
-                    <div class="main_join_input_group main_join_input_box">
+                    <div class="main_join_input_group main_join_input_box1">
                         <input class="main_join_input main_join_input" type="text" id="name" th:value="${kakaoDto.kakaoName}"
                                readonly>
                     </div>
@@ -37,7 +37,7 @@
 
             <div class="main_join_box1">
                 <p>닉네임</p>
-                <div class="main_join_input_group main_join_input_box">
+                <div class="main_join_input_group main_join_input_box2">
                     <input class="main_join_input main_join_input1" type="text" id="nickname" th:field="*{kakaoNickname}"
                            th:placeholder="@{닉네임을 입력하세요.}" th:errorclass="field-error">
                 </div>
@@ -47,25 +47,27 @@
 
             <div class="main_join_box2">
                 <p>이메일</p>
-                <div class="main_join_input_group main_join_input_box">
+                <div class="main_join_input_group main_join_input_box3 main_join_chk">
                     <div th:if="${#strings.isEmpty(kakaoDto.kakaoEmail)}">
                         <p>
                             <input class="main_join_input main_join_input2" type="email" id="email" th:field="*{kakaoEmail}"
                                    th:placeholder="@{이메일을 입력하세요.}" th:errorclass="field-error">
-                            <span id="emailChk" class="doubleChk">인증번호 보내기</span><br/>
-                            <input id="sm_email" type="text" name="sm_email" title="인증번호 입력" disabled required/>
-                            <span id="emailChk2" class="doubleChk">이메일인증</span>
-                            <span class="point successEmailChk">이메일 입력후 인증번호 보내기를 해주십시오.</span>
-                            <input type="hidden" id="emailDoubleChk"/>
-                            <div class="field-error" th:errors="*{kakaoEmail}"/>
-                            <span id="emailCheck"></span>
                         </p>
                     </div>
+
+
                     <p th:if="${not #strings.isEmpty(kakaoDto.kakaoEmail)}">
                         <input class="main_join_input main_join_input2" type="email" id="emailKakao"
                                th:value="${kakaoDto.kakaoEmail}" readonly>
                     </p>
                 </div>
+                <p id="emailChk" class="doubleChk main_join_chk">인증번호 보내기</p>
+                <div class="field-error" th:errors="*{kakaoEmail}"/>
+                <p id="emailCheck"></p>
+                <p class="main_join_email_chk main_join_email_double"><input id="sm_email" type="text" name="sm_email" title="인증번호 입력" disabled required/></p>
+                <p id="emailChk2" class="doubleChk main_join_email_double">이메일인증</p>
+                <p class="point successEmailChk">이메일 입력후 인증번호 보내기를 해주십시오.</p>
+                <input type="hidden" id="emailDoubleChk"/>
             </div>
 
             <div class="main_join_box6 main_join_box_group">
@@ -152,9 +154,9 @@
                             $('#nicknameCheck').css("color","red");
                         }
                     },
-                    error : function() {
+                    /*error : function() {
                         alert("서버 요청 실패");
-                    }
+                    }*/
                 })
             }
         })
