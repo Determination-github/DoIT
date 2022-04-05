@@ -2,7 +2,6 @@ package com.doit.study.board.service;
 
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
-//import com.doit.study.board.dto.SearchBoardDto;
 
 import java.util.List;
 

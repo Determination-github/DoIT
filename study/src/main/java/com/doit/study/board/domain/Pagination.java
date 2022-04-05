@@ -28,8 +28,6 @@ public class Pagination {
     // 다음 페이지 존재 여부
     private boolean hasNextPage;
 
-    private String board_Title;
-    private SearchCondition sc;
 
     public Pagination(int currentPage, int pageSize) {
         //강제입력방지
@@ -44,15 +42,14 @@ public class Pagination {
         this.pageSize = pageSize;
     }
 
-    public Pagination(int totalRecordCount, SearchCondition sc){
+    public Pagination(int totalRecordCount){
         this.totalRecordCount = totalRecordCount;
-        this.sc = sc;
 
-        doPaging(totalRecordCount, sc);
+        doPaging(totalRecordCount);
     }
 
 
-    public void doPaging(int totalRecordCount, SearchCondition sc) {
+    public void doPaging(int totalRecordCount) {
         this.totalRecordCount = totalRecordCount;
 
         if (totalRecordCount > 0) {
@@ -64,13 +61,13 @@ public class Pagination {
     private void calculation() {
 
         // 전체 페이지 수 (현재 페이지 번호가 전체 페이지 수보다 크면 현재 페이지 번호에 전체 페이지 수를 저장)
-        totalPageCount = ((totalRecordCount - 1) / sc.getPageSize()) + 1;
+        totalPageCount = ((totalRecordCount - 1) / this.getPageSize()) + 1;
         if (this.getCurrentPage() > totalPageCount) {
             this.setCurrentPage(totalPageCount);
         }
 
         // 페이지 리스트의 첫 페이지 번호
-        firstPage = ((sc.getCurrentPage() - 1) / this.getPageSize()) * this.getPageSize() + 1;
+        firstPage = ((this.getCurrentPage() - 1) / this.getPageSize()) * this.getPageSize() + 1;
 
         // 페이지 리스트의 마지막 페이지 번호 (마지막 페이지가 전체 페이지 수보다 크면 마지막 페이지에 전체 페이지 수를 저장)
         lastPage = firstPage + this.getPageSize() - 1;
@@ -104,7 +101,6 @@ public class Pagination {
         }
     }
 
-    // *************list*********************
     public void setTotalRecordCount(int totalRecordCount) {
         this.totalRecordCount = totalRecordCount;
 
@@ -154,5 +150,4 @@ public class Pagination {
             }
         }
     }
-    // *************list*********************
 }

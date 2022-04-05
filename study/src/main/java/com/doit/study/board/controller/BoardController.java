@@ -1,9 +1,9 @@
 package com.doit.study.board.controller;
 
 import com.doit.study.board.domain.Pagination;
-import com.doit.study.board.domain.SearchCondition;
 import com.doit.study.board.dto.BoardDto;
 import com.doit.study.board.service.BoardService;
+import com.doit.study.comment.service.CommentService;
 import com.doit.study.member.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentService commentService;
 
     @GetMapping("/list")
     public String list(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
@@ -46,10 +47,10 @@ public class BoardController {
     @GetMapping("/searchList")
     public String searchList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
                              @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
-                             BoardDto boardDto, ServletRequest request, Model m, SearchCondition sc)
+                             BoardDto boardDto, ServletRequest request, Model m)
             throws Exception {
         int totalRecordCount = boardService.searchResultCount(boardDto);
-        boardDto.doPaging(totalRecordCount, sc);
+        boardDto.doPaging(totalRecordCount);
         log.info("totalRecordCount =" + totalRecordCount );
         log.info("searchBoardDto ="+ boardDto);
         m.addAttribute("searchList", boardService.searchSelectPage(boardDto));
@@ -88,33 +89,16 @@ public class BoardController {
     }
 
     @PostMapping("/modify")
-    public String modify(BoardDto boardDto){
-        try {
-            int result = boardService.modify(boardDto);
-            if(result!=1);
-            throw new Exception("Modify failed.");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public String modify(BoardDto boardDto) throws Exception {
+        boardService.modify(boardDto);
         return "redirect:/board/list";
     }
+
     @PostMapping("/remove")
-    public String remove(Integer board_Id, String board_Writer,BoardDto boardDto){
-//        String writer = session.getAttribute("id");
-        try {
-            int result = boardService.remove(boardDto);
-            if(result!=1);
-            throw new Exception("Delete failed.");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public String remove(Integer board_Id, BoardDto boardDto) throws Exception {
+        commentService.removeAll(board_Id);
+        boardService.remove(boardDto);
         return "redirect:/board/list";
     }
 
-    private boolean loginCheck(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        return session!=null && session.getAttribute("id")!=null;
-    }
 }

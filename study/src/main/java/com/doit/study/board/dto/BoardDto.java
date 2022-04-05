@@ -1,6 +1,5 @@
 package com.doit.study.board.dto;
 
-import com.doit.study.board.domain.SearchCondition;
 import lombok.*;
 
 import java.util.Date;
@@ -58,14 +57,14 @@ public class BoardDto {
         this.calculation();
     }
 
-    public BoardDto(int totalRecordCount, SearchCondition sc) {
+    public BoardDto(int totalRecordCount) {
         this.totalRecordCount = totalRecordCount;
 
-        doPaging(totalRecordCount, sc);
+        doPaging(totalRecordCount);
     }
 
 
-    public void doPaging(int totalRecordCount, SearchCondition sc) {
+    public void doPaging(int totalRecordCount) {
         this.totalRecordCount = totalRecordCount;
 
         if (totalRecordCount > 0) {
