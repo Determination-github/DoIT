@@ -11,6 +11,16 @@ public class TestController {
         return "/sungjin/index";
     }
 
+    @GetMapping("/board/notice_admin")
+    public String notice() {
+        return "/sungjin/board/notice_admin";
+    }
+
+    @GetMapping("/board/wishlist")
+    public String widhList() {
+        return "/sungjin/board/wishlist";
+    }
+
     @GetMapping("/test/login")
     public String login() {return "/sungjin/members/loginForm"; }
 
