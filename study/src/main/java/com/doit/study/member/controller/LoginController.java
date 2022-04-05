@@ -47,7 +47,7 @@ public class LoginController {
         model.addAttribute("naverUrl", naverAuthUrl);
         model.addAttribute("kakaoUrl", kakaoAuthUrl);
 
-        return "members/loginForm";
+        return "/members/loginForm";
     }
 
     /**
@@ -93,7 +93,7 @@ public class LoginController {
      * 로그아웃 컨트롤러
      * @param request
      */
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if(session != null) {

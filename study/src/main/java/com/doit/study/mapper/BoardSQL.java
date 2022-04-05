@@ -3,7 +3,10 @@ package com.doit.study.mapper;
 public class BoardSQL {
 
     public static final String count =
-            "SELECT COUNT (*) FROM BO_STUDY_TB";
+            "SELECT COUNT (*) FROM SR_MOIM_TB";
+
+//    public static final String count =
+//            "SELECT COUNT (*) FROM BO_STUDY_TB";
 
     public static final String deleteAll =
             "DELETE FROM BO_STUDY_TB";
@@ -28,6 +31,23 @@ public class BoardSQL {
     public static final String getBoard =
             "SELECT * FROM SR_MOIM_TB WHERE study_id = #{study_id}";
 
+    public static final String selectPage =
+            "SELECT STUDY_ID, USER_ID, INTEREST1, TITLE, SUB_TITLE, REG_DATE, ADDRESS " +
+                    "FROM (" +
+                    "         SELECT rownum rnum, A.*" +
+                    "         from (" +
+                    "                  select STUDY_ID, USER_ID, INTEREST1, TITLE, SUB_TITLE, REG_DATE, ADDRESS " +
+                    "                  from SR_MOIM_TB " +
+                    "                  order by REG_DATE desc" +
+                    "              ) A" +
+                    "     )" +
+                    "where rnum > ${pagination.firstRecordIndex} AND rnum <= ${pagination.lastRecordIndex}";
+
+    public static final String increaseViewCount =
+            "UPDATE SR_MOIM_TB SET VIEW_COUNT = VIEW_COUNT + 1 WHERE study_id = #{study_id}";
+
+
+
     public static final String selectAll =
             "SELECT board_Id, board_Title, board_SubTitle, board_Content, board_Count, board_Comment, to_char(board_date,'YYYYMMDD') " +
                     "FROM BO_STUDY_TB " +
@@ -38,17 +58,7 @@ public class BoardSQL {
                     "FROM BO_STUDY_TB " +
                     "WHERE board_Id = #{board_Id}";
 
-    public static final String selectPage =
-            "SELECT board_Id, board_Title, board_SubTitle, board_Count, board_Comment, board_RegDate\n" +
-                    "FROM (\n" +
-                    "         SELECT rownum rnum, A.*\n" +
-                    "         from (\n" +
-                    "                  select board_Id, board_Title, board_SubTitle, board_Count, board_Comment, board_RegDate\n" +
-                    "                  from BO_STUDY_TB\n" +
-                    "                  order by board_Id desc\n" +
-                    "              ) A\n" +
-                    "     )\n" +
-                    "where rnum > ${firstRecordIndex} AND rnum <= ${lastRecordIndex}";
+
 
     public static final String update =
             "UPDATE BO_STUDY_TB " +
@@ -57,10 +67,10 @@ public class BoardSQL {
                     ", board_Content = #{board_Content} " +
                     "WHERE board_Id = #{board_Id}";
 
-    public static final String increaseViewCount =
-            "UPDATE BO_STUDY_TB " +
-                    "SET board_Count = board_Count + 1 " +
-                    "WHERE board_Id = #{board_Id}";
+//    public static final String increaseViewCount =
+//            "UPDATE BO_STUDY_TB " +
+//                    "SET board_Count = board_Count + 1 " +
+//                    "WHERE board_Id = #{board_Id}";
 
     public static final String searchSelectPage =
 //            "SELECT board_Id, board_Title, board_SubTitle, board_Count, board_Comment, board_date\n" +

@@ -1,6 +1,5 @@
 package com.doit.study.board.controller;
 
-import com.doit.study.board.domain.Board;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.*;
 import com.doit.study.board.service.BoardService;
@@ -39,13 +38,13 @@ public class BoardController {
             pagination.setTotalRecordCount(totalRecordCount);
 
             m.addAttribute("pagination", pagination);
-            m.addAttribute("list", boardService.getPage(pagination));
+            m.addAttribute("list", boardService.getStudyBoardList(pagination));
 
-            return "/board/boardList";
+            return "/index";
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "/";
+        return "/index";
     }
 
     @GetMapping("/searchList")
@@ -64,17 +63,17 @@ public class BoardController {
         return "/board/searchBoardList";
     }
 
-    @GetMapping("/read")
-    public String read(Integer board_id, Model m){
-        try {
-            BoardDto boardDto = boardService.read(board_id);
-            m.addAttribute("board", boardDto);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/board/list";
-        }
-        return "/board/board";
-    }
+//    @GetMapping("/read")
+//    public String read(Integer board_id, Model m){
+//        try {
+//            BoardDto boardDto = boardService.read(board_id);
+//            m.addAttribute("board", boardDto);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "redirect:/board/list";
+//        }
+//        return "/board/board";
+//    }
 
     @GetMapping("/write")
     public String write(HttpServletRequest request,
@@ -132,10 +131,10 @@ public class BoardController {
 
         redirectAttributes.addFlashAttribute("boardWriteDto", boardWriteDto);
 
-        return "redirect:/board/secondWrite/" + study_id;
+        return "redirect:/board/result/" + study_id;
     }
 
-    @GetMapping("/secondWrite/{id}")
+    @GetMapping("/result/{id}")
     public String getStudyBoard(Model model,
                                 HttpServletRequest request,
                                 @PathVariable String id) {
@@ -143,13 +142,16 @@ public class BoardController {
         if(inputFlashMap!=null) {
             BoardWriteDto boardWriteDto = (BoardWriteDto) inputFlashMap.get("boardWriteDto");
             log.info("boardWriteDto = " + boardWriteDto);
-            boardWriteDto = boardService.findStudyById(id, boardWriteDto);
+            boardWriteDto = boardService.findResultById(id, boardWriteDto);
             log.info("boardWriteDto 갱신={}", boardWriteDto);
             model.addAttribute("boardWriteDto", boardWriteDto);
             return "/board/test";
+        } else {
+            BoardWriteDto boardWriteDto = boardService.findStudyById(id);
+            log.info("boardWriteDto = " + boardWriteDto);
+            model.addAttribute("boardWriteDto", boardWriteDto);
+            return "board/test";
         }
-
-        return null;
     }
 
     @PostMapping("/modify")

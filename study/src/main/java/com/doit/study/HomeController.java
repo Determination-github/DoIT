@@ -1,6 +1,7 @@
 package com.doit.study;
 
 
+import com.doit.study.board.dto.BoardWriteDto;
 import com.doit.study.member.SessionConst;
 import com.doit.study.member.dto.KakaoDto;
 import com.doit.study.member.dto.MemberDto;
@@ -66,17 +67,21 @@ public class HomeController {
             }
         }
 
-        BoardDto boardDto = new BoardDto();
+        BoardWriteDto boardWriteDto = new BoardWriteDto();
         int totalRecordCount = boardService.getCount();
         Pagination pagination = new Pagination(currentPage, pageSize);
-        pagination.setTotalRecordCount(totalRecordCount);
 
+        pagination.setTotalRecordCount(totalRecordCount);
         log.info("totalRecordCount = " + totalRecordCount);
+
         model.addAttribute("pagination", pagination);
         log.info("pagination = " + pagination);
-        model.addAttribute("list", boardService.getPage(pagination));
-        log.info("list = " + boardService.getPage(pagination));
-        model.addAttribute("board", boardDto);
+
+        model.addAttribute("list", boardService.getStudyBoardList(pagination));
+        log.info("list = " + boardService.getStudyBoardList(pagination));
+
+        model.addAttribute("boardWriteDto", boardWriteDto);
+
         return "/index";
     }
 }

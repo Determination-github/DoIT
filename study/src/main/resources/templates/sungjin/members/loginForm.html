@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>DoIT 로그인</title>
-    <link th:href="@{/css/style.css}" href="../css/style.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
 
     <style>
         .field-error {
@@ -60,10 +60,10 @@
 
                         <div class="main_login_join_BTN_wrap">
                             <p class="main_login_join">
-                                <a href="#" th:href="@{/members/join}" class="main_login_join_BTN">회원가입</a>
+                                <a href="#" th:href="@{join}" class="main_login_join_BTN">회원가입</a>
                             </p>
                             <p class="main_login_IDPW">
-                                <a href="#" th:href="@{/members/}" class="main_login_IDPW_BTN">아이디 또는 비밀번호 찾기</a>
+                                <a href="#" th:href="@{/}" class="main_login_IDPW_BTN">아이디 또는 비밀번호 찾기</a>
                             </p>
                         </div>
 
@@ -73,9 +73,8 @@
                     </div>
                 </form>
                 <div class="main_login_naver_wrap">
-                    <button class="main_login_kakao">카카오 계정으로 로그인</button>
-                    <button class="main_login_naver" th:onclick="'location.href=\''+ @{${url}} + '\''">네이버 계정으로 로그인</button>
-                    <!--                            <button onclick="showLoginPopup();" class="main_login_naver">네이버 계정으로 로그인</button>-->
+                    <button class="main_login_kakao" th:onclick="'location.href=\''+ @{${kakaoUrl}} + '\''">카카오 계정으로 로그인</button>
+                    <button class="main_login_naver" th:onclick="'location.href=\''+ @{${naverUrl}} + '\''">네이버 계정으로 로그인</button>
                 </div>
             </div>
         </section>

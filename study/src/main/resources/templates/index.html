@@ -1,255 +1,332 @@
 <!DOCTYPE html>
-<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoIT</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/css/page_style.css}">
 </head>
-<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-<style>
-    table, td, th {
-        border: 1px solid black;
-    }
-
-    th {
-        background: #F3F5F5;
-    }
-
-    table {
-        margin-top: 5%;
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-        width: 80%;
-    }
-
-    a:link {
-        color: red;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    a:visited {
-        color: black;
-        text-decoration: none;
-    }
-
-    .paginate {
-        display: flex;
-        padding: 0;
-        line-height: normal;
-        text-align: center;
-        position: relative;
-        margin: 20px 0 20px 0;
-        z-index: 1;
-    }
-
-    .paginate .paging {
-        text-align: center;
-    }
-
-    .paginate{
-        margin: 0;
-        padding: 0;
-        width: 20px;
-        height: 24px;
-        line-height: 24px;
-        text-align: center;
-        color: #848484;
-        display: inline;
-        vertical-align: middle;
-        text-align: center;
-        font-size: 12px;
-    }
-    .paginate. a:visited{
-        color: #C40639;
-    }
-    .paginate .paging a:hover, .paginate .paging strong {
-        color: #DAA520;
-        font-weight: 600;
-        font-weight: normal;
-    }
-
-    .paginate .paging img {
-        vertical-align: middle;
-    }
-
-    .bottom select {
-        background: transparent;
-        color: #aaa;
-        cursor: pointer;
-    }
-
-    .paginate {
-        padding: 0;
-        line-height: normal;
-        text-align: center;
-        position: relative;
-        margin: 20px 0 20px 0;
-    }
-
-    .paginate .paging {
-        text-align: center;
-    }
-
-    .paginate .paging a, .paginate .paging strong {
-        margin: 0;
-        padding: 0;
-        width: 20px;
-        height: 28px;
-        line-height: 28px;
-        text-align: center;
-        color: #999;
-        display: inline-block;
-        vertical-align: middle;
-        text-align: center;
-        font-size: 14px;
-    }
-
-    .paginate .paging a:hover, .paginate .paging strong {
-        color: #C40639;
-        font-weight: 600;
-        font-weight: normal;
-    }
-
-    .paginate .paging img {
-        vertical-align: middle;
-    }
-
-
-    .dropdown.dropdown-lg .dropdown-menu {
-        margin-top: -1px;
-        padding: 6px 20px;
-    }
-    .input-group-btn .btn-group {
-        display: flex !important;
-    }
-    .btn-group .btn {
-        border-radius: 0;
-        margin-left: -1px;
-    }
-    .btn-group .btn:last-child {
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
-    }
-    .btn-group .form-horizontal .btn[type="submit"] {
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-    }
-    .form-horizontal .form-group {
-        margin-left: 0;
-        margin-right: 0;
-    }
-    .form-group .form-control:last-child {
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-    }
-
-    @media screen and (min-width: 768px) {
-        #adv-search {
-            width: 500px;
-            margin: 0 auto;
-        }
-        .dropdown.dropdown-lg {
-            position: static !important;
-        }
-        .dropdown.dropdown-lg .dropdown-menu {
-            min-width: 500px;
-        }
-    }
-
-
-</style>
-<span th:text="${session.id}"></span>
-<span th:text="${session.nickName}"></span>
-
 <body class="d-flex flex-column h-100">
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #283673 !important;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #283673 !important;">
     <div class="container">
-        <a class="navbar-brand" href="/">
-            <img src="/img/logocopy.png" width="100" height="100" class="d-inline-block align-top" alt>
-        </a>
-        <button class="navbar-toggler togglerNoBorder" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse pl-2 pt-1" id="navbarNavDropdown">
-        </div>
-    </div>
-</nav>
-<br>
-<h3 style="color: #4e4e4e">  원하는 스터디 그룹을 찾아보세요!</h3>
-
-<div>
-    <form action="/board/searchList" method="get" class="form-horizontal" role="form">
-        <input type="hidden" name="currentPage" value="1" />
-        <input type="hidden" name="pageSize" value="4" />
-        <div class="npt">
-            <label>글제목</label><input type="text" name="board_Title">
-            <button type="submit" class="btn btn-info search-btn" value="검색">
-            </button>
-        </div>
-    </form>
-</div>
-
-<table class="table table-hover">
-    <thead>
-    <th>id</th>
-    <th>title</th>
-    <th>subTitle</th>
-    <th>count</th>
-    <th>comment</th>
-    <th>regDate</th>
-    </thead>
-    <tr class="boardtable" th:each="list :${list}">
-        <td>[[${list.board_id}]]</td>
-        <td><a th:href="@{/board/read(board_id = ${list.board_id})}">[[${list.board_title}]]</a></td>
-        <td>[[${list.board_subTitle}]]</td>
-        <td>[[${list.board_viewCount}]]</td>
-        <td>[[${list.board_commentCount}]]</td>
-        <td>[[${list.board_regDate}]]</td>
-    </tr>
-</table>
-<br>
-</div>
-<div style="text-align: right;">
-    <button onclick="location.href='/board/write'">글작성</button>
-</div>
-<div style="flex: auto">
-    <div class="paginate">
-        <div class="paging" style="white-space:nowrap; text-align: center">
-            <a th:href="@{/board/list(currentPage = ${pagination.currentPage}-1)}">&lt </a>
-
-            <div class="paginate"  style="white-space:nowrap" th:each="idx : ${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">
-                <a  th:href="@{'/board/list?currentPage='+${idx}}"
-                    th:text="${idx}" style="font-weight:700;"></a>
+      <a class="navbar-brand" th:href="@{/}">
+        <img src="/img/come.png" width="100" height="100" class="d-inline-block align-top" alt>
+      </a>
+      <button id="toggle_btn" class="navbar-toggler" style="border-color:#000000;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="nav-icon">
+        <div class="my-2 my-lg-0 dropdown1">
+          <div class="navbar-nav">
+            <div class="dropdown" id="nav-link-btn">
+              <a class="btn btn-secondary" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-layout-text-sidebar-reverse" viewBox="0 0 16 16">
+                  <path d="M12.5 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5zm0 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5zm.5 3.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5zm-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5z"/>
+                  <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2zM4 1v14H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h2zm1 0h9a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5V1z"/>
+                </svg>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="noticeboard.html">공지 게시판</a>
+                </li>
+              </ul>
             </div>
-
-            <a th:href="@{/board/list(currentPage = ${pagination.currentPage}+1)}">&gt </a>
+          </div>
         </div>
+        <div class="my-2 my-lg-0 dropdown1">
+          <div class="navbar-nav">
+            <div class="dropdown" id="nav-link-btn">
+              <a class="btn btn-secondary" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="color: white;">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+              </a>
+
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuLink">
+                <th:block th:if="${session.nickName == null}">
+                  <li><a class="dropdown-item" tabindex="-1" th:href="@{/login}">로그인</a></li>
+                  <li><a class="dropdown-item" tabindex="-1" th:href="@{/join}">회원가입</a></li>
+                </th:block>
+                <th:block th:if="${session.nickName != null}">
+                  <li class="dropdown-submenu">
+                  <a class="test dropdown-item dropdown-toggle" tabindex="-1" href="#">마이페이지</a>
+                    <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
+                      <li><a class="dropdown-item" tabindex="-1" href="">[[${session.nickName}]]님 안녕하세요!</a></li>
+                      <li><a class="dropdown-item" tabindex="-1" th:href="@{/logout}">로그아웃</a></li>
+                      <li><a class="dropdown-item" tabindex="-1" href="edit.html">회원 수정</a></li>
+                      <li><a class="dropdown-item" tabindex="-1" href="mywrite.html">내가 쓴 글 보기</a></li>
+                      <li><a class="dropdown-item" tabindex="-1" href="poem.html">쪽지</a></li>
+                    </ul>
+                  <li class="dropdown-submenu">
+                    <a class="test dropdown-item dropdown-toggle" tabindex="-1" href="#">스터디</a>
+                    <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
+                      <li><a class="dropdown-item" tabindex="-1" href="wishlist.html">찜 목록</a></li>
+                      <li><a class="dropdown-item" tabindex="-1" href="joinstudy.html">참여한 그룹 보기</a></li>
+                    </ul>
+                  </li>
+                </th:block>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </nav>
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+  <div id="dropdown_menu_wrap" class="dropdown_menu_wrap">
+    <th:block th:if="${session.nickName == null}">
+      <dl class="dropdown_menu1">
+        <dd class="nav_list_dd_border nav_list_dd_border_bottom"><a class="dropdown-item" tabindex="-1" th:href="@{/login}">로그인</a></dd>
+        <dd class="nav_list_dd_border"><a class="dropdown-item" tabindex="-1" th:href="@{/join}">회원가입</a></dd>
+      </dl>
+    </th:block>
+    <th:block th:if="${session.nickName != null}">
+      <dl id="dropdown_menu2" class="dropdown_menu2">
+        <!-- <dt class="dropdown_menu2_title">마이페이지</dt> -->
+        <dd class="nav_list_dd_border"><a id="dropdown_menu2_mypage" class="test dropdown-item dropdown-toggle"tabindex="-1" href="javascript:">마이페이지</a>
+          <ul class="dropdown_menu2_menu">
+            <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1">[[${session.nickName}]]님 안녕하세요!</a></li>
+            <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" th:href="@{/logout}">로그아웃</a></li>
+            <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="edit.html">회원 수정</a></li>
+            <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="mywrite.html">내가 쓴 글 보기</a></li>
+            <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="poem.html">쪽지</a></li>
+          </ul>
+        </dd>
+      </dl>
+      <dl id="dropdown_menu3" class="dropdown_menu3">
+        <!-- <dt class="dropdown_menu3_title">스터디</dt> -->
+        <dd class="nav_list_dd_border"><a id="dropdown_menu3_study" class="test dropdown-item dropdown-toggle"tabindex="-1" href="javascript:">스터디</a>
+          <ul class="dropdown_menu3_menu">
+            <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="wishlist.html">찜 목록</a></li>
+            <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="joinstudy.html">참여한 그룹 보기</a></li>
+          </ul>
+        </dd>
+      </dl>
+    </th:block>
+  </div>
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+<main class="flex-shrink-0">
+  <section class="section">
+    <div class="container col-lg-10">
+      <div class="row row5">
+        <form name="formSearch">
+          <h5 class="mt-5">원하는 스터디 그룹을 찾아보세요 🔎</h5>
+          <div class="card mb-2">
+            <div class="card-body p-2 mt-1">
+              <div class="row mb-2">
+                <div class="col-2 text-center">
+                  <label class="col-form-label" for="firstCategory">
+                    <h6 class="mb-0">카테고리</h6>
+                  </label>
+                </div>
+                <div class="col-3">
+                  <select id="firstCategory" name="firstCategory" class="form-control" onchange="category_change(this.value, secondCategory)">
+                    <option>선택하세요.</option>
+                    <option value="1">개발</option>
+                    <option value="2">언어</option>
+                    <option value="3">자격증</option>
+                  </select>
+                </div>
+                <div class="col-3">
+                  <select id="secondCategory" name="secondCategory" class="form-control">
+                    <option>선택하세요.</option>
+                  </select>
+                </div>
+                <div class="col-3">
+                  <select id="thirdCategory" name="thirdCategory" class="form-control">
+                    <option>선택하세요.</option>
+                  </select>
+                </div>
+              </div>
+            <div class="row mb-2">
+              <div class="col-2 text-center">
+                <label class="col-form-label" for="firstZone">
+                  <h6 class="mb-0">지역</h6>
+                </label>
+              </div>
+              <div class="col-4">
+                <select id="firstZone" name="firstZone" class="form-control" onchange="zone_change(this.value, secondZone)">
+                  <option>선택하세요.</option>
+                  <option value="1">서울특별시</option>
+                  <option value="2">부산광역시</option>
+                  <option value="3">대구광역시</option>
+                  <option value="4">인천광역시</option>
+                  <option value="5">광주광역시</option>
+                  <option value="6">대전광역시</option>
+                  <option value="7">울산광역시</option>
+                  <option value="8">강원도</option>
+                  <option value="9">경기도</option>
+                  <option value="10">경상남도</option>
+                  <option value="11">경상북도</option>
+                  <option value="12">전라남도</option>
+                  <option value="13">전라북도</option>
+                  <option value="14">충청남도</option>
+                  <option value="15">충청북도</option>
+                  <option value="16">제주도</option>
+                </select>
+              </div>
+              <div class="col-4">
+                <select id="secondZone" name="secondZone" class="form-control">
+                  <option>선택하세요.</option>
+                </select>
+              </div>
+              <div class="col-2">
+                <div class="form-check pl-0 py-1">
+                  <input type="checkbox" name="online" id="online" class="form-check-inline mr-1" value="Y">
+                  <input type="hidden" name="online" class="form-check-inline mr-1" value="N">
+                  <label class="form-check-label" for="online">Online</label>
+                </div>
+              </div>
+            </div>
+              <div class="row mb-2">
+                <div class="col-2 text-center">
+                  <label class="col-form-label" for="firstGender">
+                    <h6 class="mb-0">성별</h6>
+                  </label>
+                </div>
+                <div class="col-5">
+                  <select id="firstGender" name="firstGender" class="form-control">
+                    <option value>선택하세요.</option>
+                    <option value="1">남자</option>
+                    <option value="2">여자</option>
+                    <option value="3">무관</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-2 text-center">
+                  <label class="col-form-label" for="searchKeyword">
+                    <h6 class="mb-0">검색어</h6>
+                  </label>
+                </div>
+                <div class="col-5">
+                  <input type="text" id="searchKeyword" class="form-control" placeholder="찾고있는 스터디를 검색해보세요."
+                  name="keyword" value>
+                </div>
+                <div class="col-5">
+                  <div class="form-check pl-0 py-1">
+                    <input type="checkbox" name="draft" id="draft" class="form-check-inline mr-1" value="Y">
+                    <input type="hidden" name="draft" class="form check-inline mr-1" value="N">
+                    <label class="form-check-label" for="draft">모집 중만 보기</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col text-end">
+              <button type="button" id="resetSearch" class="btn btn-secondary btn-sm">초기화</button>
+              <button type="submit" class="btn btn-sm btn-primary btn-search">검색하기</button>
+            </div>
+          </div>
+        </form>
+      </div>
+        <div class="row mt-4">
+          <div class="col-5">
+            <h2 class="fw-bolder fs-4 mb-4">당신이 원하는 스터디그룹을 찾아보세요.</h2>
+          </div>
+          <div class="col-7 text-end">
+            <th:block th:if="${session.nickName != null}">
+            <a class="text-decoration-none btn btn-primary" th:href="@{/board/write}">
+              <i class="bi bi-plus-lg"></i>
+              스터디그룹
+            </a>
+            </th:block>
+          </div>
+        </div>
+      <div class="container2 mt-3">
+        <div class="row gx-4 gx-lg-5">
 
+        <th:block th:each="list : ${list}">
+          <div class="col-md-4 mb-5">
+            <div class="card h-100 shadow border-0">
+              <div class="row">
+                <div class="col-4 mt-2 ms-4">
+                  <div class="badge bg-gradient rounded-pill mb-2" style="background-color : green">[[${list.writer_interest1}]]</div>
+                </div>
+                <div class="col-6 text-end mt-2">
+                  <div class="badge bg-gradient rounded-pill mb-2 bg-primary">모집 중</div>
+                </div>
+              </div>
+              <div class="card-body">
+
+                <h2 class="card-title" style="cursor: pointer;"><a th:href="@{/board/result/{id}(id = ${list.board_id})}">
+                  [[${list.board_title}]]
+                </a></h2>
+                <p class="card-text">[[${list.board_subTitle}]]</p>
+                <div class="row">
+                  <div class="col">
+                    <h6 class="d-inline">
+                      <span class="badge badge-light text-dark mr-1">#C++</span>
+                      <span class="badge badge-light text-dark mr-1">#javascript</span>
+                      <span class="badge badge-light text-dark mr-1">#파이썬</span>
+                      <span class="badge badge-light text-dark mr-1">#assembly</span>
+                      <span class="badge badge-light text-dark mr-1">#OpenGL</span>
+                    </h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <h6 class="d-inline">
+                      <span class="badge badge-info mr-1" style="background-color: blueviolet;">
+                        <i class="bi bi-geo-alt"></i>
+                        [[${list.board_location}]]
+                      </span>
+                      <i class="bi-heart" style="font-size: 1rem; color: red; cursor: pointer; float: right;"></i>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <div class="align-items-end justify-content-between m-lg-2">
+                <div class="d-flex align-items-center">
+                  <img class="rounded-circle me-3" width="40" height="40" th:src="@{/img/파밀리아 성당.jpg}" alt="...">
+                  <div class="small">
+                    <div class="fw-bold">[[${list.writer_nickName}]]</div>
+                    <div class="text-muted">[[${list.board_regDate}]]</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </th:block>
+
+      <div class="display-flex-row mt-3">
+        <div class="m-auto">
+          <div class="dataTables_paginate paging_simple_numbers">
+            <ul class="pagination">
+              <li class="paginate_button page-item disabled">
+                <a class="page-link" href="#none" aria-label="Previous"
+                   th:href="@{/board/list(currentPage = ${pagination.currentPage}-1)}">
+                  <span aria-hidden="true"><</span>
+                </a>
+              </li>
+              <li class="paginate_button page-item active" th:each="idx : ${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">
+                <a class="page-link" th:href="@{'/board/list?currentPage='+${idx}}" th:text="${idx}" href="javascript:pagination(0)"> 1 </a>
+              </li>
+              <li class="paginate_button page-item disabled">
+                <a class="page-link" href="#none" aria-label="Next"
+                   th:href="@{/board/list(currentPage = ${pagination.currentPage}+1)}">
+                  <span aria-hidden="true">></span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
 </body>
-<!--<Script>
-    function searchBoard(form) {
-        if (isEmpty(form) == true) {
-            var searchBoardTitle = document.getElementById("board_Title");
-            if (isEmpty(searchBoardTitle.value) == true) {
-                alert("키워드를 입력해 주세요.");
-                searchBoardTitle.focus();
-                return false;
-            }
-
-            form = document.getElementById("search-form");
-            form.board_Title.value = searchBoardTitle.value;
-            form.submit();
-        }
-
-        if (isEmpty(form.board_Title.value) == true) {
-            alert("키워드를 입력해 주세요.");
-            form.searchBoardTitle.focus();
-            return false;
-        }
-    }
-</Script>-->
+<script type="text/javascript" th:src="@{https://code.jquery.com/jquery-3.3.1.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/zone.js}" ></script>
+<script type="text/javascript" th:src="@{/js/category.js}" ></script>
+<script type="text/javascript" th:src="@{/js/page_style.js}" ></script>
 </html>

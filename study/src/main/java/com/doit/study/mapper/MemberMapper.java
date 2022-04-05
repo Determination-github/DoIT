@@ -37,6 +37,10 @@ public interface MemberMapper {
     @Select(MemberSQL.checkEmail)
     int checkEmail(@Param("email") String email);
 
+    //아이디로 닉네임찾기
+    @Select(MemberSQL.findNicknameById)
+    String nickname(@Param("user_id") String id);
+
     int update(Member member);
 
     int delete(Member member);

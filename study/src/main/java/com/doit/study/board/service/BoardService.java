@@ -14,22 +14,30 @@ public interface BoardService {
 
     List<BoardDto> getList() throws Exception;
     int getCount() throws Exception;
-    List<BoardDto> getPage(Pagination pagination) throws Exception;
-    BoardDto read(Integer board_Id) throws Exception;
+//    List<BoardDto> getPage(Pagination pagination) throws Exception;
+//    BoardDto read(Integer board_Id) throws Exception;
     int modify(BoardDto boardDto) throws Exception;
     void write(BoardDto boardDto) throws Exception;
     int remove(BoardDto boardDto) throws Exception;
     int remove(String board_Writer) throws Exception;
-//    int searchResultCount() throws Exception;
-//    List<BoardDto> searchSelectPage(Pagination pagination) throws Exception;
-//    int searchResultCount(SearchCondition sc) throws Exception;
-//    List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception;
+
     int searchResultCount(SearchBoardDto searchBoardDto) throws Exception;
+
     List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto) throws Exception;
+
+    Integer getBoardCount();
+
+    List<BoardWriteDto> getStudyBoardList(Pagination pagination);
 
     String insertStudyBoard(BoardWriteDto boardWriteDto);
 
-    BoardWriteDto findStudyById(String study_id, BoardWriteDto boardWriteDto);
+    BoardWriteDto findResultById(String study_id, BoardWriteDto boardWriteDto);
+
+    BoardWriteDto findStudyById(String study_id);
+
+//    void increasViewCount(String id);
+
+
 
 }
 

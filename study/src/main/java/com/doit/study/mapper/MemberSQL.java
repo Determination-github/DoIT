@@ -25,5 +25,8 @@ public class MemberSQL {
             "VALUES( #{social.user_id}, #{social.name}, #{social.email}, " +
             "#{social.sex}, #{social.interest1}, #{social.interest2}, #{social.interest3}, #{social.nickname} )";
 
+    public static final String findNicknameById =
+            "SELECT NICKNAME FROM USER_TB_SOCIAL WHERE user_id = #{user_id}";
+
 
 }
