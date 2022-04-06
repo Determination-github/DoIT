@@ -5,32 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/comment/controller/CommentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/comment/dto/CommentDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/comment/service/CommentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/comment/service/CommentServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/CommentMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/CommentSQL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/insert.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/domain/Pagination.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/domain/Pagination.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/domain/SearchCondition.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/BoardDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/BoardDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/dto/MemberDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/email.properties" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/email.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/board.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/board.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/secondWriteBoardForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/secondWriteBoardForm.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +119,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/study/src/main/resources/templates/board" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/study/src/main/resources/static/js" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
@@ -152,11 +128,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\jypar\IdeaProjects\DoIT\study\src\main\resources\templates\board" />
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\css" />
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\css" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\js" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates" />
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\members" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\css" />
+      <recent name="C:\Users\jypar\IdeaProjects\DoIT\study\src\main\resources\templates\board" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
