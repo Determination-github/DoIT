@@ -22,14 +22,14 @@ public class BoardServiceImpl implements BoardService {
     private final MemberMapper memberMapper;
 
     @Override
-    public List<BoardDto> getList() throws Exception {
+    public List<BoardDto> getList() {
 
         List<BoardDto> boardList = boardMapper.selectAll();
         return boardList;
     }
 
     @Override
-    public Integer getCount() throws Exception {
+    public Integer getCount() {
         return boardMapper.count();
     }
 
@@ -43,33 +43,38 @@ public class BoardServiceImpl implements BoardService {
 //    }
 
     @Override
-    public void write(BoardDto boardDto) throws Exception {
+    public void write(BoardDto boardDto) {
         boardMapper.insert(boardDto);
     }
 
     @Override
-    public int modify(BoardDto boardDto) throws Exception {
+    public int modify(BoardDto boardDto) {
         return boardMapper.update(boardDto);
     }
 
-    @Override
-    public int remove(BoardDto boardDto) throws Exception {
-        return boardMapper.delete(boardDto);
-    }
+//    @Override
+//    public int remove(BoardDto boardDto)  {
+//        return boardMapper.delete(boardDto);
+//    }
+//
+//    @Override
+//    public int remove(String board_Writer) {
+//        return boardMapper.delete(board_Writer);
+//    }
 
     @Override
-    public int remove(String board_Writer) throws Exception {
-        return boardMapper.delete(board_Writer);
-    }
-
-    @Override
-    public int searchResultCount(SearchBoardDto searchBoardDto) throws Exception {
+    public int searchResultCount(SearchBoardDto searchBoardDto){
         return boardMapper.searchResultCount(searchBoardDto);
     }
 
     @Override
-    public List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto) throws Exception {
+    public List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto) {
         return boardMapper.searchSelectPage(searchBoardDto);
+    }
+
+    @Override
+    public int updateCommentCount(Integer board_Id, int count) {
+        return boardMapper.updateCommentCount(board_Id, count);
     }
 
 //    @Override

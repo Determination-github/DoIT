@@ -2,9 +2,8 @@
 <html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>게시글 검색 목록 페이지</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="notice.css">
 </head>
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <style>
@@ -134,7 +133,6 @@
 </nav>
 <br>
 <h3 style="color: #4e4e4e">  원하는 스터디 그룹을 찾아보세요!</h3>
-
 <div>
     <form action="/board/searchList" method="get" class="form-horizontal" role="form">
         <input type="hidden" name="currentPage" value="1" />
@@ -149,16 +147,18 @@
 <table class="table table-hover">
     <thead>
     <th>id</th>
-    <th>subtitle</th>
-    <th>content</th>
+    <th>title</th>
+    <th>subTitle</th>
+    <th>writer</th>
     <th>count</th>
     <th>comment</th>
     <th>regDate</th>
     </thead>
-    <tr th:each="searchList :${searchLists}">
+    <tr th:each="searchList :${searchList}">
         <td>[[${searchList.board_Id}]]</td>
         <td><a th:href="@{/board/read(board_Id = ${searchList.board_Id})}">[[${searchList.board_Title}]]</a></td>
         <td>[[${searchList.board_SubTitle}]]</td>
+        <td>[[${searchList.board_Writer}]]</td>
         <td>[[${searchList.board_Count}]]</td>
         <td>[[${searchList.board_Comment}]]</td>
         <td>[[${searchList.board_RegDate}]]</td>
@@ -166,20 +166,18 @@
 </table>
 <br>
 </div>
-<div style="text-align: right;">
+<div th:if="${session.nickName}" style="text-align: right;">
     <button onclick="location.href='/board/write'">글작성</button>
 </div>
 <div style="flex: auto">
     <div class="searchBoardDto">
         <div class="paging" style="white-space:nowrap; text-align: center">
-            <a th:href="@{/board/searchList(currentPage = ${searchBoardDto.currentPage}-1, board_Title = ${searchBoardDto.board_Title})}">&lt; </a>
-
-            <div class="paginate"  style="white-space:nowrap" th:each="idx : ${#numbers.sequence(searchBoardDto.firstPage,searchBoardDto.lastPage)}">
-                <a  th:href="@{|/board/searchList?currentPage=${idx}&board_Title=${searchBoardDto.board_Title}|}"
+            <a th:if="${boardDto.hasPreviousPage}" th:href="@{/board/searchList(currentPage = ${boardDto.currentPage}-${boardDto.pageSize}, board_Title = ${boardDto.board_Title})}">&lt; </a>
+            <div class="paginate"  style="white-space:nowrap" th:each="idx : ${#numbers.sequence(boardDto.firstPage,boardDto.lastPage)}">
+                <a  th:href="@{|/board/searchList?currentPage=${idx}&board_Title=${boardDto.board_Title}|}"
                     th:text="${idx}" style="font-weight:700;"></a>
             </div>
-
-            <a th:href="@{/board/searchList(currentPage = ${searchBoardDto.currentPage}+1, board_Title = ${searchBoardDto.board_Title})}">&gt; </a>
+            <a th:if="${boardDto.hasNextPage}" th:href="@{/board/searchList(currentPage = ${boardDto.currentPage}+${boardDto.pageSize}, board_Title = ${boardDto.board_Title})}">&gt; </a>
         </div>
     </div>
 </div>

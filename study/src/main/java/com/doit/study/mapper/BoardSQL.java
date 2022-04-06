@@ -5,9 +5,6 @@ public class BoardSQL {
     public static final String count =
             "SELECT COUNT (*) FROM SR_MOIM_TB";
 
-//    public static final String count =
-//            "SELECT COUNT (*) FROM BO_STUDY_TB";
-
     public static final String deleteAll =
             "DELETE FROM BO_STUDY_TB";
 
@@ -15,9 +12,8 @@ public class BoardSQL {
             "DELETE FROM BO_STUDY_TB WHERE board_Id = #{board_Id}";
 
     public static final String insert =
-            "insert into BO_STUDY_TB (study_id, user_id, recruit_start, recruit_end, board_Count, " +
-                    "board_Comment, board_RegDate, board_Writer) " +
-                    "values (board_id_seq.NEXTVAL, #{board_Title}, #{board_SubTitle}, #{board_Content}, '0', '0', sysdate, 'Hodong')";
+            "insert into BO_STUDY_TB (board_Id, board_Title, board_SubTitle, board_Content, board_Writer) " +
+            "values (board_id_seq.NEXTVAL, #{board_Title}, #{board_SubTitle}, #{board_Content}, #{board_Writer})";
 
     public static final String insertBoard =
             "insert into SR_MOIM_TB (study_id, user_id, schedule_start, schedule_end, " +
@@ -48,9 +44,9 @@ public class BoardSQL {
 
 
     public static final String selectAll =
-            "SELECT board_Id, board_Title, board_SubTitle, board_Content, board_Count, board_Comment, to_char(board_date,'YYYYMMDD') " +
-                    "FROM BO_STUDY_TB " +
-                    "ORDER BY BOARD_ID DESC";
+            "SELECT board_Id, board_Title, board_Writer, board_SubTitle, board_Content, board_Count, board_Comment, to_char(board_date,'YYYYMMDD') " +
+            "FROM BO_STUDY_TB " +
+            "ORDER BY BOARD_ID DESC";
 
 
     public static final String select =
@@ -61,30 +57,16 @@ public class BoardSQL {
     public static final String findNickname =
             "SELECT nickname FROM WHERE user_id = #{user_id}";
 
+
     public static final String update =
             "UPDATE BO_STUDY_TB " +
-                    "SET board_Title = #{board_Title}" +
-                    ", board_SubTitle = #{board_SubTitle} " +
-                    ", board_Content = #{board_Content} " +
-                    "WHERE board_Id = #{board_Id}";
+            "SET board_Title = #{board_Title}" +
+            ", board_SubTitle = #{board_SubTitle} " +
+            ", board_Content = #{board_Content} " +
+            "WHERE board_Id = #{board_Id}";
 
-//    public static final String increaseViewCount =
-//            "UPDATE BO_STUDY_TB " +
-//                    "SET board_Count = board_Count + 1 " +
-//                    "WHERE board_Id = #{board_Id}";
 
     public static final String searchSelectPage =
-//            "SELECT board_Id, board_Title, board_SubTitle, board_Count, board_Comment, board_date\n" +
-//                    "FROM (\n" +
-//                    "SELECT rownum rnum, A.*\n" +
-//                    " from (\n" +
-//                    "  select board_Id, board_Title, board_SubTitle, board_Count, board_Comment, board_date\n" +
-//                    "  from BO_STUDY_TB\n" +
-//                    "  where board_Title like '${board_Title}'\n" +
-//                    " order by board_Id desc\n" +
-//                    "  ) A\n" +
-//                    " )\n" +
-//                    " where rnum > ${firstRecordIndex} AND rnum <= ${lastRecordIndex}";
             "SELECT board_Id, board_Title, board_SubTitle, board_Count, board_Comment, board_date\n" +
                     "FROM (\n" +
                     "SELECT rownum rnum, A.*\n" +
@@ -98,9 +80,12 @@ public class BoardSQL {
                     " where rnum > ${firstRecordIndex} AND rnum <= ${lastRecordIndex}";
 
     public static final String searchResultCount =
-//            "select COUNT (*) from BO_STUDY_TB " +
-//                    "where board_Title like #{board_Title}";
-            "select COUNT (*) from BO_STUDY_TB\n" +
-                    "                    where board_Title like'%' || #{board_Title} || '%'";
+    "select COUNT (*) from BO_STUDY_TB\n" +
+            "                    where board_Title like'%' || #{board_Title} || '%'";
+
+    public static final String updateCommentCount =
+            "UPDATE BO_STUDY_TB " +
+                    "SET board_Comment = board_Comment + #{count} " +
+                    "where board_Id = #{board_Id}";
 
 }

@@ -2,7 +2,7 @@
 <html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Title</title>
+<title>게시글 목록 페이지</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="notice.css">
 </head>
@@ -133,7 +133,6 @@
     </div>
 </nav>
 <h3 style="color: #4e4e4e">  원하는 스터디 그룹을 찾아보세요!</h3>
-
 <div>
     <form action="/board/searchList?board_Title=${searchBoardDto.board_Title}" method="get" class="form-horizontal" role="form">
         <input type="hidden" name="currentPage" value="1" />
@@ -166,18 +165,20 @@
     </table>
     <br>
 </div>
-    <div style="text-align: right;">
-        <button onclick="location.href='/board/write'">글작성</button>
-    </div>
+<div th:if="${session.nickName}" style="text-align: right;">
+    <button onclick="location.href='/board/write'">글작성</button>
+</div>
 <div style="flex: auto">
 <div class="paginate">
     <div class="paging" style="white-space:nowrap; text-align: center">
-            <a th:href="@{/board/list(currentPage = ${pagination.currentPage}-1)}">&lt; </a>
+            <a th:if="${pagination.hasPreviousPage}" th:href="@{/board/list(currentPage = ${pagination.currentPage}-1)}">&lt; </a>
+
         <div class="paginate"  style="white-space:nowrap" th:each="idx : ${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">
             <a  th:href="@{'/board/list?currentPage='+${idx}}"
                 th:text="${idx}" style="font-weight:700;"></a>
         </div>
-          <a th:href="@{/board/list(currentPage = ${pagination.currentPage}+1)}">&gt; </a>
+
+          <a th:if="${pagination.hasNextPage}" th:href="@{/board/list(currentPage = ${pagination.currentPage}+1)}">&gt; </a>
     </div>
 </div>
 </div>

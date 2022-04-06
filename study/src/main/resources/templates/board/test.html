@@ -1,41 +1,41 @@
 <!DOCTYPE html>
 <html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org">
 <head>
-    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <meta charset="UTF-8">
-    <title>게시글 상세 페이지</title>
+  <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <title>게시글 상세 페이지</title>
 </head>
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #283673 !important;">
-    <div class="container">
-        <a class="navbar-brand" href="/">
-            <img src="../img/logocopy.png" width="100" height="100" class="d-inline-block align-top" alt>
-        </a>
-        <button class="navbar-toggler togglerNoBorder" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse pl-2 pt-1" id="navbarNavDropdown">
-        </div>
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <img src="../img/logocopy.png" width="100" height="100" class="d-inline-block align-top" alt>
+    </a>
+    <button class="navbar-toggler togglerNoBorder" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse pl-2 pt-1" id="navbarNavDropdown">
     </div>
+  </div>
 </nav>
 <div class="container">
-    <div>
-        글번호 : <p id="board_Id">  [[${board.board_Id}]]</p>
-    </div>
-    글제목 :<p id="board_Title"> [[${board.board_Title}]]</p>
-    한줄소개 :<p id="board_SubTitle"> [[${board.board_SubTitle}]]</p>
-    <p>글내용 :
-    <div id="board_Content">
+  <div>
+    글번호 : <p id="board_Id">  [[${board.board_Id}]]</p>
+  </div>
+  글제목 :<p id="board_Title"> [[${board.board_Title}]]</p>
+  한줄소개 :<p id="board_SubTitle"> [[${board.board_SubTitle}]]</p>
+  <p>글내용 :
+  <div id="board_Content">
         <textarea readonly="readonly" class="form-control"
                   th:text="${board.board_Content}"></textarea></p>
-    </div>
-    <p>조회수 : [[${board.board_Count}]]</p>
+  </div>
+  <p>조회수 : [[${board.board_Count}]]</p>
 </div>
 <div th:if="${board.board_Writer.toString().equals(board_Writer)}" style="flex-direction: row-reverse">
-    <button id="deleteBtn" class="btn btn-danger btn-sm float-right">글 삭제</button>
-    <button id="updateBtn" class="btn btn-info btn-sm float-right">글 수정</button>
+  <button id="deleteBtn" class="btn btn-danger btn-sm float-right">글 삭제</button>
+  <button id="updateBtn" class="btn btn-info btn-sm float-right">글 수정</button>
 </div><br>
 <form id="form" th:action="@{/}" method="post"></form>
 <h2></h2>
@@ -44,11 +44,9 @@
 <button id="modBtn" type="button">댓글수정</button>
 <div id="commentList"></div>
 <div id="replyForm" style="display:none">
-    <input type="text" name="replyComment">
-    <button id="wrtRepBtn" type="button">등록</button>
+  <input type="text" name="replyComment">
+  <button id="wrtRepBtn" type="button">등록</button>
 </div>
-
-
 <script th:inline="javascript">
 
     let board_Id=[[${board.board_Id}]];
@@ -223,5 +221,7 @@
     })
 
 </script>
+
+
 </body>
 </html>

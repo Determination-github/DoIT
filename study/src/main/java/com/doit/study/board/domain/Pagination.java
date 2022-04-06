@@ -28,6 +28,7 @@ public class Pagination {
     // 다음 페이지 존재 여부
     private boolean hasNextPage;
 
+
     public Pagination(int currentPage, int pageSize) {
         //강제입력방지
         if (currentPage < 1) {
@@ -150,5 +151,4 @@ public class Pagination {
             }
         }
     }
-    // *************list*********************
 }

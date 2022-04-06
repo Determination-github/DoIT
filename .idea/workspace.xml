@@ -4,17 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="Refactor: &quot;검색 기능 개선&quot;">
+    <list default="true" id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/comment/controller/CommentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/comment/dto/CommentDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/comment/service/CommentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/comment/service/CommentServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/CommentMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/CommentSQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/insert.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9740ba4b-a08b-4ab8-b9a6-fa6b3eabde81.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/domain/Pagination.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/domain/Pagination.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/domain/SearchCondition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/BoardDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/BoardDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/MemberSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/MemberSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/MemberServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/dto/MemberDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/resources/email.properties" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/email.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/secondWriteBoardForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/secondWriteBoardForm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/kakaoJoinForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/members/kakaoJoinForm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/members/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/board.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/board.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardDetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/searchBoardList.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,8 +67,8 @@
       <list>
         <option value="JUnit5 Test Class" />
         <option value="Interface" />
-        <option value="HTML File" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -127,20 +143,20 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/study/src/main/java/com/doit/study/option" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/study/src/main/resources/templates/board" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.20689656" />
-    <property name="settings.editor.selected.configurable" value="DBNavigator.Project.ConnectionSettings" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\java\com\doit\study\option" />
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\img" />
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\js\ckeditor" />
+      <recent name="C:\Users\jypar\IdeaProjects\DoIT\study\src\main\resources\templates\board" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\css" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\css" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates" />
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\js" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -207,7 +223,6 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.doit.study.member.controller" />
       <option name="MAIN_CLASS_NAME" value="com.doit.study.member.controller.MemberControllerTest" />
-      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -261,6 +276,7 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.StudyApplication" />
         <item itemvalue="Gradle.study [dependencies]" />
         <item itemvalue="JUnit.MemberServiceImplTest.InsertMember" />
         <item itemvalue="JUnit.MemberControllerTest.testGetTime" />
@@ -283,6 +299,12 @@
       <workItem from="1648535888020" duration="11448000" />
       <workItem from="1648571004630" duration="224000" />
       <workItem from="1648623516502" duration="9549000" />
+      <workItem from="1648714727081" duration="18067000" />
+      <workItem from="1648739175543" duration="1777000" />
+      <workItem from="1648741034016" duration="27000" />
+      <workItem from="1648741558121" duration="2467000" />
+      <workItem from="1648776863137" duration="7558000" />
+      <workItem from="1648799992985" duration="18441000" />
     </task>
     <task id="LOCAL-00001" summary="chore JDK Version Downgrade">
       <created>1648110197034</created>
@@ -291,7 +313,42 @@
       <option name="project" value="LOCAL" />
       <updated>1648110197034</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Refactor: &quot;게시글 쿼리 추가&quot;&#10;&#10;스터디게시글 댓글 관련 쿼리 추가">
+      <created>1648737792279</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1648737792279</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Refactor: &quot;게시글 쿼리 추가&quot;&#10;&#10;스터디게시글 댓글 관련 쿼리 추가">
+      <created>1648740486145</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1648740486145</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Chore: &quot;게시글 페이징 수정&quot;">
+      <created>1648778290915</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1648778290915</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Refactor: &quot;게시글 페이징 수정&quot;">
+      <created>1648803054402</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1648803054402</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Refactor: &quot;게시글 수정&quot;&#10;&#10;게시글을 작성한 사용자만 수정, 삭제 가능합니다.">
+      <created>1648822658376</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1648822658376</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -314,7 +371,11 @@
     <MESSAGE value="Merge branch 'woongseop' of https://github.com/Determination-github/DoIT into jeongyong&#10;&#10; Conflicts:&#10;&#9;.idea/compiler.xml&#10;&#9;.idea/encodings.xml&#10;&#9;.idea/gradle.xml&#10;&#9;.idea/jarRepositories.xml&#10;&#9;.idea/misc.xml&#10;&#9;.idea/modules.xml&#10;&#9;.idea/modules/study.test.iml&#10;&#9;study/src/main/java/com/doit/study/HomeController.java&#10;&#9;study/src/main/java/com/doit/study/StudyApplication.java&#10;&#9;study/src/main/java/com/doit/study/mapper/MemberMapper.java&#10;&#9;study/src/main/resources/application.properties&#10;&#9;study/src/main/resources/templates/index.html" />
     <MESSAGE value="Feat: &quot;검색 기능 업데이트&quot;&#10;&#10;게시판검색 이후 게시물이 한 페이지에 3개가 보이지않던 현상 수정" />
     <MESSAGE value="Refactor: &quot;검색 기능 개선&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor: &quot;검색 기능 개선&quot;" />
+    <MESSAGE value="Refactor: &quot;게시글 쿼리 추가&quot;&#10;&#10;스터디게시글 댓글 관련 쿼리 추가" />
+    <MESSAGE value="Chore: &quot;게시글 페이징 수정&quot;" />
+    <MESSAGE value="Refactor: &quot;게시글 페이징 수정&quot;" />
+    <MESSAGE value="Refactor: &quot;게시글 수정&quot;&#10;&#10;게시글을 작성한 사용자만 수정, 삭제 가능합니다." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor: &quot;게시글 수정&quot;&#10;&#10;게시글을 작성한 사용자만 수정, 삭제 가능합니다." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

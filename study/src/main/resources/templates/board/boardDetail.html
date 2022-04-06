@@ -174,21 +174,8 @@
                                     <div class="pull-right reply-panel mr-2">
                                         <a href="#" class="reply-btn text-decoration-none">답글</a>
                                     </div>
-                                    <div class="comment-body">우리 스터디는 클라스가 다름.</div>
-                                </div>
-                            </div>
-                            <div class="d-flex mb-3 parent-comment border-bottom mb-2 pb-3">
-                                <input type="hidden" value="15" name="commentId" class="comment-id">
-                                <div class="flex-shrink-0">
-                                    <img class="rounded-circle" src="/img/파밀리아 성당.jpg" alt="..." width="30" height="30">
-                                </div>
-                                <div class="ms-3 w-100">
-                                    <div class="fw-bold commenter-name">성당</div>
-                                    <small class="text-muted text-sm date-panel">2022-04-19 02:14:34</small>
-                                    <div class="pull-right reply-panel mr-2">
-                                        <a href="#" class="reply-btn text-decoration-none">답글</a>
-                                    </div>
-                                    <div class="comment-body">같이 열심히 해봐요.</div>
+                                    <div id="commentList"></div>
+                                    <div class="comment-body">우리 스터디는 클라스가 다름</div>
                                 </div>
                             </div>
                         </div>
@@ -211,5 +198,179 @@
     </div>
 </section>
 </main>
+<script th:inline="javascript">
+
+    let board_Id=[[${boardWriteDto.board_Id}]];
+
+    let toHtml = function (comments){
+        let tmp = "<ul>";
+
+        comments.forEach(function (comment){
+            tmp += '<li data-comment_Id='+comment.comment_Id
+            tmp += ' data-parentComment_Id='+comment.parentComment_Id
+            tmp += ' data-board_Id='+comment.board_Id + '>'
+        if((comment.comment_Id!=comment.parentComment_Id) && (comment.parentComment_Id>0))
+            tmp += 'ㄴ'
+            tmp += ' 댓글 작성자=<span class="comment_Writer">' + comment.comment_Writer + '</span>'
+            tmp += ' 댓글 내용=<span class="comment_Content">' + comment.comment_Content + '</span>'
+            tmp += ' 작성 일자='+comment.reg_Date
+            tmp += '<button class="delBtn">삭제</button>'
+            tmp += '<button class="modBtn">수정</button>'
+            tmp += '<button class="replyBtn">답글</button>'
+            tmp += '</li>'
+        })
+        return tmp + "</ul>";
+    }
+
+    let showList = function (board_Id){
+        $.ajax({
+            type:'GET',
+            url:'/comments?board_Id='+board_Id,
+            success:function (result){
+                $("#commentList").html(toHtml(result));
+            },
+            error:function (){alert("error")}
+        });
+    };
+
+    $(document).ready(function (){
+
+        showList(board_Id);
+
+        $("#modBtn").click(function (){
+            let comment_Id = $(this).attr("data-comment_Id");
+            let comment_Content = $("input[name=comment]").val();
+
+            if(comment_Content.trim()==''){
+                alert("댓글을 입력해주세요.");
+                $("input[name=comment]").focus()
+                return;
+            }
+
+            $.ajax({
+                type:'PATCH',
+                url:'/comments/'+comment_Id,
+                headers:{"content-type":"application/json"},
+                data:JSON.stringify({comment_Id:comment_Id, comment_Content:comment_Content}),
+                success:function (result){
+                    alert(result);
+                    showList(board_Id);
+                },
+                error:function (){alert("error")}
+            })
+            $("input[name=comment]").val('');
+        })
+
+        $("#wrtRepBtn").click(function (){
+            let comment_Content = $("input[name=replyComment]").val();
+            let parentComment_Id = $("#replyForm").parent().attr("data-comment_Id");
+
+            if(comment_Content.trim()==''){
+                alert("댓글을 입력해주세요.");
+                $("input[name=replyComment]").focus()
+                return;
+            }
+
+            $.ajax({
+                type:'POST',
+                url:'/comments?board_Id='+board_Id,
+                headers:{"content-type":"application/json"},
+                data:JSON.stringify({parentComment_Id:parentComment_Id, board_Id:board_Id, comment_Content:comment_Content}),
+                success:function (result){
+                    alert(result);
+                    showList(board_Id);
+                },
+                error:function (){alert("error")}
+            })
+            $("#replyForm").css("display", "none")
+            $("input[name=replyComment]").val('')
+            $("#replyForm").appendTo("body");
+        })
+
+        $("#wrtBtn").click(function (){
+            let comment_Content = $("input[name=comment]").val();
+
+                if(comment_Content.trim()==''){
+                    alert("댓글을 입력해주세요.");
+                    $("input[name=comment]").focus()
+                    return;
+                }
+
+            $.ajax({
+                type:'POST',
+                url:'/comments?board_Id='+board_Id,
+                headers:{"content-type":"application/json"},
+                data:JSON.stringify({board_Id:board_Id, comment_Content:comment_Content}),
+                success:function (result){
+                    alert(result);
+                    showList(board_Id);
+                },
+                error:function (){alert("error")}
+            })
+            $("input[name=comment]").val('');
+        })
+
+        $("#commentList").on("click", ".modBtn",function () {
+            let comment_Id = $(this).parent().attr("data-comment_Id");
+            let comment_Content = $("span.comment_Content", $(this).parent()).text();
+
+            $("input[name=comment]").val(comment_Content);
+            $("#modBtn").attr("data-comment_Id", comment_Id);
+        });
+
+        $("#commentList").on("click", ".replyBtn",function () {
+            $("#replyForm").appendTo($(this).parent());
+            $("#replyForm").css("display", "block");
+        });
+        $("#commentList").on("click", ".delBtn",function (){
+            let comment_Id = $(this).parent().attr("data-comment_Id");
+            let board_Id = $(this).parent().attr("data-board_Id");
+            $.ajax({
+                type:'DELETE',
+                url:'/comments/'+comment_Id+'?board_Id='+board_Id,
+                success:function (result){
+                    alert(result)
+                    showList(board_Id);
+                },
+                error:function (){alert("error")}
+            });
+        });
+
+        let form= $("#form");
+        let board_Title = [[${board.board_Title}]];
+        let board_SubTitle = [[${board.board_SubTitle}]];
+        $(document).on('click', '#deleteBtn', function (e){
+            $('#form').attr("action", "remove");
+            form.append("<input type='hidden' name='board_Id' value="+board_Id+">");
+            form.append("<input type='hidden' name='_method' value='post'>");
+            form.submit();
+        })
+        $(document).on('click','#updateBtn', function (e) {
+            let str="<input class='form-control' width='250'" +
+                "value='"+board_Title+"' id='updateBoard_Title'>";
+            $("#board_Title").html(str);
+            let str2="<input class='form-control' width='250" +
+                "value='"+board_SubTitle+"' id='updateSubBoard_Title'>";
+            $("#board_SubTitle").html(str2);
+            let str3="<textarea  class='form-control' id='updateBoard_Content'></textarea>";
+            $("#board_Content").html(str3);
+            $("#updateBtn").attr("id", "updateConfirmBtn");
+        })
+
+        $(document).on('click','#updateConfirmBtn', function (e){
+            $('#form').attr("action", "modify");
+            let updateBoard_Title= $('#updateBoard_Title').val();
+            let updateBoard_SubTitle= $('#updateSubBoard_Title').val();
+            let updateBoard_Content= $('#updateBoard_Content').val();
+            form.append("<input type='hidden' name='board_Id' value='"+board_Id+"'>");
+            form.append("<input type='hidden' name='_method' value='post'>");
+            form.append("<input type='hidden' name='board_Title' value='"+updateBoard_Title+"'>");
+            form.append("<input type='hidden' name='board_SubTitle' value='"+updateBoard_SubTitle+"'>");
+            form.append("<input type='hidden' name='board_Content' value='"+updateBoard_Content+"'>");
+            form.submit();
+        })
+    })
+
+</script>
 </body>
 </html>

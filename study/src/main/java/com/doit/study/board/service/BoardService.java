@@ -2,7 +2,6 @@ package com.doit.study.board.service;
 
 import com.doit.study.board.domain.Board;
 import com.doit.study.board.domain.Pagination;
-import com.doit.study.board.domain.SearchCondition;
 import com.doit.study.board.dto.BoardDto;
 import com.doit.study.board.dto.BoardWriteDto;
 import com.doit.study.board.dto.SearchBoardDto;
@@ -12,19 +11,19 @@ import java.util.List;
 
 public interface BoardService {
 
-    List<BoardDto> getList() throws Exception;
+    List<BoardDto> getList();
 //    List<BoardDto> getPage(Pagination pagination) throws Exception;
 //    BoardDto read(Integer board_Id) throws Exception;
-    int modify(BoardDto boardDto) throws Exception;
-    void write(BoardDto boardDto) throws Exception;
-    int remove(BoardDto boardDto) throws Exception;
-    int remove(String board_Writer) throws Exception;
+    int modify(BoardDto boardDto);
+    void write(BoardDto boardDto);
+//    int remove(BoardDto boardDto);
+//    int remove(String board_Writer);
 
-    int searchResultCount(SearchBoardDto searchBoardDto) throws Exception;
+    int searchResultCount(SearchBoardDto searchBoardDto);
 
-    List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto) throws Exception;
+    List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto);
 
-    Integer getCount() throws Exception;
+    Integer getCount();
 
     List<BoardWriteDto> getStudyBoardList(Pagination pagination);
 
@@ -35,6 +34,9 @@ public interface BoardService {
     BoardWriteDto findStudyById(String study_id);
 
 //    void increasViewCount(String id);
+
+    int updateCommentCount(Integer board_Id, int count);
+
 
 
 

@@ -34,7 +34,7 @@ public class LoginController {
      */
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginDto") LoginDto loginDto, Model model, HttpSession session) {
-        
+
         //네이보 로그인을 위한 콜백 url 생성
         String naverAuthUrl = naverService.getAuthorizationUrl(session);
         log.info("네이버: " + naverAuthUrl);
@@ -85,7 +85,6 @@ public class LoginController {
         //세션에 회원 정보 저장
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER, memberDto);
-
         return "redirect:" + redirectURL;
     }
 

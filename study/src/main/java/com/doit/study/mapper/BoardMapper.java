@@ -4,7 +4,6 @@ package com.doit.study.mapper;
 import com.doit.study.board.domain.Board;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
-import com.doit.study.board.dto.BoardWriteDto;
 import com.doit.study.board.dto.SearchBoardDto;
 import org.apache.ibatis.annotations.*;
 
@@ -20,19 +19,13 @@ public interface BoardMapper {
 
 
     @Delete(BoardSQL.deleteAll)
-    public int deleteAll();
-
-//    @Delete(BoardSQL.delete)
-//    public int delete(Integer board_Id, String board_Writer);
+    int deleteAll();
 
     @Delete(BoardSQL.delete)
-    public int delete(BoardDto boardDto);
-
-    //    @Delete(BoardSQL.delete)
-    public int delete(String board_Title);
+    int delete(BoardDto boardDto);
 
     @Insert(BoardSQL.insert)
-    public void insert(BoardDto boardDto);
+    void insert(BoardDto boardDto);
 
     @Select(BoardSQL.count)
     Integer count();
@@ -59,18 +52,21 @@ public interface BoardMapper {
     String findNickname(@Param("user_id") String id);
 
     @Select(BoardSQL.select)
-    public BoardDto selectOne(Integer board_Id);
+    BoardDto selectOne(Integer board_Id);
 
 
 
     @Update(BoardSQL.update)
-    public int update(BoardDto boardDto);
+    int update(BoardDto boardDto);
 
 
     @Select(BoardSQL.searchSelectPage)
-    public List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto);
+    List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto);
 
     @Select(BoardSQL.searchResultCount)
-    public int searchResultCount(SearchBoardDto searchBoardDto);
+    int searchResultCount(SearchBoardDto boardDto);
+
+    @Update(BoardSQL.updateCommentCount)
+    int updateCommentCount(@Param("board_Id") Integer board_Id, @Param("count") Integer count);
 
 }
