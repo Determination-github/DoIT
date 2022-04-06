@@ -5,62 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="Refactor: &quot;검색 기능 개선&quot;">
-      <change afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/secondWriteBoardForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/study/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/TestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/BoardWriteDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/BoardWriteDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/FirstStudyDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/FirstStudyDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/MemberMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/MemberMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/MemberSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/MemberSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/MemberService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/MemberServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/static/css/bootstrap.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/new.css" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/static/css/new.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/ID-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/static/img/ID-icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/PW-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/static/img/PW-icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/js/category.js" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/static/js/category.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/js/ckeditor/ckeditor.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/js/zone.js" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/static/js/zone.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/Home.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/firstInsert.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/notice.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/secondInsert.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/test.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/groups/apple.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/groups/new.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/groups/one.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/groups/three.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/groups/two.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/member/join.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/member/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/member/loginSuccess.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/joinForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/members/joinForm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/loginForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/members/loginForm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/profile/profileone.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/board/wishlist.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/board/wishlist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/fragment/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/fragment/nav.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/members/joinForm.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/members/loginForm.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/profile/profileone.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/profile/profileone.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/studyedit/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/studyedit/edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/studyedit/new.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/firstWriteBoardForm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/studyedit/newedit.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/studyedit/newtwo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/studyedit/newtwoedit.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/test/new.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/test/one.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/test/three.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/sungjin/test/two.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/email.properties" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/email.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/secondWriteBoardForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/secondWriteBoardForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/kakaoJoinForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/members/kakaoJoinForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/members/profile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

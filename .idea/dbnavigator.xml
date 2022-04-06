@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
@@ -76,8 +76,8 @@
           <database-type value="ORACLE" />
           <config-type value="BASIC" />
           <database-version value="11.1" />
-          <driver-source value="EXTERNAL" />
-          <driver-library value="C:\Program Files\Oracle\ojdbc6.jar" />
+          <driver-source value="BUILTIN" />
+          <driver-library value="C:\Program Files\Java\jre1.8.0_321\lib\ext\ojdbc6.jar" />
           <driver value="oracle.jdbc.driver.OracleDriver" />
           <url-type value="SERVICE" />
           <host value="ec2-3-38-181-242.ap-northeast-2.compute.amazonaws.com" />

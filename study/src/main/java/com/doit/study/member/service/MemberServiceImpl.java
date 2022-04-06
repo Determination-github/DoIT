@@ -83,7 +83,7 @@ public class MemberServiceImpl implements MemberService{
                 social.getInterest1(),
                 social.getInterest2(),
                 social.getInterest3(),
-                social.getInterest3()
+                social.getNickname()
         );
 
         log.info("profileDto={}", profileDto);

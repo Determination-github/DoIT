@@ -50,14 +50,14 @@
                 <div class="main_join_input_group main_join_input_box3 main_join_chk">
                     <div th:if="${#strings.isEmpty(kakaoDto.kakaoEmail)}">
                         <p>
-                            <input class="main_join_input main_join_input2" type="email" id="email" th:field="*{kakaoEmail}"
+                            <input class="main_join_input main_join_input2" type="email" th:field="*{kakaoEmail}"
                                    th:placeholder="@{이메일을 입력하세요.}" th:errorclass="field-error">
                         </p>
                     </div>
 
 
                     <p th:if="${not #strings.isEmpty(kakaoDto.kakaoEmail)}">
-                        <input class="main_join_input main_join_input2" type="email" id="emailKakao"
+                        <input class="main_join_input main_join_input2" type="email" id="email"
                                th:value="${kakaoDto.kakaoEmail}" readonly>
                     </p>
                 </div>

@@ -22,11 +22,11 @@ public class BoardSQL {
     public static final String insertBoard =
             "insert into SR_MOIM_TB (study_id, user_id, schedule_start, schedule_end, " +
                     "title, content, address, moim_flag, " +
-                    "interest1, interest2, interest3, sub_title, reg_date) " +
+                    "interest1, interest2, interest3, sub_title) " +
                     "values (#{board.study_id}, #{board.user_id}, #{board.schedule_start}, " +
                     "#{board.schedule_end}, #{board.title}, #{board.content}, " +
                     "#{board.address}, #{board.moim_flag}, #{board.interest1}, " +
-                    "#{board.interest2}, #{board.interest3}, #{board.sub_title}, sysdate)";
+                    "#{board.interest2}, #{board.interest3}, #{board.sub_title})";
 
     public static final String getBoard =
             "SELECT * FROM SR_MOIM_TB WHERE study_id = #{study_id}";

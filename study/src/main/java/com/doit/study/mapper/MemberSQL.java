@@ -11,7 +11,7 @@ public class MemberSQL {
             "SELECT * FROM USER_TB WHERE email = #{email}";
 
     public static final String findBySocialId =
-            "SELECT * FROM USER_TB_SOCIAL WHERE user_id = #{user_id}";
+            "SELECT * FROM SO_USER_TB WHERE user_id = #{user_id}";
 
     public static final String checkNickname =
             "SELECT COUNT(NICKNAME) FROM USER_TB WHERE nickname = #{nickname}";
@@ -21,14 +21,14 @@ public class MemberSQL {
 
 
     public static final String insertSocial =
-            "INSERT INTO USER_TB_SOCIAL " +
+            "INSERT INTO SO_USER_TB " +
             "VALUES( #{social.user_id}, #{social.name}, #{social.email}, " +
             "#{social.sex}, #{social.interest1}, #{social.interest2}, #{social.interest3}, #{social.nickname} )";
 
     public static final String findNicknameById =
-            "SELECT NICKNAME FROM USER_TB_SOCIAL WHERE user_id = #{user_id}";
+            "SELECT NICKNAME FROM SO_USER_TB WHERE user_id = #{user_id}";
 
     public static final String findMember =
-            "SELECT * FROM USER_TB_SOCIAL WHERE user_id = #{user_id}";
+            "SELECT * FROM SO_USER_TB WHERE user_id = #{user_id}";
 
 }
