@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/join-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/static/css/join-style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/secondWriteBoardForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/secondWriteBoardForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/findpassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/members/findpassword.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/joinForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/members/joinForm.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,11 +142,11 @@
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\img" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\css" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\members" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\board" />
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\img" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates" />
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\js\ckeditor" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.doit.study.member.controller" />

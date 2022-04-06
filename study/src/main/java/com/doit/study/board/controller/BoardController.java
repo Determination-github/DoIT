@@ -191,7 +191,7 @@ public class BoardController {
     @PostMapping("/remove")
     public String remove(Integer board_Id, BoardDto boardDto) throws Exception {
         commentService.removeAll(board_Id);
-        boardService.remove(boardDto);
+//        boardService.remove(boardDto);
         return "redirect:/board/list";
     }
 

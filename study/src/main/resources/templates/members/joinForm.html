@@ -2,10 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+
+    <link rel="stylesheet" th:href="@{/css/default.css}" href="../css/default.css">
+    <link rel="stylesheet" th:href="@{/css/join-style.css}" href="../css/join-style.css">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css}"/>
     <link th:href="@{/css/join-style.css}" rel="stylesheet">
     <link th:href="@{/css/default.css}" rel="stylesheet">
+
     <script src="https://kit.fontawesome.com/0c4f9b09f5.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
     <title>회원가입 페이지</title>
 
     <style>
@@ -19,6 +25,18 @@
 <body>
 <div id="wrap">
     <header id="header">
+        <div class="header_login_ID_wrap">
+            <p class="header_login_img"><a href="/"><img th:src="@{/img/DoIT-Radius.png}"/></a></p>
+            <p class="header_login_ID">
+                <span class="header_login_ID_span">이미 회원이십니까?</span>
+                <a href="/login" class="header_login_ID_btn">
+                    로그인
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>
+                </a>
+            </p>
+        </div>
         <h1 class="header_join">회원가입</h1>
     </header>
     <main id="main">

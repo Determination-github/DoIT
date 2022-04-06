@@ -2,6 +2,41 @@
 #header{
   width:100%;
 }
+.header_login_ID_wrap{
+    width:80%;
+    margin:20px auto 0 auto;
+    display:flex;
+    justify-content:space-between;
+}
+.header_login_ID_span{
+    color:#999;
+}
+.header_login_img{
+    width:70px;
+    height:70px;
+}
+.header_login_img img{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+}
+.header_login_ID{
+    width:300px;
+    font-size:15px;
+    margin-top:15px;
+}
+.header_login_ID_btn{
+    width:auto;
+    height:auto;
+    padding:10px 30px;
+    margin-left:15px;
+    background-color:#083670;
+    color:#FFF;
+    border-radius:20px;
+}
+.bi-arrow-right{
+    margin-top:2px;
+}
 .header_join{
   text-align:center;
 	font-size:80px;
