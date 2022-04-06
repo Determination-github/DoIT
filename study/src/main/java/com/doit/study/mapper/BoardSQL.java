@@ -47,18 +47,19 @@ public class BoardSQL {
             "UPDATE SR_MOIM_TB SET VIEW_COUNT = VIEW_COUNT + 1 WHERE study_id = #{study_id}";
 
 
-
     public static final String selectAll =
             "SELECT board_Id, board_Title, board_SubTitle, board_Content, board_Count, board_Comment, to_char(board_date,'YYYYMMDD') " +
                     "FROM BO_STUDY_TB " +
                     "ORDER BY BOARD_ID DESC";
+
 
     public static final String select =
             "SELECT board_Id, board_Title, board_SubTitle, board_Content, board_Count " +
                     "FROM BO_STUDY_TB " +
                     "WHERE board_Id = #{board_Id}";
 
-
+    public static final String findNickname =
+            "SELECT nickname FROM WHERE user_id = #{user_id}";
 
     public static final String update =
             "UPDATE BO_STUDY_TB " +

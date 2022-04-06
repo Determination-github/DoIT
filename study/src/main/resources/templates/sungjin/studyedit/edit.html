@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css}" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" th:href="@{/testcss/bootstrap.css}" href="../testcss/bootstrap.css">
-  <link rel="stylesheet" th:href="@{/testcss/page_style.css}" href="../testcss/page_style.css">
-  <link rel="stylesheet" th:href="@{/css/edit_style.css}" href="./edit_style.css">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}" >
+  <link rel="stylesheet" th:href="@{/css/page_style.css}" >
+  <link rel="stylesheet" th:href="@{/css/edit_style.css}" >
 </head>
 <body>
 <nav th:replace="/fragment/nav :: fragment_nav"></nav>
@@ -103,16 +103,16 @@
           </li>
         </ul>
         <ul class="main_btn_wrap">
-          <li><button class="main_btn">변경 완료</button></li>
+          <li><button class="main_btn">회원 수정</button></li>
           <li><button class="main_btn">계정 탈퇴</button></li>
         </ul>
       </form>
     </div>
   </div>
 </main>
-<script type="text/javascript" th:src="@{https://code.jquery.com/jquery-3.3.1.js}" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript" th:src="@{/testjs/bootstrap.bundle.min.js}" src="../js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" th:src="@{/testjs/category.js}" src="category.js"></script>
-<script type="text/javascript" th:src="@{/testjs/page_style.js}" src="./page_style.js"></script>
+<script type="text/javascript" th:src="@{https://code.jquery.com/jquery-3.3.1.js}"></script>
+<script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/js/category.js"></script>
+<script type="text/javascript" src="/js/page_style.js"></script>
 </body>
 </html>

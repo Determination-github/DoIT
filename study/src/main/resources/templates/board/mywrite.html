@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" class="fontawesome-i2svg-active fontawesome-i2svg-complete">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoIT</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/page_style.css">
+</head>
+<body class="d-flex flex-column h-100">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #283673 !important;">
+    <div class="container">
+      <a class="navbar-brand" href="/src/page.html">
+        <img src="/img/come.png" width="170" height="100" class="d-inline-block align-top" alt>
+      </a>
+      <button id="toggle_btn" class="navbar-toggler" style="border-color:#000000;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="nav-icon">
+        <a style="color: #ffffff; font-weight: bold;">안녕하세요, 사용자님!</a>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-emoji-smile-fill" viewBox="0 0 16 16" style="color: #ffd400;">
+          <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zM4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z"/>
+        </svg>
+        <div class="my-2 my-lg-0 dropdown1">
+          <div class="navbar-nav">
+            <div class="dropdown" id="nav-link-btn">
+              <a class="btn btn-secondary" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-layout-text-sidebar-reverse" viewBox="0 0 16 16">
+                  <path d="M12.5 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5zm0 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5zm.5 3.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5zm-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5z"/>
+                  <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2zM4 1v14H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h2zm1 0h9a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5V1z"/>
+                </svg>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="noticeboard.html">공지 게시판</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="my-2 my-lg-0 dropdown1">
+          <div class="navbar-nav">
+            <div class="dropdown" id="nav-link-btn">
+              <a class="btn btn-secondary" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="color: white;">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+              </a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuLink">
+                <th:block th:if="${session.nickName == null}">
+                  <li><a class="dropdown-item" tabindex="-1" th:href="@{/login}">로그인</a></li>
+                  <li><a class="dropdown-item" tabindex="-1" th:href="@{/join}">회원가입</a></li>
+                </th:block>
+                <th:block th:if="${session.nickName != null}">
+                  <li class="dropdown-submenu">
+                    <a class="test dropdown-item dropdown-toggle" tabindex="-1" href="#">마이페이지</a>
+                    <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
+                      <li><a class="dropdown-item" tabindex="-1" href="">[[${session.nickName}]]님 안녕하세요!</a></li>
+                      <li><a class="dropdown-item" tabindex="-1" th:href="@{/logout}">로그아웃</a></li>
+                      <li><a class="dropdown-item" tabindex="-1" href="edit.html">회원 수정</a></li>
+                      <li><a class="dropdown-item" tabindex="-1" href="mywrite.html">내가 쓴 글 보기</a></li>
+                      <li><a class="dropdown-item" tabindex="-1" href="poem.html">쪽지</a></li>
+                    </ul>
+                  <li class="dropdown-submenu">
+                    <a class="test dropdown-item dropdown-toggle" tabindex="-1" href="#">스터디</a>
+                    <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
+                      <li><a class="dropdown-item" tabindex="-1" href="wishlist.html">찜 목록</a></li>
+                      <li><a class="dropdown-item" tabindex="-1" href="joinstudy.html">참여한 그룹 보기</a></li>
+                    </ul>
+                  </li>
+                </th:block>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+  <div id="dropdown_menu_wrap" class="dropdown_menu_wrap">
+    <th:block th:if="${session.nickName == null}">
+      <dl class="dropdown_menu1">
+        <dd class="nav_list_dd_border nav_list_dd_border_bottom"><a class="dropdown-item" tabindex="-1" th:href="@{/login}">로그인</a></dd>
+        <dd class="nav_list_dd_border"><a class="dropdown-item" tabindex="-1" th:href="@{/join}">회원가입</a></dd>
+      </dl>
+    </th:block>
+    <th:block th:if="${session.nickName != null}">
+      <dl id="dropdown_menu2" class="dropdown_menu2">
+        <!-- <dt class="dropdown_menu2_title">마이페이지</dt> -->
+        <dd class="nav_list_dd_border"><a id="dropdown_menu2_mypage" class="test dropdown-item dropdown-toggle"tabindex="-1" href="javascript:">마이페이지</a>
+          <ul class="dropdown_menu2_menu">
+            <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1">[[${session.nickName}]]님 안녕하세요!</a></li>
+            <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" th:href="@{/logout}">로그아웃</a></li>
+            <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="edit.html">회원 수정</a></li>
+            <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="mywrite.html">내가 쓴 글 보기</a></li>
+            <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="poem.html">쪽지</a></li>
+          </ul>
+        </dd>
+      </dl>
+      <dl id="dropdown_menu3" class="dropdown_menu3">
+        <!-- <dt class="dropdown_menu3_title">스터디</dt> -->
+        <dd class="nav_list_dd_border"><a id="dropdown_menu3_study" class="test dropdown-item dropdown-toggle"tabindex="-1" href="javascript:">스터디</a>
+          <ul class="dropdown_menu3_menu">
+            <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="wishlist.html">찜 목록</a></li>
+            <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="joinstudy.html">참여한 그룹 보기</a></li>
+          </ul>
+        </dd>
+      </dl>
+    </th:block>
+  </div>
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------->
+  <section class="py-3">
+    <div class="container col-lg-10 mt-3">
+      <div>
+        <div class="col-lg-12 content-area">
+          <article>
+            <div class="row mb-4">
+              <div class="row">
+                <div  class="col-9" style="word-break: break-word;">
+                  <h1 class="fw-bolder mb-1">언어 연구회</h1>
+                </div>
+                <div class="col-3 text-end pr-0">
+                  <h4>
+                    <span class="badge bg-primary">모집 중</span>
+                  </h4>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="mb-2">스터디입니다.</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-7">
+                  <div class="mb-2">모집기간 : 2022-04-01 ~ 2022-05-01</div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-6">
+                  <h5 class="d-inline">
+                    <span class="badge badge-light text-dark mr-1">#C++</span>
+                  </h5>
+                  <h5 class="d-inline">
+                    <span class="badge badge-light text-dark mr-1">#javascript</span>
+                  </h5>
+                  <h5 class="d-inline">
+                    <span class="badge badge-light text-dark mr-1">#파이썬</span>
+                  </h5>
+                  <h5 class="d-inline">
+                    <span class="badge badge-light text-dark mr-1">#assembly</span>
+                  </h5>
+                  <h5 class="d-inline">
+                    <span class="badge badge-light text-dark mr-1">#OpenGL</span>
+                  </h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <h5 class="d-inline">
+                    <span class="badge badge-info mr-1" style="background-color: blueviolet;">
+                      <i class="bi bi-geo-alt">
+                      </i>
+                      서울특별시
+                    </span>
+                  </h5>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-4" style="min-height: 300px;">
+              <div class="card-body">
+                <p>안녕하세요 !</p>
+                <p>&nbsp;</p>
+                <p>이 스터디는 개발 언어에 대해 공부합니다.</p>
+                <p>&nbsp;</p>
+                <p>많은 관심 바랍니다. 감사합니다.</p>
+              </div>
+            </div>
+          </article>
+          <section>
+            <form name="commentFrm" id="commentFrm">
+              <input type="hidden" name="totalPage" value>
+              <input type="hidden" name="page" value="0">
+            </form>
+            <div class="card bg-light">
+              <div class="card-header">
+                <h4 class="card-title">댓글</h4>
+                <input type="hidden" name="page" value="0">
+                <form name="frmComment">
+                  <div class="input-group">
+                    <input type="hidden" name="parentId" value>
+                    <textarea class="form-control custom-control" id="comment" name="comment" rows="3" style="resize:none">
+                    </textarea>
+                    <button type="button" class="input-group-addon btn btn-primary" id="add-comment-btn">작성</button>
+                  </div>
+                </form>
+              </div>
+              <div class="card-body comment-section">
+                <div class="d-flex mb-3 parent-comment boarder-bottom mb-2 pb-3">
+                  <input type="hidden" value="15" name="commentId" class="comment-id">
+                  <div class="flex-shrink-0">
+                    <img class="rounded-circle" src="" alt="...">
+                  </div>
+                  <div class="ms-3 w-100">
+                    <div class="fw-bold commenter-name">성당</div>
+                    <small class="text-muted text-sm date-panel">2022-04-19 15:32:22</small>
+                    <div class="pull-right reply-panel mr-2">
+                      <a href="#" class="reply-btn text-decoration-none">답글</a>
+                    </div>
+                    <div class="comment-body">우리 스터디는 클라스가 다름.</div>
+                  </div>
+                </div>
+                <div class="d-flex mb-3 parent-comment border-bottom mb-2 pb-3">
+                  <input type="hidden" value="15" name="commentId" class="comment-id">
+                  <div class="flex-shrink-0">
+                    <img class="rounded-circle" src="" alt="...">
+                  </div>
+                  <div class="ms-3 w-100">
+                    <div class="fw-bold commenter-name">성당</div>
+                    <small class="text-muted text-sm date-panel">2022-04-19 02:14:34</small>
+                    <div class="pull-right reply-panel mr-2">
+                      <a href="#" class="reply-btn text-decoration-none">답글</a>
+                    </div>
+                    <div class="comment-body">같이 열심히 해봐요.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-secondary btn-lg btn-block" type="button" id="more-comments" style="float: right;">더보기</button>
+              </div>
+            </div>
+            <div class="write">
+              <a class="btn btn-secondary btn-lg btn-block mt-2" type="button" id="edit" style="float: right;" href="./groups/newedit.html">수정하기</a>
+              <button class="btn btn-secondary btn-lg btn-block mt-2" type="button" id="delete" style="float: right; margin-right: 1%;">삭제하기</button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="/js/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/page_style.js" defer></script>
+</html>

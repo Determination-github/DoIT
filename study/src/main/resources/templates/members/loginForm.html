@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>DoIT 로그인</title>
-<<<<<<< Updated upstream
+
     <link rel="stylesheet" th:href="@{/css/style.css}" href="../css/style.css">
-=======
     <link th:href="@{/css/style.css}" rel="stylesheet">
->>>>>>> Stashed changes
 
     <style>
         .field-error {
@@ -32,8 +30,9 @@
                     <div class="main_login_wrap">
 
                         <div class="main_login_ID_wrap">
-                            <p class="main_login_ID_group main_login_ID_img"></p>
+                            <img alt="ID" src="/img/ID-icon.png" class="main_login_ID_group main_login_ID_img"/>
                             <div class="main_login_ID_group main_login_ID_padding">
+
                                 <input class="main_login_ID" type="text" id="loginEmail" th:field="*{email}"
                                        placeholder="아이디를 입력하세요." th:errorclass="field-error">
                             </div>
@@ -41,7 +40,7 @@
                         <div class="field-error" th:errors="*{email}" />
 
                         <div class="main_login_PW_wrap">
-                            <p class="main_login_PW_group main_login_PW_img"></p>
+                            <img alt="PW" src="/img/PW-icon.png" class="main_login_PW_group main_login_PW_img"/>
                             <div class="main_login_PW_group main_login_PW_padding">
                                 <input class="main_login_PW" type="password" id="password" th:field="*{password}"
                                        placeholder="비밀번호를 입력하세요." th:errorclass="field-error">
@@ -51,11 +50,6 @@
 
                         <div th:if="${#fields.hasGlobalErrors()}">
                             <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
-                        </div>
-
-                        <div class="main_login_checkBox_wrap">
-                            <input class="main_login_checkBox_bro main_login_checkBox" type="checkbox" name="userAuto">
-                            <p class="main_login_checkBox_bro main_login_checkBox_text">자동 로그인</p>
                         </div>
 
                         <div class="main_login_BTN_wrap">
@@ -77,8 +71,12 @@
                     </div>
                 </form>
                 <div class="main_login_naver_wrap">
-                    <button class="main_login_kakao" th:onclick="'location.href=\''+ @{${kakaoUrl}} + '\''">카카오 계정으로 로그인</button>
-                    <button class="main_login_naver" th:onclick="'location.href=\''+ @{${naverUrl}} + '\''">네이버 계정으로 로그인</button>
+                    <button class="main_login_kakao" th:onclick="'location.href=\''+ @{${kakaoUrl}} + '\''">
+                        <img src="/img/kakaologo.jpg" alt="kakao" class="main_login_kakao_img"/>
+                        카카오 계정으로 로그인</button>
+                    <button class="main_login_naver" th:onclick="'location.href=\''+ @{${naverUrl}} + '\''">
+                        <img src="/img/네이버.png" alt="naver" class="main_login_naver_img"/>
+                        네이버 계정으로 로그인</button>
                 </div>
             </div>
         </section>

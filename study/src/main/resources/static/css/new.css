@@ -188,3 +188,24 @@ div .needs-disabled {
 }
 
 }
+
+.calender_wrap{
+   width:100%;
+}
+
+.calender_group{
+   display:inline-block;
+   width:39%;
+}
+.calender_font_event{
+   width:20%;
+   text-align: center;
+   margin:0 2px;
+}
+.calender1{
+   width:100%;
+}
+
+.calender2{
+   width:100%;
+}

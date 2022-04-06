@@ -28,5 +28,7 @@ public class MemberSQL {
     public static final String findNicknameById =
             "SELECT NICKNAME FROM USER_TB_SOCIAL WHERE user_id = #{user_id}";
 
+    public static final String findMember =
+            "SELECT * FROM USER_TB_SOCIAL WHERE user_id = #{user_id}";
 
 }

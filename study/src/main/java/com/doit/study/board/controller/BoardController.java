@@ -3,6 +3,8 @@ package com.doit.study.board.controller;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.*;
 import com.doit.study.board.service.BoardService;
+import com.doit.study.option.category.Interest;
+import com.doit.study.option.location.Address;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -24,14 +26,10 @@ import java.util.*;
 public class BoardController {
     private final BoardService boardService;
 
-
     @GetMapping("/list")
     public String list(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
                        @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
                        Model m, HttpServletRequest request){
-//        if(!loginCheck(request))
-//            return "redirect:/login/login?toURL="+request.getRequestURL();
-
         try {
             int totalRecordCount = boardService.getCount();
             Pagination pagination = new Pagination(currentPage, pageSize);
@@ -82,9 +80,12 @@ public class BoardController {
         if(session != null && session.getAttribute("id")!=null) {
             String id = (String) session.getAttribute("id");
             String nickName = (String) session.getAttribute("nickName");
+            log.info("id={}", id);
+            log.info("nickName={}", nickName);
             firstStudyDto.setWriterId(id);
             firstStudyDto.setNickName(nickName);
-            return "/board/firstInsert";
+            return "/board/firstWriteBoardForm";
+//            return "/board/firstInsert";
         } else {
             return "redirect:/login";
         }
@@ -110,14 +111,40 @@ public class BoardController {
             FirstStudyDto firstStudyDto = (FirstStudyDto) inputFlashMap.get("firstStudyDto");
             model.addAttribute("firstStudyDto", firstStudyDto);
 
+            //주소 정보 얻기
+            Address address = new Address();
+            Map<String, String> addressMap = address.getAddressMap();
+            String location1 = addressMap.get(firstStudyDto.getLocation1());
+
+            //관심 정보 얻기
+            Interest interest = new Interest();
+            Map<String, String> interestMap = interest.getInterestMap();
+            String interest1 = interestMap.get(firstStudyDto.getInterest1());
+            String interest2 = interestMap.get(firstStudyDto.getInterest2());
+
+            //주소 설정
+            String location2 = firstStudyDto.getLocation2();
+            firstStudyDto.setTotalLocation(location1+" "+location2);
+
+            //관심 설정
+            firstStudyDto.setInterest1(interest1);
+            firstStudyDto.setInterest2(interest2);
+
+            //온라인 오프라인 설정
+            if(firstStudyDto.isOnOffLine()) {
+                firstStudyDto.setFlag(1);
+            } else {
+                firstStudyDto.setFlag(0);
+            }
+
             boardWriteDto.toBoardWriteDto(firstStudyDto, boardWriteDto);
 
             log.info("secondWrite 화면으로..");
             log.info("boardWriteDto = " + boardWriteDto);
-            return "/board/secondInsert";
+            return "/board/secondWriteBoardForm";
+        } else {
+            return "redirect:/board/write";
         }
-
-        return null;
     }
 
     @PostMapping("/secondWrite")
@@ -139,18 +166,19 @@ public class BoardController {
                                 HttpServletRequest request,
                                 @PathVariable String id) {
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+        log.info("inputFlashMap={}",inputFlashMap);
         if(inputFlashMap!=null) {
             BoardWriteDto boardWriteDto = (BoardWriteDto) inputFlashMap.get("boardWriteDto");
             log.info("boardWriteDto = " + boardWriteDto);
             boardWriteDto = boardService.findResultById(id, boardWriteDto);
             log.info("boardWriteDto 갱신={}", boardWriteDto);
             model.addAttribute("boardWriteDto", boardWriteDto);
-            return "/board/test";
+            return "/board/boardDetail";
         } else {
             BoardWriteDto boardWriteDto = boardService.findStudyById(id);
             log.info("boardWriteDto = " + boardWriteDto);
             model.addAttribute("boardWriteDto", boardWriteDto);
-            return "board/test";
+            return "/board/boardDetail";
         }
     }
 

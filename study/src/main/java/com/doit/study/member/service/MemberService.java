@@ -2,6 +2,7 @@ package com.doit.study.member.service;
 
 import com.doit.study.member.dto.MemberDto;
 import com.doit.study.member.dto.LoginDto;
+import com.doit.study.member.dto.ProfileDto;
 
 public interface MemberService {
 
@@ -16,6 +17,9 @@ public interface MemberService {
 
     //이메일 중복 확인
     int findEmail(String email);
+
+    //회원 정보 가져오기
+    ProfileDto findMember(String id);
 
 
 

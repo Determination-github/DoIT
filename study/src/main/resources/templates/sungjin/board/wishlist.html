@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DoIT</title>
     <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css}" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" th:href="@{/testcss/bootstrap.css}" href="../css/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../css/bootstrap.css">
     <link rel="stylesheet" th:href="@{/css/wishlist.css}" href="wishlist.css">
 
 </head>
 
 <body class="d-flex flex-column h-100">
-<nav th:replace="/fragment/nav :: fragment_nav"></nav>
+<nav th:replace="/fragment/nav.html :: fragment_nav"></nav>
 <!-------------------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------------------->
@@ -233,8 +233,8 @@
     </main>
 </body>
 <script type="text/javascript" th:src="@{https://code.jquery.com/jquery-3.3.1.js}" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript" th:src="@{/testjs/bootstrap.bundle.min.js}" src="../js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" th:src="@{/testjs/zone.js}" src="zone.js"></script>
-<script type="text/javascript" th:src="@{/testjs/category.js}" src="category.js"></script>
-<script type="text/javascript" th:src="@{/testjs/page_style.js}" src="./page_style.js"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}" src="../js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" th:src="@{/js/zone.js}" src="zone.js"></script>
+<script type="text/javascript" th:src="@{/js/category.js}" src="category.js"></script>
+<script type="text/javascript" th:src="@{/js/page_style.js}" src="./page_style.js"></script>
 </html>

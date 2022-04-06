@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css}" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" th:href="@{/testcss/bootstrap.css}" href="../testcss/bootstrap.css">
-  <link rel="stylesheet" th:href="@{/testcss/page_style.css}" href="../testcss/page_style.css">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/css/page_style.css}">
 
 </head>
 <body class="d-flex flex-column h-100">
@@ -65,7 +65,7 @@
               <a href="../join/profileone" class="text-decoration-none">
                 <div class="d-flex-align-items-center mt-lg-5 mb-4">
                   <div class="ms-3">
-                    <h5 class="fw-bold text-dark">참여한 스터디</h5>
+                    <h5 class="fw-bold text-dark">위시 리스트</h5>
                   </div>
                 </div>
               </a>
@@ -80,16 +80,12 @@
           </div>
           <div class="col-lg-9">
             <article>
-              <header class="mb-4">
-                <h1 class="fw-bolder mb-1"></h1>
-                <div class="text-muted fst-italic mb-2">2022.02.02</div>
-              </header>
               <div class="card card-primary card-outline">
                 <div class="card-body box-profile row">
                   <div class="col-md-6 row">
                     <div class="col-md-12">
                       <div class="text-center">
-                        <img class="profile-user-img img-fluid image-circle" src="../image/파밀리아 성당.jpg" alt="User profile picture"
+                        <img class="profile-user-img img-fluid image-circle" src="/img/파밀리아 성당.jpg" alt="User profile picture"
                         style="width: 120px; height: 120px;">
                       </div>
                     </div>
@@ -100,7 +96,7 @@
                   <div class="row col-md-6 pl-5">
                     <div class="col-6 mt-5">
                       <div class="text-center">
-                        <strong>참여횟수</strong>
+                        <strong>위시리스트</strong>
                       </div>
                       <p class="text-center">
                         <span class="badge badge-primary font-size-16 mt-2">0</span>
@@ -124,29 +120,14 @@
                 <div class="card-body">
                   <strong>
                     <i class="bi bi-pencil-fill"></i>
-                    역량
+                    나의 관심사
                   </strong>
                   <p class="text-muted pt-2"> </p>
                   <hr>
                   <strong>
-                    <i class="bi bi-geo-alt-fill"></i>
-                    활동지역
+                    <i class="bi bi-envelope"></i>
+                    이메일
                   </strong>
-                  <p class="text-muted pt-2"> </p>
-                  <hr>
-                  <strong>
-                    <i class="bi bi-book"></i>
-                    직업 및 경력
-                  </strong>
-                  <p class="text-muted pt-2"> </p>
-                  <hr>
-                  <strong>
-                    <i class="bi bi-file-earmark"></i>
-                    포트폴리오
-                  </strong>
-                  <p class="text-muted pt-2">
-                    <a href class="text-decoration-none" target="_blank"></a>
-                  </p>
                 </div>
               </div>
             </article>
@@ -156,7 +137,7 @@
     </section>
   </main>
 </body>
-<script th:src="@{https://code.jquery.com/jquery-3.3.1.js}" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script th:src="@{/testjs/bootstrap.bundle.min.js}" src="../testjs/bootstrap.bundle.min.js"></script>
-<script th:src="@{/testjs/page_style.js}" src="../testjs/page_style.js"></script>
+<script th:src="@{https://code.jquery.com/jquery-3.3.1.js}"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/page_style.js"></script>
 </html>

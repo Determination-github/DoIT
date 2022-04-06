@@ -73,6 +73,6 @@ function zone_change(key, sel){
   sel.options[i] = null;
   sel.options[0] = new Option('선택하세요', '', '', 'true');
   for(i = 0; i < name.length; i++) {
-    sel.options[i + 1] = new Option(name[i], val[i]);
+    sel.options[i + 1] = new Option(name[i], name[i]);
   }
 }

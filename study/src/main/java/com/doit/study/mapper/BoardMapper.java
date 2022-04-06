@@ -55,6 +55,9 @@ public interface BoardMapper {
     @Select(BoardSQL.getBoard)
     Optional<Board> findById(@Param("study_id") String study_id);
 
+    @Select(BoardSQL.findNickname)
+    String findNickname(@Param("user_id") String id);
+
     @Select(BoardSQL.select)
     public BoardDto selectOne(Integer board_Id);
 

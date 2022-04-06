@@ -13,7 +13,6 @@ import java.util.List;
 public interface BoardService {
 
     List<BoardDto> getList() throws Exception;
-    int getCount() throws Exception;
 //    List<BoardDto> getPage(Pagination pagination) throws Exception;
 //    BoardDto read(Integer board_Id) throws Exception;
     int modify(BoardDto boardDto) throws Exception;
@@ -25,7 +24,7 @@ public interface BoardService {
 
     List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto) throws Exception;
 
-    Integer getBoardCount();
+    Integer getCount() throws Exception;
 
     List<BoardWriteDto> getStudyBoardList(Pagination pagination);
 

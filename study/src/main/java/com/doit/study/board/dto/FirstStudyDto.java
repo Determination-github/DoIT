@@ -7,8 +7,10 @@ public class FirstStudyDto {
 
     private String writerId, nickName;
     private String interest1, interest2, interest3;
+    private String location1, location2, totalLocation;
     private String startDate, endDate;
-    private String location, subTitle;
-    private int onOffLine;
+    private String subTitle;
+    private int flag;
+    private boolean onOffLine;
 
 }

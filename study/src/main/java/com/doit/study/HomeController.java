@@ -68,20 +68,24 @@ public class HomeController {
         }
 
         BoardWriteDto boardWriteDto = new BoardWriteDto();
-        int totalRecordCount = boardService.getCount();
-        Pagination pagination = new Pagination(currentPage, pageSize);
+        Integer totalRecordCount = boardService.getCount();
+        if(totalRecordCount != null) {
+            Pagination pagination = new Pagination(currentPage, pageSize);
 
-        pagination.setTotalRecordCount(totalRecordCount);
-        log.info("totalRecordCount = " + totalRecordCount);
+            pagination.setTotalRecordCount(totalRecordCount);
+            log.info("totalRecordCount = " + totalRecordCount);
 
-        model.addAttribute("pagination", pagination);
-        log.info("pagination = " + pagination);
+            model.addAttribute("pagination", pagination);
+            log.info("pagination = " + pagination);
 
-        model.addAttribute("list", boardService.getStudyBoardList(pagination));
-        log.info("list = " + boardService.getStudyBoardList(pagination));
+            model.addAttribute("list", boardService.getStudyBoardList(pagination));
+            log.info("list = " + boardService.getStudyBoardList(pagination));
 
-        model.addAttribute("boardWriteDto", boardWriteDto);
+            model.addAttribute("boardWriteDto", boardWriteDto);
 
-        return "/index";
+            return "/index";
+        }
+
+        return null;
     }
 }

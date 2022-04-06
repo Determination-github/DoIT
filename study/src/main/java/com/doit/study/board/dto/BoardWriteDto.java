@@ -1,7 +1,6 @@
 package com.doit.study.board.dto;
 
 import com.doit.study.board.domain.Board;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,8 +30,8 @@ public class BoardWriteDto {
         boardWriteDto.setBoard_writerId(firstStudyDto.getWriterId());
         boardWriteDto.setBoard_startDate(firstStudyDto.getStartDate());
         boardWriteDto.setBoard_endDate(firstStudyDto.getEndDate());
-        boardWriteDto.setBoard_location(firstStudyDto.getLocation());
-        boardWriteDto.setBoard_onOffline(firstStudyDto.getOnOffLine());
+        boardWriteDto.setBoard_location(firstStudyDto.getTotalLocation());
+        boardWriteDto.setBoard_onOffline(firstStudyDto.getFlag());
         boardWriteDto.setBoard_subTitle(firstStudyDto.getSubTitle());
 
         return boardWriteDto;

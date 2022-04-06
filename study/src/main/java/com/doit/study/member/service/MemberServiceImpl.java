@@ -1,5 +1,6 @@
 package com.doit.study.member.service;
 
+import com.doit.study.member.domain.Social;
 import com.doit.study.member.dto.*;
 import com.doit.study.mapper.MemberMapper;
 import com.doit.study.member.domain.Member;
@@ -71,5 +72,22 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public int findEmail(String email) {
         return memberMapper.checkEmail(email);
+    }
+
+    @Override
+    public ProfileDto findMember(String id) {
+        Social social = memberMapper.findMember(id);
+        ProfileDto profileDto = new ProfileDto(
+                social.getUser_id(),
+                social.getEmail(),
+                social.getInterest1(),
+                social.getInterest2(),
+                social.getInterest3(),
+                social.getInterest3()
+        );
+
+        log.info("profileDto={}", profileDto);
+
+        return profileDto;
     }
 }

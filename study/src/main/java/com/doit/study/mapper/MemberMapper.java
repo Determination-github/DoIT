@@ -28,7 +28,6 @@ public interface MemberMapper {
     @Select(MemberSQL.findBySocialId)
     Optional<Social> findSocialMemberById(@Param("user_id") String id);
 
-
     //닉네임 중복 체크
     @Select(MemberSQL.checkNickname)
     int checkNickname(@Param("nickname") String nickname);
@@ -40,6 +39,9 @@ public interface MemberMapper {
     //아이디로 닉네임찾기
     @Select(MemberSQL.findNicknameById)
     String nickname(@Param("user_id") String id);
+
+    @Select(MemberSQL.findMember)
+    Social findMember(@Param("user_id") String id);
 
     int update(Member member);
 

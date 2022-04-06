@@ -29,7 +29,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public int getCount() throws Exception {
+    public Integer getCount() throws Exception {
         return boardMapper.count();
     }
 
@@ -72,10 +72,10 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.searchSelectPage(searchBoardDto);
     }
 
-    @Override
-    public Integer getBoardCount() {
-        return boardMapper.count();
-    }
+//    @Override
+//    public Integer getBoardCount() {
+//        return boardMapper.count();
+//    }
 
 //    @Override
 //    public List<BoardDto> getPage(Pagination pagination) throws Exception {
@@ -139,6 +139,7 @@ public class BoardServiceImpl implements BoardService {
         if(findBoard.isPresent()) {
             Board board = findBoard.get();
             boardWriteDto.setBoard_id(board.getStudy_id());
+            boardWriteDto.setBoard_writerId(board.getUser_id());
             boardWriteDto.setBoard_commentCount(board.getComment_count());
             boardWriteDto.setBoard_viewCount(board.getView_count());
             boardWriteDto.setBoard_regDate(board.getReg_date());
@@ -156,10 +157,11 @@ public class BoardServiceImpl implements BoardService {
         Optional<Board> findBoard = boardMapper.findById(study_id);
         if(findBoard.isPresent()) {
             Board board = findBoard.get();
+            log.info("boardId={}",board.getUser_id());
             BoardWriteDto boardWriteDto = new BoardWriteDto().toBoardWriteDto(board);
             String userId = boardWriteDto.getBoard_writerId();
             String nickname = memberMapper.nickname(userId);
-            boardWriteDto.setBoard_writerId(nickname);
+            boardWriteDto.setWriter_nickName(nickname);
             log.info("boardWriteDto={}", boardWriteDto);
             return boardWriteDto;
         }
