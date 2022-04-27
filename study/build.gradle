@@ -19,7 +19,6 @@ repositories {
 }
 
 dependencies {
-	//테스트용 데이터 베이스
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 //	runtimeOnly 'com.h2database:h2'
 
@@ -44,6 +43,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
 	implementation group: 'com.oracle.database.jdbc', name: 'ojdbc6', version: '11.2.0.4'
+	implementation 'mysql:mysql-connector-java:8.0.28'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
