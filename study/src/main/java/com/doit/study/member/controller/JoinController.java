@@ -26,40 +26,12 @@ public class JoinController {
     private final MemberService memberService;
     private String pattern;
 
-    //첫 번째 카테고리 정보
-    @ModelAttribute("first_categories")
-    public List<FirstInterestCategory> firstCategory() {
-        List<FirstInterestCategory> categories = new ArrayList<>();
-        categories.add(new FirstInterestCategory("back", "백엔드"));
-        categories.add(new FirstInterestCategory("front", "프론트엔드"));
-        return categories;
-    }
-
-    //두 번째 카테고리 정보
-    @ModelAttribute("second_categories")
-    public List<SecondInterestCategory> secondCategory() {
-        List<SecondInterestCategory> categories = new ArrayList<>();
-        categories.add(new SecondInterestCategory("study", "스터디"));
-        categories.add(new SecondInterestCategory("project", "프로젝트"));
-        categories.add(new SecondInterestCategory("cert", "자격증"));
-        return categories;
-    }
-
-    //세 번째 카테고리 정보
-    @ModelAttribute("third_categories")
-    public List<ThirdInterestCategory> thirdCategory() {
-        List<ThirdInterestCategory> categories = new ArrayList<>();
-        categories.add(new ThirdInterestCategory("java", "자바"));
-        categories.add(new ThirdInterestCategory("spring", "스프링"));
-        return categories;
-    }
-
     //성별 정보
     @ModelAttribute("gender")
     public List<Gender> gender() {
         List<Gender> genders = new ArrayList<>();
-        genders.add(new Gender("male", "남자"));
-        genders.add(new Gender("female", "여자"));
+        genders.add(new Gender("m", "남자"));
+        genders.add(new Gender("f", "여자"));
         return genders;
     }
     
@@ -83,9 +55,8 @@ public class JoinController {
     @PostMapping
     public String join(@Valid @ModelAttribute("memberDto") MemberDto memberDto, BindingResult bindingResult) {
         //저장값 출력
-        log.info("nickname={}, email={}, password={}, interest1={}, interest2={}, interest3={}",
-                memberDto.getNickname(), memberDto.getEmail(), memberDto.getPassword(),
-                memberDto.getInterest1(), memberDto.getInterest2(), memberDto.getInterest3());
+        log.info("nickname={}, email={}, password={}",
+                memberDto.getNickname(), memberDto.getEmail(), memberDto.getPassword());
 
         if(bindingResult.hasErrors()) {
             log.info("error={}", bindingResult);

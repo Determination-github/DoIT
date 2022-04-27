@@ -25,6 +25,7 @@ public class EmailService {
         log.info("key = "+ key);
 
         try {
+            log.info("보내는 메일 주소 : {}", email);
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             simpleMailMessage.setTo(email);
             simpleMailMessage.setSubject(title);

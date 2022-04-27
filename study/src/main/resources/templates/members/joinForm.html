@@ -6,7 +6,6 @@
     <link rel="stylesheet" th:href="@{/css/default.css}" href="../css/default.css">
     <link rel="stylesheet" th:href="@{/css/join-style.css}" href="../css/join-style.css">
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css}"/>
-    <link th:href="@{/css/join-style.css}" rel="stylesheet">
     <link th:href="@{/css/default.css}" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/0c4f9b09f5.js" crossorigin="anonymous"></script>
@@ -26,7 +25,7 @@
 <div id="wrap">
     <header id="header">
         <div class="header_login_ID_wrap">
-            <p class="header_login_img"><a href="/"><img th:src="@{/img/DoIT-Radius.png}"/></a></p>
+            <p class="header_login_img"><a th:href="@{/}"><img th:src="@{/img/DoIT-Radius.png}"/></a></p>
             <p class="header_login_ID">
                 <span class="header_login_ID_span">이미 회원이십니까?</span>
                 <a href="/login" class="header_login_ID_btn">
@@ -104,45 +103,15 @@
                 <p>성별</p>
                 <div class="main_join_input_box6">
                     <select id="main_join_input_sex_select" class="main_join_input_sex_select"
-                    th:field="*{sex}">
+                    th:field="*{gender}">
                         <option value="">성별</option>
-                        <option th:each="sex : ${gender}" th:value="${sex.code}"
-                                th:text="${sex.gender}"></option>
+                        <option th:each="gender : ${gender}" th:value="${gender.code}"
+                                th:text="${gender.gender}"></option>
                     </select>
-                    <div class="field-error" th:errors="*{sex}"/>
+                    <div class="field-error" th:errors="*{gender}"/>
                 </div>
             </div>
 
-            <div>
-                <p class="main_join_category">관심있는 스터디 카테고리를 선택해 주세요. (최대 3개)</p>
-            </div>
-
-            <div class="categoryListWrap">
-                <div>
-                    <select id="categoryList1" class="categoryList" th:field="*{interest1}">
-                        <option value="">1차 카테고리를 선택하세요.</option>
-                        <option th:each="first_category : ${first_categories}" th:value="${first_category.code}"
-                                th:text="${first_category.category}"></option>
-                    </select>
-                    <div class="field-error" th:errors="*{interest1}"/>
-                </div>
-                <div>
-                    <select id="categoryList2" class="categoryList" th:field="*{interest2}">
-                        <option value="">2차 카테고리를 선택하세요.</option>
-                        <option th:each="second_category : ${second_categories}" th:value="${second_category.code}"
-                                th:text="${second_category.category}"></option>
-                    </select>
-                    <div class="field-error" th:errors="*{interest2}"/>
-                </div>
-                <div>
-                    <select id="categoryList3" class="categoryList" th:field="*{interest3}">
-                        <option value="">3차 카테고리를 선택하세요.</option>
-                        <option th:each="third_category : ${third_categories}" th:value="${third_category.code}"
-                                th:text="${third_category.category}"></option>
-                    </select>
-                    <div class="field-error" th:errors="*{interest3}"/>
-                </div>
-            </div>
             <div>
                 <button class="main_join_BTN" id="button" type="submit" >가입하기</button>
             </div>

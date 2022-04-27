@@ -18,15 +18,12 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public MemberDto join(MemberDto memberDto) {
-        String user_id = UUID.randomUUID().toString();
-        Member member = memberDto.toEntity(user_id, memberDto);
+        Member member = memberDto.toEntity(memberDto);
 
         //member 객체 저장값 출력
-        log.info("user_id={}, name={}, email={}, password={}, sex={}," +
-                        "interest1={}, interest2={}, interest3={}, nickname={}",
-                member.getUser_id(), member.getName(), member.getEmail(), member.getPassword(),
-                member.getSex(), member.getInterest1(), member.getInterest2(),
-                member.getInterest3(), member.getNickname());
+        log.info("name={}, email={}, password={}, gender={}, nickname={}",
+                member.getName(), member.getEmail(), member.getPassword(),
+                member.getGender(), member.getNickname());
 
         Integer result = memberMapper.insert(member);
 

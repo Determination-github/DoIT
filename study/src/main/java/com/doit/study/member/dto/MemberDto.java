@@ -14,10 +14,11 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 public class MemberDto {
 
-    public Object getUser_id;
-    private String user_id;
+    private Integer user_id;
 
-    @NotEmpty
+    private String social_id;
+
+    @NotEmpty(message = "이메일을 입력해주세요.")
     @Email(message = "이메일 형식이 올바르지 않습니다.")
     private String email;
 
@@ -25,31 +26,24 @@ public class MemberDto {
     @Pattern(regexp = "(?=.*[a-z])(?=.*[0-9])(?=.*\\W).{8,16}", message = "비밀번호는 8~16자 영문 소문자와 숫자, 특수문자를 사용하세요.")
     private String password;
 
-    @NotEmpty
+    @NotEmpty(message = "닉네임을 입력해주세요.")
     private String nickname;
 
-    @NotEmpty(message = "필수 입력 값입니다.")
-    private String name, sex;
+    @NotEmpty(message = "이름을 입력해주세요.")
+    private String name;
 
-    @NotEmpty(message = "필수 입력 값입니다.")
-    private String interest1, interest2, interest3;
+    @NotEmpty(message = "성별을 입력해주세요.")
+    private String gender;
 
     public MemberDto(  String email,
                        String nickname,
                        String name,
-                       String sex,
-                       String interest1,
-                       String interest2,
-                       String interest3
+                       String gender
     ) {
         this.email = email;
         this.nickname = nickname;
         this.name = name;
-        this.sex = sex;
-        this.interest1 = interest1;
-        this.interest2 = interest2;
-        this.interest3 = interest3;
-        this.password = null;
+        this.gender = gender;
     }
 
 
@@ -59,25 +53,18 @@ public class MemberDto {
         memberDto.setName(member.getName());
         memberDto.setEmail(member.getEmail());
         memberDto.setPassword(member.getPassword());
-        memberDto.setSex(member.getSex());
-        memberDto.setInterest1(member.getInterest1());
-        memberDto.setInterest2(member.getInterest2());
-        memberDto.setInterest3(member.getInterest3());
+        memberDto.setGender(member.getGender());
         memberDto.setNickname(member.getNickname());
         return memberDto;
     }
 
-    public Member toEntity(String user_id, MemberDto memberDto) {
+    public Member toEntity(MemberDto memberDto) {
         return Member.builder()
-                .user_id(user_id)
-                .name(name)
                 .email(email)
-                .password(password)
-                .sex(sex)
-                .interest1(interest1)
-                .interest2(interest2)
-                .interest3(interest3)
+                .name(name)
                 .nickname(nickname)
+                .password(password)
+                .gender(gender)
                 .build();
     }
 }
