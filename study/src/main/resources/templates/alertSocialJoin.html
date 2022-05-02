@@ -6,11 +6,11 @@
 </head>
 
 <body>
-<form th:object="${kakaoDto}" name="dataForm" th:action="${url}" method="get" style="display: none;">
-    <input type="hidden" th:field="*{kakaoName}"/>
-    <input type="hidden" th:field="*{kakaoEmail}"/>
-    <input type="hidden" th:field="*{kakaoGender}"/>
-    <input type="hidden" th:field="*{kakaoId}"/>
+<form th:object="${socialDto}" name="dataForm" th:action="${url}" method="get" style="display: none;">
+    <input type="hidden" th:field="*{socialName}"/>
+    <input type="hidden" th:field="*{socialEmail}"/>
+    <input type="hidden" th:field="*{socialGender}"/>
+    <input type="hidden" th:field="*{socialId}"/>
 </form>
 <script th:inline="javascript">
 
