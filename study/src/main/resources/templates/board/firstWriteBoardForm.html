@@ -91,7 +91,7 @@
               <article>
                 <div class="row mt-3">
                   <form action="/board/write" th:action th:object="${firstStudyDto}" method="post">
-                    <input hidden type="text" name="writer" th:field="*{writerId}"/><br>
+                    <input hidden type="text" name="id" th:field="*{id}"/><br>
                     <input hidden type="text" name="nickname" th:field="*{nickName}"/><br>
                     <input type="hidden" name="_csrf" value="46b06b5c-25e2-41bc-bf6a-0cb8ccfb3c26">
                     <div class="form-row">
@@ -122,9 +122,9 @@
                       <div  class="form-group col">
                         <label for="applicationRangeDate">모집기간 🗓️</label>
                         <div class="calender_wrap">
-                          <div class="calender_group"><input name="start" class="calender1 form-control" type="text" id="datepicker_to" th:field="*{startDate}"></div>
+                          <div class="calender_group"><input autocomplete="off" name="start" class="calender1 form-control" type="text" id="datepicker_to" th:field="*{startDate}"></div>
                           <span class="calender_group calender_font_event"><strong style="font-size:30px;">~</strong></span>
-                          <div class="calender_group"><input name="end" class="calender2 form-control" type="text" id="datepicker_from" th:field="*{endDate}"></div>
+                          <div class="calender_group"><input autocomplete="off" name="end" class="calender2 form-control" type="text" id="datepicker_from" th:field="*{endDate}"></div>
                         </div>
                       </div>
                       <div class="form-group required col">
@@ -163,33 +163,12 @@
                         </label>
                       </div>
                     </div>
-<!--                    <div class="form-group required">-->
-<!--                      <label for="title">스터디 이름</label>-->
-<!--                      <input id="title" type="text" class="form-control" aria-describedby="titleHelp" required max="50" name="title" value>-->
-<!--                      <small class="invalid-feedback">스터디 이름을 50자 이내로 입력하세요</small>-->
-<!--                    </div>-->
                     <div class="form-group">
                       <label for="description">짧은 소개</label>
                       <input type="text" class="form-control" name="subtitle" style="width: 40%;" placeholder="스터디 한 줄 소개" th:field="*{subTitle}"/><br>
                       <small class="invalid-feedback">스터디 그룹을 짧게 소개해주세요</small>
                     </div>
-
-                    <div class="form-group">
-                      <p>해시태그 구현</p>
-                        <div class="form-group">
-                          <input type="hidden" value="" name="tag" id="rdTag" />
-                        </div>
-                          <ul id="tag-list"></ul>
-                        <div class="form-group">
-                          <input type="text" id="tag" class="form-control" placeholder="엔터로 해시태그를 등록해주세요.">
-                        </div>
-                    </div>
                     <input id="subBtn" type="submit" value="다음으로" style="float: right;" onclick="goWrite(this.form)"/>
-
-
-<!--                    <div class="form-group">-->
-<!--                      <input class="btn btn-primary btn-block" id="register-btn" type="submit" onclick="goWrite(this.form)" value="다음으로"/>-->
-<!--                    </div>-->
                 </div>
               </article>
             </div>
@@ -200,7 +179,6 @@
     </section>
   </main>
 </body>
-<!--<script type="text/javascript" th:src="@{https://code.jquery.com/jquery-3.3.1.js}" src="https://code.jquery.com/jquery-3.3.1.js"></script>-->
 <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="/js/category.js" ></script>
 <script type="text/javascript" src="/js/page_style.js"></script>

@@ -103,19 +103,13 @@
                         <div class="row mt-3">
                             <div class="col-6">
                                 <h5 class="d-inline">
-                                    <span class="badge badge-light text-dark mr-1">#C++</span>
+                                    <span class="badge badge-light text-dark mr-1" style="background-color : #b3e5fc">#[[${boardWriteDto.writer_interest1}]]</span>
                                 </h5>
                                 <h5 class="d-inline">
-                                    <span class="badge badge-light text-dark mr-1">#javascript</span>
+                                    <span class="badge badge-light text-dark mr-1" style="background-color : #b3e5fc">#[[${boardWriteDto.writer_interest2}]]</span>
                                 </h5>
                                 <h5 class="d-inline">
-                                    <span class="badge badge-light text-dark mr-1">#파이썬</span>
-                                </h5>
-                                <h5 class="d-inline">
-                                    <span class="badge badge-light text-dark mr-1">#assembly</span>
-                                </h5>
-                                <h5 class="d-inline">
-                                    <span class="badge badge-light text-dark mr-1">#OpenGL</span>
+                                    <span class="badge badge-light text-dark mr-1" style="background-color : #b3e5fc">#[[${boardWriteDto.writer_interest3}]]</span>
                                 </h5>
                             </div>
                             <div class="col-6 text-end">
@@ -145,51 +139,65 @@
                     </div>
                 </article>
                 <section>
+
                     <form name="commentFrm" id="commentFrm">
                         <input type="hidden" name="totalPage" value>
                         <input type="hidden" name="page" value="0">
                     </form>
+
                     <div class="card bg-light">
-                        <div class="card-header">
-                            <h4 class="card-title">댓글</h4>
-                            <input type="hidden" name="page" value="0">
-                            <form name="frmComment">
-                                <div class="input-group">
-                                    <input type="hidden" name="parentId" value>
-                                    <textarea class="form-control custom-control" id="comment" name="comment" rows="3" style="resize:none">
-                                    </textarea>
-                                    <button type="button" class="input-group-addon btn btn-primary" id="add-comment-btn">작성</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="card-body comment-section">
-                            <div class="d-flex mb-3 parent-comment boarder-bottom mb-2 pb-3">
-                                <input type="hidden" value="15" name="commentId" class="comment-id">
-                                <div class="flex-shrink-0">
-                                    <img class="rounded-circle" src="/img/파밀리아 성당.jpg" alt="..." width="30" height="30">
-                                </div>
-                                <div class="ms-3 w-100">
-                                    <div class="fw-bold commenter-name">성당</div>
-                                    <small class="text-muted text-sm date-panel">2022-04-19 15:32:22</small>
-                                    <div class="pull-right reply-panel mr-2">
-                                        <a href="#" class="reply-btn text-decoration-none">답글</a>
-                                    </div>
-                                    <div id="commentList"></div>
-                                    <div class="comment-body">우리 스터디는 클라스가 다름</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-secondary btn-lg btn-block" type="button" id="more-comments" style="float: right;">더보기</button>
+<!--                        <div class="card-header">-->
+<!--                            <h4 class="card-title">댓글</h4>-->
+<!--                            <input type="hidden" name="page" value="0">-->
+<!--                            <form name="frmComment">-->
+<!--                                <div class="input-group">-->
+<!--                                    <input type="hidden" name="parentId" value>-->
+<!--                                    <textarea class="form-control custom-control" id="comment" name="comment" rows="3" style="resize:none">-->
+<!--                                    </textarea>-->
+<!--                                    <button type="button" class="input-group-addon btn btn-primary" id="add-comment-btn">작성</button>-->
+<!--                                </div>-->
+<!--                            </form>-->
+<!--                        </div>-->
+
+<!--                        <div class="card-body comment-section">-->
+<!--                            <div class="d-flex mb-3 parent-comment boarder-bottom mb-2 pb-3">-->
+<!--                                <input type="hidden" value="15" name="commentId" class="comment-id">-->
+<!--                                <div class="flex-shrink-0">-->
+<!--                                    <img class="rounded-circle" src="/img/파밀리아 성당.jpg" alt="..." width="30" height="30">-->
+<!--                                </div>-->
+<!--                                <div class="ms-3 w-100">-->
+<!--                                    <div class="fw-bold commenter-name">성당</div>-->
+<!--                                    <small class="text-muted text-sm date-panel">2022-04-19 15:32:22</small>-->
+<!--                                    <div class="pull-right reply-panel mr-2">-->
+<!--                                        <a href="#" class="reply-btn text-decoration-none">답글</a>-->
+<!--                                    </div>-->
+<!--                                    <div id="commentList"></div>-->
+<!--                                    <div class="comment-body">우리 스터디는 클라스가 다름</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+                        <form id="form" th:action="@{/}" method="post"></form>
+                        <h2></h2>
+                        [[${session.nickName}]]: <input type="text" name="comment"><br>
+                        <button id="wrtBtn" type="button">댓글작성</button>
+                        <button id="modBtn" type="button">댓글수정</button>
+                        <div id="commentList"></div>
+
+                        <div id="replyForm" style="display:none">
+                            <input type="text" name="replyComment">
+                            <button id="wrtRepBtn" type="button">등록</button>
                         </div>
                     </div>
+
                     <div class="siren">
                         <th:block th:if="${session.nickName} == null or ${session.id} != ${boardWriteDto.board_writerId}">
                             <button class="btn btn-secondary btn-lg btn-block mt-2" type="button" id="siren" style="float: right;">신고하기</button>
                         </th:block>
                         <th:block th:if="${session.id} == ${boardWriteDto.board_writerId}">
                             <a class="btn btn-secondary btn-lg btn-block mt-2" type="button" id="edit" style="float: right;" href="./groups/newedit.html">수정하기</a>
-                            <button class="btn btn-secondary btn-lg btn-block mt-2" type="button" id="delete" style="float: right; margin-right: 1%;">삭제하기</button>
+                            <button class="btn btn-secondary btn-lg btn-block mt-2" type="button" id="delete" style="float: right; margin-right: 1%;"
+                            th:onclick="delete([[${boardWriteDto.board_id}]])">삭제하기</button>
                         </th:block>
                     </div>
                 </section>
@@ -199,8 +207,7 @@
 </section>
 </main>
 <script th:inline="javascript">
-
-    let board_Id=[[${boardWriteDto.board_Id}]];
+    let board_Id=[[${boardWriteDto.board_id}]];
 
     let toHtml = function (comments){
         let tmp = "<ul>";
@@ -337,8 +344,8 @@
         });
 
         let form= $("#form");
-        let board_Title = [[${board.board_Title}]];
-        let board_SubTitle = [[${board.board_SubTitle}]];
+        let board_Title = [[${boardWriteDto.board_title}]];
+        let board_SubTitle = [[${boardWriteDto.board_subTitle}]];
         $(document).on('click', '#deleteBtn', function (e){
             $('#form').attr("action", "remove");
             form.append("<input type='hidden' name='board_Id' value="+board_Id+">");
