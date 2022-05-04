@@ -1,17 +1,16 @@
 package com.doit.study;
 
 
-import com.doit.study.board.dto.BoardWriteDto;
+import com.doit.study.board.dto.BoardDto;
 import com.doit.study.member.SessionConst;
-import com.doit.study.member.dto.KakaoDto;
 import com.doit.study.member.dto.MemberDto;
-import com.doit.study.member.dto.NaverDto;
+import com.doit.study.member.dto.SocialDto;
 import com.doit.study.member.service.MemberService;
 
 import com.doit.study.board.domain.Pagination;
-import com.doit.study.board.dto.BoardDto;
 import com.doit.study.board.service.BoardService;
 
+import com.doit.study.wishlist.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -29,6 +28,7 @@ public class HomeController {
 
     private final MemberService memberService;
     private final BoardService boardService;
+    private final WishListService wishListService;
 
     @GetMapping
     public String home(
@@ -37,37 +37,37 @@ public class HomeController {
             @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
             Model model) throws Exception {
 
-        NaverDto naverDto = (NaverDto) session.getAttribute(SessionConst.NAVER_MEMBER);
-        KakaoDto kakaoDto = (KakaoDto) session.getAttribute(SessionConst.KAKAO_MEMBER);
+        MemberDto naverDto = (MemberDto) session.getAttribute(SessionConst.NAVER_MEMBER);
+        MemberDto kakaoDto = (MemberDto) session.getAttribute(SessionConst.KAKAO_MEMBER);
         MemberDto memberDto = (MemberDto) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         log.info("naverDto = " + naverDto);
         log.info("kakaoDto = " + kakaoDto);
         log.info("memberDto = " + memberDto);
 
-        String id;
+        int id;
         String nickName;
 
         if(session!=null) {
             if (naverDto != null) {
-                id = naverDto.getNaverId();
-                nickName = naverDto.getNaverNickname();
+                id = naverDto.getId();
+                nickName = naverDto.getNickname();
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
             } else if (kakaoDto != null) {
-                id = kakaoDto.getKakaoId();
-                nickName = kakaoDto.getKakaoNickname();
+                id = kakaoDto.getId();
+                nickName = kakaoDto.getNickname();
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
             } else if (memberDto != null) {
-                id = memberDto.getUser_id();
+                id = memberDto.getId();
                 nickName = memberDto.getNickname();
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
             }
         }
 
-        BoardWriteDto boardWriteDto = new BoardWriteDto();
+        BoardDto boardWriteDto = new BoardDto();
         Integer totalRecordCount = boardService.getCount();
         if(totalRecordCount != null) {
             Pagination pagination = new Pagination(currentPage, pageSize);
@@ -80,8 +80,6 @@ public class HomeController {
 
             model.addAttribute("list", boardService.getStudyBoardList(pagination));
             log.info("list = " + boardService.getStudyBoardList(pagination));
-
-            model.addAttribute("boardWriteDto", boardWriteDto);
 
             return "/index";
         }
