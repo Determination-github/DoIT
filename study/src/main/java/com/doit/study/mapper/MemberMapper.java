@@ -15,30 +15,41 @@ public interface MemberMapper {
     Integer insert(@Param("member") Member member);
 
     //Social 회원가입
-    @Insert(MemberSQL.insertSocial)
+    @Insert(MemberSQL.insertSocialMemberToUser)
+    Integer insertSocialToUser(@Param("member") Member member);
+
+    //id 가져오기
+    @Select(MemberSQL.lastIndexOfId)
+    int findLastId();
+
+    //social 회원 회원가입
+    @Insert(MemberSQL.insertSocialTB)
     Integer insertSocial(@Param("social") Social social);
 
-    //이메일로 아이디 찾기
+    //social 회원 정보 찾기
+    @Select(MemberSQL.findBySocialId)
+    Optional<Member> findSocialMemberById(@Param("social_id") String id);
+
+    //아이디로 회원 닉네임 찾기
+    @Select(MemberSQL.findNicknameById)
+    String findNickname(@Param("id") int id);
+
+    @Select(MemberSQL.getMember)
+    Member getMemberInfoById(@Param("id") int id);
+
     @Select(MemberSQL.findByEmail)
     @Results({
             @Result(property = "user_id", column = "USER_ID")
     })
     Optional<Member> findByEmail(@Param("email") String email);
 
-    @Select(MemberSQL.findBySocialId)
-    Optional<Social> findSocialMemberById(@Param("user_id") String id);
-
-    //닉네임 중복 체크
     @Select(MemberSQL.checkNickname)
     int checkNickname(@Param("nickname") String nickname);
 
-    //이메일 중복 체크
     @Select(MemberSQL.checkEmail)
     int checkEmail(@Param("email") String email);
 
-    //아이디로 닉네임찾기
-    @Select(MemberSQL.findNicknameById)
-    String nickname(@Param("user_id") String id);
+
 
     @Select(MemberSQL.findMember)
     Social findMember(@Param("user_id") String id);
