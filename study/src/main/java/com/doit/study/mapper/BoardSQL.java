@@ -3,7 +3,25 @@ package com.doit.study.mapper;
 public class BoardSQL {
 
     public static final String count =
-            "SELECT COUNT (*) FROM SR_MOIM_TB";
+            "SELECT COUNT(*) FROM SR_MOIM_TB";
+
+    public static final String selectPage =
+            "SELECT * FROM SR_MOIM_TB ORDER BY study_id DESC LIMIT ${pagination.firstRecordIndex} , ${pagination.countPerPage}";
+
+    public static final String insertBoard =
+            "insert into SR_MOIM_TB (id, schedule_start, schedule_end, " +
+                    "title, content, sub_title, location, on_off, " +
+                    "interest1, interest2, interest3) " +
+                    "values (#{board.id}, #{board.schedule_start}, #{board.schedule_end}, " +
+                    "#{board.title}, #{board.content}, #{board.sub_title}, " +
+                    "#{board.location}, #{board.on_off}, #{board.interest1}, " +
+                    "#{board.interest2}, #{board.interest3})";
+
+    public static final String increaseViewCount =
+            "UPDATE SR_MOIM_TB SET view_count = view_count + 1 WHERE study_id = #{study_id}";
+
+    public static final String getBoard =
+            "SELECT * FROM SR_MOIM_TB WHERE study_id = #{study_id}";
 
     public static final String deleteAll =
             "DELETE FROM BO_STUDY_TB";
@@ -15,32 +33,11 @@ public class BoardSQL {
             "insert into BO_STUDY_TB (board_Id, board_Title, board_SubTitle, board_Content, board_Writer) " +
             "values (board_id_seq.NEXTVAL, #{board_Title}, #{board_SubTitle}, #{board_Content}, #{board_Writer})";
 
-    public static final String insertBoard =
-            "insert into SR_MOIM_TB (study_id, user_id, schedule_start, schedule_end, " +
-                    "title, content, address, moim_flag, " +
-                    "interest1, interest2, interest3, sub_title) " +
-                    "values (#{board.study_id}, #{board.user_id}, #{board.schedule_start}, " +
-                    "#{board.schedule_end}, #{board.title}, #{board.content}, " +
-                    "#{board.address}, #{board.moim_flag}, #{board.interest1}, " +
-                    "#{board.interest2}, #{board.interest3}, #{board.sub_title})";
 
-    public static final String getBoard =
-            "SELECT * FROM SR_MOIM_TB WHERE study_id = #{study_id}";
 
-    public static final String selectPage =
-            "SELECT STUDY_ID, USER_ID, INTEREST1, TITLE, SUB_TITLE, REG_DATE, ADDRESS " +
-                    "FROM (" +
-                    "         SELECT rownum rnum, A.*" +
-                    "         from (" +
-                    "                  select STUDY_ID, USER_ID, INTEREST1, TITLE, SUB_TITLE, REG_DATE, ADDRESS " +
-                    "                  from SR_MOIM_TB " +
-                    "                  order by REG_DATE desc" +
-                    "              ) A" +
-                    "     )" +
-                    "where rnum > ${pagination.firstRecordIndex} AND rnum <= ${pagination.lastRecordIndex}";
 
-    public static final String increaseViewCount =
-            "UPDATE SR_MOIM_TB SET VIEW_COUNT = VIEW_COUNT + 1 WHERE study_id = #{study_id}";
+
+
 
 
     public static final String selectAll =
@@ -66,26 +63,17 @@ public class BoardSQL {
             "WHERE board_Id = #{board_Id}";
 
 
-    public static final String searchSelectPage =
-            "SELECT board_Id, board_Title, board_SubTitle, board_Count, board_Comment, board_date\n" +
-                    "FROM (\n" +
-                    "SELECT rownum rnum, A.*\n" +
-                    " from (\n" +
-                    "  select board_Id, board_Title, board_SubTitle, board_Count, board_Comment, board_date\n" +
-                    "  from BO_STUDY_TB\n" +
-                    "  where board_Title like'%' || #{board_Title} || '%'\n" +
-                    " order by board_Id desc\n" +
-                    "  ) A\n" +
-                    " )\n" +
-                    " where rnum > ${firstRecordIndex} AND rnum <= ${lastRecordIndex}";
+    public static final String getMyStudyList =
+            "SELECT COUNT (*) FROM SR_MOIM_TB WHERE user_id = #{user_id}";
+
 
     public static final String searchResultCount =
     "select COUNT (*) from BO_STUDY_TB\n" +
             "                    where board_Title like'%' || #{board_Title} || '%'";
 
     public static final String updateCommentCount =
-            "UPDATE BO_STUDY_TB " +
-                    "SET board_Comment = board_Comment + #{count} " +
-                    "where board_Id = #{board_Id}";
+            "UPDATE SR_MOIM_TB " +
+                    "SET comment_count = comment_count + #{count} " +
+                    "where study_id = #{study_id}";
 
 }

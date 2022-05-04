@@ -13,10 +13,17 @@ import java.util.Optional;
 @Mapper
 public interface BoardMapper {
 
+    //전체 글의 개수
+    @Select(BoardSQL.count)
+    Integer count();
+
+    //페이징 처리한 후 게시글 정보 가져오기
+    @Select(BoardSQL.selectPage)
+    List<Board> selectPage(@Param("pagination") Pagination pagination);
+
+
     @Select(BoardSQL.selectAll)
     public List<BoardDto> selectAll();
-
-
 
     @Delete(BoardSQL.deleteAll)
     int deleteAll();
@@ -27,14 +34,14 @@ public interface BoardMapper {
     @Insert(BoardSQL.insert)
     void insert(BoardDto boardDto);
 
-    @Select(BoardSQL.count)
-    Integer count();
-
-    @Select(BoardSQL.selectPage)
-    List<Board> selectPage(@Param("pagination") Pagination pagination);
+    @Insert(BoardSQL.insertBoard)
+    Integer insertStudyBoard(@Param("board") Board board);
 
     @Update(BoardSQL.increaseViewCount)
     Integer increaseViewCount(@Param("study_id") String id);
+
+    @Select(BoardSQL.getBoard)
+    Optional<Board> findById(@Param("study_id") String study_id);
 
 //    @Update(BoardSQL.increaseViewCount)
 //    public int increaseViewCount(Integer board_Id);
@@ -42,11 +49,7 @@ public interface BoardMapper {
 //    @Select(BoardSQL.selectPage)
 //    public List<BoardDto> selectPage(Pagination pagination);
 
-    @Insert(BoardSQL.insertBoard)
-    Integer insertStudyBoard(@Param("board") Board board);
 
-    @Select(BoardSQL.getBoard)
-    Optional<Board> findById(@Param("study_id") String study_id);
 
     @Select(BoardSQL.findNickname)
     String findNickname(@Param("user_id") String id);
@@ -54,19 +57,20 @@ public interface BoardMapper {
     @Select(BoardSQL.select)
     BoardDto selectOne(Integer board_Id);
 
+    @Select(BoardSQL.getMyStudyList)
+    Integer getMyStudyList(@Param("user_id") String id);
 
 
     @Update(BoardSQL.update)
     int update(BoardDto boardDto);
 
-
-    @Select(BoardSQL.searchSelectPage)
-    List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto);
+//    @Select(BoardSQL.searchSelectPage)
+//    List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto);
 
     @Select(BoardSQL.searchResultCount)
     int searchResultCount(SearchBoardDto boardDto);
 
     @Update(BoardSQL.updateCommentCount)
-    int updateCommentCount(@Param("board_Id") Integer board_Id, @Param("count") Integer count);
+    int updateCommentCount(@Param("study_id") String id, @Param("count") Integer count);
 
 }

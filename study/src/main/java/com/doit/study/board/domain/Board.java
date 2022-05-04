@@ -12,35 +12,27 @@ import java.util.Date;
 @AllArgsConstructor
 public class Board {
 
+    private int study_id, id, on_off, view_count, comment_count;
 
-    private String study_id, user_id, schedule_start, schedule_end, title;
+    private String schedule_start, schedule_end, title, content, sub_title;
 
-    private String content, address;
-
-    private int moim_flag;
-
-    private String interest1, interest2, interest3, sub_title;
+    private String location, interest1, interest2, interest3;
 
     private Date reg_date;
 
-    private int view_count, comment_count;
-
     @Builder
-    public Board(String study_id, String user_id, String schedule_start, String schedule_end, String title,
-                 String content, String address, int moim_flag, String interest1, String interest2, String interest3,
-                 String sub_title) {
-        this.study_id = study_id;
-        this.user_id = user_id;
+    public Board(int id, String schedule_start, String schedule_end, String title, String sub_title,
+                 String content, String location, int on_off, String interest1, String interest2, String interest3) {
+        this.id = id;
         this.schedule_start = schedule_start;
         this.schedule_end = schedule_end;
         this.title = title;
+        this.sub_title = sub_title;
         this.content = content;
-        this.address = address;
-        this.moim_flag = moim_flag;
+        this.location = location;
+        this.on_off = on_off;
         this.interest1 = interest1;
         this.interest2 = interest2;
         this.interest3 = interest3;
-        this.sub_title = sub_title;
     }
-
 }

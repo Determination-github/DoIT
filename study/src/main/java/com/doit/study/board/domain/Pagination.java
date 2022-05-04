@@ -1,4 +1,4 @@
-package com.doit.study.board.dto;
+package com.doit.study.board.domain;
 
 import lombok.Data;
 

@@ -8,9 +8,9 @@ import java.io.IOException;
 
 public interface FileService {
 
-    FileDto insertFile(String originalFileName);
-
-    String fileSave(FileDto fileDto, MultipartFile multipartFile) throws IOException;
+//    FileDto insertFile(String originalFileName);
+//
+//    String fileSave(FileDto fileDto, MultipartFile multipartFile) throws IOException;
 
     FileDto findFile(String fileId);
 

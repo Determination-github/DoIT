@@ -1,41 +1,34 @@
 package com.doit.study.board.service;
 
-import com.doit.study.board.domain.Board;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
-import com.doit.study.board.dto.BoardWriteDto;
-import com.doit.study.board.dto.SearchBoardDto;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 public interface BoardService {
 
-    List<BoardDto> getList();
-//    List<BoardDto> getPage(Pagination pagination) throws Exception;
-//    BoardDto read(Integer board_Id) throws Exception;
-    int modify(BoardDto boardDto);
-    void write(BoardDto boardDto);
-//    int remove(BoardDto boardDto);
-//    int remove(String board_Writer);
+//    List<BoardDto> getList();
+//    int modify(BoardDto boardWriteDto);
+//    void write(BoardDto boardWriteDto);
 
-    int searchResultCount(SearchBoardDto searchBoardDto);
+//    int searchResultCount(SearchBoardDto searchBoardDto);
 
-    List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto);
 
     Integer getCount();
 
-    List<BoardWriteDto> getStudyBoardList(Pagination pagination);
+    Integer getCountMyStudy(String id);
 
-    String insertStudyBoard(BoardWriteDto boardWriteDto);
+    List<BoardDto> getStudyBoardList(Pagination pagination);
 
-    BoardWriteDto findResultById(String study_id, BoardWriteDto boardWriteDto);
+    Integer insertStudyBoard(BoardDto boardWriteDto);
 
-    BoardWriteDto findStudyById(String study_id);
+    BoardDto findResultById(String study_id, BoardDto boardWriteDto);
+
+    BoardDto findStudyById(String study_id);
 
 //    void increasViewCount(String id);
 
-    int updateCommentCount(Integer board_Id, int count);
+//    int updateCommentCount(String board_Id, int count);
 
 
 

@@ -3,8 +3,6 @@ package com.doit.study.board.service;
 import com.doit.study.board.domain.Board;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
-import com.doit.study.board.dto.BoardWriteDto;
-import com.doit.study.board.dto.SearchBoardDto;
 import com.doit.study.mapper.BoardMapper;
 import com.doit.study.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
@@ -21,16 +19,21 @@ public class BoardServiceImpl implements BoardService {
     private final BoardMapper boardMapper;
     private final MemberMapper memberMapper;
 
-    @Override
-    public List<BoardDto> getList() {
-
-        List<BoardDto> boardList = boardMapper.selectAll();
-        return boardList;
-    }
+//    @Override
+//    public List<BoardDto> getList() {
+//
+//        List<BoardDto> boardList = boardMapper.selectAll();
+//        return boardList;
+//    }
 
     @Override
     public Integer getCount() {
         return boardMapper.count();
+    }
+
+    @Override
+    public Integer getCountMyStudy(String id) {
+        return boardMapper.getMyStudyList(id);
     }
 
 
@@ -42,15 +45,15 @@ public class BoardServiceImpl implements BoardService {
 //        return boardDto;
 //    }
 
-    @Override
-    public void write(BoardDto boardDto) {
-        boardMapper.insert(boardDto);
-    }
+//    @Override
+//    public void write(BoardDto boardWriteDto) {
+//        boardMapper.insert(boardDto);
+//    }
 
-    @Override
-    public int modify(BoardDto boardDto) {
-        return boardMapper.update(boardDto);
-    }
+//    @Override
+//    public int modify(BoardDto boardWriteDto) {
+//        return boardMapper.update(boardDto);
+//    }
 
 //    @Override
 //    public int remove(BoardDto boardDto)  {
@@ -62,20 +65,20 @@ public class BoardServiceImpl implements BoardService {
 //        return boardMapper.delete(board_Writer);
 //    }
 
-    @Override
-    public int searchResultCount(SearchBoardDto searchBoardDto){
-        return boardMapper.searchResultCount(searchBoardDto);
-    }
+//    @Override
+//    public int searchResultCount(SearchBoardDto searchBoardDto){
+//        return boardMapper.searchResultCount(searchBoardDto);
+//    }
 
-    @Override
-    public List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto) {
-        return boardMapper.searchSelectPage(searchBoardDto);
-    }
+//    @Override
+//    public List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto) {
+//        return boardMapper.searchSelectPage(searchBoardDto);
+//    }
 
-    @Override
-    public int updateCommentCount(Integer board_Id, int count) {
-        return boardMapper.updateCommentCount(board_Id, count);
-    }
+//    @Override
+//    public int updateCommentCount(String board_Id, int count) {
+//        return boardMapper.updateCommentCount(board_Id, count);
+//    }
 
 //    @Override
 //    public Integer getBoardCount() {
@@ -89,44 +92,47 @@ public class BoardServiceImpl implements BoardService {
 //    }
 
     @Override
-    public List<BoardWriteDto> getStudyBoardList(Pagination pagination) {
+    public List<BoardDto> getStudyBoardList(Pagination pagination) {
         List<Board> boardList = boardMapper.selectPage(pagination);
 
-        List<BoardWriteDto> boardWriteDtos = new ArrayList<>();
+        List<BoardDto> boardDtos = new ArrayList<>();
         for (Board board : boardList) {
-            BoardWriteDto boardWriteDto = new BoardWriteDto();
-            String nickName = memberMapper.nickname(board.getUser_id());
-            boardWriteDto.setWriter_nickName(nickName);
-            boardWriteDto.setBoard_writerId(board.getUser_id());
-            boardWriteDto.setBoard_id(board.getStudy_id());
-            boardWriteDto.setBoard_title(board.getTitle());
-            boardWriteDto.setBoard_subTitle(board.getSub_title());
-            boardWriteDto.setBoard_location(board.getAddress());
-            boardWriteDto.setBoard_startDate(board.getSchedule_start());
-            boardWriteDto.setBoard_endDate(board.getSchedule_end());
-            boardWriteDto.setBoard_regDate(board.getReg_date());
-            boardWriteDto.setWriter_interest1(board.getInterest1());
-            boardWriteDto.setWriter_interest2(board.getInterest2());
-            boardWriteDto.setWriter_interest3(board.getInterest3());
-            boardWriteDto.setBoard_onOffline(board.getMoim_flag());
-            boardWriteDto.setBoard_commentCount(board.getComment_count());
-            boardWriteDto.setBoard_viewCount(board.getView_count());
+            BoardDto boardDto = new BoardDto().toBoardDto(board);
 
-            log.info("boardWriteDto={}", boardWriteDto);
+            //닉네임 가져오기
+            String nickName = memberMapper.findNickname(board.getId());
+            boardDto.setWriter_nickName(nickName);
 
-            boardWriteDtos.add(boardWriteDto);
+//            boardDto.setWriter_nickName(nickName);
+//            boardDto.setBoard_writerId(board.getUser_id());
+//            boardDto.setBoard_id(board.getStudy_id());
+//            boardDto.setBoard_title(board.getTitle());
+//            boardDto.setBoard_subTitle(board.getSub_title());
+//            boardDto.setBoard_location(board.getAddress());
+//            boardDto.setBoard_startDate(board.getSchedule_start());
+//            boardDto.setBoard_endDate(board.getSchedule_end());
+//            boardDto.setBoard_regDate(board.getReg_date());
+//            boardDto.setWriter_interest1(board.getInterest1());
+//            boardDto.setWriter_interest2(board.getInterest2());
+//            boardDto.setWriter_interest3(board.getInterest3());
+//            boardDto.setBoard_onOffline(board.getMoim_flag());
+//            boardDto.setBoard_commentCount(board.getComment_count());
+//            boardDto.setBoard_viewCount(board.getView_count());
+
+            log.info("boardWriteDto={}", boardDto);
+
+            boardDtos.add(boardDto);
         }
 
-        return boardWriteDtos;
+        return boardDtos;
     }
 
 
 
     @Override
-    public String insertStudyBoard(BoardWriteDto boardWriteDto) {
+    public Integer insertStudyBoard(BoardDto boardDto) {
 
-        String uuid = UUID.randomUUID().toString();
-        Board board = boardWriteDto.toEntity(uuid, boardWriteDto);
+        Board board = boardDto.toEntity(boardDto);
         log.info("Board={}", board);
         Integer result = boardMapper.insertStudyBoard(board);
         log.info("result={}", result);
@@ -138,37 +144,37 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardWriteDto findResultById(String study_id, BoardWriteDto boardWriteDto) {
+    public BoardDto findResultById(String study_id, BoardDto boardDto) {
         log.info("study_id={}", study_id);
         Optional<Board> findBoard = boardMapper.findById(study_id);
         if(findBoard.isPresent()) {
             Board board = findBoard.get();
-            boardWriteDto.setBoard_id(board.getStudy_id());
-            boardWriteDto.setBoard_writerId(board.getUser_id());
-            boardWriteDto.setBoard_commentCount(board.getComment_count());
-            boardWriteDto.setBoard_viewCount(board.getView_count());
-            boardWriteDto.setBoard_regDate(board.getReg_date());
-            log.info("boardWriteDto={}", boardWriteDto);
-            return boardWriteDto;
+            boardDto.setBoard_id(board.getStudy_id());
+            boardDto.setBoard_writerId(board.getId());
+            boardDto.setBoard_commentCount(board.getComment_count());
+            boardDto.setBoard_viewCount(board.getView_count());
+            boardDto.setBoard_regDate(board.getReg_date());
+            log.info("boardDto={}", boardDto);
+            return boardDto;
         }
 
         return null;
     }
 
     @Override
-    public BoardWriteDto findStudyById(String study_id) {
+    public BoardDto findStudyById(String study_id) {
         log.info("study_id={}", study_id);
         boardMapper.increaseViewCount(study_id);
         Optional<Board> findBoard = boardMapper.findById(study_id);
         if(findBoard.isPresent()) {
             Board board = findBoard.get();
-            log.info("boardId={}",board.getUser_id());
-            BoardWriteDto boardWriteDto = new BoardWriteDto().toBoardWriteDto(board);
-            String userId = boardWriteDto.getBoard_writerId();
-            String nickname = memberMapper.nickname(userId);
-            boardWriteDto.setWriter_nickName(nickname);
-            log.info("boardWriteDto={}", boardWriteDto);
-            return boardWriteDto;
+            log.info("boardId={}",board.getStudy_id());
+            BoardDto boardDto = new BoardDto().toBoardDto(board);
+            int userId = boardDto.getBoard_writerId();
+            String nickname = memberMapper.findNickname(userId);
+            boardDto.setWriter_nickName(nickname);
+            log.info("boardWriteDto={}", boardDto);
+            return boardDto;
         }
         return null;
     }
