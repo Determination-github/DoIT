@@ -5,7 +5,6 @@
 
 <body  class="d-flex flex-column h-100">
 <div layout:fragment="content">
-
 <main class="flex-shrink-0">
   <section class="section">
     <div class="container col-lg-10">
@@ -104,19 +103,12 @@
                   <input type="text" id="searchKeyword" class="form-control" placeholder="찾고있는 스터디를 검색해보세요."
                   name="keyword" value>
                 </div>
-                <div class="col-5">
-                  <div class="form-check pl-0 py-1">
-                    <input type="checkbox" name="draft" id="draft" class="form-check-inline mr-1" value="Y">
-                    <input type="hidden" name="draft" class="form check-inline mr-1" value="N">
-                    <label class="form-check-label" for="draft">모집 중만 보기</label>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col text-end">
-              <button type="button" id="resetSearch" class="btn btn-secondary btn-sm">초기화</button>
+              <button type="reset" id="resetSearch" class="btn btn-secondary btn-sm">초기화</button>
               <button type="submit" class="btn btn-sm btn-primary btn-search">검색하기</button>
             </div>
           </div>
@@ -143,7 +135,7 @@
             <div class="card h-100 shadow border-0">
               <div class="row">
                 <div class="col-4 mt-2 ms-4">
-                  <div class="badge bg-gradient rounded-pill mb-2" style="background-color : green">[[${list.writer_interest1}]]</div>
+                  <div class="badge bg-gradient rounded-pill mb-2" style="background-color : green">[[${list.board_interest1}]]</div>
                 </div>
                 <div class="col-6 text-end mt-2">
                   <div class="badge bg-gradient rounded-pill mb-2 bg-primary">모집 중</div>
@@ -158,11 +150,8 @@
                 <div class="row">
                   <div class="col">
                     <h6 class="d-inline">
-                      <span class="badge badge-light text-dark mr-1">#C++</span>
-                      <span class="badge badge-light text-dark mr-1">#javascript</span>
-                      <span class="badge badge-light text-dark mr-1">#파이썬</span>
-                      <span class="badge badge-light text-dark mr-1">#assembly</span>
-                      <span class="badge badge-light text-dark mr-1">#OpenGL</span>
+                      <span class="badge bg-gradient rounded-pill mb-2 text-dark" style="background-color : #b3e5fc">#[[${list.board_interest2}]]</span>
+                      <span class="badge bg-gradient rounded-pill mb-2 text-dark" style="background-color : #b3e5fc">#[[${list.board_interest3}]]</span>
                     </h6>
                   </div>
                 </div>
@@ -173,7 +162,7 @@
                         <i class="bi bi-geo-alt"></i>
                         [[${list.board_location}]]
                       </span>
-                      <i class="bi-heart" style="font-size: 1rem; color: red; cursor: pointer; float: right;"></i>
+                        <i class="bi-heart" id="btn_like" style="font-size: 1rem; color: red; cursor: pointer; float: right;"></i>
                     </h6>
                   </div>
                 </div>
@@ -195,17 +184,18 @@
         <div class="m-auto">
           <div class="dataTables_paginate paging_simple_numbers">
             <ul class="pagination">
-              <li class="paginate_button page-item disabled">
-                <a class="page-link" href="#none" aria-label="Previous"
+              <li class="paginate_button page-item">
+                <a class="page-link" aria-label="Previous"
                    th:href="@{/board/list(currentPage = ${pagination.currentPage}-1)}">
                   <span aria-hidden="true"><</span>
                 </a>
               </li>
-              <li class="paginate_button page-item active" th:each="idx : ${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">
+              <li class="paginate_button page-item active" th:each="idx : ${#numbers.sequence(pagination.firstPage,pagination.lastPage)}"
+                  th:class="${idx == pagination.currentPage} ? 'page-item active'">
                 <a class="page-link" th:href="@{'/board/list?currentPage='+${idx}}" th:text="${idx}" href="javascript:pagination(0)"> 1 </a>
               </li>
-              <li class="paginate_button page-item disabled">
-                <a class="page-link" href="#none" aria-label="Next"
+              <li class="paginate_button page-item">
+                <a class="page-link" aria-label="Next"
                    th:href="@{/board/list(currentPage = ${pagination.currentPage}+1)}">
                   <span aria-hidden="true">></span>
                 </a>
