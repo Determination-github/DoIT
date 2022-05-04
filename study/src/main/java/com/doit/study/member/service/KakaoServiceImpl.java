@@ -1,9 +1,10 @@
 package com.doit.study.member.service;
 
 import com.doit.study.mapper.MemberMapper;
+import com.doit.study.member.domain.Member;
 import com.doit.study.member.domain.Social;
-import com.doit.study.member.dto.KakaoDto;
 import com.doit.study.member.dto.MemberDto;
+import com.doit.study.member.dto.SocialDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
@@ -95,14 +96,13 @@ public class KakaoServiceImpl implements KakaoService {
             br.close();
             bw.close();
         } catch (IOException | ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         return access_Token;
     }
 
-    
+
     //access token과 url을 통해 카카오 로그인한 회원 정보 얻기
     @Override
     public HashMap<String, String> getKaKaoUserInfo(String access_Token) {
@@ -140,10 +140,12 @@ public class KakaoServiceImpl implements KakaoService {
             JSONObject properties_obj = (JSONObject)jsonObj.get("properties");
             JSONObject kakao_account_obj = (JSONObject)jsonObj.get("kakao_account");
 
+            //회원정보 가져오기
             String nickname = (String)properties_obj.get("nickname");
             String email = (String)kakao_account_obj.get("email");
             String gender = (String)kakao_account_obj.get("gender");
 
+            //회원정보 저장
             userInfo.put("accessToken", access_Token);
             userInfo.put("id", String.valueOf(id));
             userInfo.put("nickname", nickname);
@@ -184,55 +186,17 @@ public class KakaoServiceImpl implements KakaoService {
         }
     }
 
-
-    @Override
-    public MemberDto kakaoToMember(KakaoDto kakaoDto) {
-
-        MemberDto memberDto = new MemberDto(
-                kakaoDto.getKakaoEmail(),
-                kakaoDto.getKakaoNickname(),
-                kakaoDto.getKakaoName(),
-                kakaoDto.getKakaoGender(),
-                kakaoDto.getKakaoInterest1(),
-                kakaoDto.getKakaoInterest2(),
-                kakaoDto.getKakaoInterest3()
-                );
-
-        return memberDto;
-    }
-
-    //카카오 회원 회원가입
-    @Override
-    public KakaoDto joinSocial(KakaoDto kakaoDto) {
-        Social social = kakaoDto.toEntity(kakaoDto);
-
-        //소셜회원 객체 저장값 출력
-        log.info("user_id={}, name={}, email={}, sex={}," +
-                        "interest1={}, interest2={}, interest3={}, nickname={}",
-                social.getUser_id(), social.getName(), social.getEmail(),
-                social.getSex(), social.getInterest1(), social.getInterest2(),
-                social.getInterest3(), social.getNickname());
-
-        Integer result = memberMapper.insertSocial(social);
-
-        if(result != null) {
-            return new KakaoDto().toDto(social);
-        }
-        return null;
-    }
-
     //카카오 로그인한 회원 정보 찾기
     @Override
-    public KakaoDto findSocialMember(String id) {
-
-        Optional<Social> findMember = memberMapper.findSocialMemberById(id);
+    public MemberDto findSocialMember(String id) {
+        Optional<Member> findMember = memberMapper.findSocialMemberById(id);
         log.info("findMember는 findMember={}", findMember);
 
         if(findMember.isPresent()) {
-            Social social = findMember.get();
-            return new KakaoDto().toDto(social);
+            Member member = findMember.get();
+            return new MemberDto().toDto(member);
         }
-
         return null;
     }
+
 }

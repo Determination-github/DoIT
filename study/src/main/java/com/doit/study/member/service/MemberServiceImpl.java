@@ -34,7 +34,26 @@ public class MemberServiceImpl implements MemberService{
         return null;
     }
 
+    @Override
+    public SocialDto joinSocial(SocialDto socialDto) {
+        Member member = socialDto.toEntity(socialDto);
 
+        //소셜회원 객체 저장값 출력
+        log.info("name={}, email={}, gender={}, nickname={}",
+                member.getName(), member.getEmail(), member.getGender(), member.getNickname());
+
+        Integer result = memberMapper.insertSocialToUser(member);
+
+        if(result != null) {
+            int id = memberMapper.findLastId();
+            Social social = socialDto.toSocial(id, socialDto.getSocialId());
+            Integer socialResult = memberMapper.insertSocial(social);
+            if(social != null) {
+                return socialDto;
+            }
+        }
+        return null;
+    }
 
     @Override
     public MemberDto login(LoginDto loginDto) {
@@ -71,20 +90,16 @@ public class MemberServiceImpl implements MemberService{
         return memberMapper.checkEmail(email);
     }
 
-    @Override
-    public ProfileDto findMember(String id) {
-        Social social = memberMapper.findMember(id);
-        ProfileDto profileDto = new ProfileDto(
-                social.getUser_id(),
-                social.getEmail(),
-                social.getInterest1(),
-                social.getInterest2(),
-                social.getInterest3(),
-                social.getNickname()
-        );
-
-        log.info("profileDto={}", profileDto);
-
-        return profileDto;
-    }
+//    @Override
+//    public ProfileDto findMember(String id) {
+//        Social social = memberMapper.findMember(id);
+//        ProfileDto profileDto = new ProfileDto(
+//                social.getUser_id(),
+//                social.get
+//        );
+//
+//        log.info("profileDto={}", profileDto);
+//
+//        return profileDto;
+//    }
 }

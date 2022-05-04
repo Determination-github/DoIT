@@ -1,7 +1,7 @@
 package com.doit.study.member.service;
 
-import com.doit.study.member.dto.KakaoDto;
 import com.doit.study.member.dto.MemberDto;
+import com.doit.study.member.dto.SocialDto;
 
 import java.util.HashMap;
 
@@ -19,11 +19,6 @@ public interface KakaoService {
     //회원 정보 삭제
     void unlinkKakao(String access_Token);
 
-    //회원가입 - Kakao 로그인 회원
-    KakaoDto joinSocial(KakaoDto kakaoDto);
-
     //카카오 로그인 회원의 회원가입 여부 확인
-    KakaoDto findSocialMember(String id);
-
-    MemberDto kakaoToMember(KakaoDto kakaoDto);
+    MemberDto findSocialMember(String id);
 }

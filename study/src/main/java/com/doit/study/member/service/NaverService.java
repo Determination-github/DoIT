@@ -1,7 +1,7 @@
 package com.doit.study.member.service;
 
 import com.doit.study.member.dto.MemberDto;
-import com.doit.study.member.dto.NaverDto;
+import com.doit.study.member.dto.SocialDto;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import org.json.simple.parser.ParseException;
 
@@ -26,10 +26,10 @@ public interface NaverService {
     //유저정보 Map형태로 저장하기
     HashMap<String, String> getNaverUserInfo(String apiResult) throws ParseException;
 
-    //회원가입 - Naver 로그인 회원
-    NaverDto joinSocial(NaverDto naverDto);
-
     //네이버 로그인 회원의 회원가입 여부 확인
-    NaverDto findSocialMember(String id);
+    MemberDto findSocialMember(String id);
+
+    //발급받은 토큰 삭제하기
+    void deleteAccessToken(String accessToken);
 
 }

@@ -1,9 +1,10 @@
 package com.doit.study.member.service;
 
 import com.doit.study.mapper.MemberMapper;
+import com.doit.study.member.domain.Member;
 import com.doit.study.member.domain.Social;
-import com.doit.study.member.dto.KakaoDto;
-import com.doit.study.member.dto.NaverDto;
+import com.doit.study.member.dto.MemberDto;
+import com.doit.study.member.dto.SocialDto;
 import com.doit.study.member.naver.NaverLoginApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;
@@ -164,35 +165,26 @@ public class NaverServiceImpl implements NaverService {
     }
 
     @Override
-    public NaverDto joinSocial(NaverDto naverDto) {
-        Social social = naverDto.toEntity(naverDto);
-
-        //소셜회원 객체 저장값 출력
-        log.info("user_id={}, name={}, email={}, sex={}," +
-                        "interest1={}, interest2={}, interest3={}, nickname={}",
-                social.getUser_id(), social.getName(), social.getEmail(),
-                social.getSex(), social.getInterest1(), social.getInterest2(),
-                social.getInterest3(), social.getNickname());
-
-        Integer result = memberMapper.insertSocial(social);
-
-        if(result != null) {
-            return new NaverDto().toDto(social);
-        }
-        return null;
+    public void deleteAccessToken(String accessToken) {
+        String deleteUrl =
+                "https://nid.naver.com/oauth2.0/token?grant_type=delete"
+                        +   "&client_id=" + CLIENT_ID
+                        +   "&client_secret=" + CLIENT_SECRET
+                        +   "&access_token=" + accessToken
+                        +   "&service_provider=NAVER";
+        //result : success
     }
 
     //네이버 로그인한 회원 정보 찾기
     @Override
-    public NaverDto findSocialMember(String id) {
-        Optional<Social> findMember = memberMapper.findSocialMemberById(id);
+    public MemberDto findSocialMember(String id) {
+        Optional<Member> findMember = memberMapper.findSocialMemberById(id);
         log.info("findMember는 findMember={}", findMember);
 
         if(findMember.isPresent()) {
-            Social social = findMember.get();
-            return new NaverDto().toDto(social);
+            Member member = findMember.get();
+            return new MemberDto().toDto(member);
         }
-
         return null;
     }
 }
