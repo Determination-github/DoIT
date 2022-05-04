@@ -11,36 +11,36 @@ import javax.validation.constraints.NotEmpty;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NaverDto {
+public class SocialDto {
 
     private int user_id;
 
     @NotEmpty
-    private String naverId, naverEmail, naverName, naverNickname, naverGender;
+    private String socialId, socialEmail, socialName, socialNickname, socialGender;
 
-    public NaverDto(String naverId,
-                    String naverName,
-                    String naverEmail,
-                    String naverGender) {
-        this.naverId = naverId;
-        this.naverName = naverName;
-        this.naverEmail = naverEmail;
-        this.naverGender = naverGender;
+    public SocialDto(String socialId,
+                     String socialName,
+                     String socialEmail,
+                     String socialGender) {
+        this.socialId = socialId;
+        this.socialName = socialName;
+        this.socialEmail = socialEmail;
+        this.socialGender = socialGender;
     }
 
-    public Member toEntity(NaverDto naverDto) {
+    public Member toEntity(SocialDto socialDto) {
         return Member.builder()
-                .email(naverEmail)
-                .name(naverName)
-                .nickname(naverNickname)
-                .gender(naverGender)
+                .email(socialEmail)
+                .name(socialName)
+                .nickname(socialNickname)
+                .gender(socialGender)
                 .build();
     }
 
-    public Social toSocial(int user_id, String naverId) {
+    public Social toSocial(int user_id, String socialId) {
         return Social.builder()
                 .user_id(user_id)
-                .social_id(naverId)
+                .social_id(socialId)
                 .build();
     }
 }

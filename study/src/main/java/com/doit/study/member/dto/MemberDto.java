@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 public class MemberDto {
 
-    private Integer user_id;
+    private Integer id;
 
     private String social_id;
 
@@ -22,7 +22,7 @@ public class MemberDto {
     @Email(message = "이메일 형식이 올바르지 않습니다.")
     private String email;
 
-    @NotEmpty
+    @NotEmpty(message = "비밀번호를 입력해주세요.")
     @Pattern(regexp = "(?=.*[a-z])(?=.*[0-9])(?=.*\\W).{8,16}", message = "비밀번호는 8~16자 영문 소문자와 숫자, 특수문자를 사용하세요.")
     private String password;
 
@@ -49,7 +49,7 @@ public class MemberDto {
 
     public MemberDto toDto(Member member) {
         MemberDto memberDto = new MemberDto();
-        memberDto.setUser_id(member.getUser_id());
+        memberDto.setId(member.getId());
         memberDto.setName(member.getName());
         memberDto.setEmail(member.getEmail());
         memberDto.setPassword(member.getPassword());

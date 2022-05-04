@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 public class Member {
 
-    private Integer user_id;
+    private Integer id;
 
     @NotEmpty
     private String name, email, gender, password, nickname;
@@ -18,6 +18,14 @@ public class Member {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.gender = gender;
+        this.nickname = nickname;
+    }
+
+    @Builder
+    public Member(String email, String name, String nickname, String gender) {
+        this.name = name;
+        this.email = email;
         this.gender = gender;
         this.nickname = nickname;
     }
