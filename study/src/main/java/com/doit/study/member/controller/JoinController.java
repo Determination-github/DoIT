@@ -30,8 +30,8 @@ public class JoinController {
     @ModelAttribute("gender")
     public List<Gender> gender() {
         List<Gender> genders = new ArrayList<>();
-        genders.add(new Gender("m", "남자"));
-        genders.add(new Gender("f", "여자"));
+        genders.add(new Gender("M", "남자"));
+        genders.add(new Gender("F", "여자"));
         return genders;
     }
     

@@ -2,11 +2,11 @@ package com.doit.study.member.controller;
 
 import com.doit.study.member.SessionConst;
 import com.doit.study.member.domain.Gender;
-import com.doit.study.member.domain.category.FirstInterestCategory;
-import com.doit.study.member.domain.category.SecondInterestCategory;
-import com.doit.study.member.domain.category.ThirdInterestCategory;
-import com.doit.study.member.dto.KakaoDto;
+import com.doit.study.member.domain.Social;
+import com.doit.study.member.dto.MemberDto;
+import com.doit.study.member.dto.SocialDto;
 import com.doit.study.member.service.KakaoService;
+import com.doit.study.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
@@ -28,41 +28,15 @@ import java.util.List;
 public class KakaoController {
 
     private final KakaoService kakaoService;
-
-    //첫 번째 카테고리 정보
-    @ModelAttribute("first_categories")
-    public List<FirstInterestCategory> firstCategory() {
-        List<FirstInterestCategory> categories = new ArrayList<>();
-        categories.add(new FirstInterestCategory("back", "백엔드"));
-        categories.add(new FirstInterestCategory("front", "프론트엔드"));
-        return categories;
-    }
-
-    //두 번째 카테고리 정보
-    @ModelAttribute("second_categories")
-    public List<SecondInterestCategory> secondCategory() {
-        List<SecondInterestCategory> categories = new ArrayList<>();
-        categories.add(new SecondInterestCategory("study", "스터디"));
-        categories.add(new SecondInterestCategory("project", "프로젝트"));
-        categories.add(new SecondInterestCategory("cert", "자격증"));
-        return categories;
-    }
-
-    //세 번째 카테고리 정보
-    @ModelAttribute("third_categories")
-    public List<ThirdInterestCategory> thirdCategory() {
-        List<ThirdInterestCategory> categories = new ArrayList<>();
-        categories.add(new ThirdInterestCategory("java", "자바"));
-        categories.add(new ThirdInterestCategory("spring", "스프링"));
-        return categories;
-    }
+    private final MemberService memberService;
+    private String accessToken;
 
     //성별 정보
     @ModelAttribute("gender")
     public List<Gender> gender() {
         List<Gender> genders = new ArrayList<>();
-        genders.add(new Gender("male", "남자"));
-        genders.add(new Gender("female", "여자"));
+        genders.add(new Gender("M", "남자"));
+        genders.add(new Gender("F", "여자"));
         return genders;
     }
 
@@ -81,12 +55,11 @@ public class KakaoController {
         log.info("code = " + code);
 
         //access token 발급 받기
-        String access_Token = kakaoService.getAccessKakaoToken(code);
-        log.info("생성된 access_Token은 ?" + access_Token);
+        accessToken = kakaoService.getAccessKakaoToken(code);
+        log.info("생성된 access_Token은 ?" + accessToken);
 
         //access token으로 얻은 로그인한 유저 정보 얻어오기
-        HashMap<String, String> userInfo = kakaoService.getKaKaoUserInfo(access_Token);
-        log.info("access_Token : " + userInfo.get("accessToken"));
+        HashMap<String, String> userInfo = kakaoService.getKaKaoUserInfo(accessToken);
         log.info("nickname : " + userInfo.get("nickname"));
         log.info("email : " + userInfo.get("email"));
         log.info("gender : " + userInfo.get("gender"));
@@ -98,28 +71,29 @@ public class KakaoController {
         //카카오 회원 정보 가져오기
         JSONObject kakaoInfo = new JSONObject(userInfo);
 
+        MemberDto memberDto;
+
         //kakaoDto 초기화
-        KakaoDto kakaoDto = new KakaoDto(id, userInfo.get("nickname"), userInfo.get("accessToken"), userInfo.get("email"), userInfo.get("gender"));
-        log.info("새로운 kakaoDto = " + kakaoDto);
+        SocialDto socialDto = new SocialDto(id, userInfo.get("nickname"), userInfo.get("email"), userInfo.get("gender"));
+        log.info("새로운 socialDto = " + socialDto);
 
         //찾는 회원이 회원가입되어 있지 않을 경우
         if(kakaoService.findSocialMember(id) == null) {
             log.info("회원가입이 필요합니다.");
-            model.addAttribute("kakaoDto", kakaoDto);
+            model.addAttribute("socialDto", socialDto);
             model.addAttribute("url", "/join/kakao");
             model.addAttribute("msg", "회원정보가 없습니다. 회원가입이 필요합니다.");
-            return "/alertKakao";
+            return "/alertSocialJoin";
         } else {
             //찾는 회원이 회원가입되어 있을 경우
             log.info("회원 찾기 성공");
-            kakaoDto = kakaoService.findSocialMember(id);
-            log.info("회원 kakaoDto는 ? = " + kakaoDto);
+            memberDto = kakaoService.findSocialMember(id);
+            log.info("회원 socialDto는 ? = " + socialDto);
         }
 
         //세션에 카카오 회원 정보 전달
-        session.setAttribute(SessionConst.KAKAO_MEMBER, kakaoDto);
-//        model.addAttribute("kakaoInfo", kakaoDto);
-        log.info("kakaoDto = " + kakaoDto);
+        session.setAttribute(SessionConst.KAKAO_MEMBER, socialDto);
+        log.info("memberDto = " + socialDto);
 
         return "redirect:/";
     }
@@ -147,9 +121,8 @@ public class KakaoController {
      * @param kakaoDto
      */
     @RequestMapping(value = "/kakaoUnlink")
-    public String unlink(@SessionAttribute(name = SessionConst.KAKAO_MEMBER, required = false) KakaoDto kakaoDto) {
+    public String unlink(@SessionAttribute(name = SessionConst.KAKAO_MEMBER, required = false) SocialDto kakaoDto) {
         log.info("kakaoDto = " + kakaoDto);
-        String accessToken = kakaoDto.getAccessToken();
         kakaoService.unlinkKakao(accessToken);
         return "/";
     }
@@ -159,7 +132,7 @@ public class KakaoController {
      * @param kakaoDto
      */
     @GetMapping("/join/kakao")
-    public String kakaoJoinForm(@ModelAttribute("kakaoDto") KakaoDto kakaoDto) {
+    public String kakaoJoinForm(@ModelAttribute("kakaoDto") SocialDto kakaoDto) {
         log.info("kakaoDto = " + kakaoDto);
         return "members/kakaoJoinForm";
     }
@@ -171,14 +144,13 @@ public class KakaoController {
      * @param session
      */
     @PostMapping("/join/kakao")
-    public String kakaoJoin(@Valid @ModelAttribute("kakaoDto") KakaoDto kakaoDto,
+    public String kakaoJoin(@Valid @ModelAttribute("kakaoDto") SocialDto kakaoDto,
                             BindingResult bindingResult,
                             HttpSession session) {
 
         //저장값 출력
-        log.info("id={}, name={}, email={}, interest1={}, interest2={}, interest3={}",
-                kakaoDto.getKakaoId(), kakaoDto.getKakaoName(), kakaoDto.getKakaoEmail(),
-                kakaoDto.getKakaoInterest1(), kakaoDto.getKakaoInterest2(), kakaoDto.getKakaoInterest3());
+        log.info("id={}, name={}, email={}, gender={}",
+                kakaoDto.getSocialId(), kakaoDto.getSocialName(), kakaoDto.getSocialEmail(), kakaoDto.getSocialGender());
 
         //오류 발생시 오류 결과 리턴
         if(bindingResult.hasErrors()) {
@@ -187,7 +159,7 @@ public class KakaoController {
         }
 
         //오류가 없으면 회원가입 실행
-        kakaoDto = kakaoService.joinSocial(kakaoDto);
+        kakaoDto = memberService.joinSocial(kakaoDto);
 
         session.setAttribute(SessionConst.KAKAO_MEMBER, kakaoDto);
         return "redirect:/";

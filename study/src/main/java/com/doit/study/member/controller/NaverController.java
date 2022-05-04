@@ -2,30 +2,31 @@ package com.doit.study.member.controller;
 
 import com.doit.study.member.SessionConst;
 import com.doit.study.member.domain.Gender;
-import com.doit.study.member.domain.category.FirstInterestCategory;
-import com.doit.study.member.domain.category.SecondInterestCategory;
-import com.doit.study.member.domain.category.ThirdInterestCategory;
-import com.doit.study.member.dto.KakaoDto;
-import com.doit.study.member.dto.NaverDto;
+import com.doit.study.member.dto.MemberDto;
+import com.doit.study.member.dto.SocialDto;
 import com.doit.study.member.service.MemberService;
 import com.doit.study.member.service.NaverService;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static org.springframework.web.servlet.support.RequestContextUtils.getInputFlashMap;
 
 @Controller
 @RequiredArgsConstructor
@@ -33,42 +34,15 @@ import java.util.List;
 public class NaverController {
 
     private final NaverService naverService;
+    private final MemberService memberService;
     private String apiResult;
-
-    //첫 번째 카테고리 정보
-    @ModelAttribute("first_categories")
-    public List<FirstInterestCategory> firstCategory() {
-        List<FirstInterestCategory> categories = new ArrayList<>();
-        categories.add(new FirstInterestCategory("back", "백엔드"));
-        categories.add(new FirstInterestCategory("front", "프론트엔드"));
-        return categories;
-    }
-
-    //두 번째 카테고리 정보
-    @ModelAttribute("second_categories")
-    public List<SecondInterestCategory> secondCategory() {
-        List<SecondInterestCategory> categories = new ArrayList<>();
-        categories.add(new SecondInterestCategory("study", "스터디"));
-        categories.add(new SecondInterestCategory("project", "프로젝트"));
-        categories.add(new SecondInterestCategory("cert", "자격증"));
-        return categories;
-    }
-
-    //세 번째 카테고리 정보
-    @ModelAttribute("third_categories")
-    public List<ThirdInterestCategory> thirdCategory() {
-        List<ThirdInterestCategory> categories = new ArrayList<>();
-        categories.add(new ThirdInterestCategory("java", "자바"));
-        categories.add(new ThirdInterestCategory("spring", "스프링"));
-        return categories;
-    }
 
     //성별 정보
     @ModelAttribute("gender")
     public List<Gender> gender() {
         List<Gender> genders = new ArrayList<>();
-        genders.add(new Gender("male", "남자"));
-        genders.add(new Gender("female", "여자"));
+        genders.add(new Gender("M", "남자"));
+        genders.add(new Gender("F", "여자"));
         return genders;
     }
 
@@ -77,8 +51,8 @@ public class NaverController {
     public String callback(Model model,
                            @RequestParam String code,
                            @RequestParam String state,
-                           HttpSession session,
-                           RedirectAttributes redirectAttributes) throws IOException, ParseException {
+                           HttpServletRequest request,
+                           HttpSession session) throws IOException, ParseException {
         OAuth2AccessToken oauthToken;
         oauthToken = naverService.getAccessToken(session, code, state);
         log.info("토큰 = "+oauthToken);
@@ -93,53 +67,43 @@ public class NaverController {
          **/
         //String형식인 apiResult를 json형태로 바꿈
         HashMap<String, String> userInfo = naverService.getNaverUserInfo(apiResult);
-
-        JSONObject kakaoInfo =  new JSONObject(userInfo);
         log.info("userInfo = " + userInfo);
 
-        NaverDto naverDto = new NaverDto(userInfo.get("id"), userInfo.get("name"), userInfo.get("email"), userInfo.get("gender"));
-        log.info("새로운 naverDto = "+naverDto);
+        SocialDto socialDto = new SocialDto(userInfo.get("id"), userInfo.get("name"), userInfo.get("email"), userInfo.get("gender"));
+        log.info("새로운 naverDto = "+socialDto);
 
         //네이버 회원 id 가져오기
-        String id = userInfo.get("id");
+        String social_id = userInfo.get("id");
+
+        MemberDto memberDto;
 
         //찾는 회원이 회원가입되어 있지 않을 경우
-        if(naverService.findSocialMember(id) == null) {
+        if(naverService.findSocialMember(social_id) == null) {
             log.info("회원가입이 필요합니다.");
-            model.addAttribute("naverDto", naverDto);
+            model.addAttribute("accessToken", oauthToken);
+            model.addAttribute("socialDto", socialDto);
             model.addAttribute("url", "/join/naver");
             model.addAttribute("msg", "회원정보가 없습니다. 회원가입이 필요합니다.");
-            return "/alertNaver";
+            return "/alertSocialJoin";
         } else {
             //찾는 회원이 회원가입되어 있을 경우
             log.info("회원 찾기 성공");
-            naverDto = naverService.findSocialMember(id);
-            log.info("회원 naverDto는 ? = " + naverDto);
+            memberDto = naverService.findSocialMember(social_id);
+            log.info("회원 socialDto는 ? = " + socialDto);
         }
 
         //세션에 네이버 회원 정보 전달
-        session.setAttribute(SessionConst.NAVER_MEMBER, naverDto);
-//        model.addAttribute("kakaoInfo", kakaoDto);
-        log.info("naverDto = " + naverDto);
-
+        session.setAttribute(SessionConst.NAVER_MEMBER, memberDto);
+        log.info("memberDto = " + memberDto);
         return "redirect:/";
-        //
-
-//        String naverEmail = naverDto.getNaverEmail();
-//        if (naverService.findSocialMember(naverEmail) == null) {
-//            log.info("회원가입이 필요합니다.");
-//            redirectAttributes.addFlashAttribute("naverMember", naverDto);
-//            return "redirect:/join?social="+"naver";
-//        }
     }
 
 
-      //네이버 회원 삭제
-//    @GetMapping("deleteNaver")
-//    public String delete() {
-//        return "redirect:/https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=RmYsFcVGsS8vYkjw-8VDc7aQWPkrWxGsZhBueNxnEFk&client_secret=GwjoZZh06n&access_token=AAAAPHBLfvRic6W7of6tQlAkdJYFf-AT-jmK94F2DCcPdrDe-GgT8e_cjE34eWtidu-NNeKak2O4U7MDiXPYljUtBgY&service_provider=NAVER\n";
-//
-//    }
+//      네이버 회원 삭제
+    @GetMapping("/naverUnlink")
+    public String delete() {
+        return "redirect:/https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=Rqvi_Vwj3d5f4g6XhkfFjWrm_6DQMWQVCOM28WRZYNY&client_secret=GwjoZZh06n&access_token=AAAAPMRNkTMZILcNCr1l9oY2C1bheoqEgosG7NktTFps4qf2UPjapjsC4JZjAKzyoUm1RIcIUJSei2vIX0OL4PugiOw&service_provider=NAVER\n";
+    }
 
     /**
      * 네이버 회원가입 컨트롤러
@@ -147,7 +111,7 @@ public class NaverController {
      * @return
      */
     @GetMapping("/join/naver")
-    public String naverJoinForm(@ModelAttribute("naverDto") NaverDto naverDto) {
+    public String naverJoinForm(@ModelAttribute("naverDto") SocialDto naverDto) {
         log.info("naverDto = " + naverDto);
         return "members/naverJoinForm";
     }
@@ -159,14 +123,13 @@ public class NaverController {
      * @param session
      */
     @PostMapping("/join/naver")
-    public String naverJoin(@Valid @ModelAttribute("naverDto") NaverDto naverDto,
+    public String naverJoin(@Valid @ModelAttribute("naverDto") SocialDto naverDto,
                             BindingResult bindingResult,
                             HttpSession session) {
 
         //저장값 출력
-        log.info("id={}, name={}, email={}, interest1={}, interest2={}, interest3={}",
-                naverDto.getNaverId(), naverDto.getNaverName(), naverDto.getNaverEmail(),
-                naverDto.getNaverInterest1(), naverDto.getNaverInterest2(), naverDto.getNaverInterest3());
+        log.info("id={}, name={}, email={}, gender={}",
+                naverDto.getSocialId(), naverDto.getSocialName(), naverDto.getSocialEmail(), naverDto.getSocialGender());
 
         //오류 발생시 오류 결과 리턴
         if(bindingResult.hasErrors()) {
@@ -175,7 +138,7 @@ public class NaverController {
         }
 
         //오류가 없으면 회원가입 실행
-        naverDto = naverService.joinSocial(naverDto);
+        naverDto = memberService.joinSocial(naverDto);
 
         session.setAttribute(SessionConst.NAVER_MEMBER, naverDto);
         return "redirect:/";

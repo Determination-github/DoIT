@@ -12,10 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -33,7 +36,9 @@ public class LoginController {
      * @param session
      */
     @GetMapping("/login")
-    public String loginForm(@ModelAttribute("loginDto") LoginDto loginDto, Model model, HttpSession session) {
+    public String loginForm(@ModelAttribute("loginDto") LoginDto loginDto,
+                            Model model,
+                            HttpSession session) {
 
         //네이보 로그인을 위한 콜백 url 생성
         String naverAuthUrl = naverService.getAuthorizationUrl(session);
@@ -43,11 +48,16 @@ public class LoginController {
         String kakaoAuthUrl = kakaoService.getKaKaoCallbackUrl();
         log.info("카카오: " + kakaoAuthUrl);
 
+
         //네이버, 카카오 콜백 url 저장
         model.addAttribute("naverUrl", naverAuthUrl);
         model.addAttribute("kakaoUrl", kakaoAuthUrl);
 
         return "/members/loginForm";
+    }
+
+    private Map<String, ?> getInputFlashMap(HttpServletRequest request) {
+        return RequestContextUtils.getInputFlashMap(request);
     }
 
     /**
@@ -83,8 +93,10 @@ public class LoginController {
 
         //로그인 성공 시
         //세션에 회원 정보 저장
+        log.info("로그인 성공");
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER, memberDto);
+        log.info("redirect url = {}", redirectURL);
         return "redirect:" + redirectURL;
     }
 
@@ -100,4 +112,11 @@ public class LoginController {
         }
         return "redirect:/";
     }
+
+    @GetMapping("/find")
+    public String find() {
+
+        return "";
+    }
+
 }
