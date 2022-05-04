@@ -29,7 +29,7 @@
             <div class="main_join_box1">
                 <p>이름</p>
                     <div class="main_join_input_group main_join_input_box1">
-                        <input class="main_join_input main_join_input" type="text" id="name" th:value="${kakaoDto.kakaoName}"
+                        <input class="main_join_input main_join_input" type="text" id="name" th:value="${kakaoDto.socialName}"
                                readonly>
                     </div>
                 <span id="nameCheck"></span>
@@ -38,89 +38,40 @@
             <div class="main_join_box1">
                 <p>닉네임</p>
                 <div class="main_join_input_group main_join_input_box2">
-                    <input class="main_join_input main_join_input1" type="text" id="nickname" th:field="*{kakaoNickname}"
+                    <input class="main_join_input main_join_input1" type="text" id="nickname" th:field="*{socialNickname}"
                            th:placeholder="@{닉네임을 입력하세요.}" th:errorclass="field-error">
                 </div>
                 <span id="nicknameCheck"></span>
-                <div class="field-error" th:errors="*{kakaoNickname}" />
+                <div class="field-error" th:errors="*{socialNickname}" />
             </div>
 
             <div class="main_join_box2">
                 <p>이메일</p>
-                <div class="main_join_input_group main_join_input_box3 main_join_chk">
-                    <div th:if="${#strings.isEmpty(kakaoDto.kakaoEmail)}">
-                        <p>
-                            <input class="main_join_input main_join_input2" type="email" th:field="*{kakaoEmail}"
-                                   th:placeholder="@{이메일을 입력하세요.}" th:errorclass="field-error">
-                        </p>
-                    </div>
-
-
-                    <p th:if="${not #strings.isEmpty(kakaoDto.kakaoEmail)}">
-                        <input class="main_join_input main_join_input2" type="email" id="email"
-                               th:value="${kakaoDto.kakaoEmail}" readonly>
+                <div class="main_join_input_group main_join_input_box">
+                    <p th:if="${not #strings.isEmpty(kakaoDto.socialEmail)}">
+                        <input class="main_join_input main_join_input2" type="email" id="emailNaver"
+                               th:value="${kakaoDto.socialEmail}" readonly>
                     </p>
                 </div>
-                <p id="emailChk" class="doubleChk main_join_chk">인증번호 보내기</p>
-                <div class="field-error" th:errors="*{kakaoEmail}"/>
-                <p id="emailCheck"></p>
-                <p class="main_join_email_chk main_join_email_double"><input id="sm_email" type="text" name="sm_email" title="인증번호 입력" disabled required/></p>
-                <p id="emailChk2" class="doubleChk main_join_email_double">이메일인증</p>
-                <p class="point successEmailChk">이메일 입력후 인증번호 보내기를 해주십시오.</p>
-                <input type="hidden" id="emailDoubleChk"/>
             </div>
 
             <div class="main_join_box6 main_join_box_group">
                 <p>성별</p>
                 <div class="main_join_input_box6">
-                    <select th:if="${#strings.isEmpty(kakaoDto.kakaoGender)}" id="main_join_input_sex_select" class="main_join_input_sex_select"
-                            th:field="*{kakaoGender}">
-                        <option value="">성별</option>
-                        <option th:each="sex : ${gender}"
-                                th:value="${sex?.code}"
-                                th:text="${sex?.gender}"></option>
-                    </select>
-                    <select readonly th:if="${not #strings.isEmpty(kakaoDto.kakaoGender)}" id="main_join_input_sex_select2" class="main_join_input_sex_select"
-                            th:value="${kakaoDto.kakaoGender}">
-                        <th:block th:if="${#strings.equals(kakaoDto.kakaoGender, 'male')}">
-                            <option th:value="${kakaoDto.kakaoGender}" th:text="남자">
+                    <select readonly th:if="${not #strings.isEmpty(kakaoDto.socialGender)}" id="main_join_input_sex_select2" class="main_join_input_sex_select"
+                            th:value="${kakaoDto.socialGender}">
+                        <th:block th:if="${#strings.equals(kakaoDto.socialGender, 'male')}">
+                            <option th:value="${kakaoDto.socialGender}" th:text="남자">
                             </option>
                         </th:block>
-                        <th:block th:if="${#strings.equals(kakaoDto.kakaoGender, 'female')}">
-                            <option th:value="${kakaoDto.kakaoGender}" th:text="여자">
+                        <th:block th:if="${#strings.equals(kakaoDto.socialGender, 'female')}">
+                            <option th:value="${kakaoDto.socialGender}" th:text="여자">
                             </option>
                         </th:block>
                     </select>
                 </div>
             </div>
 
-            <div>
-                <p class="main_join_category">관심있는 스터디 카테고리를 선택해 주세요. (최대 3개)</p>
-            </div>
-
-            <div class="categoryListWrap">
-                <div>
-                    <select id="categoryList1" class="categoryList" th:field="*{kakaoInterest1}">
-                        <option value="">1차 카테고리를 선택하세요.</option>
-                        <option th:each="first_category : ${first_categories}" th:value="${first_category.code}"
-                                th:text="${first_category.category}"></option>
-                    </select>
-                </div>
-                <div>
-                    <select id="categoryList2" class="categoryList" th:field="*{kakaoInterest2}">
-                        <option value="">2차 카테고리를 선택하세요.</option>
-                        <option th:each="second_category : ${second_categories}" th:value="${second_category.code}"
-                                th:text="${second_category.category}"></option>
-                    </select>
-                </div>
-                <div>
-                    <select id="categoryList3" class="categoryList" th:field="*{kakaoInterest3}">
-                        <option value="">3차 카테고리를 선택하세요.</option>
-                        <option th:each="third_category : ${third_categories}" th:value="${third_category.code}"
-                                th:text="${third_category.category}"></option>
-                    </select>
-                </div>
-            </div>
             <div>
                 <button class="main_join_BTN" type="submit">가입하기</button>
             </div>

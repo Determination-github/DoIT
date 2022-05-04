@@ -29,7 +29,7 @@
             <div class="main_join_box1">
                 <p>이름</p>
                 <div class="main_join_input_group main_join_input_box">
-                    <input class="main_join_input main_join_input" type="text" id="name" th:value="${naverDto.naverName}"
+                    <input class="main_join_input main_join_input" type="text" id="name" th:value="${naverDto.socialName}"
                            readonly>
                 </div>
                 <span id="nameCheck"></span>
@@ -38,19 +38,19 @@
             <div class="main_join_box1">
                 <p>닉네임</p>
                 <div class="main_join_input_group main_join_input_box">
-                    <input class="main_join_input main_join_input1" type="text" id="nickname" th:field="*{naverNickname}"
+                    <input class="main_join_input main_join_input1" type="text" id="nickname" th:field="*{socialNickname}"
                            th:placeholder="@{닉네임을 입력하세요.}" th:errorclass="field-error">
                 </div>
                 <span id="nicknameCheck"></span>
-                <div class="field-error" th:errors="*{naverNickname}" />
+                <div class="field-error" th:errors="*{socialNickname}" />
             </div>
 
             <div class="main_join_box2">
                 <p>이메일</p>
                 <div class="main_join_input_group main_join_input_box">
-                    <p th:if="${not #strings.isEmpty(naverDto.naverEmail)}">
+                    <p th:if="${not #strings.isEmpty(naverDto.socialEmail)}">
                         <input class="main_join_input main_join_input2" type="email" id="emailNaver"
-                               th:value="${naverDto.naverEmail}" readonly>
+                               th:value="${naverDto.socialEmail}" readonly>
                     </p>
                 </div>
             </div>
@@ -58,47 +58,20 @@
             <div class="main_join_box6 main_join_box_group">
                 <p>성별</p>
                 <div class="main_join_input_box6">
-                    <select readonly th:if="${not #strings.isEmpty(naverDto.naverGender)}" id="main_join_input_sex_select2" class="main_join_input_sex_select"
-                            th:value="${naverDto.naverGender}">
-                        <th:block th:if="${#strings.equals(naverDto.naverGender, 'M')}">
-                            <option th:value="${naverDto.naverGender}" th:text="남자">
+                    <select readonly th:if="${not #strings.isEmpty(naverDto.socialGender)}" id="main_join_input_sex_select2" class="main_join_input_sex_select"
+                            th:value="${naverDto.socialGender}">
+                        <th:block th:if="${#strings.equals(naverDto.socialGender, 'M')}">
+                            <option th:value="${naverDto.socialGender}" th:text="남자">
                             </option>
                         </th:block>
-                        <th:block th:if="${#strings.equals(naverDto.naverGender, 'F')}">
-                            <option th:value="${naverDto.naverGender}" th:text="여자">
+                        <th:block th:if="${#strings.equals(naverDto.socialGender, 'F')}">
+                            <option th:value="${naverDto.socialGender}" th:text="여자">
                             </option>
                         </th:block>
                     </select>
                 </div>
             </div>
 
-            <div>
-                <p class="main_join_category">관심있는 스터디 카테고리를 선택해 주세요. (최대 3개)</p>
-            </div>
-
-            <div class="categoryListWrap">
-                <div>
-                    <select id="categoryList1" class="categoryList" th:field="*{naverInterest1}">
-                        <option value="">1차 카테고리를 선택하세요.</option>
-                        <option th:each="first_category : ${first_categories}" th:value="${first_category.code}"
-                                th:text="${first_category.category}"></option>
-                    </select>
-                </div>
-                <div>
-                    <select id="categoryList2" class="categoryList" th:field="*{naverInterest2}">
-                        <option value="">2차 카테고리를 선택하세요.</option>
-                        <option th:each="second_category : ${second_categories}" th:value="${second_category.code}"
-                                th:text="${second_category.category}"></option>
-                    </select>
-                </div>
-                <div>
-                    <select id="categoryList3" class="categoryList" th:field="*{naverInterest3}">
-                        <option value="">3차 카테고리를 선택하세요.</option>
-                        <option th:each="third_category : ${third_categories}" th:value="${third_category.code}"
-                                th:text="${third_category.category}"></option>
-                    </select>
-                </div>
-            </div>
             <div>
                 <button class="main_join_BTN" type="submit">가입하기</button>
             </div>

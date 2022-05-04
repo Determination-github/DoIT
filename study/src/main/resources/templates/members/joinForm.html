@@ -50,7 +50,7 @@
                                th:placeholder="@{이름을 입력하세요.}" th:errorclass="field-error">
                     </div>
                 <span id="nameCheck"></span>
-                <div class="field-error" th:errors="*{name}" />
+                <div class="field-error" th:each="error, stat : ${#fields.errors('name')}" th:text="${error}" th:if="${stat.first}" />
             </div>
 
             <div class="main_join_box1">
@@ -86,7 +86,7 @@
                     <input class="main_join_input main_join_input3" type="password" id="password" th:field="*{password}"
                            th:placeholder="@{비밀번호를 입력하세요.}" th:errorclass="field-error">
                 </div>
-                <div class="field-error" th:errors="*{password}"/>
+                <div class="field-error" th:each="error, stat : ${#fields.errors('password')}" th:text="${error}" th:if="${stat.first}" />
             </div>
 
             <div class="main_join_box3">
@@ -96,7 +96,6 @@
                            th:placeholder="@{비밀번호 중복 확인}">
                 </div>
                 <span id="same"></span>
-                <div class="field-error" th:errors="*{password}"/>
             </div>
 
             <div class="main_join_box6 main_join_box_group">
