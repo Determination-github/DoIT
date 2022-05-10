@@ -1,5 +1,6 @@
 package com.doit.study.mapper;
 
+import com.doit.study.comment.domain.Comment;
 import com.doit.study.comment.dto.CommentDto;
 import org.apache.ibatis.annotations.*;
 
@@ -7,18 +8,31 @@ import java.util.List;
 
 @Mapper
 public interface CommentMapper {
+
     @Select(CommentSQL.count)
-    int count(Integer board_Id) throws Exception;
+    int count(String board_Id);
+
     @Delete(CommentSQL.deleteAll)
-    int deleteAll(Integer board_Id);
+    int deleteAll(String board_Id);
+
     @Delete(CommentSQL.delete)
-    int delete(@Param("comment_Id") Integer comment_Id, @Param("comment_Writer") String comment_Writer) throws Exception;
-    @Insert(CommentSQL.insert)
-    int insert(CommentDto commentDto) throws Exception;
+    int delete(@Param("comment_Id") int comment_Id, @Param("comment_Writer") String comment_Writer);
+
     @Select(CommentSQL.selectAll)
-    List<CommentDto> selectAll(Integer board_Id) throws Exception;
+    List<CommentDto> selectAll(String board_Id);
+
     @Select(CommentSQL.select)
-    CommentDto select(Integer comment_Id) throws Exception;
+    CommentDto select(int comment_Id);
+
     @Update(CommentSQL.update)
-    int update(CommentDto commentDto) throws Exception;
+    int update(CommentDto commentDto);
+
+    @Insert(CommentSQL.insert)
+    int insert(Comment comment);
+
+    @Select(CommentSQL.getComment)
+    List<CommentDto> getComment(Comment comment);
+
+    @Select(CommentSQL.getNickname)
+    String getNicknameById(CommentDto commentDto);
 }

@@ -1,19 +1,26 @@
 package com.doit.study.comment.dto;
 
+import com.doit.study.comment.domain.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.sql.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommentDto {
-    private Integer comment_Id;
-    private Integer board_Id;
-    private Integer parentComment_Id;
-    private String  comment_Content;
-    private String  comment_Writer;
-    private Date    reg_Date;
-    private Date    update_Date;
+    int comment_id, study_id, writer_id;
+    int group_id, group_indent;
+    String comment, nickname;
+    Date reg_date;
+
+    public Comment toEntity(CommentDto commentDto) {
+        return Comment.builder()
+                .study_id(study_id)
+                .writer_id(writer_id)
+                .comment(comment)
+                .build();
+    }
 }

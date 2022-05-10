@@ -1,13 +1,16 @@
 package com.doit.study.comment.service;
 
+import com.doit.study.comment.domain.Comment;
 import com.doit.study.comment.dto.CommentDto;
 import com.doit.study.mapper.BoardMapper;
 import com.doit.study.mapper.CommentMapper;
+import com.doit.study.mapper.CommentSQL;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -19,13 +22,13 @@ public class CommentServiceImpl implements CommentService{
     private final CommentMapper commentMapper;
 
     @Override
-    public int getCount(Integer board_Id) throws Exception {
+    public int getCount(String board_Id) {
         return commentMapper.count(board_Id);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int remove(Integer comment_Id, Integer board_Id, String comment_Writer) throws Exception {
+    public int remove(Integer comment_Id, String board_Id, String comment_Writer) {
         int rowCount = boardMapper.updateCommentCount(board_Id, -1);
         log.info("updateCommentCount - rowCount = " + rowCount);
         rowCount = commentMapper.delete(comment_Id, comment_Writer);
@@ -34,30 +37,50 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public int removeAll(Integer board_Id) throws Exception {
+    public int removeAll(String board_Id) {
         return commentMapper.deleteAll(board_Id);
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int write(CommentDto commentDto) throws Exception {
-        boardMapper.updateCommentCount(commentDto.getBoard_Id(), 1);
-        return commentMapper.insert(commentDto);
-    }
+//    @Override
+//    @Transactional(rollbackFor = Exception.class)
+//    public int write(CommentDto commentDto) {
+//        boardMapper.updateCommentCount(commentDto.getBoard_Id(), 1);
+//        return commentMapper.insert(commentDto);
+//    }
 
     @Override
-    public List<CommentDto> getList(Integer board_Id) throws Exception {
+    public List<CommentDto> getList(String board_Id) {
         return commentMapper.selectAll(board_Id);
     }
 
     @Override
-    public CommentDto read(Integer comment_Id) throws Exception {
+    public CommentDto read(Integer comment_Id) {
         return commentMapper.select(comment_Id);
     }
 
     @Override
-    public int modify(CommentDto commentDto) throws Exception {
+    public int modify(CommentDto commentDto) {
         return commentMapper.update(commentDto);
+    }
+
+    @Override
+    public List<CommentDto> insertComment(CommentDto commentDto) {
+        Comment comment = commentDto.toEntity(commentDto);
+        Integer result = commentMapper.insert(comment);
+        if(result != null) {
+            List<CommentDto> commentDtos = new ArrayList<>();
+            commentDtos = commentMapper.getComment(comment);
+            for (CommentDto dto : commentDtos) {
+                String nickname = commentMapper.getNicknameById(dto);
+                dto.setNickname(nickname);
+
+                log.info("CommentDto={}", dto);
+                commentDtos.add(dto);
+            }
+
+            return commentDtos;
+        }
+        return null;
     }
 
 }

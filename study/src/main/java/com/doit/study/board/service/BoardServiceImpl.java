@@ -103,22 +103,6 @@ public class BoardServiceImpl implements BoardService {
             String nickName = memberMapper.findNickname(board.getId());
             boardDto.setWriter_nickName(nickName);
 
-//            boardDto.setWriter_nickName(nickName);
-//            boardDto.setBoard_writerId(board.getUser_id());
-//            boardDto.setBoard_id(board.getStudy_id());
-//            boardDto.setBoard_title(board.getTitle());
-//            boardDto.setBoard_subTitle(board.getSub_title());
-//            boardDto.setBoard_location(board.getAddress());
-//            boardDto.setBoard_startDate(board.getSchedule_start());
-//            boardDto.setBoard_endDate(board.getSchedule_end());
-//            boardDto.setBoard_regDate(board.getReg_date());
-//            boardDto.setWriter_interest1(board.getInterest1());
-//            boardDto.setWriter_interest2(board.getInterest2());
-//            boardDto.setWriter_interest3(board.getInterest3());
-//            boardDto.setBoard_onOffline(board.getMoim_flag());
-//            boardDto.setBoard_commentCount(board.getComment_count());
-//            boardDto.setBoard_viewCount(board.getView_count());
-
             log.info("boardWriteDto={}", boardDto);
 
             boardDtos.add(boardDto);

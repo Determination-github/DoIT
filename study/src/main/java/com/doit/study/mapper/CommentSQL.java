@@ -14,11 +14,11 @@ public class CommentSQL {
             "DELETE FROM BO_COMMENT2_TB " +
             "WHERE comment_Id = #{comment_Id} AND comment_Writer = #{comment_Writer}";
 
-    public static final String insert =
-            "INSERT INTO BO_COMMENT2_TB\n" +
-            "(comment_Id, parentComment_Id, board_Id, comment_Content, comment_Writer, reg_Date, update_Date)\n" +
-            "VALUES\n" +
-            "(comment_Id_seq.NEXTVAL, #{parentComment_Id}, #{board_Id}, #{comment_Content}, #{comment_Writer}, sysdate, sysdate)";
+//    public static final String insert =
+//            "INSERT INTO BO_COMMENT2_TB\n" +
+//            "(comment_Id, parentComment_Id, board_Id, comment_Content, comment_Writer, reg_Date, update_Date)\n" +
+//            "VALUES\n" +
+//            "(comment_Id_seq.NEXTVAL, #{parentComment_Id}, #{board_Id}, #{comment_Content}, #{comment_Writer}, sysdate, sysdate)";
 
     public static final String selectAll =
             "SELECT comment_Id, board_Id, parentComment_Id, comment_Content, comment_Writer, reg_Date, update_Date\n" +
@@ -36,4 +36,14 @@ public class CommentSQL {
             "SET comment_Content = #{comment_Content}\n" +
             ", update_Date = sysdate\n" +
             "WHERE comment_Id = #{comment_Id} and comment_Writer = #{comment_Writer}";
+
+    public static final String insert =
+            "INSERT INTO SR_COMMENT_TB(study_id, writer_id, group_id, comment) " +
+            "VALUES(#{study_id}, #{writer_id}, (SELECT LAST_INSERT_ID()+1), #{comment})";
+
+    public static final String getComment =
+            "SELECT * FROM SR_COMMENT_TB WHERE study_id = #{study_id}";
+
+    public static final String getNickname =
+            "SELECT nickname FROM USERS_TB WHERE id = #{writer_id}";
 }

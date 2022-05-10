@@ -6,60 +6,65 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
-@RestController
+@Controller
 public class CommentController {
 
     private final CommentService commentService;
 
-    @PatchMapping("/comments/{comment_Id}")
-    public ResponseEntity<String> modify(@PathVariable Integer comment_Id, @RequestBody CommentDto commentDto, HttpSession session) {
-        String comment_Writer = (String)session.getAttribute("nickName");
-        commentDto.setComment_Writer(comment_Writer);
-        commentDto.setComment_Id(comment_Id);
-       log.info("dto = " + commentDto);
+//    @PatchMapping("/comments/{comment_Id}")
+//    public ResponseEntity<String> modify(@PathVariable Integer comment_Id, @RequestBody CommentDto commentDto, HttpSession session) {
+//        String comment_Writer = (String)session.getAttribute("nickName");
+//        commentDto.setComment_Writer(comment_Writer);
+//        commentDto.setComment_Id(comment_Id);
+//        log.info("dto = " + commentDto);
+//
+//        try {
+//            if(commentService.modify(commentDto)!=1)
+//                throw new Exception("Write failed.");
+//
+//            return new ResponseEntity<>("댓글이 수정되었습니다.", HttpStatus.OK);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<String>("댓글 수정이 실패되었습니다.", HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
-        try {
-            if(commentService.modify(commentDto)!=1)
-                throw new Exception("Write failed.");
+    @PostMapping("/comments/save/{writer_id}")
+    @ResponseBody
+    public Integer write(
+                        @PathVariable Integer writer_id,
+                        @RequestBody CommentDto commentDto,
+                        Model model) {
+        log.info("writer_id={}", writer_id);
+        log.info("commentDto={}", commentDto);
+        Integer result = 0;
 
-            return new ResponseEntity<>("댓글이 수정되었습니다.", HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<String>("댓글 수정이 실패되었습니다.", HttpStatus.BAD_REQUEST);
+        if (commentDto.getComment().length() > 500) {
+            log.info("길이는 ="+commentDto.getComment().length());
+            result = 2;
+        } else {
+            try {
+                model.addAttribute("comments", commentService.insertComment(commentDto));
+                log.info("comments = " + commentService.insertComment(commentDto));
+            } catch (Exception e) {
+                e.printStackTrace();
+                result = 3;
+            }
         }
-    }
-
-    @PostMapping("/comments")
-    public ResponseEntity<String> write(@RequestBody CommentDto commentDto, Integer board_Id, HttpSession session
-                                        ) {
-
-        if(commentDto.getParentComment_Id()==null)
-            commentDto.setParentComment_Id(0);
-
-        String comment_Writer = (String)session.getAttribute("nickName");
-        commentDto.setComment_Writer(comment_Writer);
-        commentDto.setBoard_Id(board_Id);
-        log.info("commentDto = " + commentDto);
-
-        try {
-            if(commentService.write(commentDto)!=1)
-                throw new Exception("Write failed.");
-
-            return new ResponseEntity<>("댓글이 작성되었습니다.", HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<String>("댓글 작성이 실패되었습니다.", HttpStatus.BAD_REQUEST);
-        }
+        return result;
     }
 
     @DeleteMapping("/comments/{comment_Id}")
-    public ResponseEntity<String> remove(@PathVariable Integer comment_Id, Integer board_Id, HttpSession session, CommentDto commentDto){
+    public ResponseEntity<String> remove(@PathVariable Integer comment_Id, String board_Id, HttpSession session, CommentDto commentDto){
         String comment_Writer = (String)session.getAttribute("nickName");
         try {
             int rowCnt = commentService.remove(comment_Id, board_Id, comment_Writer);
@@ -75,7 +80,7 @@ public class CommentController {
     }
 
     @GetMapping("/comments")
-    public ResponseEntity<List<CommentDto>> list(Integer board_Id){
+    public ResponseEntity<List<CommentDto>> list(String board_Id){
         List<CommentDto> list = null;
         try {
             list = commentService.getList(board_Id);
