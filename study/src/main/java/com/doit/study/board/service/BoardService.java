@@ -22,9 +22,9 @@ public interface BoardService {
 
     Integer insertStudyBoard(BoardDto boardWriteDto);
 
-    BoardDto findResultById(String study_id, BoardDto boardWriteDto);
+    BoardDto findResultById(int study_id, BoardDto boardWriteDto);
 
-    BoardDto findStudyById(String study_id);
+    BoardDto findStudyById(int study_id);
 
 //    void increasViewCount(String id);
 

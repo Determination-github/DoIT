@@ -128,7 +128,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardDto findResultById(String study_id, BoardDto boardDto) {
+    public BoardDto findResultById(int study_id, BoardDto boardDto) {
         log.info("study_id={}", study_id);
         Optional<Board> findBoard = boardMapper.findById(study_id);
         if(findBoard.isPresent()) {
@@ -146,7 +146,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardDto findStudyById(String study_id) {
+    public BoardDto findStudyById(int study_id) {
         log.info("study_id={}", study_id);
         boardMapper.increaseViewCount(study_id);
         Optional<Board> findBoard = boardMapper.findById(study_id);

@@ -38,10 +38,10 @@ public interface BoardMapper {
     Integer insertStudyBoard(@Param("board") Board board);
 
     @Update(BoardSQL.increaseViewCount)
-    Integer increaseViewCount(@Param("study_id") String id);
+    Integer increaseViewCount(@Param("study_id") int id);
 
     @Select(BoardSQL.getBoard)
-    Optional<Board> findById(@Param("study_id") String study_id);
+    Optional<Board> findById(@Param("study_id") int study_id);
 
 //    @Update(BoardSQL.increaseViewCount)
 //    public int increaseViewCount(Integer board_Id);

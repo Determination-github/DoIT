@@ -171,20 +171,25 @@ public class BoardController {
     @GetMapping("/result/{id}")
     public String getStudyBoard(Model model,
                                 HttpServletRequest request,
-                                @PathVariable String id) {
+                                @PathVariable int id) {
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
         log.info("inputFlashMap={}",inputFlashMap);
         if(inputFlashMap!=null) {
             BoardDto boardDto = (BoardDto) inputFlashMap.get("boardDto");
             log.info("boardDto = " + boardDto);
+            //게시글 정보 가져오기
             boardDto = boardService.findResultById(id, boardDto);
             log.info("boardDto 갱신={}", boardDto);
             model.addAttribute("boardDto", boardDto);
+            //댓글 정보 가져오기
+            model.addAttribute("comments", commentService.getComment(id));
             return "/board/boardDetail";
         } else {
             BoardDto boardDto = boardService.findStudyById(id);
             log.info("boardDto = " + boardDto);
             model.addAttribute("boardDto", boardDto);
+            //댓글 정보 가져오기
+            model.addAttribute("comments", commentService.getComment(id));
             return "/board/boardDetail";
         }
     }
