@@ -28,11 +28,11 @@ public interface CommentMapper {
     int update(CommentDto commentDto);
 
     @Insert(CommentSQL.insert)
-    int insert(Comment comment);
+    void insert(@Param("comment") Comment comment);
 
     @Select(CommentSQL.getComment)
-    List<CommentDto> getComment(Comment comment);
+    List<Comment> getComment(int study_id);
 
     @Select(CommentSQL.getNickname)
-    String getNicknameById(CommentDto commentDto);
+    String getNicknameById(@Param("comment") Comment comment);
 }

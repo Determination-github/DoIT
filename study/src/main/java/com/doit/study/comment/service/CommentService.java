@@ -20,5 +20,7 @@ public interface CommentService {
 
     int modify(CommentDto commentDto);
 
-    List<CommentDto> insertComment(CommentDto commentDto);
+    void insertComment(CommentDto commentDto);
+
+    List<CommentDto> getComment(int study_id);
 }

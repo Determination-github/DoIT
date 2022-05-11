@@ -23,4 +23,17 @@ public class CommentDto {
                 .comment(comment)
                 .build();
     }
+
+    public CommentDto toDto(Comment comment) {
+        CommentDto commentDto = new CommentDto();
+        commentDto.setComment_id(comment.getComment_id());
+        commentDto.setStudy_id(comment.getStudy_id());
+        commentDto.setWriter_id(comment.getWriter_id());
+        commentDto.setGroup_id(comment.getGroup_id());
+        commentDto.setGroup_indent(comment.getGroup_indent());
+        commentDto.setComment(comment.getComment());
+        commentDto.setReg_date(comment.getReg_date());
+
+        return commentDto;
+    }
 }

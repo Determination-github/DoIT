@@ -39,11 +39,11 @@ public class CommentSQL {
 
     public static final String insert =
             "INSERT INTO SR_COMMENT_TB(study_id, writer_id, group_id, comment) " +
-            "VALUES(#{study_id}, #{writer_id}, (SELECT LAST_INSERT_ID()+1), #{comment})";
+            "VALUES(#{comment.study_id}, #{comment.writer_id}, (SELECT LAST_INSERT_ID()+1), #{comment.comment})";
 
     public static final String getComment =
             "SELECT * FROM SR_COMMENT_TB WHERE study_id = #{study_id}";
 
     public static final String getNickname =
-            "SELECT nickname FROM USERS_TB WHERE id = #{writer_id}";
+            "SELECT nickname FROM USERS_TB WHERE id = #{comment.writer_id}";
 }

@@ -64,23 +64,29 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public List<CommentDto> insertComment(CommentDto commentDto) {
+    public void insertComment(CommentDto commentDto) {
         Comment comment = commentDto.toEntity(commentDto);
-        Integer result = commentMapper.insert(comment);
-        if(result != null) {
-            List<CommentDto> commentDtos = new ArrayList<>();
-            commentDtos = commentMapper.getComment(comment);
-            for (CommentDto dto : commentDtos) {
-                String nickname = commentMapper.getNicknameById(dto);
-                dto.setNickname(nickname);
+        commentMapper.insert(comment);
+    }
 
-                log.info("CommentDto={}", dto);
-                commentDtos.add(dto);
-            }
+    @Override
+    public List<CommentDto> getComment(int study_id) {
+        List<Comment> commentList = commentMapper.getComment(study_id);
+        List<CommentDto> commentDtos = new ArrayList<>();
 
-            return commentDtos;
+        for (Comment comment : commentList) {
+            //닉네임 가져오기
+            String nickname = commentMapper.getNicknameById(comment);
+            log.info("nickname={}", nickname);
+
+            CommentDto commentDto = new CommentDto().toDto(comment);
+            commentDto.setNickname(nickname);
+
+            log.info("CommentDto={}", commentDto);
+            commentDtos.add(commentDto);
         }
-        return null;
+
+        return commentDtos;
     }
 
 }

@@ -53,8 +53,10 @@ public class CommentController {
             result = 2;
         } else {
             try {
-                model.addAttribute("comments", commentService.insertComment(commentDto));
-                log.info("comments = " + commentService.insertComment(commentDto));
+                commentService.insertComment(commentDto);
+                int study_id = commentDto.getStudy_id();
+                model.addAttribute("comments", commentService.getComment(study_id));
+                result = 1;
             } catch (Exception e) {
                 e.printStackTrace();
                 result = 3;
