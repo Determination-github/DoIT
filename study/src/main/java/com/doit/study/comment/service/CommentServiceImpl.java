@@ -77,12 +77,8 @@ public class CommentServiceImpl implements CommentService{
         for (Comment comment : commentList) {
             //닉네임 가져오기
             String nickname = commentMapper.getNicknameById(comment);
-            log.info("nickname={}", nickname);
-
             CommentDto commentDto = new CommentDto().toDto(comment);
             commentDto.setNickname(nickname);
-
-            log.info("CommentDto={}", commentDto);
             commentDtos.add(commentDto);
         }
 

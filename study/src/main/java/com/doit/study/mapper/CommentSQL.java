@@ -38,11 +38,13 @@ public class CommentSQL {
             "WHERE comment_Id = #{comment_Id} and comment_Writer = #{comment_Writer}";
 
     public static final String insert =
-            "INSERT INTO SR_COMMENT_TB(study_id, writer_id, group_id, comment) " +
-            "VALUES(#{comment.study_id}, #{comment.writer_id}, (SELECT LAST_INSERT_ID()+1), #{comment.comment})";
+            "INSERT INTO SR_COMMENT_TB(study_id, writer_id, group_id, group_indent, comment) " +
+            "VALUES(#{comment.study_id}, #{comment.writer_id}, IFNULL(#{comment.group_id}, null), " +
+                    "IFNULL(#{comment.group_indent}, 0), #{comment.comment})";
 
     public static final String getComment =
-            "SELECT * FROM SR_COMMENT_TB WHERE study_id = #{study_id}";
+            "SELECT * FROM SR_COMMENT_TB WHERE study_id = #{study_id} " +
+                    "ORDER BY IF(ISNULL(group_id), comment_id, group_id)";
 
     public static final String getNickname =
             "SELECT nickname FROM USERS_TB WHERE id = #{comment.writer_id}";

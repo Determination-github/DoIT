@@ -3,6 +3,7 @@ package com.doit.study.board.controller;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.*;
 import com.doit.study.board.service.BoardService;
+import com.doit.study.comment.dto.CommentDto;
 import com.doit.study.option.category.Interest;
 import com.doit.study.option.location.Address;
 import com.doit.study.comment.service.CommentService;
@@ -182,15 +183,25 @@ public class BoardController {
             log.info("boardDto 갱신={}", boardDto);
             model.addAttribute("boardDto", boardDto);
             //댓글 정보 가져오기
-            model.addAttribute("comments", commentService.getComment(id));
+            commentCheck(model, id);
             return "/board/boardDetail";
         } else {
             BoardDto boardDto = boardService.findStudyById(id);
             log.info("boardDto = " + boardDto);
             model.addAttribute("boardDto", boardDto);
             //댓글 정보 가져오기
-            model.addAttribute("comments", commentService.getComment(id));
+            commentCheck(model, id);
             return "/board/boardDetail";
+        }
+    }
+
+    //댓글 여부 확인 메서드
+    private void commentCheck(Model model, int id) {
+        List<CommentDto> comments = commentService.getComment(id);
+        if (comments.isEmpty()) {
+            model.addAttribute("comments", null);
+        } else {
+            model.addAttribute("comments", comments);
         }
     }
 

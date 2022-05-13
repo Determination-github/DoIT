@@ -46,6 +46,7 @@ public class CommentController {
                         Model model) {
         log.info("writer_id={}", writer_id);
         log.info("commentDto={}", commentDto);
+
         Integer result = 0;
 
         if (commentDto.getComment().length() > 500) {
@@ -55,7 +56,33 @@ public class CommentController {
             try {
                 commentService.insertComment(commentDto);
                 int study_id = commentDto.getStudy_id();
-                model.addAttribute("comments", commentService.getComment(study_id));
+                result = 1;
+            } catch (Exception e) {
+                e.printStackTrace();
+                result = 3;
+            }
+        }
+        return result;
+    }
+
+    @PostMapping("/comments/save/reply/{writer_id}")
+    @ResponseBody
+    public Integer writeReply(
+                        @PathVariable Integer writer_id,
+                        @RequestBody CommentDto commentDto,
+                        Model model) {
+        log.info("writer_id={}", writer_id);
+        log.info("commentDto={}", commentDto);
+
+        Integer result = 0;
+
+        if (commentDto.getComment().length() > 500) {
+            log.info("길이는 ="+commentDto.getComment().length());
+            result = 2;
+        } else {
+            try {
+                commentService.insertComment(commentDto);
+                int study_id = commentDto.getStudy_id();
                 result = 1;
             } catch (Exception e) {
                 e.printStackTrace();

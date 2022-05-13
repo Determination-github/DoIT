@@ -5,14 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommentDto {
-    int comment_id, study_id, writer_id;
-    int group_id, group_indent;
+    Integer comment_id, study_id, writer_id;
+    Integer group_id, group_indent;
     String comment, nickname;
     Date reg_date;
 
@@ -20,6 +21,8 @@ public class CommentDto {
         return Comment.builder()
                 .study_id(study_id)
                 .writer_id(writer_id)
+                .group_id(group_id)
+                .group_indent(group_indent)
                 .comment(comment)
                 .build();
     }

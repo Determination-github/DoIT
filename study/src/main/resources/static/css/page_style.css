@@ -74,4 +74,40 @@ ul,li,dl,dt,dd{
 .open{
   display:block;
 }
+.left-box > *{
+  float:left;
+  margin-right:5px;
+}
+.comment-section {
+  background : #fff;
+}
+.btn-light {
+  font-size : 0.5rem;
+}
+.mr-2 button {
+  background-color : #fff;
+  border-color : #fff;
+  padding : 1px;
+}
+.mr-2 i {
+  padding-right : 1px;
+}
+.re-reply {
+  margin : 5px 10px;
+  width : 96%;
+}
+.reply-btn {
+  margin : 10px;
+  position : absolute;
+  right : 0;
+}
+.re-reply-container {
+  border : solid;
+  height : 180px;
+  border-width : 0.1px;
+  border-color : #dcdcdc;
+  margin-bottom : 20px;
+  position : relative;
+}
+
 
