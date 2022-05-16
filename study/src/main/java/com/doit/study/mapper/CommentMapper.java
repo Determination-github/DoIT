@@ -35,4 +35,7 @@ public interface CommentMapper {
 
     @Select(CommentSQL.getNickname)
     String getNicknameById(@Param("comment") Comment comment);
+
+    @Update(CommentSQL.modifyReply)
+    void modify(@Param("comment") Comment comment);
 }

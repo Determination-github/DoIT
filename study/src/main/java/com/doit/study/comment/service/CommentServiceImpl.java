@@ -85,4 +85,16 @@ public class CommentServiceImpl implements CommentService{
         return commentDtos;
     }
 
+    @Override
+    public void updateComment(CommentDto commentDto) {
+        Comment comment = commentDto.toEntity(commentDto);
+
+        log.info("수정");
+        log.info("study_id={}", comment.getStudy_id());
+        log.info("comment_id={}", comment.getComment_id());
+        log.info("group_id={}", comment.getGroup_id());
+        log.info("comment={}", comment.getComment());
+        commentMapper.modify(comment);
+    }
+
 }

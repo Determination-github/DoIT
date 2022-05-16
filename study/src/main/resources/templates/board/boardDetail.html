@@ -128,23 +128,40 @@
                                                     </div>
                                                 </div>
                                                 <div class="reply-panel mr-2">
-                                                    <button class="btn btn-light" th:id="'modify-comment'+${comments.comment_id}" th:value="${comments.comment_id}" onclick="reply_click(this.value)" ><i class="bi bi-pencil-square"></i>수정</button>
-                                                    <button class="btn btn-light" th:id="'delete-comment'+${comments.comment_id}" th:value="${comments.comment_id}" onclick="reply_click(this.value)" ><i class="bi bi-trash"></i>삭제</button>
-                                                    <button class="btn btn-light" th:id="'reply-comment'+${comments.comment_id}" th:value="${comments.comment_id}" onclick="reply_click(this.value)" ><i class="bi bi-chat"></i>댓글</button>
+                                                    <th:block th:if="${session.id == comments.writer_id}" >
+                                                    <button class="btn btn-light" th:id="'modify-comment'+${comments.comment_id}" th:value="${comments.comment_id}"><i class="bi bi-pencil-square"></i>수정</button>
+                                                    </th:block>
+                                                    <th:block th:if="${session.id == comments.writer_id}" >
+                                                    <button class="btn btn-light" th:id="'delete-comment'+${comments.comment_id}" th:value="${comments.comment_id}"><i class="bi bi-trash"></i>삭제</button>
+                                                    </th:block>
+                                                    <button class="btn btn-light" th:id="'reply-comment'+${comments.comment_id}" th:value="${comments.comment_id}"><i class="bi bi-chat"></i>댓글</button>
                                                 </div>
                                             </div>
                                             <ul class="list-group-flush">
                                                 <li class="list-group-item">
-                                                    <div>[[${comments.comment}]]</div>
+                                                    <div th:id="'reply-content'+${comments.comment_id}">[[${comments.comment}]]</div>
                                                     <hr class="mt-3 mb-3"/>
                                                 </li>
                                             </ul>
                                             <form class="re-reply-form">
                                                 <input type="hidden" th:id="'writerId'+${comments.comment_id}" th:value="${session.id}">
                                                 <input type="hidden" th:id="'boardId'+${comments.comment_id}" th:value="${boardDto.board_id}">
-                                                <input type="hidden" th:id="'groupId'+${comments.comment_id}" th:value="${comments.comment_id}">
+                                                <input type="hidden" th:id="'groupId'+${comments.comment_id}"  th:value="${comments.group_id} != null ? ${comments.group_id} : ${comments.comment_id}">
                                                 <input type="hidden" id="group_indent" value="1">
-                                                <div th:id="'reply-textarea'+${comments.comment_id}" class="reply-textarea" style="display:none"></div>
+                                                <div th:id="'reply-textarea'+${comments.comment_id}" class="reply-textarea" style="display:none">
+                                                    <div class="re-reply-container">
+                                                       <div class='re-reply'>댓글</div>
+                                                       <textarea class='form-control custom-control re-reply' th:id="'reply'+${comments.comment_id}" name='comment' rows='3' style='resize:none'></textarea>
+                                                       <button class='input-group-addon btn btn-primary btn-sm reply-btn' th:value="${comments.comment_id}" id="'add-reply-comment-btn'+${comments.comment_id}">작성</button>
+                                                   </div>
+                                                </div>
+                                                <div th:id="'re-reply-textarea'+${comments.comment_id}" class="reply-textarea" style="display:none">
+                                                    <div class="re-reply-container">
+                                                        <div class='re-reply'>댓글</div>
+                                                        <textarea class='form-control custom-control re-reply' th:id="'modify'+${comments.comment_id}" name='comment' rows='3' style='resize:none'>[[${comments.comment}]]</textarea>
+                                                        <button class='input-group-addon btn btn-primary btn-sm reply-modify-btn' th:value="${comments.comment_id}" id="'add-re-reply-comment-btn'+${comments.comment_id}">작성</button>
+                                                    </div>
+                                                </div>
                                             </form>
                                         </div>
                                     </th:block>
@@ -163,8 +180,6 @@
 </section>
 <script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
-
-		var id;
 
         //댓글 작성
         $("#add-comment-btn").click(function(){
@@ -199,14 +214,42 @@
             }
         });
 
+        $(".btn-light").click(function(){
+            let id = $(this).val();
+            let button = $(this).text();
+            let reply = document.getElementById('reply-textarea'+id);
+            let re_reply = document.getElementById('re-reply-textarea'+id);
+
+            if(button === '댓글') {
+                if(reply.style.display==='none'){
+                    re_reply.style.display='none';
+                    reply.style.display='block';
+                } else {
+                    reply.style.display='none';
+                    re_reply.display='none';
+                }
+            } else if(button === '수정') {
+                if(re_reply.style.display==='none'){
+                    reply.style.display='none';
+                    re_reply.style.display='block';
+                } else {
+                    re_reply.style.display='none';
+                    reply.style.display='none';
+                }
+            } else {
+                alert('예비');
+            }
+        });
+
         //대댓글 작성
-        $(document).on("click", "#add-reply-comment-btn", function(){
+        $(".reply-btn").click(function(){
+            let id = $(this).val();
             let data = {
                 writer_id : $('#writerId'+id).val(),
                 study_id : $('#boardId'+id).val(),
                 group_id : $('#groupId'+id).val(),
                 group_indent : $('#group_indent').val(),
-                comment : $("#comment2").val()
+                comment : $('#reply'+id).val()
             }
 
             if (!data.comment || data.comment.trim() === "") {
@@ -220,41 +263,51 @@
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(data),
                     cache : false,
-                    success:function(result){
-                        if(result == 2){
-                            alert("댓글은 500자 미만으로 입력해주세요.");
-                        } else if(result == 1){
-                            alert("댓글이 등록되었습니다.");
-                            window.location.reload();
-                        } else {
-                            alert("댓글 등록 중 오류가 발생했습니다.");
-                        }
+                }).done(function(response) {
+                    if(response.result == 2){
+                        alert("댓글은 500자 미만으로 입력해주세요.");
+                    } else if(response.result == 1){
+                        alert("댓글이 등록되었습니다.");
+                        window.location.reload();
                     }
+                }).fail(function (error) {
+                    alert(JSON.stringify(error));
                 });
             }
         });
 
-        function reply_click(cliked_id) {
-            id = cliked_id;
-            let class_name = document.getElementById('reply-textarea'+id);
-
-            let html = `
-                       <div class="re-reply-container">
-                           <div class='re-reply'>댓글</div>
-                           <textarea class='form-control custom-control re-reply' id='comment2' name='comment' rows='3' style='resize:none'></textarea>
-                           <button class='input-group-addon btn btn-primary btn-sm reply-btn' id='add-reply-comment-btn'>작성</button>
-                       </div>
-                       `
-
-            if(class_name.style.display=='none'){
-                class_name.style.display='block';
-                $('#reply-textarea'+id).append(html);
-            } else {
-                class_name.style.display='none';
-                $('#reply-textarea'+id+' *').remove();
+        //댓글 수정
+        $(".reply-modify-btn").click(function(){
+            let id = $(this).val();
+            let data = {
+                writer_id : $('#writerId'+id).val(),
+                study_id : $('#boardId'+id).val(),
+                group_id : $('#groupId'+id).val(),
+                comment_id : id,
+                comment : $('#modify'+id).val()
             }
 
-        };
+            if (!data.comment || data.comment.trim() === "") {
+                alert("댓글 내용을 입력해주세요.");
+                return false;
+            }
+            const check = confirm("수정하시겠습니까?")
+            if (check === true) {
+                $.ajax({
+                    type:"PUT",
+                    url:"/comments/modify/reply/" + data.writer_id,
+                    dataType : 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data),
+                    cache : false,
+                }).done(function() {
+                    alert("댓글이 수정되었습니다.");
+                    window.location.reload();
+                }).fail(function (error) {
+                    alert(JSON.stringify(error));
+                });
+            }
+        });
 
 		/*]]>*/
 </script>

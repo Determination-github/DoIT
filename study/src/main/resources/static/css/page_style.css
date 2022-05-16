@@ -96,7 +96,7 @@ ul,li,dl,dt,dd{
   margin : 5px 10px;
   width : 96%;
 }
-.reply-btn {
+.reply-btn, .reply-modify-btn {
   margin : 10px;
   position : absolute;
   right : 0;

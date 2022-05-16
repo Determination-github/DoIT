@@ -4,6 +4,7 @@ import com.doit.study.comment.dto.CommentDto;
 import com.doit.study.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -65,31 +68,47 @@ public class CommentController {
         return result;
     }
 
+//    @PostMapping("/comments/open/reply/{writer_id}")
+//    @ResponseBody
+//    public ResponseEntity openReply(@PathVariable Integer writer_id,
+//                                    @RequestBody CommentDto commentDto) {
+//
+//    }
+
+
     @PostMapping("/comments/save/reply/{writer_id}")
-    @ResponseBody
-    public Integer writeReply(
+    public ResponseEntity<Map<String, Integer>> writeReply(
                         @PathVariable Integer writer_id,
-                        @RequestBody CommentDto commentDto,
-                        Model model) {
+                        @RequestBody CommentDto commentDto) {
         log.info("writer_id={}", writer_id);
         log.info("commentDto={}", commentDto);
 
-        Integer result = 0;
+        Map<String, Integer> result = new HashMap<>();
 
         if (commentDto.getComment().length() > 500) {
             log.info("길이는 ="+commentDto.getComment().length());
-            result = 2;
+            result.put("result", 2);
+            return ResponseEntity.ok().body(result);
         } else {
-            try {
-                commentService.insertComment(commentDto);
-                int study_id = commentDto.getStudy_id();
-                result = 1;
-            } catch (Exception e) {
-                e.printStackTrace();
-                result = 3;
-            }
+            commentService.insertComment(commentDto);
+            int study_id = commentDto.getStudy_id();
+            result.put("result", 1);
+            return ResponseEntity.ok().body(result);
         }
-        return result;
+    }
+
+    @PutMapping("/comments/modify/reply/{writer_id}")
+    public ResponseEntity modifyReply(
+            @PathVariable Integer writer_id,
+            @RequestBody CommentDto commentDto) {
+
+        log.info("수정");
+        log.info("writer_id={}", writer_id);
+        log.info("commentDto={}", commentDto);
+
+        commentService.updateComment(commentDto);
+
+        return ResponseEntity.ok(writer_id);
     }
 
     @DeleteMapping("/comments/{comment_Id}")

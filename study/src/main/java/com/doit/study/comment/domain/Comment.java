@@ -16,8 +16,9 @@ public class Comment {
     Date reg_date;
 
     @Builder
-    public Comment(Integer study_id, Integer writer_id, Integer group_id,
+    public Comment(Integer comment_id, Integer study_id, Integer writer_id, Integer group_id,
                    Integer group_indent, String comment) {
+        this.comment_id = comment_id;
         this.study_id = study_id;
         this.writer_id = writer_id;
         this.group_id = group_id;

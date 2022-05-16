@@ -19,6 +19,7 @@ public class CommentDto {
 
     public Comment toEntity(CommentDto commentDto) {
         return Comment.builder()
+                .comment_id(comment_id)
                 .study_id(study_id)
                 .writer_id(writer_id)
                 .group_id(group_id)

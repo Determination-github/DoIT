@@ -38,6 +38,7 @@
                   </select>
                 </div>
               </div>
+            </div>
             <div class="row mb-2">
               <div class="col-2 text-center">
                 <label class="col-form-label" for="firstZone">
@@ -75,22 +76,6 @@
                   <input type="checkbox" name="online" id="online" class="form-check-inline mr-1" value="Y">
                   <input type="hidden" name="online" class="form-check-inline mr-1" value="N">
                   <label class="form-check-label" for="online">Online</label>
-                </div>
-              </div>
-            </div>
-              <div class="row mb-2">
-                <div class="col-2 text-center">
-                  <label class="col-form-label" for="firstGender">
-                    <h6 class="mb-0">성별</h6>
-                  </label>
-                </div>
-                <div class="col-5">
-                  <select id="firstGender" name="firstGender" class="form-control">
-                    <option value="">선택하세요.</option>
-                    <option value="1">남자</option>
-                    <option value="2">여자</option>
-                    <option value="3">무관</option>
-                  </select>
                 </div>
               </div>
               <div class="row mb-2">
@@ -172,7 +157,7 @@
                   <img class="rounded-circle me-3" width="40" height="40" th:src="@{/img/파밀리아 성당.jpg}" alt="...">
                   <div class="small">
                     <div class="fw-bold">[[${list.writer_nickName}]]</div>
-                    <div class="text-muted">[[${list.board_regDate}]]</div>
+                    <div class="text-muted">[[${#dates.format(list.board_regDate, 'yyyy-MM-dd')}]]</div>
                   </div>
                 </div>
               </div>
