@@ -12,21 +12,6 @@ public interface CommentMapper {
     @Select(CommentSQL.count)
     int count(String board_Id);
 
-    @Delete(CommentSQL.deleteAll)
-    int deleteAll(String board_Id);
-
-    @Delete(CommentSQL.delete)
-    int delete(@Param("comment_Id") int comment_Id, @Param("comment_Writer") String comment_Writer);
-
-    @Select(CommentSQL.selectAll)
-    List<CommentDto> selectAll(String board_Id);
-
-    @Select(CommentSQL.select)
-    CommentDto select(int comment_Id);
-
-    @Update(CommentSQL.update)
-    int update(CommentDto commentDto);
-
     @Insert(CommentSQL.insert)
     void insert(@Param("comment") Comment comment);
 
@@ -38,4 +23,7 @@ public interface CommentMapper {
 
     @Update(CommentSQL.modifyReply)
     void modify(@Param("comment") Comment comment);
+
+    @Delete(CommentSQL.delete)
+    void delete(@Param("comment_id") Integer comment_id);
 }

@@ -27,16 +27,36 @@ function dropdownBtn(){
 }
 dropdownBtn()
 
-function heart(){
-  var i = 0;
-    $('i').on('click', function(){
-        if(i == 0) {
-            $(this).attr('class', 'bi-heart-fill');
-            i++;
-        } else if(i == 1) {
-            $(this).attr('class', 'bi-heart');
-            i--;
-        }
-    });
-}
-heart()
+//function heart(){
+//  var i = 0;
+//    $('i').on('click', function(){
+//        if(i == 0) {
+//            $(this).attr('class', 'bi-heart-fill');
+//            i++;
+//        } else if(i == 1) {
+//            $(this).attr('class', 'bi-heart');
+//            i--;
+//        }
+//    });
+//}
+//heart()
+
+
+const navbarSide1 = document.querySelector("#dropdown_side1");
+const navbarSide2 = document.querySelector("#dropdown_side2");
+const navbarSideMenu1 = document.getElementById("dropdown_side_menu1");
+const navbarSideMenu2 = document.getElementById("dropdown_side_menu2");
+
+navbarSide2.addEventListener('click', () => {
+    navbarSideMenu1.style.display = 'none';
+});
+navbarSide1.addEventListener('click', () => {
+    navbarSideMenu2.style.display = 'none';
+});
+
+//const body = document.querySelector("body");
+//
+//body.addEventListener('click', () => {
+//    navbarSideMenu1.style.display = 'none';
+//    navbarSideMenu2.style.display = 'none';
+//});

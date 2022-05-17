@@ -26,46 +26,10 @@ public class CommentServiceImpl implements CommentService{
         return commentMapper.count(board_Id);
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int remove(Integer comment_Id, String board_Id, String comment_Writer) {
-        int rowCount = boardMapper.updateCommentCount(board_Id, -1);
-        log.info("updateCommentCount - rowCount = " + rowCount);
-        rowCount = commentMapper.delete(comment_Id, comment_Writer);
-        log.info("rowCount = " + rowCount);
-        return rowCount;
-    }
-
-    @Override
-    public int removeAll(String board_Id) {
-        return commentMapper.deleteAll(board_Id);
-    }
-
-//    @Override
-//    @Transactional(rollbackFor = Exception.class)
-//    public int write(CommentDto commentDto) {
-//        boardMapper.updateCommentCount(commentDto.getBoard_Id(), 1);
-//        return commentMapper.insert(commentDto);
-//    }
-
-    @Override
-    public List<CommentDto> getList(String board_Id) {
-        return commentMapper.selectAll(board_Id);
-    }
-
-    @Override
-    public CommentDto read(Integer comment_Id) {
-        return commentMapper.select(comment_Id);
-    }
-
-    @Override
-    public int modify(CommentDto commentDto) {
-        return commentMapper.update(commentDto);
-    }
 
     @Override
     public void insertComment(CommentDto commentDto) {
-        Comment comment = commentDto.toEntity(commentDto);
+        Comment comment = getComment(commentDto);
         commentMapper.insert(comment);
     }
 
@@ -81,20 +45,23 @@ public class CommentServiceImpl implements CommentService{
             commentDto.setNickname(nickname);
             commentDtos.add(commentDto);
         }
-
         return commentDtos;
     }
 
     @Override
     public void updateComment(CommentDto commentDto) {
-        Comment comment = commentDto.toEntity(commentDto);
-
-        log.info("수정");
-        log.info("study_id={}", comment.getStudy_id());
-        log.info("comment_id={}", comment.getComment_id());
-        log.info("group_id={}", comment.getGroup_id());
-        log.info("comment={}", comment.getComment());
+        Comment comment = getComment(commentDto);
         commentMapper.modify(comment);
+    }
+
+    @Override
+    public void deleteComment(Integer comment_id) {
+        commentMapper.delete(comment_id);
+    }
+
+    //dto to entity
+    private Comment getComment(CommentDto commentDto) {
+        return commentDto.toEntity(commentDto);
     }
 
 }
