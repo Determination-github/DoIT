@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -22,8 +23,8 @@ public class CommentServiceImpl implements CommentService{
     private final CommentMapper commentMapper;
 
     @Override
-    public int getCount(String board_Id) {
-        return commentMapper.count(board_Id);
+    public int getCount(Integer study_id) {
+        return commentMapper.count(study_id);
     }
 
 
@@ -36,6 +37,7 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public List<CommentDto> getComment(int study_id) {
         List<Comment> commentList = commentMapper.getComment(study_id);
+
         List<CommentDto> commentDtos = new ArrayList<>();
 
         for (Comment comment : commentList) {

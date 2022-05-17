@@ -4,10 +4,10 @@ import com.doit.study.comment.domain.Comment;
 import com.doit.study.comment.dto.CommentDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CommentService {
-    int getCount(String board_Id);
-
+    int getCount(Integer study_id);
 
 //    int write(CommentDto commentDto);
 

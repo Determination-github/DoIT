@@ -2,9 +2,9 @@ package com.doit.study.mapper;
 
 public class CommentSQL {
 
-    public static final String count =
-            "SELECT count(*) FROM BO_COMMENT2_TB\n" +
-            "WHERE  board_Id = #{board_Id}";
+    public static final String getCount =
+            "SELECT count(*) FROM SR_COMMENT_TB\n" +
+            "WHERE study_id = #{study_id}";
 
 
     public static final String insert =
@@ -25,6 +25,7 @@ public class CommentSQL {
             "FROM SR_COMMENT_TB t1 " +
             "LEFT OUTER JOIN SR_COMMENT_TB t2 " +
             "ON t1.comment_id = t2.group_id " +
+            "WHERE t1.study_id = #{study_id} " +
             "GROUP BY t1.comment " +
             "ORDER BY SEQ_CHAR";
 

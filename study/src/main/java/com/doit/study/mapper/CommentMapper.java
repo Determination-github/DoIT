@@ -5,18 +5,19 @@ import com.doit.study.comment.dto.CommentDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface CommentMapper {
 
-    @Select(CommentSQL.count)
-    int count(String board_Id);
+    @Select(CommentSQL.getCount)
+    int count(Integer study_id);
 
     @Insert(CommentSQL.insert)
     void insert(@Param("comment") Comment comment);
 
     @Select(CommentSQL.getComment)
-    List<Comment> getComment(int study_id);
+    List<Comment> getComment(@Param("study_id") Integer study_id);
 
     @Select(CommentSQL.getNickname)
     String getNicknameById(@Param("comment") Comment comment);
