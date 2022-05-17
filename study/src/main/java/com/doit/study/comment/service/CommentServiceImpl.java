@@ -2,31 +2,25 @@ package com.doit.study.comment.service;
 
 import com.doit.study.comment.domain.Comment;
 import com.doit.study.comment.dto.CommentDto;
-import com.doit.study.mapper.BoardMapper;
 import com.doit.study.mapper.CommentMapper;
-import com.doit.study.mapper.CommentSQL;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService{
 
-    private final BoardMapper   boardMapper;
     private final CommentMapper commentMapper;
 
     @Override
-    public int getCount(Integer study_id) {
+    public Integer getCount(Integer study_id) {
         return commentMapper.count(study_id);
     }
-
 
     @Override
     public void insertComment(CommentDto commentDto) {

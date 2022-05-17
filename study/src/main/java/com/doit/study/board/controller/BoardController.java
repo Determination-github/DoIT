@@ -184,6 +184,8 @@ public class BoardController {
             model.addAttribute("boardDto", boardDto);
             //댓글 정보 가져오기
             commentCheck(model, id);
+            //댓글 개수
+            model.addAttribute("totalComment", commentService.getCount(id));
             return "/board/boardDetail";
         } else {
             BoardDto boardDto = boardService.findStudyById(id);
@@ -191,6 +193,8 @@ public class BoardController {
             model.addAttribute("boardDto", boardDto);
             //댓글 정보 가져오기
             commentCheck(model, id);
+            //댓글 개수
+            model.addAttribute("totalComment", commentService.getCount(id));
             return "/board/boardDetail";
         }
     }
@@ -226,7 +230,7 @@ public class BoardController {
 
     @PostMapping("/remove")
     public String remove(String board_Id, BoardDto boardDto) throws Exception {
-        commentService.removeAll(board_Id);
+//        commentService.removeAll(board_Id);
 //        boardService.remove(boardDto);
         return "redirect:/board/list";
     }
