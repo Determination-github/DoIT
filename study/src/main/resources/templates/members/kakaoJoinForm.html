@@ -23,8 +23,11 @@
     </header>
     <main id="main">
         <form action="/join/kakao" th:action th:object="${kakaoDto}" method="post">
+        <input type="hidden" th:field="*{social_type}">
+        <input type="hidden" th:field="*{token}">
 
-        <div class="main_join_wrap">
+
+            <div class="main_join_wrap">
 
             <div class="main_join_box1">
                 <p>이름</p>

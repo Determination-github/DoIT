@@ -8,6 +8,9 @@ public class BoardSQL {
     public static final String selectPage =
             "SELECT * FROM SR_MOIM_TB ORDER BY study_id DESC LIMIT ${pagination.firstRecordIndex} , ${pagination.countPerPage}";
 
+    public static final String getLastBoard =
+            "SELECT * FROM SR_MOIM_TB WHERE id = #{id} ORDER BY study_id DESC LIMIT 1";
+
     public static final String insertBoard =
             "insert into SR_MOIM_TB (id, schedule_start, schedule_end, " +
                     "title, content, sub_title, location, on_off, " +

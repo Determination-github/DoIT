@@ -14,7 +14,16 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="/img/파밀리아 성당.jpg" alt="성당" class="rounded-circle" width="120" height="120">
+                                <th:block th:if="${boardDto.path} == null">
+                                    <div style="border-radius : 50%; overflow: hidden;">
+                                        <img class="rounded-circle" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" style="width: 120px; height: 120px;">
+                                    </div>
+                                </th:block>
+                                <th:block th:if="${boardDto.path} != null">
+                                    <div style="border-radius : 50%; overflow: hidden;">
+                                        <img class="rounded-circle" th:src="${boardDto.path}" style="width: 120px; height: 120px;">
+                                    </div>
+                                </th:block>
                                 <div class="mt-3">
                                     <h4 class="text-break">[[${boardDto.writer_nickName}]]</h4>
                                     <p class="text-secondary mb-1"></p>
@@ -94,7 +103,7 @@
                     </form>
                     <div class="card bg-light">
                         <div class="card-header">
-                            <h4 class="card-title">댓글</h4>
+                            <h4 class="card-title">댓글([[${totalComment}]])</h4>
                             <input type="hidden" name="page" value="0">
                             <form name="frmComment">
                                 <div class="input-group" >
@@ -120,7 +129,16 @@
                                                         <i class="bi bi-arrow-return-right"></i>
                                                     </th:block>
                                                     <div class="flex-shrink-0">
-                                                        <img class="rounded-circle" src="/img/파밀리아 성당.jpg" width="20" height="20">
+                                                        <th:block th:if="${comments.path} == null">
+                                                            <div style="border-radius : 50%; overflow: hidden;">
+                                                                <img class="rounded-circle" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" id="profile-default-img" style="width: 20px; height: 20px;">
+                                                            </div>
+                                                        </th:block>
+                                                        <th:block th:if="${comments.path} != null">
+                                                            <div style="border-radius : 50%; overflow: hidden;">
+                                                                <img class="rounded-circle" th:src="${comments.path}" id="profile-img" style="width: 20px; height: 20px;">
+                                                            </div>
+                                                        </th:block>
                                                     </div>
                                                     <div class="fw-bold commenter-name" style="font-size:0.90rem;">[[${comments.nickname}]]</div>
                                                     <div>

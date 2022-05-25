@@ -14,8 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,9 +22,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static org.springframework.web.servlet.support.RequestContextUtils.getInputFlashMap;
 
 @Controller
 @RequiredArgsConstructor
@@ -69,18 +64,24 @@ public class NaverController {
         HashMap<String, String> userInfo = naverService.getNaverUserInfo(apiResult);
         log.info("userInfo = " + userInfo);
 
-        SocialDto socialDto = new SocialDto(userInfo.get("id"), userInfo.get("name"), userInfo.get("email"), userInfo.get("gender"));
+        //accessToken 가져오기
+        String accessToken = oauthToken.getAccessToken();
+
+        SocialDto socialDto = new SocialDto(accessToken, userInfo.get("id"), userInfo.get("name"), userInfo.get("email"), userInfo.get("gender"));
         log.info("새로운 naverDto = "+socialDto);
+
+        //회원 타입
+        socialDto.setSocial_type("naver");
 
         //네이버 회원 id 가져오기
         String social_id = userInfo.get("id");
 
         MemberDto memberDto;
 
+
         //찾는 회원이 회원가입되어 있지 않을 경우
         if(naverService.findSocialMember(social_id) == null) {
             log.info("회원가입이 필요합니다.");
-            model.addAttribute("accessToken", oauthToken);
             model.addAttribute("socialDto", socialDto);
             model.addAttribute("url", "/join/naver");
             model.addAttribute("msg", "회원정보가 없습니다. 회원가입이 필요합니다.");
@@ -94,6 +95,7 @@ public class NaverController {
 
         //세션에 네이버 회원 정보 전달
         session.setAttribute(SessionConst.NAVER_MEMBER, memberDto);
+        session.setAttribute("token", accessToken);
         log.info("memberDto = " + memberDto);
         return "redirect:/";
     }
@@ -130,6 +132,8 @@ public class NaverController {
         //저장값 출력
         log.info("id={}, name={}, email={}, gender={}",
                 naverDto.getSocialId(), naverDto.getSocialName(), naverDto.getSocialEmail(), naverDto.getSocialGender());
+
+        log.info("token={}", naverDto.getToken());
 
         //오류 발생시 오류 결과 리턴
         if(bindingResult.hasErrors()) {

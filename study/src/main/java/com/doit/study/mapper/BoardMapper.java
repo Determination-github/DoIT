@@ -21,6 +21,10 @@ public interface BoardMapper {
     @Select(BoardSQL.selectPage)
     List<Board> selectPage(@Param("pagination") Pagination pagination);
 
+    //글 삽입 후 글 정보 가져오기
+    @Select(BoardSQL.getLastBoard)
+    Board getLastBoard(@Param("id") Integer id);
+
 
     @Select(BoardSQL.selectAll)
     public List<BoardDto> selectAll();

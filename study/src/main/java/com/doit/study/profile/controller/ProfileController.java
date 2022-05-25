@@ -18,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -93,6 +95,22 @@ public class ProfileController {
         log.info("id={}", id);
 
         profileService.updateProfile(profileDto);
+        return ResponseEntity.ok().body(id);
+    }
+
+    @DeleteMapping("/profile/delete/{id}")
+    public ResponseEntity<?> deleteProfile(@PathVariable Integer id,
+                                           @RequestBody ProfileDto profileDto,
+                                           HttpServletRequest request) {
+        log.info("id={}", id);
+
+        profileService.deleteProfile(profileDto, request);
+
+        HttpSession session = request.getSession(false);
+        if(session != null) {
+            session.invalidate();
+        }
+
         return ResponseEntity.ok().body(id);
     }
 

@@ -1,7 +1,8 @@
 package com.doit.study.profile.service;
 
-import com.doit.study.mapper.ProfileSQL;
 import com.doit.study.profile.dto.ProfileDto;
+
+import javax.servlet.http.HttpServletRequest;
 
 public interface ProfileService {
 
@@ -10,4 +11,6 @@ public interface ProfileService {
     String findImage(Integer id);
 
     void updateProfile(ProfileDto profileDto);
+
+    void deleteProfile(ProfileDto profileDto, HttpServletRequest request);
 }

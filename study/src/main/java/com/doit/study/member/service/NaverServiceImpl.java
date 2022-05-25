@@ -178,7 +178,7 @@ public class NaverServiceImpl implements NaverService {
     //네이버 로그인한 회원 정보 찾기
     @Override
     public MemberDto findSocialMember(String id) {
-        Optional<Member> findMember = memberMapper.findSocialMemberById(id);
+        Optional<Member> findMember = memberMapper.findSocialMemberBySocialId(id);
         log.info("findMember는 findMember={}", findMember);
 
         if(findMember.isPresent()) {

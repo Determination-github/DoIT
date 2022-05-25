@@ -16,9 +16,24 @@ public class SocialDto {
     private int user_id;
 
     @NotEmpty
-    private String socialId, socialEmail, socialName, socialNickname, socialGender;
+    private String token, socialId, socialEmail, socialName, socialNickname, socialGender;
 
-    public SocialDto(String socialId,
+    private String social_type;
+
+    public SocialDto(String token,
+                     String socialId,
+                     String socialName,
+                     String socialEmail,
+                     String socialGender) {
+        this.token = token;
+        this.socialId = socialId;
+        this.socialName = socialName;
+        this.socialEmail = socialEmail;
+        this.socialGender = socialGender;
+    }
+
+    public SocialDto(
+                     String socialId,
                      String socialName,
                      String socialEmail,
                      String socialGender) {
@@ -37,10 +52,12 @@ public class SocialDto {
                 .build();
     }
 
-    public Social toSocial(int user_id, String socialId) {
+    public Social toSocial(int user_id, String socialId, String social_type, String token) {
         return Social.builder()
                 .user_id(user_id)
                 .social_id(socialId)
+                .social_type(social_type)
+                .token(token)
                 .build();
     }
 }

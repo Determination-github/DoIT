@@ -47,7 +47,8 @@ public class MemberServiceImpl implements MemberService{
 
         if(result != null) {
             int id = memberMapper.findLastId();
-            Social social = socialDto.toSocial(id, socialDto.getSocialId());
+            Social social = socialDto.toSocial(id, socialDto.getSocialId(),
+                                socialDto.getSocial_type(), socialDto.getToken());
             Integer socialResult = memberMapper.insertSocial(social);
             if(social != null) {
                 return socialDto;

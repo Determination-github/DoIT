@@ -14,13 +14,16 @@ public class MemberSQL {
             "SELECT LAST_INSERT_ID()";
 
     public static final String insertSocialTB =
-            "INSERT INTO SOCIAL_USERS_TB(id, social_id) " +
-            "VALUES ( #{social.user_id}, #{social.social_id} )";
+            "INSERT INTO SOCIAL_USERS_TB(id, social_id, social_type) " +
+            "VALUES ( #{social.user_id}, #{social.social_id}, #{social.social_type}";
 
     public static final String findBySocialId =
             "SELECT * FROM USERS_TB " +
             "WHERE id = " +
             "(SELECT id FROM SOCIAL_USERS_TB WHERE social_id = #{social_id})";
+
+    public static final String findSocialMemberById =
+            "SELECT * FROM SOCIAL_USERS_TB WHERE id = #{id}";
 
     public static final String findNicknameById =
             "SELECT NICKNAME FROM USERS_TB WHERE id = #{id}";
@@ -36,6 +39,12 @@ public class MemberSQL {
     public static final String updateMemberWithoutPassword =
             "UPDATE USERS_TB SET nickname = #{profileDto.nickname} " +
                     "WHERE id = #{profileDto.id}";
+
+    public static final String checkSocialMember =
+            "SELECT id FROM SOCIAL_USERS_TB WHERE id = #{id}";
+
+    public static final String deleteMember =
+            "DELETE FROM USERS_TB WHERE id = #{id}";
 
     public static final String getMember =
             "SELECT * FROM USERS_TB WHERE id = #{id}";

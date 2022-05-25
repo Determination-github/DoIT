@@ -18,6 +18,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -164,12 +165,12 @@ public class KakaoServiceImpl implements KakaoService {
     @Override
     public void unlinkKakao(String access_Token) {
         String reqURL = "https://kapi.kakao.com/v1/user/unlink";
+
         try { URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Authorization", "Bearer " + access_Token);
             int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
 
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String result = "";
@@ -179,7 +180,7 @@ public class KakaoServiceImpl implements KakaoService {
                 result += line;
             }
 
-            System.out.println(result);
+            log.info("result = " + result);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -189,7 +190,7 @@ public class KakaoServiceImpl implements KakaoService {
     //카카오 로그인한 회원 정보 찾기
     @Override
     public MemberDto findSocialMember(String id) {
-        Optional<Member> findMember = memberMapper.findSocialMemberById(id);
+        Optional<Member> findMember = memberMapper.findSocialMemberBySocialId(id);
         log.info("findMember는 findMember={}", findMember);
 
         if(findMember.isPresent()) {

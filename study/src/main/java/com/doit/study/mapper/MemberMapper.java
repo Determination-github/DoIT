@@ -29,7 +29,7 @@ public interface MemberMapper {
 
     //social 회원 정보 찾기
     @Select(MemberSQL.findBySocialId)
-    Optional<Member> findSocialMemberById(@Param("social_id") String id);
+    Optional<Member> findSocialMemberBySocialId(@Param("social_id") String id);
 
     //아이디로 회원 닉네임 찾기
     @Select(MemberSQL.findNicknameById)
@@ -38,6 +38,26 @@ public interface MemberMapper {
     //회원 찾기
     @Select(MemberSQL.findMember)
     Member findMember(@Param("id") Integer id);
+
+    //회원정보 업데이트(password포함)
+    @Update(MemberSQL.updateMemberWithPassword)
+    int updateMemberWithPassword(@Param("profileDto")ProfileDto profileDto);
+
+    //회원정보 업데이트(닉네임만)
+    @Update(MemberSQL.updateMemberWithoutPassword)
+    int updateMemberWithoutPassword(@Param("profileDto")ProfileDto profileDto);
+
+    //소셜 회원 유무
+    @Select(MemberSQL.checkSocialMember)
+    Integer checkSocialMember(@Param("id") Integer id);
+
+    //아이디로 소셜 회원 정보 가져오기
+    @Select(MemberSQL.findSocialMemberById)
+    Social findSocialMemberById(@Param("id") Integer id);
+
+    //회원 삭제
+    @Delete(MemberSQL.deleteMember)
+    void deleteMemberById(@Param("id") Integer id);
 
     @Select(MemberSQL.getMember)
     Member getMemberInfoById(@Param("id") int id);
@@ -53,13 +73,6 @@ public interface MemberMapper {
 
     @Select(MemberSQL.checkEmail)
     int checkEmail(@Param("email") String email);
-
-    @Update(MemberSQL.updateMemberWithPassword)
-    int updateMemberWithPassword(@Param("profileDto")ProfileDto profileDto);
-
-    @Update(MemberSQL.updateMemberWithoutPassword)
-    int updateMemberWithoutPassword(@Param("profileDto")ProfileDto profileDto);
-
 
     int update(Member member);
 

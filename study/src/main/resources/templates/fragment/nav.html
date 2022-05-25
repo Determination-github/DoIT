@@ -55,7 +55,6 @@
                       <li class="dropdown-submenu">
                       <a id="dropdown_side1" class="test dropdown-item dropdown-toggle" tabindex="-1" href="#">마이페이지</a>
                         <ul id="dropdown_side_menu1" class="dropdown-menu dropdown-submenu dropdown-submenu-left">
-                          <li><a class="dropdown-item" tabindex="-1" href="">[[${session.nickName}]]님 안녕하세요!</a></li>
                           <li><a class="dropdown-item" tabindex="-1" th:href="@{/logout}">로그아웃</a></li>
                           <li><a class="dropdown-item" tabindex="-1" th:href="@{/profile/{id}(id = ${session.id})}">내 정보 보기</a></li>
                           <li><a class="dropdown-item" tabindex="-1" th:href="@{/board/studyList/{id}(id = ${session.id})}">내가 쓴 글 보기</a></li>
@@ -91,7 +90,6 @@
             <!-- <dt class="dropdown_menu2_title">마이페이지</dt> -->
             <dd class="nav_list_dd_border"><a id="dropdown_menu2_mypage" class="test dropdown-item dropdown-toggle"tabindex="-1" href="javascript:">마이페이지</a>
               <ul class="dropdown_menu2_menu">
-                <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1">[[${session.nickName}]]님 안녕하세요!</a></li>
                 <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" th:href="@{/logout}">로그아웃</a></li>
                 <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" th:href="@{/profile/{id}(id = ${session.id})}">내 정보 보기</a></li>
                 <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" th:href="@{/board/studyList/{id}(id = ${session.id})}">내가 쓴 글 보기</a></li>

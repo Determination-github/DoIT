@@ -2,7 +2,6 @@ package com.doit.study.member.controller;
 
 import com.doit.study.member.SessionConst;
 import com.doit.study.member.domain.Gender;
-import com.doit.study.member.domain.Social;
 import com.doit.study.member.dto.MemberDto;
 import com.doit.study.member.dto.SocialDto;
 import com.doit.study.member.service.KakaoService;
@@ -74,8 +73,11 @@ public class KakaoController {
         MemberDto memberDto;
 
         //kakaoDto 초기화
-        SocialDto socialDto = new SocialDto(id, userInfo.get("nickname"), userInfo.get("email"), userInfo.get("gender"));
+        SocialDto socialDto = new SocialDto(accessToken, id, userInfo.get("nickname"), userInfo.get("email"), userInfo.get("gender"));
         log.info("새로운 socialDto = " + socialDto);
+
+        //회원타입 설정
+        socialDto.setSocial_type("kakao");
 
         //찾는 회원이 회원가입되어 있지 않을 경우
         if(kakaoService.findSocialMember(id) == null) {
@@ -92,8 +94,9 @@ public class KakaoController {
         }
 
         //세션에 카카오 회원 정보 전달
-        session.setAttribute(SessionConst.KAKAO_MEMBER, socialDto);
-        log.info("memberDto = " + socialDto);
+        session.setAttribute(SessionConst.KAKAO_MEMBER, memberDto);
+        session.setAttribute("token", accessToken);
+        log.info("memberDto = " + memberDto);
 
         return "redirect:/";
     }
