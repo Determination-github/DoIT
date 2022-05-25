@@ -18,6 +18,9 @@ public class BoardDto {
     private String  board_interest1, board_interest2, board_interest3;
     private Date board_regDate;
 
+    //프로필 이미지
+    private String path;
+
 //    첫 번째 글 작성 페이지에서 넘어온 데이터 합치기
     public BoardDto toBoardDto(FirstStudyDto firstStudyDto, BoardDto boardDto) {
 

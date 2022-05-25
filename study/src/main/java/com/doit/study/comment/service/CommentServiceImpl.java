@@ -3,6 +3,7 @@ package com.doit.study.comment.service;
 import com.doit.study.comment.domain.Comment;
 import com.doit.study.comment.dto.CommentDto;
 import com.doit.study.mapper.CommentMapper;
+import com.doit.study.mapper.ProfileMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService{
 
     private final CommentMapper commentMapper;
+    private final ProfileMapper profileMapper;
 
     @Override
     public Integer getCount(Integer study_id) {
@@ -39,6 +41,13 @@ public class CommentServiceImpl implements CommentService{
             String nickname = commentMapper.getNicknameById(comment);
             CommentDto commentDto = new CommentDto().toDto(comment);
             commentDto.setNickname(nickname);
+
+            //프로필 사진 가져오기
+            String path = profileMapper.getImagePath(commentDto.getWriter_id());
+            if(path != null) {
+                commentDto.setPath(path);
+            }
+
             commentDtos.add(commentDto);
         }
         return commentDtos;

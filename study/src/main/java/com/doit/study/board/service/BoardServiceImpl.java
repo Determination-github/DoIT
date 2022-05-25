@@ -5,6 +5,7 @@ import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
 import com.doit.study.mapper.BoardMapper;
 import com.doit.study.mapper.MemberMapper;
+import com.doit.study.mapper.ProfileMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class BoardServiceImpl implements BoardService {
 
     private final BoardMapper boardMapper;
     private final MemberMapper memberMapper;
+    private final ProfileMapper profileMapper;
 
 //    @Override
 //    public List<BoardDto> getList() {
@@ -103,6 +105,12 @@ public class BoardServiceImpl implements BoardService {
             String nickName = memberMapper.findNickname(board.getId());
             boardDto.setWriter_nickName(nickName);
 
+            //프로필 사진 가져오기
+            String path = profileMapper.getImagePath(board.getId());
+            if(path != null) {
+                boardDto.setPath(path);
+            }
+
             log.info("boardWriteDto={}", boardDto);
 
             boardDtos.add(boardDto);
@@ -119,6 +127,8 @@ public class BoardServiceImpl implements BoardService {
         Board board = boardDto.toEntity(boardDto);
         log.info("Board={}", board);
         Integer result = boardMapper.insertStudyBoard(board);
+        Integer id = board.getId();
+        board = boardMapper.getLastBoard(id);
         log.info("result={}", result);
 
         if (result != null) {

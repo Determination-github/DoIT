@@ -1,18 +1,10 @@
-package com.doit.study.board.service;
+package com.doit.study.file.service;
 
-import com.doit.study.board.domain.FileEntity;
-import com.doit.study.board.dto.FileDto;
+import com.doit.study.file.dto.FileDto;
 import com.doit.study.mapper.FileMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
 
 @Service
 @Slf4j

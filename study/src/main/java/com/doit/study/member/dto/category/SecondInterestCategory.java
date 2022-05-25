@@ -1,4 +1,4 @@
-package com.doit.study.member.domain.category;
+package com.doit.study.member.dto.category;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

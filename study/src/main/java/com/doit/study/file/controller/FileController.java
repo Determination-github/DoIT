@@ -1,13 +1,12 @@
-package com.doit.study.board.controller;
+package com.doit.study.file.controller;
 
-import com.doit.study.board.dto.FileDto;
+import com.doit.study.file.dto.FileDto;
 import com.doit.study.board.service.BoardService;
-import com.doit.study.board.service.FileService;
-import com.doit.study.board.service.S3Uploader;
+import com.doit.study.file.service.FileService;
+import com.doit.study.file.service.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,6 @@ public class FileController {
     ResourceLoader resourceLoader;
 
     private final FileService fileService;
-    private final BoardService boardService;
     private final S3Uploader s3Uploader;
 
 //    @PostMapping("/file/images")
@@ -56,10 +54,9 @@ public class FileController {
             log.info("id = " + fileId);
             FileDto fileDto = fileService.findFile(fileId);
             String path = fileDto.getFile_path();
-            String id = fileDto.getFile_id();
-            String name = fileDto.getFile_origin_name();
+//            String id = fileDto.getFile_id();
+//            String name = fileDto.getFile_origin_name();
             Resource resource = resourceLoader.getResource(path);
-//            Resource resource = new ClassPathResource(path);
             return ResponseEntity.ok().body(resource);
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
-package com.doit.study.board.dto;
+package com.doit.study.file.dto;
 
-import com.doit.study.board.domain.FileEntity;
+import com.doit.study.file.domain.FileEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

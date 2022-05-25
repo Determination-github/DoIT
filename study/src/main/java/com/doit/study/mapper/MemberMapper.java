@@ -3,6 +3,7 @@ package com.doit.study.mapper;
 
 import com.doit.study.member.domain.Member;
 import com.doit.study.member.domain.Social;
+import com.doit.study.profile.dto.ProfileDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.Optional;
@@ -32,7 +33,11 @@ public interface MemberMapper {
 
     //아이디로 회원 닉네임 찾기
     @Select(MemberSQL.findNicknameById)
-    String findNickname(@Param("id") int id);
+    String findNickname(@Param("id") Integer id);
+
+    //회원 찾기
+    @Select(MemberSQL.findMember)
+    Member findMember(@Param("id") Integer id);
 
     @Select(MemberSQL.getMember)
     Member getMemberInfoById(@Param("id") int id);
@@ -49,10 +54,12 @@ public interface MemberMapper {
     @Select(MemberSQL.checkEmail)
     int checkEmail(@Param("email") String email);
 
+    @Update(MemberSQL.updateMemberWithPassword)
+    int updateMemberWithPassword(@Param("profileDto")ProfileDto profileDto);
 
+    @Update(MemberSQL.updateMemberWithoutPassword)
+    int updateMemberWithoutPassword(@Param("profileDto")ProfileDto profileDto);
 
-    @Select(MemberSQL.findMember)
-    Social findMember(@Param("user_id") String id);
 
     int update(Member member);
 

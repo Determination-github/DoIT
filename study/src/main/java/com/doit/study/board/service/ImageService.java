@@ -1,6 +1,5 @@
 package com.doit.study.board.service;
 
-import com.doit.study.board.dto.FileDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;

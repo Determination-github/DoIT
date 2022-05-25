@@ -25,9 +25,17 @@ public class MemberSQL {
     public static final String findNicknameById =
             "SELECT NICKNAME FROM USERS_TB WHERE id = #{id}";
 
+    public static final String findMember =
+            "SELECT * FROM USERS_TB WHERE id = #{id}";
 
+    public static final String updateMemberWithPassword =
+            "UPDATE USERS_TB SET nickname = #{profileDto.nickname}, " +
+                    "password = #{profileDto.password} " +
+                    "WHERE id = #{profileDto.id}";
 
-
+    public static final String updateMemberWithoutPassword =
+            "UPDATE USERS_TB SET nickname = #{profileDto.nickname} " +
+                    "WHERE id = #{profileDto.id}";
 
     public static final String getMember =
             "SELECT * FROM USERS_TB WHERE id = #{id}";
@@ -41,7 +49,6 @@ public class MemberSQL {
     public static final String checkEmail =
             "SELECT COUNT(EMAIL) FROM USERS_TB WHERE email = #{email}";
 
-    public static final String findMember =
-            "SELECT * FROM SOCIAL_USERS_TB WHERE user_id = #{user_id}";
+
 
 }

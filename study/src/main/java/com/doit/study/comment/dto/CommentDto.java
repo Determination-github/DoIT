@@ -17,6 +17,9 @@ public class CommentDto {
     String comment, nickname;
     Date reg_date;
 
+    //프로필 사진 경로
+    String path;
+
     public Comment toEntity(CommentDto commentDto) {
         return Comment.builder()
                 .comment_id(comment_id)

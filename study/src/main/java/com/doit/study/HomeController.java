@@ -10,6 +10,7 @@ import com.doit.study.member.service.MemberService;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.service.BoardService;
 
+import com.doit.study.profile.service.ProfileService;
 import com.doit.study.wishlist.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +27,8 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final MemberService memberService;
     private final BoardService boardService;
-    private final WishListService wishListService;
+    private final ProfileService profileService;
 
     @GetMapping
     public String home(
@@ -45,8 +45,9 @@ public class HomeController {
         log.info("kakaoDto = " + kakaoDto);
         log.info("memberDto = " + memberDto);
 
-        int id;
+        Integer id;
         String nickName;
+        String path;
 
         if(session!=null) {
             if (naverDto != null) {
@@ -66,6 +67,7 @@ public class HomeController {
                 session.setAttribute("nickName", nickName);
             }
         }
+
 
         BoardDto boardWriteDto = new BoardDto();
         Integer totalRecordCount = boardService.getCount();

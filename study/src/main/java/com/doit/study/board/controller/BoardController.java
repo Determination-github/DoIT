@@ -7,6 +7,7 @@ import com.doit.study.comment.dto.CommentDto;
 import com.doit.study.option.category.Interest;
 import com.doit.study.option.location.Address;
 import com.doit.study.comment.service.CommentService;
+import com.doit.study.profile.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final CommentService commentService;
+    private final ProfileService profileService;
 
     @GetMapping("/list")
     public String list(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
@@ -180,6 +182,12 @@ public class BoardController {
             log.info("boardDto = " + boardDto);
             //게시글 정보 가져오기
             boardDto = boardService.findResultById(id, boardDto);
+
+            //프로필 사진 가져오기
+            String path = profileService.findImage(boardDto.getBoard_writerId());
+            log.info(path);
+            boardDto.setPath(path);
+
             log.info("boardDto 갱신={}", boardDto);
             model.addAttribute("boardDto", boardDto);
             //댓글 정보 가져오기
@@ -189,6 +197,12 @@ public class BoardController {
             return "/board/boardDetail";
         } else {
             BoardDto boardDto = boardService.findStudyById(id);
+
+            //프로필 사진 가져오기
+            String path = profileService.findImage(boardDto.getBoard_writerId());
+            log.info(path);
+            boardDto.setPath(path);
+
             log.info("boardDto = " + boardDto);
             model.addAttribute("boardDto", boardDto);
             //댓글 정보 가져오기

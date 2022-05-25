@@ -4,6 +4,7 @@ import com.doit.study.member.domain.Social;
 import com.doit.study.member.dto.*;
 import com.doit.study.mapper.MemberMapper;
 import com.doit.study.member.domain.Member;
+import com.doit.study.profile.dto.ProfileDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -90,16 +91,19 @@ public class MemberServiceImpl implements MemberService{
         return memberMapper.checkEmail(email);
     }
 
-//    @Override
-//    public ProfileDto findMember(String id) {
-//        Social social = memberMapper.findMember(id);
-//        ProfileDto profileDto = new ProfileDto(
-//                social.getUser_id(),
-//                social.get
-//        );
-//
-//        log.info("profileDto={}", profileDto);
-//
-//        return profileDto;
-//    }
+    @Override
+    public ProfileDto findMember(Integer id) {
+        Member member = memberMapper.findMember(id);
+        ProfileDto profileDto = new ProfileDto(
+                member.getId(),
+                member.getEmail(),
+                member.getName(),
+                member.getNickname(),
+                member.getPassword()
+        );
+
+        log.info("profileDto={}", profileDto);
+
+        return profileDto;
+    }
 }

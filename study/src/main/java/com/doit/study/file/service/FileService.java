@@ -1,10 +1,7 @@
-package com.doit.study.board.service;
+package com.doit.study.file.service;
 
 
-import com.doit.study.board.dto.FileDto;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
+import com.doit.study.file.dto.FileDto;
 
 public interface FileService {
 

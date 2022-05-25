@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<body  class="d-flex flex-column h-100">
+<div layout:fragment="content">
+<main id="main">
+  <div class="main_wrap">
+    <div class="main_text_wrap">
+      <h1 class="main_text">회원 정보 수정</h1>
+    </div>
+    <div id="main_container" style="margin-top : 80px;">
+      <form>
+        <ul class="main_form_wrap">
+          <li>
+            <div class="container">
+              <div class="row">
+                <div class="col" style="margin-top : 10px">
+                  <p class="main_text_group main_form_text" >닉네임</p>
+                </div>
+                <div class="col-8">
+                  <div class="main_text_group main_input_group main_nickname ">
+                    <input hidden id="originalNickname" th:value="${profileDto.nickname}">
+                    <input hidden id="id" th:value="${profileDto.id}">
+                    <input th:value="${profileDto.nickname}" id="nickname" type="text" placeholder="닉네임을 입력해 주세요">
+                  </div>
+                </div>
+                <div class="col" style="margin-top : 20px">
+                  <span id="nicknameCheck"></span>
+                </div>
+              </div>
+            </div>
+          </li>
+          <th:block th:if="${profileDto.password != null}">
+          <li>
+            <div class="container">
+              <div class="row">
+                <div class="col" style="margin-top : 10px">
+                  <p class="main_text_group main_form_text">비밀번호</p>
+                </div>
+                <div class="col-8">
+                  <div class="main_text_group main_input_group ">
+                    <input type="password" id="password" placeholder="비밀번호를 입력해 주세요">
+                  </div>
+                </div>
+                <div class="col" style="margin-top : 20px">
+                  <span id="passwordCheck"></span>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="container">
+              <div class="row">
+                <div class="col" style="margin-top : 10px">
+                  <p class="main_text_group main_form_text">비밀번호 확인</p>
+                </div>
+                <div class="col-8">
+                  <div class="main_text_group main_input_group ">
+                    <input type="password" id="password-two" placeholder="비밀번호를 한번 더 입력해 주세요">
+                  </div>
+                </div>
+                <div class="col" style="margin-top : 20px">
+                  <span id="doubleCheck"></span>
+                </div>
+              </div>
+            </div>
+          </li>
+          </th:block>
+        </ul>
+        <ul class="main_btn_wrap">
+          <div style="margin-right : 100px">
+            <li><button class="main_btn" id="modify-btn" disabled>회원 수정</button></li>
+            <li><button type="button" class="main_btn" data-bs-toggle="modal" data-bs-target="#exampleModal" id="delete-btn">계정 탈퇴</button></li>
+          </div>
+        </ul>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="form-floating">
+                  <input type="password" class="form-control" id="floatingPassword" placeholder="삭제하시려면 비밀번호를 입력하세요.">
+                  <label for="floatingPassword">Password</label>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+
+    </div>
+  </div>
+</main>
+
+<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+
+		var state1 = true;
+		var state2;
+
+		$('#nickname').focusout(function() {
+		    let nickname = $('#nickname').val();
+		    let originalNickname = $('#originalNickname').val();
+		    nickname.trim();
+		    if(nickname != originalNickname) {
+                if(nickname != '') {
+                    $.ajax({
+                        url : "/join/nicknameCheck",
+                        type : "post",
+                        data : {nickname:nickname},
+                        dataType : 'json',
+                        success : function(result) {
+                            if(result == 0) {
+                                $('#nicknameCheck').text('사용 가능한 닉네임입니다.');
+                                $('#nicknameCheck').css("color","green");
+                                state1 = true;
+                                checkState();
+                            } else if(result == 3) {
+                                $('#nicknameCheck').text('공백 혹은 특수 문자는 입력하실 수 없습니다.');
+                                $('#nicknameCheck').css("color","red");
+                                state1 = false;
+                                checkState();
+                            } else if(result == 2) {
+                                $('#nicknameCheck').text('닉네임은 2~10자리 이내여야 합니다.');
+                                $('#nicknameCheck').css("color","red");
+                                state1 = false;
+                                checkState();
+                            } else {
+                                $('#nicknameCheck').text('사용할 수 없는 닉네임입니다.');
+                                $('#nicknameCheck').css("color","red");
+                                state1 = false;
+                                checkState();
+                            }
+                        },
+                        error : function() {
+                            alert("서버 요청 실패");
+                        }
+                    })
+                }
+           }
+        })
+
+        $('#password').focusout(function() {
+		    let password = $('#password').val();
+		    password.trim();
+		    if(password != '') {
+                $.ajax({
+                    url : "/join/passwordCheck",
+                    type : "post",
+                    data : {password:password},
+                    dataType : 'json',
+                    success : function(result) {
+                        if(result == 0) {
+                            $('#passwordCheck').text('사용 가능한 비밀번호입니다.');
+                            $('#passwordCheck').css("color","green");
+                            checkState();
+                        } else if(result == 1) {
+                            $('#passwordCheck').text('비밀번호는 8~16자 영문 소문자와 숫자, 특수문자를 사용하세요.');
+                            $('#passwordCheck').css("color","red");
+                            state2 = false
+                            checkState();
+                        }
+                    },
+                    error : function() {
+                        alert("서버 요청 실패");
+                            $('#modify-btn').attr("disabled", true);
+                    }
+                })
+            }
+        })
+
+        $(function(){
+        //비밀번호 확인
+            $('#password-two').blur(function(){
+               if($('#password').val() != $('#password-two').val()){
+                    if($('#password-two').val()!=''){
+                        $('#doubleCheck').text('비밀번호가 일치하지 않습니다.');
+                        $('#doubleCheck').css("color","red");
+                        state2 = false;
+                        checkState();
+                    }
+               }
+               else if($('#password').val() == $('#password-two').val())  {
+                   if($('#password-two').val()!=''){
+                        $('#doubleCheck').text('비밀번호가 일치합니다.');
+                        $('#doubleCheck').css("color","green");
+                        state2 = true;
+                        checkState();
+                   }
+               }
+            })
+        });
+
+        var checkState = function(){
+            if(state1 == true && state2 == null) {
+              $('#modify-btn').attr("disabled", false);
+            } else if(state1 == true && state2 == true) {
+              $('#modify-btn').attr("disabled", false);
+            } else {
+              $('#modify-btn').attr("disabled", true);
+            }
+        }
+
+        //프로필 수정
+        $("#modify-btn").click(function(){
+            let data = {
+                id : $('#id').val(),
+                password : $('#password-two').val(),
+                nickname : $('#nickname').val()
+            }
+
+            const check = confirm("수정하시겠습니까?")
+            if (check === true) {
+                $.ajax({
+                    type:"PUT",
+                    url:"/profile/update/" + data.id,
+                    dataType : 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data),
+                    cache : false,
+                }).done(function() {
+                    alert("회원정보가 수정되었습니다.");
+                    location.href = "/profile/"+data.id;
+                }).fail(function (error) {
+                    alert(JSON.stringify(error));
+                });
+            }
+        });
+
+
+
+
+		/*]]>*/
+</script>
+
+</div>
+</body>
+</html>

@@ -1,9 +1,6 @@
 package com.doit.study.member.controller;
 
-import com.doit.study.member.domain.category.FirstInterestCategory;
 import com.doit.study.member.domain.Gender;
-import com.doit.study.member.domain.category.SecondInterestCategory;
-import com.doit.study.member.domain.category.ThirdInterestCategory;
 import com.doit.study.member.dto.MemberDto;
 import com.doit.study.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -96,12 +93,12 @@ public class JoinController {
     @ResponseBody
     public int nicknameCheck(@RequestParam("nickname") String nickname) {
         log.info("nickname은 ? "+ nickname);
-        int result;
+        int result = 0;
 
         //검증 패턴
         pattern = "^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$";
         if(!Pattern.matches(pattern, nickname)){
-            return result = 1;
+            return result = 3;
         } else if(nickname.length() > 10 || nickname.length() < 2) {
             return result = 2;
         } else {
@@ -129,5 +126,20 @@ public class JoinController {
 
         //이메일 중복 검사
         return memberService.findEmail(email);
+    }
+
+    @PostMapping("passwordCheck")
+    @ResponseBody
+    public int passwordCheck(@RequestParam("password") String password) {
+        log.info("password는 ? "+ password);
+        int result = 0;
+
+        //검증 패턴
+        pattern = "^(?=.*[a-z])(?=.*[0-9])(?=.*\\W).{8,16}";
+        if(!Pattern.matches(pattern, password)){
+            return result = 1;
+        }
+
+        return result;
     }
 }
