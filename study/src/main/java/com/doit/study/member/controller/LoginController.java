@@ -116,7 +116,7 @@ public class LoginController {
     @GetMapping("/find")
     public String find() {
 
-        return "";
+        return "members/findPassword";
     }
 
 }

@@ -4,7 +4,6 @@
 	padding:0;
 	margin:0;
 	vertical-align:top;
-	background:#ffffff;
 }
 a{
 	text-decoration: none;
@@ -64,7 +63,7 @@ ul,li{
 .main_login_ID_wrap{
     position:relative;
     width:100%;
-    height:50px;
+    height:59px;
 	border:2px solid #aaaaaa;
 	border-radius:10px 10px;
 }
@@ -74,12 +73,12 @@ ul,li{
 .main_login_ID_padding{
     position:absolute;
     top:0;
+    height : 53px;
 	padding:14px 0;
 	margin:0;
 }
 .main_login_ID_img{
 	width:50px;
-	height:50px;
 	margin:0;
 	border-radius:5px 0 0 5px;
 	background-color:#aaaaaa;
@@ -95,7 +94,7 @@ ul,li{
 .main_login_PW_wrap{
     position:relative;
     width:100%;
-    height:50px;
+    height:59px;
 	border:2px solid #aaaaaa;
 	border-radius:10px 10px;
 	margin-top:15px;
@@ -107,11 +106,12 @@ ul,li{
     position:absolute;
     top:0;
 	padding:14px 0;
+    height : 53px;
 }
 .main_login_PW_img{
 	width:50px;
-	height:50px;
 	margin:0;
+	height:55px;
 	border-radius:5px 0 0 5px;
     background-color:#aaaaaa;
 }

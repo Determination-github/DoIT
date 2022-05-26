@@ -59,6 +59,15 @@ public interface MemberMapper {
     @Delete(MemberSQL.deleteMember)
     void deleteMemberById(@Param("id") Integer id);
 
+    //이메일로 존재하는 회원인지 확인
+    @Select(MemberSQL.findMemberByEmail)
+    String findMemberByEmail(@Param("email") String email);
+
+    //이메일로 비밀번호 업데이트
+    @Update(MemberSQL.updatePwdByEmail)
+    void updatePwdById(@Param("email") String email,
+                          @Param("password") String password);
+
     @Select(MemberSQL.getMember)
     Member getMemberInfoById(@Param("id") int id);
 

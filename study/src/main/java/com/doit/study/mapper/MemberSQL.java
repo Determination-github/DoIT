@@ -46,6 +46,12 @@ public class MemberSQL {
     public static final String deleteMember =
             "DELETE FROM USERS_TB WHERE id = #{id}";
 
+    public static final String updatePwdByEmail =
+            "UPDATE USERS_TB SET password = #{password} WHERE email = #{email}";
+
+    public static final String findMemberByEmail =
+            "SELECT email FROM USERS_TB WHERE email = #{email} and password IS NOT NULL";
+
     public static final String getMember =
             "SELECT * FROM USERS_TB WHERE id = #{id}";
 

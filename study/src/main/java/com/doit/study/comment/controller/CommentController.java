@@ -23,8 +23,7 @@ public class CommentController {
     @ResponseBody
     public ResponseEntity<Map<String, Integer>> write(
                         @PathVariable Integer writer_id,
-                        @RequestBody CommentDto commentDto,
-                        Model model) {
+                        @RequestBody CommentDto commentDto) {
         log.info("writer_id={}", writer_id);
         log.info("commentDto={}", commentDto);
 
