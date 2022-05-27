@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>DoIT 로그인</title>
 
-    <link rel="stylesheet" th:href="@{/css/style.css}" href="../css/style.css">
-    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link th:href="@{/css/login.css}" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="/js/bootstrap.bundle.min.js" defer></script>
 
     <style>
         .field-error {
@@ -61,7 +64,7 @@
                                 <a href="#" th:href="@{/join}" class="main_login_join_BTN">회원가입</a>
                             </p>
                             <p class="main_login_IDPW">
-                                <a href="#" th:href="@{/find}" class="main_login_IDPW_BTN">비밀번호 찾기</a>
+                                <a type="button" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="main_login_IDPW_BTN">비밀번호 찾기</a>
                             </p>
                         </div>
 
@@ -81,6 +84,56 @@
             </div>
         </section>
     </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">비밀번호 찾기</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="findPassword" placeholder="이메일을 입력하세요.">
+                        <label for="findPassword">이메일</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button type="button" id="sendTempPwd" class="btn btn-primary">비밀번호 찾기</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+
+        //임시비밀번호 발급
+        $("#sendTempPwd").click(function(){
+            let data = {
+                email : $('#findPassword').val()
+            }
+            const check = confirm("임시비밀번호를 발급하시겠습니까?")
+            if (check === true) {
+                $.ajax({
+                    type:"POST",
+                    url:"/login/findPassword/",
+                    dataType : 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data),
+                    cache : false,
+                }).done(function(response) {
+                    alert(response.result);
+                    window.location.reload();
+                }).fail(function (error) {
+                    alert(JSON.stringify(error));
+                });
+            }
+        });
+
+		/*]]>*/
+</script>
 </body>
 </html>
