@@ -72,7 +72,6 @@ public class BoardDto {
         boardDto.setBoard_interest3(board.getInterest3());
         boardDto.setBoard_regDate(board.getReg_date());
         boardDto.setBoard_viewCount(board.getView_count());
-        boardDto.setBoard_commentCount(board.getComment_count());
 
         return boardDto;
     }

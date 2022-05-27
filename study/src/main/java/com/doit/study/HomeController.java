@@ -2,6 +2,7 @@ package com.doit.study;
 
 
 import com.doit.study.board.dto.BoardDto;
+import com.doit.study.comment.service.CommentService;
 import com.doit.study.member.SessionConst;
 import com.doit.study.member.dto.MemberDto;
 import com.doit.study.member.dto.SocialDto;
@@ -19,6 +20,7 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -28,28 +30,30 @@ import javax.servlet.http.HttpSession;
 public class HomeController {
 
     private final BoardService boardService;
-    private final ProfileService profileService;
 
     @GetMapping
     public String home(
-            HttpSession session,
+            HttpServletRequest request,
             @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
             @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
             Model model) throws Exception {
 
-        MemberDto naverDto = (MemberDto) session.getAttribute(SessionConst.NAVER_MEMBER);
-        MemberDto kakaoDto = (MemberDto) session.getAttribute(SessionConst.KAKAO_MEMBER);
-        MemberDto memberDto = (MemberDto) session.getAttribute(SessionConst.LOGIN_MEMBER);
-
-        log.info("naverDto = " + naverDto);
-        log.info("kakaoDto = " + kakaoDto);
-        log.info("memberDto = " + memberDto);
+        HttpSession session = request.getSession(false);
 
         Integer id;
         String nickName;
         String path;
 
         if(session!=null) {
+
+            MemberDto naverDto = (MemberDto) session.getAttribute(SessionConst.NAVER_MEMBER);
+            MemberDto kakaoDto = (MemberDto) session.getAttribute(SessionConst.KAKAO_MEMBER);
+            MemberDto memberDto = (MemberDto) session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+            log.info("naverDto = " + naverDto);
+            log.info("kakaoDto = " + kakaoDto);
+            log.info("memberDto = " + memberDto);
+
             if (naverDto != null) {
                 id = naverDto.getId();
                 nickName = naverDto.getNickname();
@@ -69,7 +73,6 @@ public class HomeController {
         }
 
 
-        BoardDto boardWriteDto = new BoardDto();
         Integer totalRecordCount = boardService.getCount();
         if(totalRecordCount != null) {
             Pagination pagination = new Pagination(currentPage, pageSize);

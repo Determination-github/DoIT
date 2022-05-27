@@ -8,7 +8,7 @@ public class Pagination {
     // 현재 페이지
     private int currentPage;
     // 한 페이지당 게시물 갯수
-    public final int countPerPage = 3;
+    public int countPerPage = 3;
     // 화면 하단 페이지 사이즈
     private int pageSize;
     // 전체 데이터 개수
@@ -50,6 +50,7 @@ public class Pagination {
             calculation();
         }
     }
+
     private void calculation() {
 
         // 전체 페이지 수 (현재 페이지 번호가 전체 페이지 수보다 크면 현재 페이지 번호에 전체 페이지 수를 저장)
@@ -69,8 +70,13 @@ public class Pagination {
 
         // SQL의 조건절에 사용되는 첫 RNUM
         firstRecordIndex = (this.getCurrentPage()-1) * countPerPage; //3
-        // SQL의 조건절에 사용되는 마지막 RNUM
-        lastRecordIndex = this.getCurrentPage() * countPerPage;
+        if(totalRecordCount < 3) {
+            countPerPage = totalRecordCount;
+            lastRecordIndex = this.getCurrentPage() * countPerPage;
+        } else {
+            // SQL의 조건절에 사용되는 마지막 RNUM
+            lastRecordIndex = this.getCurrentPage() * countPerPage;
+        }
 
         // 이전 페이지 존재 여부
         hasPreviousPage = firstPage == 1 ? false : true;

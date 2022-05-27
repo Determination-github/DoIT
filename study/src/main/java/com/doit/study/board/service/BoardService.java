@@ -2,33 +2,32 @@ package com.doit.study.board.service;
 
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
+import com.doit.study.board.dto.SearchDto;
 
 import java.util.List;
 
 public interface BoardService {
 
-//    List<BoardDto> getList();
-//    int modify(BoardDto boardWriteDto);
-//    void write(BoardDto boardWriteDto);
-
-//    int searchResultCount(SearchBoardDto searchBoardDto);
-
-
+    //전체 스터디 글 개수
     Integer getCount();
 
-    Integer getCountMyStudy(String id);
-
+    //전체 스터디 글 가져오기
     List<BoardDto> getStudyBoardList(Pagination pagination);
 
+    //글 추가하기
     Integer insertStudyBoard(BoardDto boardWriteDto);
 
+    //게시글 정보 가져오기
     BoardDto findResultById(int study_id, BoardDto boardWriteDto);
 
+    //게시글 정보 가져오기(BoardDto 값이 없을 때)
     BoardDto findStudyById(int study_id);
 
-//    void increasViewCount(String id);
+    Integer getCountBySearching(SearchDto searchDto);
 
-//    int updateCommentCount(String board_Id, int count);
+
+    //Integer getCountMyStudy(String id);
+
 
 
 

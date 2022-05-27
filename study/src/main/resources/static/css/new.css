@@ -209,3 +209,31 @@ div .needs-disabled {
 .calender2{
    width:100%;
 }
+
+.calender_wrap{
+   width:100%;
+   display:flex;
+   justify-content: space-between;
+}
+
+.calender_group{
+   width:45%;
+}
+.calender_font_event{
+   position:relative;
+   width:5%;
+}
+.calender_font_event p{
+   position:absolute;
+   width:100%;
+   top:-8px;
+   text-align: center;
+   font-weight:900;
+}
+.calender1{
+   width:100%;
+}
+
+.calender2{
+   width:100%;
+}

@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Board {
 
-    private int study_id, id, on_off, view_count, comment_count;
+    private int study_id, id, on_off, view_count;
 
     private String schedule_start, schedule_end, title, content, sub_title;
 

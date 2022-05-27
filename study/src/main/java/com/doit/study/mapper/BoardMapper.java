@@ -4,7 +4,7 @@ package com.doit.study.mapper;
 import com.doit.study.board.domain.Board;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
-import com.doit.study.board.dto.SearchBoardDto;
+import com.doit.study.board.dto.SearchDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -25,56 +25,26 @@ public interface BoardMapper {
     @Select(BoardSQL.getLastBoard)
     Board getLastBoard(@Param("id") Integer id);
 
-
-    @Select(BoardSQL.selectAll)
-    public List<BoardDto> selectAll();
-
-    @Delete(BoardSQL.deleteAll)
-    int deleteAll();
-
-    @Delete(BoardSQL.delete)
-    int delete(BoardDto boardDto);
-
-    @Insert(BoardSQL.insert)
-    void insert(BoardDto boardDto);
-
+    //글 삽입
     @Insert(BoardSQL.insertBoard)
     Integer insertStudyBoard(@Param("board") Board board);
 
+    //조회수 증가
     @Update(BoardSQL.increaseViewCount)
     Integer increaseViewCount(@Param("study_id") int id);
 
+    //id로 게시글 정보 찾기
     @Select(BoardSQL.getBoard)
     Optional<Board> findById(@Param("study_id") int study_id);
 
-//    @Update(BoardSQL.increaseViewCount)
-//    public int increaseViewCount(Integer board_Id);
+    //검색한 내용으로 게시글 개수 가져오기
+    @Select(BoardSQL.getCountByKeyword)
+    Integer getCountByKeyword(@Param("searchDto") SearchDto searchDto);
 
-//    @Select(BoardSQL.selectPage)
-//    public List<BoardDto> selectPage(Pagination pagination);
-
-
-
-    @Select(BoardSQL.findNickname)
-    String findNickname(@Param("user_id") String id);
-
-    @Select(BoardSQL.select)
-    BoardDto selectOne(Integer board_Id);
 
     @Select(BoardSQL.getMyStudyList)
     Integer getMyStudyList(@Param("user_id") String id);
 
 
-    @Update(BoardSQL.update)
-    int update(BoardDto boardDto);
-
-//    @Select(BoardSQL.searchSelectPage)
-//    List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto);
-
-    @Select(BoardSQL.searchResultCount)
-    int searchResultCount(SearchBoardDto boardDto);
-
-    @Update(BoardSQL.updateCommentCount)
-    int updateCommentCount(@Param("study_id") String id, @Param("count") Integer count);
 
 }

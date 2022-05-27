@@ -3,6 +3,7 @@ package com.doit.study.board.service;
 import com.doit.study.board.domain.Board;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
+import com.doit.study.board.dto.SearchDto;
 import com.doit.study.mapper.BoardMapper;
 import com.doit.study.mapper.CommentMapper;
 import com.doit.study.mapper.MemberMapper;
@@ -24,28 +25,13 @@ public class BoardServiceImpl implements BoardService {
     private final CommentMapper commentMapper;
 
 
+    //전체 스터디 글 개수
     @Override
     public Integer getCount() {
         return boardMapper.count();
     }
 
-    @Override
-    public Integer getCountMyStudy(String id) {
-        return boardMapper.getMyStudyList(id);
-    }
-
-
-//    @Override
-//    public Integer getBoardCount() {
-//        return boardMapper.count();
-//    }
-
-//    @Override
-//    public List<BoardDto> getPage(Pagination pagination) throws Exception {
-//        log.info("BoardDto = " + boardMapper.selectPage(pagination));
-//        return boardMapper.selectPage(pagination);
-//    }
-
+    //전체 스터디 글 가져오기
     @Override
     public List<BoardDto> getStudyBoardList(Pagination pagination) {
         List<Board> boardList = boardMapper.selectPage(pagination);
@@ -77,7 +63,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
 
-
+    //글 추가하기
     @Override
     public Integer insertStudyBoard(BoardDto boardDto) {
 
@@ -94,6 +80,9 @@ public class BoardServiceImpl implements BoardService {
         return null;
     }
 
+
+
+    //게시글 정보 가져오기
     @Override
     public BoardDto findResultById(int study_id, BoardDto boardDto) {
         log.info("study_id={}", study_id);
@@ -102,8 +91,6 @@ public class BoardServiceImpl implements BoardService {
             Board board = findBoard.get();
             boardDto.setBoard_id(board.getStudy_id());
             boardDto.setBoard_writerId(board.getId());
-            boardDto.setBoard_commentCount(board.getComment_count());
-            boardDto.setBoard_viewCount(board.getView_count());
             boardDto.setBoard_regDate(board.getReg_date());
             log.info("boardDto={}", boardDto);
             return boardDto;
@@ -112,6 +99,7 @@ public class BoardServiceImpl implements BoardService {
         return null;
     }
 
+    //게시글 정보 가져오기(BoardDto 값이 없을 때)
     @Override
     public BoardDto findStudyById(int study_id) {
         log.info("study_id={}", study_id);
@@ -130,29 +118,15 @@ public class BoardServiceImpl implements BoardService {
         return null;
     }
 
-//    @Override
-//    public void increasViewCount(String id) {
-//        boardMapper.increaseViewCount(id);
-//    }
-
-//    @Override
-//    public int searchResultCount() throws Exception {
-//        return boardMapper.searchResultCount();
-//    }
+    //검색 내용에 따른 게시글 개수
+    @Override
+    public Integer getCountBySearching(SearchDto searchDto) {
+        return boardMapper.getCountByKeyword(searchDto);
+    }
 //
 //    @Override
-//    public List<BoardDto> searchSelectPage(Pagination pagination) throws Exception {
-//        return boardMapper.searchSelectPage(pagination);
-
-//    @Override
-//    public int searchResultCount(SearchCondition sc) throws Exception {
-//        return boardMapper.searchResultCount(sc);
+//    public Integer getCountMyStudy(String id) {
+//        return boardMapper.getMyStudyList(id);
 //    }
-//
-//    @Override
-//    public List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception {
-//        return boardMapper.searchSelectPage(sc);
-//    }
-
 
 }

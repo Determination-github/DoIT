@@ -9,36 +9,9 @@
   <section class="section">
     <div class="container col-lg-10">
       <div class="row row5">
-        <form class="formSearch">
+        <form class="formSearch" action="/board/search" method="post">
           <h5 class="mt-5">원하는 스터디 그룹을 찾아보세요 🔎</h5>
           <div class="card mb-2">
-            <div class="card-body p-2 mt-1">
-              <div class="row mb-2">
-                <div class="col-2 text-center">
-                  <label class="col-form-label" for="firstCategory">
-                    <h6 class="mb-0">카테고리</h6>
-                  </label>
-                </div>
-                <div class="col-3">
-                  <select id="firstCategory" name="firstCategory" class="form-control" onchange="category_change(this.value, secondCategory)">
-                    <option value="">선택하세요.</option>
-                    <option value="1">개발</option>
-                    <option value="2">자격증</option>
-                    <option value="3">프로젝트</option>
-                  </select>
-                </div>
-                <div class="col-3">
-                  <select id="secondCategory" name="secondCategory" class="form-control" onchange="category2_change(this.value, thirdCategory)">
-                    <option value="">선택하세요.</option>
-                  </select>
-                </div>
-                <div class="col-3">
-                  <select id="thirdCategory" name="thirdCategory" class="form-control">
-                    <option value="">선택하세요.</option>
-                  </select>
-                </div>
-              </div>
-            </div>
             <div class="card-body p-2 mt-1">
               <div class="row mb-2">
                 <div class="col-2 text-center">
@@ -47,7 +20,7 @@
                   </label>
                 </div>
                 <div class="col-4">
-                  <select id="firstZone" name="firstZone" class="form-control" onchange="zone_change(this.value, secondZone)">
+                  <select id="firstZone" name="location1" class="form-control" onchange="zone_change(this.value, secondZone)">
                     <option value="">선택하세요.</option>
                     <option value="1">서울특별시</option>
                     <option value="2">부산광역시</option>
@@ -68,14 +41,14 @@
                   </select>
                 </div>
                 <div class="col-4">
-                  <select id="secondZone" name="secondZone" class="form-control">
+                  <select id="secondZone" name="location2" class="form-control">
                     <option>선택하세요.</option>
                   </select>
                 </div>
                 <div class="col-2">
                   <div class="form-check pl-0 py-1">
-                    <input type="checkbox" name="online" id="online" class="form-check-inline mr-1" value="Y">
-                    <input type="hidden" name="online" class="form-check-inline mr-1" value="N">
+                    <input type="checkbox" onclick="is_checked()" name="online" id="online" class="form-check-inline mr-1">
+                    <input type="hidden" name="_online" class="form-check-inline mr-1" value="on">
                     <label class="form-check-label online" for="online">Online</label>
                   </div>
                 </div>
@@ -89,8 +62,7 @@
                     </label>
                   </div>
                   <div class="col-8">
-                    <input type="text" id="searchKeyword" class="form-control" placeholder="찾고있는 스터디를 검색해보세요."
-                    name="keyword" value>
+                    <input type="text" id="searchKeyword" name="keyword" class="form-control" placeholder="찾고있는 스터디를 검색해보세요.">
                   </div>
                 </div>
             </div>
@@ -98,7 +70,7 @@
           <div class="row">
             <div class="col text-end">
               <button type="reset" id="resetSearch" class="btn btn-secondary btn-sm">초기화</button>
-              <button type="submit" class="btn btn-sm btn-primary btn-search">검색하기</button>
+              <button type="submit" id="search" class="btn btn-sm btn-primary btn-search">검색하기</button>
             </div>
           </div>
         </form>
@@ -133,7 +105,7 @@
               <div class="card-body">
 
                 <h2 class="card-title" style="cursor: pointer;"><a th:href="@{/board/result/{id}(id = ${list.board_id})}">
-                  [[${list.board_title}]]
+                  [[${list.board_title}]]([[${list.board_commentCount}]])
                 </a></h2>
                 <p class="card-text">[[${list.board_subTitle}]]</p>
                 <div class="row">
@@ -178,6 +150,12 @@
           </div>
         </th:block>
 
+        <th:block th:if="${list} == null">
+          <div class="alert alert-danger" role="alert">
+            찾는 스터디가 존재하지 않습니다.
+          </div>
+        </th:block>
+
       <div class="display-flex-row mt-3">
         <div class="m-auto">
           <div class="dataTables_paginate paging_simple_numbers">
@@ -209,8 +187,28 @@
   </main>
 </div>
 </body>
-<th:block layout:fragment="script">
-<script type="text/javascript" th:src="@{/js/zone.js}" ></script>
-<script type="text/javascript" th:src="@{/js/category.js}" ></script>
+<th:block layout:fragment="extraJs">
+  <script src="/js/zone.js" defer></script>
+  <script src="/js/category.js" defer></script>
+  <script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+
+        function is_checked() {
+
+          const checkbox = document.getElementById('online');
+
+          const is_checked = checkbox.checked;
+
+          if(is_checked === true) {
+            $("#firstZone").attr("disabled", true);
+            $("#secondZone").attr("disabled", true);
+          } else {
+            $("#firstZone").removeAttr("disabled");
+            $("#secondZone").removeAttr("disabled");
+          }
+        }
+
+		/*]]>*/
+</script>
 </th:block>
 </html>
