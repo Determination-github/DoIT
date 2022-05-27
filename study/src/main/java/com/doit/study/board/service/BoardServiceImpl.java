@@ -4,6 +4,7 @@ import com.doit.study.board.domain.Board;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
 import com.doit.study.mapper.BoardMapper;
+import com.doit.study.mapper.CommentMapper;
 import com.doit.study.mapper.MemberMapper;
 import com.doit.study.mapper.ProfileMapper;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +21,8 @@ public class BoardServiceImpl implements BoardService {
     private final BoardMapper boardMapper;
     private final MemberMapper memberMapper;
     private final ProfileMapper profileMapper;
+    private final CommentMapper commentMapper;
 
-//    @Override
-//    public List<BoardDto> getList() {
-//
-//        List<BoardDto> boardList = boardMapper.selectAll();
-//        return boardList;
-//    }
 
     @Override
     public Integer getCount() {
@@ -38,49 +34,6 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.getMyStudyList(id);
     }
 
-
-//    @Override
-//    public BoardDto read(Integer board_Id) throws Exception {
-//        BoardDto boardDto = boardMapper.selectOne(board_Id);
-//        boardMapper.increaseViewCount(board_Id);
-//
-//        return boardDto;
-//    }
-
-//    @Override
-//    public void write(BoardDto boardWriteDto) {
-//        boardMapper.insert(boardDto);
-//    }
-
-//    @Override
-//    public int modify(BoardDto boardWriteDto) {
-//        return boardMapper.update(boardDto);
-//    }
-
-//    @Override
-//    public int remove(BoardDto boardDto)  {
-//        return boardMapper.delete(boardDto);
-//    }
-//
-//    @Override
-//    public int remove(String board_Writer) {
-//        return boardMapper.delete(board_Writer);
-//    }
-
-//    @Override
-//    public int searchResultCount(SearchBoardDto searchBoardDto){
-//        return boardMapper.searchResultCount(searchBoardDto);
-//    }
-
-//    @Override
-//    public List<SearchBoardDto> searchSelectPage(SearchBoardDto searchBoardDto) {
-//        return boardMapper.searchSelectPage(searchBoardDto);
-//    }
-
-//    @Override
-//    public int updateCommentCount(String board_Id, int count) {
-//        return boardMapper.updateCommentCount(board_Id, count);
-//    }
 
 //    @Override
 //    public Integer getBoardCount() {
@@ -110,6 +63,10 @@ public class BoardServiceImpl implements BoardService {
             if(path != null) {
                 boardDto.setPath(path);
             }
+
+            //댓글 수 가져오기
+            int count = commentMapper.count(boardDto.getBoard_id());
+            boardDto.setBoard_commentCount(count);
 
             log.info("boardWriteDto={}", boardDto);
 
