@@ -12,6 +12,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+  <style>
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+  </style>
+
   <script>
       $.datepicker.setDefaults({
         dateFormat: 'yy-mm-dd',
@@ -37,7 +44,6 @@
     <section class="py-5">
       <div class="container col-lg-10">
         <div class="row gx-5">
-          <div class="col-sm-2"></div>
           <h2 class="col-sm-8">스터디 개설</h2>
           <div class="col-sm-2"></div>
         </div>
@@ -48,11 +54,10 @@
                   <form action="/board/write" th:action th:object="${firstStudyDto}" method="post">
                     <input hidden type="text" name="id" th:field="*{id}"/><br>
                     <input hidden type="text" name="nickname" th:field="*{nickName}"/><br>
-                    <input type="hidden" name="_csrf" value="46b06b5c-25e2-41bc-bf6a-0cb8ccfb3c26">
                     <div class="form-row">
                       <div class="form-group required col">
                         <label for="firstCategory">1차 카테고리</label>
-                          <select th:field="*{interest1}" id="firstCategory" name="firstCategory" class="form-control" onchange="category_change(this.value, secondCategory)">
+                          <select th:field="*{interest1}" id="firstCategory" name="firstCategory" th:errorclass="field-error" class="form-control" onclick="category_change(this.value, secondCategory)">
                           <option value="">선택하세요</option>
                           <option value="1">개발</option>
                           <option value="2">자격증</option>
@@ -60,31 +65,39 @@
                         </select>
                         <small id="categoryHelp" class="form-text text-muted"></small>
                       </div>
+                      <div class="field-error" th:errors="*{interest1}"/>
+
                       <div class="form-group required col">
                         <label for="secondCategory">2차 카테고리</label>
-                          <select th:field="*{interest2}" id="secondCategory" name="secondCategory" class="form-control" onchange="category2_change(this.value, thirdCategory)">
+                          <select th:field="*{interest2}" id="secondCategory" name="secondCategory" th:errorclass="field-error" class="form-control" onclick="category2_change(this.value, thirdCategory)">
                           <option value="">선택하세요.</option>
                         </select>
                         <small class="invalid-feedback">2차 카테고리를 선택해주세요</small>
                       </div>
+                      <div class="field-error" th:errors="*{interest2}"/>
                       <div class="form-group required col">
                         <label for="thirdcategory">3차 카테고리</label>
-                          <select th:field="*{interest3}" id="thirdCategory" name="thirdCategory" class="form-control">
+                          <select th:field="*{interest3}" id="thirdCategory" name="thirdCategory" th:errorclass="field-error" class="form-control">
                           <option value="">선택하세요.</option>
                         </select>
                         <small class="invalid-feedback">3차 카테고리를 선택해주세요</small>
                       </div>
+                      <div class="field-error" th:errors="*{interest3}"/>
                       <div  class="form-group col">
                         <label >모집기간 🗓️</label>
                         <div class="calender_wrap">
-                          <div class="calender_group"><input autocomplete="off" name="start" class="calender1 form-control" type="text" id="datepicker_to" th:field="*{startDate}"></div>
+                          <div class="calender_group"><input autocomplete="off" name="start" th:errorclass="field-error" class="calender1 form-control" type="text" id="datepicker_to" th:field="*{startDate}"></div>
+                          <div class="field-error" th:errors="*{startDate}"/>
                           <span class="calender_group calender_font_event"><strong style="font-size:30px;">~</strong></span>
-                          <div class="calender_group"><input autocomplete="off" name="end" class="calender2 form-control" type="text" id="datepicker_from" th:field="*{endDate}"></div>
+                          <div class="calender_group"><input autocomplete="off" name="end" th:errorclass="field-error" class="calender2 form-control" type="text" id="datepicker_from" th:field="*{endDate}"></div>
+                          <div class="field-error" th:errors="*{endDate}"/>
                         </div>
+
+
                       </div>
                       <div class="form-group required col">
                         <label for="firstZone">1차 지역</label>
-                        <select th:field="*{location1}" id="firstZone" name="firstZone" class="form-control" onchange="zone_change(this.value, secondZone)">
+                        <select th:field="*{location1}" id="firstZone" name="firstZone" th:errorclass="field-error" class="form-control" onchange="zone_change(this.value, secondZone)">
                           <option value="">선택하세요.</option>
                           <option value="1">서울특별시</option>
                           <option value="2">부산광역시</option>
@@ -105,12 +118,14 @@
                         </select>
                         <small id="categoryHelp two" class="form-text text-muted"></small>
                       </div>
+                      <div class="field-error" th:errors="*{location1}"/>
                       <div class="form-group required col">
                         <label for="secondZone">2차 지역</label>
-                        <select th:field="*{location2}" id="secondZone" name="secondZone" class="form-control">
+                        <select th:field="*{location2}" id="secondZone" name="secondZone" th:errorclass="field-error" class="form-control">
                           <option value="">선택하세요</option>
                         </select>
                       </div>
+                      <div class="field-error" th:errors="*{location2}"/>
                       <div class="form-check pull-right mr-0">
                         <input class="form-check-input" type="checkbox" onclick="is_checked()" id="onOffLine" th:field="*{onOffLine}">
                         <label class="form-check-label" for="onOffLine">
@@ -119,9 +134,10 @@
                       </div>
                       <div class="form-group">
                         <label>짧은 소개</label>
-                        <input type="text" class="form-control" name="subtitle" style="width: 40%;" placeholder="스터디 한 줄 소개" th:field="*{subTitle}"/><br>
+                        <input type="text" th:errorclass="field-error" class="form-control" name="subtitle" style="width: 40%;" placeholder="스터디 한 줄 소개" th:field="*{subTitle}"/>
                         <small class="invalid-feedback">스터디 그룹을 짧게 소개해주세요</small>
                       </div>
+                      <div class="field-error" th:errors="*{subTitle}"/>
                     </div>
                     <input id="subBtn" type="submit" value="다음으로" style="float: right;" onclick="goWrite(this.form)"/>
                   </form>
