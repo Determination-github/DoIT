@@ -21,8 +21,9 @@ public class Board {
     private Date reg_date;
 
     @Builder
-    public Board(int id, String schedule_start, String schedule_end, String title, String sub_title,
+    public Board(int study_id, int id, String schedule_start, String schedule_end, String title, String sub_title,
                  String content, String location, int on_off, String interest1, String interest2, String interest3) {
+        this.study_id = study_id;
         this.id = id;
         this.schedule_start = schedule_start;
         this.schedule_end = schedule_end;

@@ -80,8 +80,6 @@ public class BoardServiceImpl implements BoardService {
         return null;
     }
 
-
-
     //게시글 정보 가져오기
     @Override
     public BoardDto findResultById(int study_id, BoardDto boardDto) {
@@ -112,8 +110,23 @@ public class BoardServiceImpl implements BoardService {
             int userId = boardDto.getBoard_writerId();
             String nickname = memberMapper.findNickname(userId);
             boardDto.setWriter_nickName(nickname);
-            log.info("boardWriteDto={}", boardDto);
+            log.info("boardDto={}", boardDto);
             return boardDto;
+        }
+        return null;
+    }
+
+    @Override
+    public BoardDto updateBoard(BoardDto boardDto) {
+        log.info("update boardDto={}", boardDto);
+
+        Board board = boardDto.toEntity(boardDto);
+        boardMapper.updateBoard(board);
+        Integer id = board.getStudy_id();
+        Optional<Board> getBoard = boardMapper.findById(id);
+        if(getBoard.isPresent()){
+            Board updateBoard = getBoard.get();
+            return boardDto.toBoardDto(updateBoard);
         }
         return null;
     }
@@ -123,6 +136,9 @@ public class BoardServiceImpl implements BoardService {
     public Integer getCountBySearching(SearchDto searchDto) {
         return boardMapper.getCountByKeyword(searchDto);
     }
+
+
+
 //
 //    @Override
 //    public Integer getCountMyStudy(String id) {

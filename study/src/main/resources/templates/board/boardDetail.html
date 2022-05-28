@@ -3,357 +3,390 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 
-<body class="d-flex flex-column h-100">
 <div layout:fragment="content">
-<section class="py-3">
-    <div class="container col-lg-10 mt-3">
-        <div class="row gx-5">
-            <th:block th:if="${session.nickName} == null or ${session.id} != ${boardDto.board_writerId}">
-            <div class="col-lg-3">
-                <div class="mobile-display-none">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex flex-column align-items-center text-center">
-                                <th:block th:if="${boardDto.path} == null">
-                                    <div style="border-radius : 50%; overflow: hidden;">
-                                        <img class="rounded-circle" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" style="width: 120px; height: 120px;">
-                                    </div>
-                                </th:block>
-                                <th:block th:if="${boardDto.path} != null">
-                                    <div style="border-radius : 50%; overflow: hidden;">
-                                        <img class="rounded-circle" th:src="${boardDto.path}" style="width: 120px; height: 120px;">
-                                    </div>
-                                </th:block>
-                                <div class="mt-3">
-                                    <h4 class="text-break">[[${boardDto.writer_nickName}]]</h4>
-                                    <p class="text-secondary mb-1"></p>
-                                    <a class="btn btn-primary" type="button" th:href="@{/profile/{id}(id = ${boardDto.board_writerId})}">프로필 보기</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </th:block>
-            <div class="content-area" th:classappend="${session.id} == ${boardDto.board_writerId} ? 'col-lg-12' : 'col-lg-9'">
-                <article>
-                    <div class="row mb-4">
-                        <div class="row">
-                            <div  class="col-9" style="word-break: break-word;">
-                                <h1 class="fw-bolder mb-1">[[${boardDto.board_title}]]</h1>
-                            </div>
-                            <div class="col-3 text-end pr-0">
-                                <h4>
-                                    <span class="badge bg-primary">모집 중</span>
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-2">[[${boardDto.board_subTitle}]]</div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-7">
-                                <div class="mb-2">모집기간 : [[${boardDto.board_startDate}]] ~ [[${boardDto.board_endDate}]]</div>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-6">
-                                <h5 class="d-inline">
-                                    <span class="badge badge-light text-dark mr-1" style="background-color : #b3e5fc">#[[${boardDto.board_interest1}]]</span>
-                                </h5>
-                                <h5 class="d-inline">
-                                    <span class="badge badge-light text-dark mr-1" style="background-color : #b3e5fc">#[[${boardDto.board_interest2}]]</span>
-                                </h5>
-                                <h5 class="d-inline">
-                                    <span class="badge badge-light text-dark mr-1" style="background-color : #b3e5fc">#[[${boardDto.board_interest3}]]</span>
-                                </h5>
-                            </div>
-                            <div class="col-6 text-end">
-                                <th:block th:if="${session.nickName} == null or ${session.id} != ${boardDto.board_writerId}">
-                                    <div>
-                                        <i class="bi-heart" style="font-size: 1.5rem; color: red; cursor: pointer;"></i>
-                                        <button type="button" class="btn btn-primary" id="wanna-join">🙋 참여하고 싶어요</button>
-                                    </div>
-                                </th:block>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <h5 class="d-inline">
-                                    <span class="badge badge-info mr-1" style="background-color: blueviolet;">
-                                      <i class="bi bi-geo-alt">
-                                      </i>
-                                      서울특별시
-                                    </span>
-                                </h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-4" style="min-height: 300px;">
-                        <div class="card-body" th:utext="${boardDto.board_content}">
-                        </div>
-                    </div>
-                </article>
-                <section>
-                    <form name="commentFrm" id="commentFrm">
-                        <input type="hidden" name="totalPage" value>
-                        <input type="hidden" name="page" value="0">
-                    </form>
-                    <div class="card bg-light">
-                        <div class="card-header">
-                            <h4 class="card-title">댓글([[${totalComment}]])</h4>
-                            <input type="hidden" name="page" value="0">
-                            <form name="frmComment">
-                                <div class="input-group" >
-                                    <input type="hidden" id="writerId" name="writerId" th:value="${session.id}">
-                                    <input type="hidden" id="boardId" th:value="${boardDto.board_id}">
-                                    <textarea class="form-control custom-control" id="comment" name="comment" rows="3" style="resize:none"></textarea>
-                                    <button class="input-group-addon btn btn-primary" id="add-comment-btn">작성</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="card-body comment-section">
-                            <div class="d-flex mb-3 parent-comment boarder-bottom mb-2 pb-3">
-                                <input type="hidden" value="15" name="commentId" class="comment-id">
-                                <div class="ms-3 w-100">
-                                    <th:block th:if="${comments == null}" >
-                                        <div>댓글이 없습니다. 댓글을 작성해주세요.</div>
-                                    </th:block>
-                                    <th:block th:each="comments : ${comments}">
-                                        <div th:style="${comments.group_indent == 1 ? 'padding-left: 40px;' : ''}">
-                                            <div class="d-flex justify-content-between">
-                                                <div class="left-box">
-                                                    <th:block th:if="${comments.group_indent == 1}" >
-                                                        <i class="bi bi-arrow-return-right"></i>
-                                                    </th:block>
-                                                    <div class="flex-shrink-0">
-                                                        <th:block th:if="${comments.path} == null">
-                                                            <div style="border-radius : 50%; overflow: hidden;">
-                                                                <img class="rounded-circle" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" id="profile-default-img" style="width: 20px; height: 20px;">
-                                                            </div>
-                                                        </th:block>
-                                                        <th:block th:if="${comments.path} != null">
-                                                            <div style="border-radius : 50%; overflow: hidden;">
-                                                                <img class="rounded-circle" th:src="${comments.path}" id="profile-img" style="width: 20px; height: 20px;">
-                                                            </div>
-                                                        </th:block>
-                                                    </div>
-                                                    <div class="fw-bold commenter-name" style="font-size:0.90rem;">[[${comments.nickname}]]</div>
-                                                    <div>
-                                                        <small class="text-muted text-sm date-panel">[[${#dates.format(comments.reg_date, 'yyyy-MM-dd HH:mm:ss')}]]</small>
-                                                    </div>
-                                                </div>
-                                                <div class="reply-panel mr-2">
-                                                    <th:block th:if="${session.id == comments.writer_id}" >
-                                                    <button class="btn btn-light" th:id="'modify-comment'+${comments.comment_id}" th:value="${comments.comment_id}"><i class="bi bi-pencil-square"></i>수정</button>
-                                                    </th:block>
-                                                    <th:block th:if="${session.id == comments.writer_id}" >
-                                                    <button class="btn btn-light" th:id="'delete-comment'+${comments.comment_id}" th:value="${comments.comment_id}"><i class="bi bi-trash"></i>삭제</button>
-                                                    </th:block>
-                                                    <button class="btn btn-light" th:id="'reply-comment'+${comments.comment_id}" th:value="${comments.comment_id}"><i class="bi bi-chat"></i>댓글</button>
-                                                </div>
+<body class="d-flex flex-column h-100">
+    <section class="py-3">
+        <div class="container col-lg-10 mt-3">
+            <div class="row gx-5">
+                <th:block th:if="${session.nickName} == null or ${session.id} != ${boardDto.board_writerId}">
+                    <div class="col-lg-3">
+                        <div class="mobile-display-none">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex flex-column align-items-center text-center">
+                                        <th:block th:if="${boardDto.path} == null">
+                                            <div style="border-radius : 50%; overflow: hidden;">
+                                                <img class="rounded-circle" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" style="width: 120px; height: 120px;">
                                             </div>
-                                            <ul class="list-group-flush">
-                                                <li class="list-group-item">
-                                                    <div th:id="'reply-content'+${comments.comment_id}">[[${comments.comment}]]</div>
-                                                    <hr class="mt-3 mb-3"/>
-                                                </li>
-                                            </ul>
-                                            <form class="re-reply-form">
-                                                <input type="hidden" th:id="'writerId'+${comments.comment_id}" th:value="${session.id}">
-                                                <input type="hidden" th:id="'boardId'+${comments.comment_id}" th:value="${boardDto.board_id}">
-                                                <input type="hidden" th:id="'groupId'+${comments.comment_id}"  th:value="${comments.group_id} != null ? ${comments.group_id} : ${comments.comment_id}">
-                                                <input type="hidden" id="group_indent" value="1">
-                                                <div th:id="'reply-textarea'+${comments.comment_id}" class="reply-textarea" style="display:none">
-                                                    <div class="re-reply-container">
-                                                       <div class='re-reply'>댓글</div>
-                                                       <textarea class='form-control custom-control re-reply' th:id="'reply'+${comments.comment_id}" name='comment' rows='3' style='resize:none'></textarea>
-                                                       <button class='input-group-addon btn btn-primary btn-sm reply-btn' th:value="${comments.comment_id}" id="'add-reply-comment-btn'+${comments.comment_id}">작성</button>
-                                                   </div>
-                                                </div>
-                                                <div th:id="'re-reply-textarea'+${comments.comment_id}" class="reply-textarea" style="display:none">
-                                                    <div class="re-reply-container">
-                                                        <div class='re-reply'>댓글</div>
-                                                        <textarea class='form-control custom-control re-reply' th:id="'modify'+${comments.comment_id}" name='comment' rows='3' style='resize:none'>[[${comments.comment}]]</textarea>
-                                                        <button class='input-group-addon btn btn-primary btn-sm reply-modify-btn' th:value="${comments.comment_id}" id="'add-re-reply-comment-btn'+${comments.comment_id}">작성</button>
-                                                    </div>
-                                                </div>
-                                            </form>
+                                        </th:block>
+                                        <th:block th:if="${boardDto.path} != null">
+                                            <div style="border-radius : 50%; overflow: hidden;">
+                                                <img class="rounded-circle" th:src="${boardDto.path}" style="width: 120px; height: 120px;">
+                                            </div>
+                                        </th:block>
+                                        <div class="mt-3">
+                                            <h4 class="text-break">[[${boardDto.writer_nickName}]]</h4>
+                                            <p class="text-secondary mb-1"></p>
+                                            <a class="btn btn-primary" type="button" th:href="@{/profile/{id}(id = ${boardDto.board_writerId})}">프로필 보기</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+                <div class="content-area" th:classappend="${session.id} == ${boardDto.board_writerId} ? 'col-lg-12' : 'col-lg-9'">
+                    <article>
+                        <div class="row mb-4">
+                            <div class="row">
+                                <div  class="col-9" style="word-break: break-word;">
+                                    <h1 class="fw-bolder mb-1">[[${boardDto.board_title}]]</h1>
+                                </div>
+                                <div class="col-3 text-end pr-0">
+                                    <h4>
+                                        <span class="badge bg-primary">모집 중</span>
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="mb-2">모집기간 : [[${boardDto.board_startDate}]] ~ [[${boardDto.board_endDate}]]</div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <h5 class="d-inline">
+                                        <span class="badge badge-light text-dark mr-1" style="background-color : #b3e5fc">#[[${boardDto.board_interest1}]]</span>
+                                    </h5>
+                                    <h5 class="d-inline">
+                                        <span class="badge badge-light text-dark mr-1" style="background-color : #b3e5fc">#[[${boardDto.board_interest2}]]</span>
+                                    </h5>
+                                    <h5 class="d-inline">
+                                        <span class="badge badge-light text-dark mr-1" style="background-color : #b3e5fc">#[[${boardDto.board_interest3}]]</span>
+                                    </h5>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <th:block th:if="${session.nickName} == null or ${session.id} != ${boardDto.board_writerId}">
+                                        <div>
+                                            <i class="bi-heart" style="font-size: 1.5rem; color: red; cursor: pointer;"></i>
+                                            <button type="button" class="btn btn-primary" id="wanna-join">🙋 참여하고 싶어요</button>
                                         </div>
                                     </th:block>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="d-inline">
+                                        <span class="badge badge-info mr-1" style="background-color: blueviolet;">
+                                          <i class="bi bi-geo-alt">
+                                          </i>
+                                            <th:block th:if="${boardDto.board_on_off} == '1'">
+                                                온라인
+                                            </th:block>
+                                            <th:block th:if="${boardDto.board_on_off} == '0'">
+                                                [[${boardDto.board_location}]]
+                                            </th:block>
+                                        </span>
+                                    </h5>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="write">
-                        <a class="btn btn-secondary btn-lg btn-block mt-2" type="button" id="edit" style="float: right;" href="./groups/newedit.html">수정하기</a>
-                        <button class="btn btn-secondary btn-lg btn-block mt-2" type="button" id="delete" style="float: right; margin-right: 1%;">삭제하기</button>
-                    </div>
-                </section>
+                        <div class="card mb-4" style="min-height: 300px;">
+                            <div class="card-body" th:utext="${boardDto.board_content}">
+                            </div>
+                        </div>
+                    </article>
+                    <section>
+                        <form name="commentFrm" id="commentFrm">
+                            <input type="hidden" name="totalPage" value>
+                            <input type="hidden" name="page" value="0">
+                        </form>
+                        <div class="card bg-light">
+                            <div class="card-header">
+                                <h4 class="card-title">댓글([[${totalComment}]])</h4>
+                                <input type="hidden" name="page" value="0">
+                                <form name="frmComment">
+                                    <div class="input-group" >
+                                        <input type="hidden" id="writerId" name="writerId" th:value="${session.id}">
+                                        <input type="hidden" id="boardId" th:value="${boardDto.board_id}">
+                                        <textarea class="form-control custom-control" id="comment" name="comment" rows="3" style="resize:none"></textarea>
+                                        <button class="input-group-addon btn btn-primary" id="add-comment-btn">작성</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-body comment-section">
+                                <div class="d-flex mb-3 parent-comment boarder-bottom mb-2 pb-3">
+                                    <input type="hidden" value="15" name="commentId" class="comment-id">
+                                    <div class="ms-3 w-100">
+                                        <th:block th:if="${comments == null}" >
+                                            <div>댓글이 없습니다. 댓글을 작성해주세요.</div>
+                                        </th:block>
+                                        <th:block th:each="comments : ${comments}">
+                                            <div th:style="${comments.group_indent == 1 ? 'padding-left: 40px;' : ''}">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="left-box">
+                                                        <th:block th:if="${comments.group_indent == 1}" >
+                                                            <i class="bi bi-arrow-return-right"></i>
+                                                        </th:block>
+                                                        <div class="flex-shrink-0">
+                                                            <th:block th:if="${comments.path} == null">
+                                                                <div style="border-radius : 50%; overflow: hidden;">
+                                                                    <img class="rounded-circle" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" id="profile-default-img" style="width: 20px; height: 20px;">
+                                                                </div>
+                                                            </th:block>
+                                                            <th:block th:if="${comments.path} != null">
+                                                                <div style="border-radius : 50%; overflow: hidden;">
+                                                                    <img class="rounded-circle" th:src="${comments.path}" id="profile-img" style="width: 20px; height: 20px;">
+                                                                </div>
+                                                            </th:block>
+                                                        </div>
+                                                        <div class="fw-bold commenter-name" style="font-size:0.90rem;">[[${comments.nickname}]]</div>
+                                                        <div>
+                                                            <small class="text-muted text-sm date-panel">[[${#dates.format(comments.reg_date, 'yyyy-MM-dd HH:mm:ss')}]]</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="reply-panel mr-2">
+                                                        <th:block th:if="${session.id == comments.writer_id}" >
+                                                        <button class="btn btn-light" th:id="'modify-comment'+${comments.comment_id}" th:value="${comments.comment_id}"><i class="bi bi-pencil-square"></i>수정</button>
+                                                        </th:block>
+                                                        <th:block th:if="${session.id == comments.writer_id}" >
+                                                        <button class="btn btn-light" th:id="'delete-comment'+${comments.comment_id}" th:value="${comments.comment_id}"><i class="bi bi-trash"></i>삭제</button>
+                                                        </th:block>
+                                                        <button class="btn btn-light" th:id="'reply-comment'+${comments.comment_id}" th:value="${comments.comment_id}"><i class="bi bi-chat"></i>댓글</button>
+                                                    </div>
+                                                </div>
+                                                <ul class="list-group-flush">
+                                                    <li class="list-group-item">
+                                                        <div th:id="'reply-content'+${comments.comment_id}">[[${comments.comment}]]</div>
+                                                        <hr class="mt-3 mb-3"/>
+                                                    </li>
+                                                </ul>
+                                                <form class="re-reply-form">
+                                                    <input type="hidden" th:id="'writerId'+${comments.comment_id}" th:value="${session.id}">
+                                                    <input type="hidden" th:id="'boardId'+${comments.comment_id}" th:value="${boardDto.board_id}">
+                                                    <input type="hidden" th:id="'groupId'+${comments.comment_id}"  th:value="${comments.group_id} != null ? ${comments.group_id} : ${comments.comment_id}">
+                                                    <input type="hidden" id="group_indent" value="1">
+                                                    <div th:id="'reply-textarea'+${comments.comment_id}" class="reply-textarea" style="display:none">
+                                                        <div class="re-reply-container">
+                                                           <div class='re-reply'>댓글</div>
+                                                           <textarea class='form-control custom-control re-reply' th:id="'reply'+${comments.comment_id}" name='comment' rows='3' style='resize:none'></textarea>
+                                                           <button class='input-group-addon btn btn-primary btn-sm reply-btn' th:value="${comments.comment_id}" id="'add-reply-comment-btn'+${comments.comment_id}">작성</button>
+                                                       </div>
+                                                    </div>
+                                                    <div th:id="'re-reply-textarea'+${comments.comment_id}" class="reply-textarea" style="display:none">
+                                                        <div class="re-reply-container">
+                                                            <div class='re-reply'>댓글</div>
+                                                            <textarea class='form-control custom-control re-reply' th:id="'modify'+${comments.comment_id}" name='comment' rows='3' style='resize:none'>[[${comments.comment}]]</textarea>
+                                                            <button class='input-group-addon btn btn-primary btn-sm reply-modify-btn' th:value="${comments.comment_id}" id="'add-re-reply-comment-btn'+${comments.comment_id}">작성</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <th:block th:if="${session.id} == ${boardDto.board_writerId}">
+                            <div class="write">
+                                <a class="btn btn-secondary btn-lg btn-block mt-2" type="button" id="edit" style="float: right;">수정하기</a>
+                                <button class="btn btn-secondary btn-lg btn-block mt-2" type="button" id="delete" style="float: right; margin-right: 1%;">삭제하기</button>
+                            </div>
+                        </th:block>
+                    </section>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<script type="text/javascript" th:inline="javascript">
-		/*<![CDATA[*/
+    </section>
+</body>
+</div>
+<th:block layout:fragment="extraJs">
+    <script type="text/javascript" th:inline="javascript">
+            /*<![CDATA[*/
 
-        //댓글 작성
-        $("#add-comment-btn").click(function(){
-            let data = {
-                writer_id : $("#writerId").val(),
-                study_id : $("#boardId").val(),
-                comment : $("#comment").val()
-            }
+            //댓글 작성
+            $("#add-comment-btn").click(function(){
+                let data = {
+                    writer_id : $("#writerId").val(),
+                    study_id : $("#boardId").val(),
+                    comment : $("#comment").val()
+                }
 
-            if([[${session.id}]] === null) {
-                alert("로그인이 필요합니다.");
-                return false;
-            } else if (!data.comment || data.comment.trim() === "") {
-                alert("댓글 내용을 입력해주세요.");
-                return false;
-            } else {
-                $.ajax({
-                    type:"POST",
-                    url:"/comments/save/" + data.writer_id,
-                    dataType : 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(data),
-                    cache : false,
-                    success:function(response){
+                if([[${session.id}]] === null) {
+                    alert("로그인이 필요합니다.");
+                    return false;
+                } else if (!data.comment || data.comment.trim() === "") {
+                    alert("댓글 내용을 입력해주세요.");
+                    return false;
+                } else {
+                    $.ajax({
+                        type:"POST",
+                        url:"/comments/save/" + data.writer_id,
+                        dataType : 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(data),
+                        cache : false,
+                        success:function(response){
+                            if(response.result == 2){
+                                alert("댓글은 500자 미만으로 입력해주세요.");
+                            } else if(response.result == 1){
+                                alert("댓글이 등록되었습니다.");
+                                window.location.reload();
+                            } else {
+                                alert("댓글 등록 중 오류가 발생했습니다.");
+                            }
+                        }
+                    });
+                }
+            });
+
+            $(".btn-light").click(function(){
+                let id = $(this).val();
+                let button = $(this).text();
+                let reply = document.getElementById('reply-textarea'+id);
+                let re_reply = document.getElementById('re-reply-textarea'+id);
+
+                if(button === '댓글') {
+                    if(reply.style.display==='none'){
+                        re_reply.style.display='none';
+                        reply.style.display='block';
+                    } else {
+                        reply.style.display='none';
+                        re_reply.display='none';
+                    }
+                } else if(button === '수정') {
+                    if(re_reply.style.display==='none'){
+                        reply.style.display='none';
+                        re_reply.style.display='block';
+                    } else {
+                        re_reply.style.display='none';
+                        reply.style.display='none';
+                    }
+                } else {
+                    //댓글 삭제
+                    let data = {
+                        comment_id : id
+                    }
+                    const check = confirm("댓글을 삭제하시겠습니까?")
+                    if (check === true) {
+                        $.ajax({
+                            type:"DELETE",
+                            url:"/comments/delete/reply/" + data.comment_id,
+                            dataType : 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify(data),
+                            cache : false,
+                        }).done(function() {
+                            alert("댓글이 삭제되었습니다.");
+                            window.location.reload();
+                        }).fail(function (error) {
+                            alert(JSON.stringify(error));
+                        });
+                    }
+                }
+            });
+
+            //대댓글 작성
+            $(".reply-btn").click(function(){
+                let id = $(this).val();
+                let data = {
+                    writer_id : $('#writerId'+id).val(),
+                    study_id : $('#boardId'+id).val(),
+                    group_id : $('#groupId'+id).val(),
+                    group_indent : $('#group_indent').val(),
+                    comment : $('#reply'+id).val()
+                }
+                if([[${session.id}]] === null) {
+                    alert("로그인이 필요합니다.");
+                    return false;
+                } else if (!data.comment || data.comment.trim() === "") {
+                    alert("댓글 내용을 입력해주세요.");
+                    return false;
+                } else {
+                    $.ajax({
+                        type:"POST",
+                        url:"/comments/save/reply/" + data.writer_id,
+                        dataType : 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(data),
+                        cache : false,
+                    }).done(function(response) {
                         if(response.result == 2){
                             alert("댓글은 500자 미만으로 입력해주세요.");
                         } else if(response.result == 1){
                             alert("댓글이 등록되었습니다.");
                             window.location.reload();
-                        } else {
-                            alert("댓글 등록 중 오류가 발생했습니다.");
                         }
-                    }
-                });
-            }
-        });
-
-        $(".btn-light").click(function(){
-            let id = $(this).val();
-            let button = $(this).text();
-            let reply = document.getElementById('reply-textarea'+id);
-            let re_reply = document.getElementById('re-reply-textarea'+id);
-
-            if(button === '댓글') {
-                if(reply.style.display==='none'){
-                    re_reply.style.display='none';
-                    reply.style.display='block';
-                } else {
-                    reply.style.display='none';
-                    re_reply.display='none';
+                    }).fail(function (error) {
+                        alert(JSON.stringify(error));
+                    });
                 }
-            } else if(button === '수정') {
-                if(re_reply.style.display==='none'){
-                    reply.style.display='none';
-                    re_reply.style.display='block';
-                } else {
-                    re_reply.style.display='none';
-                    reply.style.display='none';
-                }
-            } else {
-                //댓글 삭제
+            });
+
+            //댓글 수정
+            $(".reply-modify-btn").click(function(){
+                let id = $(this).val();
                 let data = {
-                    comment_id : id
+                    writer_id : $('#writerId'+id).val(),
+                    study_id : $('#boardId'+id).val(),
+                    group_id : $('#groupId'+id).val(),
+                    comment_id : id,
+                    comment : $('#modify'+id).val()
                 }
-                const check = confirm("댓글을 삭제하시겠습니까?")
+
+                if (!data.comment || data.comment.trim() === "") {
+                    alert("댓글 내용을 입력해주세요.");
+                    return false;
+                }
+                const check = confirm("수정하시겠습니까?")
                 if (check === true) {
                     $.ajax({
-                        type:"DELETE",
-                        url:"/comments/delete/reply/" + data.comment_id,
+                        type:"PUT",
+                        url:"/comments/modify/reply/" + data.writer_id,
                         dataType : 'json',
                         contentType: 'application/json; charset=utf-8',
                         data: JSON.stringify(data),
                         cache : false,
                     }).done(function() {
-                        alert("댓글이 삭제되었습니다.");
+                        alert("댓글이 수정되었습니다.");
                         window.location.reload();
                     }).fail(function (error) {
                         alert(JSON.stringify(error));
                     });
                 }
-            }
-        });
+            });
 
-        //대댓글 작성
-        $(".reply-btn").click(function(){
-            let id = $(this).val();
-            let data = {
-                writer_id : $('#writerId'+id).val(),
-                study_id : $('#boardId'+id).val(),
-                group_id : $('#groupId'+id).val(),
-                group_indent : $('#group_indent').val(),
-                comment : $('#reply'+id).val()
-            }
-            if([[${session.id}]] === null) {
-                alert("로그인이 필요합니다.");
-                return false;
-            } else if (!data.comment || data.comment.trim() === "") {
-                alert("댓글 내용을 입력해주세요.");
-                return false;
-            } else {
-                $.ajax({
-                    type:"POST",
-                    url:"/comments/save/reply/" + data.writer_id,
-                    dataType : 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(data),
-                    cache : false,
-                }).done(function(response) {
-                    if(response.result == 2){
-                        alert("댓글은 500자 미만으로 입력해주세요.");
-                    } else if(response.result == 1){
-                        alert("댓글이 등록되었습니다.");
-                        window.location.reload();
-                    }
-                }).fail(function (error) {
-                    alert(JSON.stringify(error));
-                });
-            }
-        });
+            //글 수정
+            $("#edit").click(function(){
+                let data = {
+                    board_id : [[${boardDto.board_id}]]
+                }
 
-        //댓글 수정
-        $(".reply-modify-btn").click(function(){
-            let id = $(this).val();
-            let data = {
-                writer_id : $('#writerId'+id).val(),
-                study_id : $('#boardId'+id).val(),
-                group_id : $('#groupId'+id).val(),
-                comment_id : id,
-                comment : $('#modify'+id).val()
-            }
+                const check = confirm("글을 수정하시겠습니까?")
+                if (check === true) {
+                    location.href = "/board/write/"+data.board_id;
+                }
+            });
 
-            if (!data.comment || data.comment.trim() === "") {
-                alert("댓글 내용을 입력해주세요.");
-                return false;
-            }
-            const check = confirm("수정하시겠습니까?")
-            if (check === true) {
-                $.ajax({
-                    type:"PUT",
-                    url:"/comments/modify/reply/" + data.writer_id,
-                    dataType : 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(data),
-                    cache : false,
-                }).done(function() {
-                    alert("댓글이 수정되었습니다.");
-                    window.location.reload();
-                }).fail(function (error) {
-                    alert(JSON.stringify(error));
-                });
-            }
-        });
+<!--            //글 삭제-->
+<!--            $("#delete").click(function(){-->
+<!--                $.ajax({-->
+<!--                    type:"DELETE",-->
+<!--                    url:"/comments/delete/reply/" + data.comment_id,-->
+<!--                    dataType : 'json',-->
+<!--                    contentType: 'application/json; charset=utf-8',-->
+<!--                    data: JSON.stringify(data),-->
+<!--                    cache : false,-->
+<!--                }).done(function() {-->
+<!--                    alert("댓글이 삭제되었습니다.");-->
+<!--                    window.location.reload();-->
+<!--                }).fail(function (error) {-->
+<!--                    alert(JSON.stringify(error));-->
+<!--                });-->
+<!--            });-->
 
 
-
-		/*]]>*/
-</script>
-</body>
+            /*]]>*/
+    </script>
+</th:block>
 </html>

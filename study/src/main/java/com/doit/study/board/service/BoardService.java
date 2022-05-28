@@ -23,6 +23,9 @@ public interface BoardService {
     //게시글 정보 가져오기(BoardDto 값이 없을 때)
     BoardDto findStudyById(int study_id);
 
+    //게시글 수정하기
+    BoardDto updateBoard(BoardDto boardDto);
+
     Integer getCountBySearching(SearchDto searchDto);
 
 

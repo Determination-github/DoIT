@@ -1,51 +1,46 @@
 package com.doit.study.board.dto;
 
 import com.doit.study.board.domain.Board;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 public class BoardDto {
     private int  board_id, board_writerId;
-    private String  writer_nickName;
-    private String  board_startDate, board_endDate;
-    private String  board_title, board_subTitle, board_content, board_location;
+    private String  writer_nickName, board_location;
     private int     board_on_off, board_viewCount, board_commentCount;
-    private String  board_interest1, board_interest2, board_interest3;
     private Date board_regDate;
+    private boolean board_onOffLine;
 
     //프로필 이미지
     private String path;
 
-//    첫 번째 글 작성 페이지에서 넘어온 데이터 합치기
-    public BoardDto toBoardDto(FirstStudyDto firstStudyDto, BoardDto boardDto) {
+    @NotEmpty(message = "날짜를 입력해주세요.")
+    private String  board_startDate, board_endDate;
 
-        //boardDto 값 세팅
-        boardDto.setWriter_nickName(firstStudyDto.getNickName());
-        boardDto.setBoard_interest1(firstStudyDto.getInterest1());
-        boardDto.setBoard_interest2(firstStudyDto.getInterest2());
-        boardDto.setBoard_interest3(firstStudyDto.getInterest3());
-        boardDto.setBoard_writerId(firstStudyDto.getId());
-        boardDto.setBoard_startDate(firstStudyDto.getStartDate());
-        boardDto.setBoard_endDate(firstStudyDto.getEndDate());
-        boardDto.setBoard_location(firstStudyDto.getTotalLocation());
-        boardDto.setBoard_on_off(firstStudyDto.getFlag());
-        boardDto.setBoard_subTitle(firstStudyDto.getSubTitle());
+    @NotEmpty(message = "제목을 입력해주세요.")
+    private String board_title;
 
-        return boardDto;
-    }
+    private String  board_location1, board_location2;
+
+    @NotEmpty(message = "카테고리를 모두 선택해주세요.")
+    private String  board_interest1, board_interest2, board_interest3;
+
+    @NotEmpty(message = "내용을 입력해주세요.")
+    private String board_content;
+
 
     public Board toEntity(BoardDto boardWriteDto) {
         return Board.builder()
+                .study_id(board_id)
                 .id(board_writerId)
                 .schedule_start(board_startDate)
                 .schedule_end(board_endDate)
                 .title(board_title)
-                .sub_title(board_subTitle)
                 .content(board_content)
                 .location(board_location)
                 .interest1(board_interest1)
@@ -63,7 +58,6 @@ public class BoardDto {
         boardDto.setBoard_startDate(board.getSchedule_start());
         boardDto.setBoard_endDate(board.getSchedule_end());
         boardDto.setBoard_title(board.getTitle());
-        boardDto.setBoard_subTitle(board.getSub_title());
         boardDto.setBoard_content(board.getContent());
         boardDto.setBoard_location(board.getLocation());
         boardDto.setBoard_on_off(board.getOn_off());

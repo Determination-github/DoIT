@@ -14,13 +14,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -55,94 +58,108 @@ public class BoardController {
     }
 
 
-    @GetMapping("/write")
+    @RequestMapping(value = {"/write", "/write/{board_id}"}, method = RequestMethod.GET)
     public String write(HttpServletRequest request,
-                        @ModelAttribute("firstStudyDto") FirstStudyDto firstStudyDto,
+                        @ModelAttribute("boardDto") BoardDto boardDto,
+                        Model model,
+                        @PathVariable Optional<Integer> board_id,
                         RedirectAttributes redirect) {
-        HttpSession session = request.getSession(false);
-        if(session != null && session.getAttribute("id")!=null) {
-            int id = (int) session.getAttribute("id");
-            String nickName = (String) session.getAttribute("nickName");
-            firstStudyDto.setId(id);
-            firstStudyDto.setNickName(nickName);
-            return "/board/firstWriteBoardForm";
+        if(!board_id.isPresent()) {
+            HttpSession session = request.getSession(false);
+            if (session != null && session.getAttribute("id") != null) {
+                int id = (int) session.getAttribute("id");
+                String nickName = (String) session.getAttribute("nickName");
+                boardDto.setBoard_writerId(id);
+                boardDto.setWriter_nickName(nickName);
+
+                log.info("boardDto = " + boardDto);
+
+                return "/board/boardWriteForm";
+            } else {
+                redirect.addAttribute("redirectURL", "/board/write");
+                return "redirect:/login";
+            }
         } else {
-            redirect.addAttribute("redirectURL", "/board/write");
-            return "redirect:/login";
+            //스터디 아이디로 게시글 정보 가져오기
+            int study_id = board_id.get();
+
+            boardDto = boardService.findStudyById(study_id);
+            log.info("boardDto = "+boardDto);
+
+            if(boardDto.getBoard_on_off() == 1) {
+                boardDto.setBoard_onOffLine(true);
+            }
+
+            log.info("boardDto 정보 가져오기 " + boardDto);
+            model.addAttribute("boardDto", boardDto);
+
+            return "/board/boardWriteForm";
         }
     }
 
-    @PostMapping("/write")
+    @RequestMapping(value = {"/write", "/write/{board_id}"}, method = RequestMethod.POST)
     public String write(
-            @ModelAttribute("firstStudyDto") FirstStudyDto firstStudyDto,
-            RedirectAttributes redirectAttributes)
-    {
-        redirectAttributes.addFlashAttribute("firstStudyDto", firstStudyDto);
-        log.info("firstStudyDto = " + firstStudyDto);
+                        @Valid @ModelAttribute("boardDto") BoardDto boardDto,
+                        BindingResult bindingResult,
+                        @PathVariable Optional<Integer> board_id,
+                        RedirectAttributes redirectAttributes) {
 
-        return "redirect:/board/secondWrite";
-    }
+        if(bindingResult.hasErrors()) {
+            log.info("error={}", bindingResult);
+            return "board/boardWriteForm";
+        }
 
-    @GetMapping("/secondWrite")
-    public String secondWrite(@ModelAttribute("boardDto") BoardDto boardDto,
-                              HttpServletRequest request,
-                              Model model) {
-        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
-        if(inputFlashMap != null) {
-            FirstStudyDto firstStudyDto = (FirstStudyDto) inputFlashMap.get("firstStudyDto");
-            model.addAttribute("firstStudyDto", firstStudyDto);
+        //관심 정보 얻기
+        Interest interest = new Interest();
+        Map<String, String> interestMap = interest.getInterestMap();
+        String interest1 = interestMap.get(boardDto.getBoard_interest1());
+        String interest2 = interestMap.get(boardDto.getBoard_interest2());
 
+        //관심 설정(첫 번째랑 두 번째 카테고리만 매핑되어 있음)
+        boardDto.setBoard_interest1(interest1);
+        boardDto.setBoard_interest2(interest2);
+
+        //온라인 오프라인 설정
+        if(boardDto.isBoard_onOffLine()) {
+            boardDto.setBoard_location(null);
+            boardDto.setBoard_on_off(1);
+        } else {
             //주소 정보 얻기
             Address address = new Address();
             Map<String, String> addressMap = address.getAddressMap();
-            String location1 = addressMap.get(firstStudyDto.getLocation1());
+            String location1 = addressMap.get(boardDto.getBoard_location1());
 
             //주소 설정
-            String location2 = firstStudyDto.getLocation2();
-            firstStudyDto.setTotalLocation(location1+" "+location2);
-
-            //관심 정보 얻기
-            Interest interest = new Interest();
-            Map<String, String> interestMap = interest.getInterestMap();
-            String interest1 = interestMap.get(firstStudyDto.getInterest1());
-            String interest2 = interestMap.get(firstStudyDto.getInterest2());
-
-            //관심 설정(첫 번째랑 두 번째 카테고리만 매핑되어 있음)
-            firstStudyDto.setInterest1(interest1);
-            firstStudyDto.setInterest2(interest2);
-
-            //온라인 오프라인 설정
-            if(firstStudyDto.isOnOffLine()) {
-                firstStudyDto.setFlag(1);
-            } else {
-                firstStudyDto.setFlag(0);
-            }
-
-            boardDto.toBoardDto(firstStudyDto, boardDto);
-
-            log.info("secondWrite 화면으로..");
-            log.info("boardDto = " + boardDto);
-            return "/board/secondWriteBoardForm";
-        } else {
-            return "redirect:/board/write";
+            String location2 = boardDto.getBoard_location2();
+            boardDto.setBoard_location(location1+" "+location2);
+            boardDto.setBoard_on_off(0);
         }
-    }
 
-    @PostMapping("/secondWrite")
-    public String secondWrite(@ModelAttribute("boardDto") BoardDto boardDto,
-                              RedirectAttributes redirectAttributes) {
-        log.info("두 번째 writeForm");
         log.info("boardDto = " + boardDto);
 
-        //사용자 아이디 가져오기
-        int board_writerId = boardDto.getBoard_writerId();
+        if(!board_id.isPresent()) {
+            //사용자 아이디 가져오기
+            int board_writerId = boardDto.getBoard_writerId();
 
-        int study_id = boardService.insertStudyBoard(boardDto);
-        log.info("study_id={}", study_id);
+            int study_id = boardService.insertStudyBoard(boardDto);
+            log.info("study_id={}", study_id);
 
-        redirectAttributes.addFlashAttribute("boardDto", boardDto);
+            redirectAttributes.addFlashAttribute("boardDto", boardDto);
 
-        return "redirect:/board/result/" + study_id;
+            return "redirect:/board/result/" + study_id;
+        } else {
+            int study_id = board_id.get();
+            log.info("study_id "+study_id);
+            boardDto.setBoard_id(study_id);
+            boardDto = boardService.updateBoard(boardDto);
+
+            redirectAttributes.addFlashAttribute("boardDto", boardDto);
+
+            return "redirect:/board/result/" + study_id;
+        }
+
+
+
     }
 
     @GetMapping("/result/{id}")

@@ -41,6 +41,10 @@ public interface BoardMapper {
     @Select(BoardSQL.getCountByKeyword)
     Integer getCountByKeyword(@Param("searchDto") SearchDto searchDto);
 
+    //게시글 업데이트
+    @Update(BoardSQL.updateBoard)
+    void updateBoard(@Param("board") Board board);
+
 
     @Select(BoardSQL.getMyStudyList)
     Integer getMyStudyList(@Param("user_id") String id);
