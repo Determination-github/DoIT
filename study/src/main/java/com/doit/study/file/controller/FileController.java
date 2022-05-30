@@ -13,7 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -49,13 +54,23 @@ public class FileController {
     }
 
     @GetMapping("/file/images/{fileId}")
-    public ResponseEntity<?> serveFile(@PathVariable String fileId) {
+    public ResponseEntity<?> serveFile(@PathVariable String fileId,
+                                       HttpServletRequest request) {
         try {
             log.info("id = " + fileId);
+
+            //세션에 담긴 study_id 가져오기
+            HttpSession session = request.getSession(false);
+            Integer study_id = (Integer) session.getAttribute("study_id");
+            log.info("study_id = "+study_id);
+
             FileDto fileDto = fileService.findFile(fileId);
+            log.info("fileDto = " + fileDto);
+            if(fileDto.getStudy_id() == null) {
+                fileService.insertStudyId(study_id, fileId);
+            }
+
             String path = fileDto.getFile_path();
-//            String id = fileDto.getFile_id();
-//            String name = fileDto.getFile_origin_name();
             Resource resource = resourceLoader.getResource(path);
             return ResponseEntity.ok().body(resource);
         } catch (Exception e) {

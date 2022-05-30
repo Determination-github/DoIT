@@ -15,6 +15,8 @@ public class FileEntity {
     @NotEmpty
     private String file_id, file_origin_name, file_path;
 
+    private Integer study_id;
+
     private Date file_reg_date;
 
     @Builder

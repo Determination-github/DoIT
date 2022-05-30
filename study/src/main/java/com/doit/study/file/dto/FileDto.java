@@ -13,6 +13,7 @@ import java.sql.Date;
 public class FileDto {
 
     private String file_id, file_origin_name, file_path;
+    private Integer study_id;
     private Date file_reg_date;
 
     public FileEntity toEntity(FileDto fileDto) {
