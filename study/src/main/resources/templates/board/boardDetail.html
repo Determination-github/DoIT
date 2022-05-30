@@ -190,7 +190,7 @@
                         <th:block th:if="${session.id} == ${boardDto.board_writerId}">
                             <div class="write">
                                 <a class="btn btn-secondary btn-lg btn-block mt-2" type="button" id="edit" style="float: right;">수정하기</a>
-                                <button class="btn btn-secondary btn-lg btn-block mt-2" type="button" id="delete" style="float: right; margin-right: 1%;">삭제하기</button>
+                                <button class="btn btn-secondary btn-lg btn-block mt-2" th:value="${boardDto.board_id}" type="button" id="delete" style="float: right; margin-right: 1%;">삭제하기</button>
                             </div>
                         </th:block>
                     </section>
@@ -368,22 +368,24 @@
                 }
             });
 
-<!--            //글 삭제-->
-<!--            $("#delete").click(function(){-->
-<!--                $.ajax({-->
-<!--                    type:"DELETE",-->
-<!--                    url:"/comments/delete/reply/" + data.comment_id,-->
-<!--                    dataType : 'json',-->
-<!--                    contentType: 'application/json; charset=utf-8',-->
-<!--                    data: JSON.stringify(data),-->
-<!--                    cache : false,-->
-<!--                }).done(function() {-->
-<!--                    alert("댓글이 삭제되었습니다.");-->
-<!--                    window.location.reload();-->
-<!--                }).fail(function (error) {-->
-<!--                    alert(JSON.stringify(error));-->
-<!--                });-->
-<!--            });-->
+            //글 삭제
+            $("#delete").click(function(){
+                let id = $(this).val();
+                const check = confirm("글을 삭제하시겠습니까?")
+                if(check === true) {
+                    $.ajax({
+                        type:"DELETE",
+                        url:"/board/delete/" +id,
+                        contentType: 'application/json; charset=utf-8',
+                        cache : false,
+                    }).done(function() {
+                        alert("글이 삭제되었습니다.");
+                        location.href = "/";
+                    }).fail(function (error) {
+                        alert(JSON.stringify(error));
+                    });
+                }
+            });
 
 
             /*]]>*/

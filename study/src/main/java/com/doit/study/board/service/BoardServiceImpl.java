@@ -116,6 +116,7 @@ public class BoardServiceImpl implements BoardService {
         return null;
     }
 
+    //게시글 수정
     @Override
     public BoardDto updateBoard(BoardDto boardDto) {
         log.info("update boardDto={}", boardDto);
@@ -129,6 +130,12 @@ public class BoardServiceImpl implements BoardService {
             return boardDto.toBoardDto(updateBoard);
         }
         return null;
+    }
+
+    //게시글 삭제
+    @Override
+    public Integer deleteBoard(int study_id) {
+        return boardMapper.deleteBoard(study_id);
     }
 
     //검색 내용에 따른 게시글 개수

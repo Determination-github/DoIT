@@ -12,6 +12,8 @@ import com.doit.study.comment.service.CommentService;
 import com.doit.study.profile.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -157,9 +158,6 @@ public class BoardController {
 
             return "redirect:/board/result/" + study_id;
         }
-
-
-
     }
 
     @GetMapping("/result/{id}")
@@ -168,6 +166,14 @@ public class BoardController {
                                 @PathVariable int id) {
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
         log.info("inputFlashMap={}",inputFlashMap);
+
+        //세션에 스터디 아이디 저장
+        HttpSession session = request.getSession();
+        //기존 세션 삭제
+        session.removeAttribute("study_id");
+        //세션 업데이트
+        session.setAttribute("study_id", id);
+
         if(inputFlashMap!=null) {
             BoardDto boardDto = (BoardDto) inputFlashMap.get("boardDto");
             log.info("boardDto = " + boardDto);
@@ -181,10 +187,14 @@ public class BoardController {
 
             log.info("boardDto 갱신={}", boardDto);
             model.addAttribute("boardDto", boardDto);
+
             //댓글 정보 가져오기
             commentCheck(model, id);
+
             //댓글 개수
             model.addAttribute("totalComment", commentService.getCount(id));
+
+
             return "/board/boardDetail";
         } else {
             BoardDto boardDto = boardService.findStudyById(id);
@@ -314,7 +324,20 @@ public class BoardController {
 
             return "/index";
         }
+    }
 
+    @DeleteMapping("/delete/{study_id}")
+    public ResponseEntity<?> deleteStudy(@PathVariable("study_id") Integer study_id) {
+        log.info("study_id={}", study_id);
+
+        Integer result = boardService.deleteBoard(study_id);
+        log.info("result= {}", result);
+
+        if(result != null) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return null;
     }
 
 //    @GetMapping("/studyList/{id}")

@@ -26,6 +26,9 @@ public interface BoardService {
     //게시글 수정하기
     BoardDto updateBoard(BoardDto boardDto);
 
+    //게시글 삭제하기
+    Integer deleteBoard(int study_id);
+
     Integer getCountBySearching(SearchDto searchDto);
 
 

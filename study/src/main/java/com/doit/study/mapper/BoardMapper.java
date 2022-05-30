@@ -45,6 +45,10 @@ public interface BoardMapper {
     @Update(BoardSQL.updateBoard)
     void updateBoard(@Param("board") Board board);
 
+    //게시글 삭제
+    @Delete(BoardSQL.deleteBoard)
+    Integer deleteBoard(@Param("study_id") int study_id);
+
 
     @Select(BoardSQL.getMyStudyList)
     Integer getMyStudyList(@Param("user_id") String id);

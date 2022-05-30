@@ -33,12 +33,16 @@ public class BoardSQL {
                     " WHERE sub.title like IFNULL(CONCAT('%',#{searchDto.keyword},'%'), '%%') " +
                     "OR sub.content like IFNULL(CONCAT('%',#{searchDto.keyword},'%'), '%%')";
 
+    //글 수정하기
     public static final String updateBoard =
             "UPDATE SR_MOIM_TB SET title = #{board.title}, content = #{board.content}, location = #{board.location}, on_off = #{board.on_off}, " +
                     "interest1 = #{board.interest1}, interest2 = #{board.interest2}, interest3 = #{board.interest3}, " +
                     "schedule_start = #{board.schedule_start}, schedule_end = #{board.schedule_end} " +
                     "WHERE study_id = #{board.study_id}";
 
+    //글 삭제하기
+    public static final String deleteBoard =
+            "DELETE FROM SR_MOIM_TB WHERE study_id = #{study_id}";
 
 
 

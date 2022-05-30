@@ -107,7 +107,7 @@
                 <h2 class="card-title" style="cursor: pointer;"><a th:href="@{/board/result/{id}(id = ${list.board_id})}">
                   [[${list.board_title}]]([[${list.board_commentCount}]])
                 </a></h2>
-                <div class="row">
+                <div class="row" style="margin-top : 20px;">
                   <div class="col">
                     <h6 class="d-inline">
                       <span class="badge bg-gradient rounded-pill mb-2 text-dark" style="background-color : #b3e5fc">#[[${list.board_interest2}]]</span>
@@ -119,8 +119,14 @@
                   <div class="col">
                     <h6 class="d-inline">
                       <span class="badge badge-info mr-1" style="background-color: blueviolet;">
-                        <i class="bi bi-geo-alt"></i>
-                        [[${list.board_location}]]
+                        <th:block th:if="${list.board_on_off}==1">
+                          <i class="bi bi-globe"></i>
+                          온라인
+                        </th:block>
+                        <th:block th:if="${list.board_on_off}==0">
+                          <i class="bi bi-geo-alt"></i>
+                          [[${list.board_location}]]
+                        </th:block>
                       </span>
                         <i class="bi-heart" id="btn_like" style="font-size: 1rem; color: red; cursor: pointer; float: right;"></i>
                     </h6>
