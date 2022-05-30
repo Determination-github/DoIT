@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -20,6 +22,14 @@ public class FileServiceImpl implements FileService{
             return fileDto;
         }
         return null;
+    }
+
+    @Override
+    public List<FileDto> findFileByStudyId(Integer study_id) {
+
+        List<FileDto> list = fileMapper.findByStudyId(study_id);
+
+        return list;
     }
 
     @Override

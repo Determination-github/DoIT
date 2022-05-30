@@ -9,6 +9,9 @@ public class FileSQL {
     public static final String findFile =
             "SELECT * FROM FI_INFO_TB WHERE FILE_ID = #{fileId}";
 
+    public static final String findByStudyId =
+            "SELECT * FROM FI_INFO_TB WHERE study_id = #{study_id}";
+
     public static final String updateStudyId =
             "UPDATE FI_INFO_TB SET study_id = #{study_id} WHERE FILE_ID = #{file_id}";
 

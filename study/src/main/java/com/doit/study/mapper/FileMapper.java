@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 public interface FileMapper {
 
     //게시글 정보 넣기
@@ -17,8 +19,14 @@ public interface FileMapper {
     @Select(FileSQL.findFile)
     FileDto findById(@Param("fileId") String fileId);
 
+    //파일 찾기(by study_id)
+    @Select(FileSQL.findByStudyId)
+    List<FileDto> findByStudyId(@Param("study_id") Integer study_id);
+
     //스터디 아이디 업데이트
     @Update(FileSQL.updateStudyId)
     void updateStudyId(@Param("study_id") Integer study_id,
                        @Param("file_id") String file_id);
+
+
 }

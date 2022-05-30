@@ -4,6 +4,9 @@ import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.*;
 import com.doit.study.board.service.BoardService;
 import com.doit.study.comment.dto.CommentDto;
+import com.doit.study.file.dto.FileDto;
+import com.doit.study.file.service.FileService;
+import com.doit.study.file.service.S3Uploader;
 import com.doit.study.member.SessionConst;
 import com.doit.study.member.dto.MemberDto;
 import com.doit.study.option.category.Interest;
@@ -36,6 +39,8 @@ public class BoardController {
     private final BoardService boardService;
     private final CommentService commentService;
     private final ProfileService profileService;
+    private final FileService fileService;
+    private final S3Uploader s3Uploader;
 
     @GetMapping("/list")
     public String list(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
@@ -329,6 +334,21 @@ public class BoardController {
     @DeleteMapping("/delete/{study_id}")
     public ResponseEntity<?> deleteStudy(@PathVariable("study_id") Integer study_id) {
         log.info("study_id={}", study_id);
+
+        //S3업로드 파일 삭제
+        List<FileDto> list = fileService.findFileByStudyId(study_id);
+
+        if(list != null) {
+            for (FileDto fileDto : list) {
+                String file_id = fileDto.getFile_id();
+                String file_origin_name = fileDto.getFile_origin_name();
+                String S3FileName = file_id+file_origin_name;
+                String dirName = "/studyImageUpload";
+                log.info("S3FileName = " +S3FileName);
+
+                s3Uploader.deleteFile(S3FileName, dirName);
+            }
+        }
 
         Integer result = boardService.deleteBoard(study_id);
         log.info("result= {}", result);
