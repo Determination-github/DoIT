@@ -11,8 +11,11 @@ public interface BoardService {
     //전체 스터디 글 개수
     Integer getCount();
 
-    //전체 스터디 글 가져오기
+    //모집 중인 전체 스터디 글 가져오기
     List<BoardDto> getStudyBoardList(Pagination pagination);
+
+    //전체 스터디 글 가져오기
+    List<BoardDto> getStudyBoardListAll(Pagination pagination);
 
     //글 추가하기
     Integer insertStudyBoard(BoardDto boardWriteDto);
@@ -28,6 +31,9 @@ public interface BoardService {
 
     //게시글 삭제하기
     Integer deleteBoard(int study_id);
+
+    //작성한 글 개수 BY 회원아이디
+    Integer getCountById(int id);
 
     Integer getCountBySearching(SearchDto searchDto);
 

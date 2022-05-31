@@ -2,10 +2,16 @@ package com.doit.study.mapper;
 
 public class BoardSQL {
 
-    public static final String count =
+    public static final String countAll =
             "SELECT COUNT(*) FROM SR_MOIM_TB";
 
+    public static final String count =
+            "SELECT COUNT(*) FROM SR_MOIM_TB WHERE DATE_FORMAT(NOW(), '%Y-%m-%d') <= schedule_end";
+
     public static final String selectPage =
+            "SELECT * FROM SR_MOIM_TB WHERE DATE_FORMAT(NOW(), '%Y-%m-%d') <= schedule_end ORDER BY study_id DESC LIMIT ${pagination.firstRecordIndex} , ${pagination.countPerPage}";
+
+    public static final String selectPageAll =
             "SELECT * FROM SR_MOIM_TB ORDER BY study_id DESC LIMIT ${pagination.firstRecordIndex} , ${pagination.countPerPage}";
 
     public static final String getLastBoard =
@@ -44,7 +50,9 @@ public class BoardSQL {
     public static final String deleteBoard =
             "DELETE FROM SR_MOIM_TB WHERE study_id = #{study_id}";
 
-
+    //게시글 개수 조회 by id
+    public static final String getCountById =
+            "SELECT COUNT(*) FROM SR_MOIM_TB WHERE id = #{id}";
 
     public static final String getMyStudyList =
             "SELECT COUNT (*) FROM SR_MOIM_TB WHERE user_id = #{user_id}";

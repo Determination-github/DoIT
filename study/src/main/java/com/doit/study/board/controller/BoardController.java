@@ -360,35 +360,69 @@ public class BoardController {
         return null;
     }
 
-//    @GetMapping("/studyList/{id}")
-//    public String get(Model model,
-//                      @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-//                      @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
-//                      @PathVariable String id) {
-//
-//        BoardDto boardWriteDto = new BoardDto();
-//        Integer totalRecordCount = boardService.getCountMyStudy(id);
-//        if (totalRecordCount != null) {
-//            Pagination pagination = new Pagination(currentPage, pageSize);
-//
-//            pagination.setTotalRecordCount(totalRecordCount);
-//            log.info("totalRecordCount = " + totalRecordCount);
-//
-//            model.addAttribute("pagination", pagination);
-//            log.info("pagination = " + pagination);
-//
-//            model.addAttribute("list", boardService.getStudyBoardList(pagination));
-//            log.info("list = " + boardService.getStudyBoardList(pagination));
-//
-//            model.addAttribute("id", id);
-//            model.addAttribute("boardWriteDto", boardWriteDto);
-//
-//            return "/board/myStudyList";
-//
-//        }
-//
-//        return null;
-//    }
+    @GetMapping("/studyList/{id}")
+    public String get(Model model,
+                      @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+                      @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
+                      @PathVariable Integer id) {
+
+        Integer totalRecordCount = boardService.getCountById(id);
+        if (totalRecordCount != 0) {
+            Pagination pagination = new Pagination(currentPage, pageSize);
+
+            pagination.setTotalRecordCount(totalRecordCount);
+            log.info("totalRecordCount = " + totalRecordCount);
+
+            model.addAttribute("pagination", pagination);
+            log.info("pagination = " + pagination);
+
+            model.addAttribute("list", boardService.getStudyBoardListAll(pagination));
+            log.info("list = " + boardService.getStudyBoardListAll(pagination));
+
+            model.addAttribute("id", id);
+
+            return "/board/myStudyList";
+        } else {
+            Pagination pagination = new Pagination(currentPage, pageSize);
+
+            pagination.setTotalRecordCount(totalRecordCount);
+            log.info("totalRecordCount = " + totalRecordCount);
+
+            model.addAttribute("pagination", pagination);
+            log.info("pagination = " + pagination);
+
+            model.addAttribute("list", null);
+            return "/board/myStudyList";
+        }
+    }
+
+    @GetMapping("/myList")
+    public String myStudylist(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+                              @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
+                              @RequestParam Integer id,
+                              Model model,
+                              HttpServletRequest request){
+        try {
+            log.info("id = {}", id);
+            log.info("currentPage = {}", currentPage);
+
+            int totalRecordCount = boardService.getCountById(id);
+            Pagination pagination = new Pagination(currentPage, pageSize);
+            pagination.setTotalRecordCount(totalRecordCount);
+
+            model.addAttribute("pagination", pagination);
+            log.info("pagination = {}", pagination);
+            model.addAttribute("list", boardService.getStudyBoardListAll(pagination));
+            log.info("list = {}", boardService.getStudyBoardListAll(pagination));
+
+            model.addAttribute("id", id);
+
+            return "/board/myStudyList";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "/board/myStudyList";
+    }
 //
 //    @GetMapping("/indexStudyList")
 //    public String newMyStudylist(

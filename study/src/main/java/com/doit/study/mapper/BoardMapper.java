@@ -15,11 +15,19 @@ public interface BoardMapper {
 
     //전체 글의 개수
     @Select(BoardSQL.count)
+    Integer countAll();
+
+    //모집 중인 전체 글의 개수
+    @Select(BoardSQL.count)
     Integer count();
 
     //페이징 처리한 후 게시글 정보 가져오기
     @Select(BoardSQL.selectPage)
     List<Board> selectPage(@Param("pagination") Pagination pagination);
+
+    //페이징 처리한 후 게시글 정보 모두 가져오기
+    @Select(BoardSQL.selectPageAll)
+    List<Board> selectPageAll(@Param("pagination") Pagination pagination);
 
     //글 삽입 후 글 정보 가져오기
     @Select(BoardSQL.getLastBoard)
@@ -49,10 +57,12 @@ public interface BoardMapper {
     @Delete(BoardSQL.deleteBoard)
     Integer deleteBoard(@Param("study_id") int study_id);
 
+    //게시글 개수 조회 by id
+    @Select(BoardSQL.getCountById)
+    Integer getCountById(int id);
 
     @Select(BoardSQL.getMyStudyList)
     Integer getMyStudyList(@Param("user_id") String id);
-
 
 
 }

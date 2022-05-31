@@ -1,18 +1,12 @@
 package com.doit.study;
 
 
-import com.doit.study.board.dto.BoardDto;
-import com.doit.study.comment.service.CommentService;
 import com.doit.study.member.SessionConst;
 import com.doit.study.member.dto.MemberDto;
-import com.doit.study.member.dto.SocialDto;
-import com.doit.study.member.service.MemberService;
 
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.service.BoardService;
 
-import com.doit.study.profile.service.ProfileService;
-import com.doit.study.wishlist.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -85,6 +79,7 @@ public class HomeController {
 
             model.addAttribute("list", boardService.getStudyBoardList(pagination));
             log.info("list = " + boardService.getStudyBoardList(pagination));
+
 
             return "/index";
         }

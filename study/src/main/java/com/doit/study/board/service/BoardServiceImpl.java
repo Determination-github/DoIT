@@ -31,10 +31,41 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.count();
     }
 
-    //전체 스터디 글 가져오기
+    //모집 중인 전체 스터디 글 가져오기
     @Override
     public List<BoardDto> getStudyBoardList(Pagination pagination) {
         List<Board> boardList = boardMapper.selectPage(pagination);
+
+        List<BoardDto> boardDtos = new ArrayList<>();
+        for (Board board : boardList) {
+            BoardDto boardDto = new BoardDto().toBoardDto(board);
+
+            //닉네임 가져오기
+            String nickName = memberMapper.findNickname(board.getId());
+            boardDto.setWriter_nickName(nickName);
+
+            //프로필 사진 가져오기
+            String path = profileMapper.getImagePath(board.getId());
+            if(path != null) {
+                boardDto.setPath(path);
+            }
+
+            //댓글 수 가져오기
+            int count = commentMapper.count(boardDto.getBoard_id());
+            boardDto.setBoard_commentCount(count);
+
+            log.info("boardWriteDto={}", boardDto);
+
+            boardDtos.add(boardDto);
+        }
+
+        return boardDtos;
+    }
+
+    //전체 스터디 글 가져오기
+    @Override
+    public List<BoardDto> getStudyBoardListAll(Pagination pagination) {
+        List<Board> boardList = boardMapper.selectPageAll(pagination);
 
         List<BoardDto> boardDtos = new ArrayList<>();
         for (Board board : boardList) {
@@ -136,6 +167,12 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public Integer deleteBoard(int study_id) {
         return boardMapper.deleteBoard(study_id);
+    }
+
+    //작성한 글 개수 BY 회원아이디
+    @Override
+    public Integer getCountById(int id) {
+        return boardMapper.getCountById(id);
     }
 
     //검색 내용에 따른 게시글 개수
