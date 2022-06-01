@@ -13,6 +13,7 @@ import com.doit.study.option.category.Interest;
 import com.doit.study.option.location.Address;
 import com.doit.study.comment.service.CommentService;
 import com.doit.study.profile.service.ProfileService;
+import com.doit.study.wishlist.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,7 @@ public class BoardController {
     private final BoardService boardService;
     private final CommentService commentService;
     private final ProfileService profileService;
+    private final WishListService wishListService;
     private final FileService fileService;
     private final S3Uploader s3Uploader;
 
@@ -198,14 +200,25 @@ public class BoardController {
             log.info(path);
             boardDto.setPath(path);
 
-            log.info("boardDto 갱신={}", boardDto);
-            model.addAttribute("boardDto", boardDto);
-
             //댓글 정보 가져오기
             commentCheck(model, id);
 
             //댓글 개수
             model.addAttribute("totalComment", commentService.getCount(id));
+
+            //좋아요 정보 가져오기
+            if (session.getAttribute("id") != null) {
+                Integer user_id = (int) session.getAttribute("id");
+                log.info("user_id = {}, id={}", user_id, id);
+                Integer result = wishListService.getCountByIdAndStudyId(user_id, id);
+
+                if (result != 0) {
+                    boardDto.setBoard_like(true);
+                }
+            }
+
+            log.info("boardDto 갱신={}", boardDto);
+            model.addAttribute("boardDto", boardDto);
 
 
             return "/board/boardDetail";
@@ -217,12 +230,25 @@ public class BoardController {
             log.info(path);
             boardDto.setPath(path);
 
-            log.info("boardDto = " + boardDto);
-            model.addAttribute("boardDto", boardDto);
             //댓글 정보 가져오기
             commentCheck(model, id);
             //댓글 개수
             model.addAttribute("totalComment", commentService.getCount(id));
+
+            //좋아요 정보 가져오기
+            if (session.getAttribute("id") != null) {
+                Integer user_id = (int) session.getAttribute("id");
+                log.info("user_id = {}, id={}", user_id, id);
+                Integer result = wishListService.getCountByIdAndStudyId(user_id, id);
+
+                if (result != 0) {
+                    boardDto.setBoard_like(true);
+                }
+            }
+
+            log.info("boardDto 갱신={}", boardDto);
+            model.addAttribute("boardDto", boardDto);
+
             return "/board/boardDetail";
         }
     }

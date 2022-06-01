@@ -35,18 +35,26 @@ public class ProfileController {
 
     private final MemberService memberService;
     private final ProfileService profileService;
+    private final BoardService boardService;
     private final S3Uploader s3Uploader;
 
     @GetMapping("/profile/{id}")
     public String profile(@PathVariable Integer id, Model model) {
         ProfileDto profileDto = new ProfileDto();
         profileDto = memberService.findMember(id);
-//        int size = boardService.getCountMyStudy(id);
-//        profileDto.setSize(size);
-        log.info("profiledto={}",profileDto);
+
+        //게시글 개수 가져오기
+        Integer size = boardService.getCountById(id);
+        profileDto.setSize(size);
+
+        //프로파일 이미지 경로 설정
         String path = profileService.findImage(id);
         profileDto.setFile_path(path);
+
+
         model.addAttribute("profileDto", profileDto);
+        log.info("profiledto={}",profileDto);
+
         return "/members/profile";
     }
 
