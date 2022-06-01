@@ -4,10 +4,8 @@ import com.doit.study.board.domain.Board;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
 import com.doit.study.board.dto.SearchDto;
-import com.doit.study.mapper.BoardMapper;
-import com.doit.study.mapper.CommentMapper;
-import com.doit.study.mapper.MemberMapper;
-import com.doit.study.mapper.ProfileMapper;
+import com.doit.study.mapper.*;
+import com.doit.study.wishlist.dto.WishlistDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,6 +21,7 @@ public class BoardServiceImpl implements BoardService {
     private final MemberMapper memberMapper;
     private final ProfileMapper profileMapper;
     private final CommentMapper commentMapper;
+    private final WishListMapper wishListMapper;
 
 
     //전체 스터디 글 개수
@@ -33,7 +32,7 @@ public class BoardServiceImpl implements BoardService {
 
     //모집 중인 전체 스터디 글 가져오기
     @Override
-    public List<BoardDto> getStudyBoardList(Pagination pagination) {
+    public List<BoardDto> getStudyBoardList(Integer id, Pagination pagination) {
         List<Board> boardList = boardMapper.selectPage(pagination);
 
         List<BoardDto> boardDtos = new ArrayList<>();
@@ -54,7 +53,13 @@ public class BoardServiceImpl implements BoardService {
             int count = commentMapper.count(boardDto.getBoard_id());
             boardDto.setBoard_commentCount(count);
 
-            log.info("boardWriteDto={}", boardDto);
+            //좋아요 여부 확인
+            Integer check = wishListMapper.getWishlistCount(id, boardDto.getBoard_id());
+            if(check != 0) {
+                boardDto.setBoard_like(true);
+            } else {
+                boardDto.setBoard_like(false);
+            }
 
             boardDtos.add(boardDto);
         }
@@ -64,7 +69,7 @@ public class BoardServiceImpl implements BoardService {
 
     //전체 스터디 글 가져오기
     @Override
-    public List<BoardDto> getStudyBoardListAll(Pagination pagination) {
+    public List<BoardDto> getStudyBoardListAll(Integer id, Pagination pagination) {
         List<Board> boardList = boardMapper.selectPageAll(pagination);
 
         List<BoardDto> boardDtos = new ArrayList<>();
@@ -85,11 +90,52 @@ public class BoardServiceImpl implements BoardService {
             int count = commentMapper.count(boardDto.getBoard_id());
             boardDto.setBoard_commentCount(count);
 
-            log.info("boardWriteDto={}", boardDto);
+            //좋아요 여부 확인
+            Integer check = wishListMapper.getWishlistCount(id, boardDto.getBoard_id());
+            if(check != 0) {
+                boardDto.setBoard_like(true);
+            } else {
+                boardDto.setBoard_like(false);
+            }
 
             boardDtos.add(boardDto);
         }
+        return boardDtos;
+    }
 
+    //위시리스트에 담긴 글 가져오기
+    @Override
+    public List<BoardDto> getWishlistBoardListAll(Integer id, List<WishlistDto> wishlist, Pagination pagination) {
+        List<Board> boardList = boardMapper.selectWishPageAll(wishlist,pagination);
+
+        List<BoardDto> boardDtos = new ArrayList<>();
+        for (Board board : boardList) {
+            BoardDto boardDto = new BoardDto().toBoardDto(board);
+
+            //닉네임 가져오기
+            String nickName = memberMapper.findNickname(board.getId());
+            boardDto.setWriter_nickName(nickName);
+
+            //프로필 사진 가져오기
+            String path = profileMapper.getImagePath(board.getId());
+            if(path != null) {
+                boardDto.setPath(path);
+            }
+
+            //댓글 수 가져오기
+            int count = commentMapper.count(boardDto.getBoard_id());
+            boardDto.setBoard_commentCount(count);
+
+            //좋아요 여부 확인
+            Integer check = wishListMapper.getWishlistCount(id, boardDto.getBoard_id());
+            if(check != 0) {
+                boardDto.setBoard_like(true);
+            } else {
+                boardDto.setBoard_like(false);
+            }
+
+            boardDtos.add(boardDto);
+        }
         return boardDtos;
     }
 
@@ -180,13 +226,5 @@ public class BoardServiceImpl implements BoardService {
     public Integer getCountBySearching(SearchDto searchDto) {
         return boardMapper.getCountByKeyword(searchDto);
     }
-
-
-
-//
-//    @Override
-//    public Integer getCountMyStudy(String id) {
-//        return boardMapper.getMyStudyList(id);
-//    }
 
 }

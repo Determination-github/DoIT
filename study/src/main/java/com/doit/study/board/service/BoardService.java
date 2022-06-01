@@ -3,6 +3,7 @@ package com.doit.study.board.service;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
 import com.doit.study.board.dto.SearchDto;
+import com.doit.study.wishlist.dto.WishlistDto;
 
 import java.util.List;
 
@@ -12,10 +13,13 @@ public interface BoardService {
     Integer getCount();
 
     //모집 중인 전체 스터디 글 가져오기
-    List<BoardDto> getStudyBoardList(Pagination pagination);
+    List<BoardDto> getStudyBoardList(Integer id, Pagination pagination);
 
     //전체 스터디 글 가져오기
-    List<BoardDto> getStudyBoardListAll(Pagination pagination);
+    List<BoardDto> getStudyBoardListAll(Integer id, Pagination pagination);
+
+    //위시리스트 스터디 글 가져오기
+    List<BoardDto> getWishlistBoardListAll(Integer id, List<WishlistDto> wishlist, Pagination pagination);
 
     //글 추가하기
     Integer insertStudyBoard(BoardDto boardWriteDto);

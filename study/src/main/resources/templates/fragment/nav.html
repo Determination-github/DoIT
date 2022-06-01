@@ -63,7 +63,7 @@
                     <li class="dropdown-submenu">
                       <a id="dropdown_side2" class="test dropdown-item dropdown-toggle" tabindex="-1" href="#">스터디</a>
                       <ul id="dropdown_side_menu2" class="dropdown-menu dropdown-submenu dropdown-submenu-left">
-                        <li><a class="dropdown-item" tabindex="-1" href="wishlist.html">찜 목록</a></li>
+                        <li><a class="dropdown-item" tabindex="-1" th:href="@{/like/{id}(id = ${session.id})}">위시리스트</a></li>
                         <li><a class="dropdown-item" tabindex="-1" href="joinstudy.html">참여한 그룹 보기</a></li>
                       </ul>
                     </li>
@@ -101,7 +101,7 @@
             <!-- <dt class="dropdown_menu3_title">스터디</dt> -->
             <dd class="nav_list_dd_border"><a id="dropdown_menu3_study" class="test dropdown-item dropdown-toggle"tabindex="-1" href="javascript:">스터디</a>
               <ul class="dropdown_menu3_menu">
-                <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="wishlist.html">찜 목록</a></li>
+                <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" th:href="@{/like/{id}(id = ${session.id})}">위시리스트</a></li>
                 <li class="nav_list_li_border"><a class="dropdown-item" tabindex="-1" href="joinstudy.html">참여한 그룹 보기</a></li>
               </ul>
             </dd>

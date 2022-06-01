@@ -2,9 +2,6 @@ package com.doit.study.mapper;
 
 public class BoardSQL {
 
-    public static final String countAll =
-            "SELECT COUNT(*) FROM SR_MOIM_TB";
-
     public static final String count =
             "SELECT COUNT(*) FROM SR_MOIM_TB WHERE DATE_FORMAT(NOW(), '%Y-%m-%d') <= schedule_end";
 
@@ -13,6 +10,15 @@ public class BoardSQL {
 
     public static final String selectPageAll =
             "SELECT * FROM SR_MOIM_TB ORDER BY study_id DESC LIMIT ${pagination.firstRecordIndex} , ${pagination.countPerPage}";
+
+    public static final String selectWishPageAll =
+            "<script> " +
+            "SELECT * FROM SR_MOIM_TB WHERE study_id IN " +
+                    "<foreach collection='wishlist' item='wishlist' open='(' separator=',' close=')'> " +
+                        "#{wishlist.study_id} " +
+                    "</foreach> " +
+                    "ORDER BY study_id DESC LIMIT ${pagination.firstRecordIndex} , ${pagination.countPerPage}" +
+            "</script>";
 
     public static final String getLastBoard =
             "SELECT * FROM SR_MOIM_TB WHERE id = #{id} ORDER BY study_id DESC LIMIT 1";

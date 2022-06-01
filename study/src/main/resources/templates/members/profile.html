@@ -26,26 +26,16 @@
                 </div>
               </a>
 
-              <th:block th:if="${session.nickName} == null and ${session.nickName} != ${profileDto.nickname}">
-              <div class="dropdown-divider"></div>
-              <a th:href="@{/board/studyList/{id}(id =  ${profileDto.id})}" class="text-decoration-none">
-                    <div class="d-flex-align-items-center mt-lg-5 mb-4">
-                      <div class="ms-3">
-                        <h5 class="fw-bold text-dark">개설한 스터디</h5>
-                      </div>
-                    </div>
-                  </a>
-              </th:block>
 
-              <th:block th:if="${session.nickName} != null and ${session.id} == ${profileDto.id}">
-                <div class="dropdown-divider"></div>
-                  <a th:href="@{/board/studyList/{id}(id = ${profileDto.id})}" class="text-decoration-none">
-                    <div class="d-flex-align-items-center mt-lg-5 mb-4">
-                      <div class="ms-3">
-                        <h5 class="fw-bold text-dark">개설한 스터디</h5>
-                      </div>
+              <div class="dropdown-divider"></div>
+                <a th:href="@{/board/studyList/{id}(id = ${profileDto.id})}" class="text-decoration-none">
+                  <div class="d-flex-align-items-center mt-lg-5 mb-4">
+                    <div class="ms-3">
+                      <h5 class="fw-bold text-dark">개설한 스터디</h5>
                     </div>
-                  </a>
+                  </div>
+                </a>
+                <th:block th:if="${session.nickName} != null and ${session.id} == ${profileDto.id}">
                   <a th:href="@{/wishlist/{id}(id = ${session.id})}" class="text-decoration-none">
                     <div class="d-flex-align-items-center mt-lg-5 mb-4">
                       <div class="ms-3">
@@ -60,8 +50,8 @@
                       </div>
                     </div>
                   </a>
-              </th:block>
-            </div>
+                </th:block>
+              </div>
           </div>
 
           <div class="col-lg-9 row">

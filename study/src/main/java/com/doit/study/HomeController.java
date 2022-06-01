@@ -34,7 +34,7 @@ public class HomeController {
 
         HttpSession session = request.getSession(false);
 
-        Integer id;
+        Integer id = null;
         String nickName;
         String path;
 
@@ -77,8 +77,8 @@ public class HomeController {
             model.addAttribute("pagination", pagination);
             log.info("pagination = " + pagination);
 
-            model.addAttribute("list", boardService.getStudyBoardList(pagination));
-            log.info("list = " + boardService.getStudyBoardList(pagination));
+            model.addAttribute("list", boardService.getStudyBoardList(id, pagination));
+            log.info("list = " + boardService.getStudyBoardList(id, pagination));
 
 
             return "/index";

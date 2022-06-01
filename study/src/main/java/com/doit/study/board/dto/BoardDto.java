@@ -14,7 +14,7 @@ public class BoardDto {
     private String  writer_nickName, board_location;
     private int     board_on_off, board_viewCount, board_commentCount;
     private Date board_regDate;
-    private boolean board_onOffLine;
+    private boolean board_onOffLine, board_like;
 
     //프로필 이미지
     private String path;

@@ -5,6 +5,7 @@ import com.doit.study.board.domain.Board;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
 import com.doit.study.board.dto.SearchDto;
+import com.doit.study.wishlist.dto.WishlistDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -12,10 +13,6 @@ import java.util.Optional;
 
 @Mapper
 public interface BoardMapper {
-
-    //전체 글의 개수
-    @Select(BoardSQL.count)
-    Integer countAll();
 
     //모집 중인 전체 글의 개수
     @Select(BoardSQL.count)
@@ -28,6 +25,11 @@ public interface BoardMapper {
     //페이징 처리한 후 게시글 정보 모두 가져오기
     @Select(BoardSQL.selectPageAll)
     List<Board> selectPageAll(@Param("pagination") Pagination pagination);
+
+    //페이징 처리한 후 게시글 정보 모두 가져오기
+    @Select(BoardSQL.selectWishPageAll)
+    List<Board> selectWishPageAll(@Param("wishlist") List<WishlistDto> wishlistDto,
+                                  @Param("pagination") Pagination pagination);
 
     //글 삽입 후 글 정보 가져오기
     @Select(BoardSQL.getLastBoard)

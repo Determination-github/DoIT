@@ -68,7 +68,17 @@
                                 <div class="col-6 text-end">
                                     <th:block th:if="${session.nickName} == null or ${session.id} != ${boardDto.board_writerId}">
                                         <div>
-                                            <i class="bi-heart" style="font-size: 1.5rem; color: red; cursor: pointer;"></i>
+                                            <input type="hidden" th:id="boardId" th:value="${boardDto.board_id}">
+                                            <th:block th:if="!${boardDto.board_like}">
+                                                <button style="float: right" class="btn_like" id="btn_like" th:value="${boardDto.board_id}">
+                                                    <i class="bi-heart"  style="font-size: 1rem; color: red; cursor: pointer; float: right;"></i>
+                                                </button>
+                                            </th:block>
+                                            <th:block th:if="${boardDto.board_like}">
+                                                <button style="float: right" class="btn_like_delete" id="btn_like_delete" th:value="${boardDto.board_id}">
+                                                    <i class="bi-heart-fill"  style="font-size: 1rem; color: red; cursor: pointer; float: right;"></i>
+                                                </button>
+                                            </th:block>
                                             <button type="button" class="btn btn-primary" id="wanna-join">🙋 참여하고 싶어요</button>
                                         </div>
                                     </th:block>
@@ -384,6 +394,79 @@
                     }).fail(function (error) {
                         alert(JSON.stringify(error));
                     });
+                }
+            });
+
+            //좋아요 버튼
+            $(".btn_like").click(function(){
+
+                if([[${session.nickName}]] != null) {
+                  let data = {
+                        id : [[${session.id}]],
+                        study_id : $(this).val()
+                  }
+                  $.ajax({
+                      type:"POST",
+                      url:"/like/save/" + data.id,
+                      dataType : 'json',
+                      contentType: 'application/json; charset=utf-8',
+                      data: JSON.stringify(data),
+                      cache : false,
+                  }).done(function(response) {
+                      const check = confirm("스터디가 위시리스트에 담겼습니다. 위시리스트로 이동하시겠습니까?")
+                      if (check === true) {
+                        location.href = "/like/"+response;
+                      } else {
+                        window.location.reload();
+                      }
+                  }).fail(function (error) {
+                      alert(JSON.stringify(error));
+                  });
+                } else {
+                    const check = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까 ?")
+                      if (check === true) {
+                        location.href = "/login";
+                      } else {
+                        return false;
+                      }
+                }
+            });
+
+            //좋아요 버튼 취소
+            $(".btn_like_delete").click(function(){
+
+                let board_id = $(this).val();
+
+                if([[${session.nickName}]] != null) {
+                    let data = {
+                        id : [[${session.id}]],
+                        study_id : $(this).val()
+                    }
+
+                    $.ajax({
+                      type:"DELETE",
+                      url:"/like/delete/" + data.id,
+                      dataType : 'json',
+                      contentType: 'application/json; charset=utf-8',
+                      data: JSON.stringify(data),
+                      cache : false,
+                    }).done(function(response) {
+                      const check = confirm("위시리스트에서 제거되었습니다. 위시리스트로 이동하시겠습니까?")
+                      if (check === true) {
+                        location.href = "/like/"+response;
+                      } else {
+                        window.location.reload();
+                      }
+                    }).fail(function (error) {
+                      alert(JSON.stringify(error));
+                    });
+                } else {
+                    const check = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까 ?")
+                      if (check === true) {
+                        location.href = "/login";
+                      } else {
+                        return false;
+                      }
                 }
             });
 

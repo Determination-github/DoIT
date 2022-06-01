@@ -53,8 +53,16 @@ public class BoardController {
 
             model.addAttribute("pagination", pagination);
             log.info("pagination = {}", pagination);
-            model.addAttribute("list", boardService.getStudyBoardList(pagination));
-            log.info("list = {}", boardService.getStudyBoardList(pagination));
+
+            HttpSession session = request.getSession(false);
+            if (session != null && session.getAttribute("id") != null) {
+                Integer id = (int) session.getAttribute("id");
+                model.addAttribute("list", boardService.getStudyBoardList(id, pagination));
+                log.info("list = {}", boardService.getStudyBoardList(id, pagination));
+            } else {
+                model.addAttribute("list", boardService.getStudyBoardList(null, pagination));
+                log.info("list = {}", boardService.getStudyBoardList(null, pagination));
+            }
 
             return "/index";
         } catch (Exception e) {
@@ -240,7 +248,7 @@ public class BoardController {
 
         HttpSession session = request.getSession(false);
 
-        Integer id;
+        Integer id = null;
         String nickName;
         String path;
 
@@ -311,8 +319,8 @@ public class BoardController {
             model.addAttribute("pagination", pagination);
             log.info("pagination = " + pagination);
 
-            model.addAttribute("list", boardService.getStudyBoardList(pagination));
-            log.info("list = " + boardService.getStudyBoardList(pagination));
+            model.addAttribute("list", boardService.getStudyBoardList(id, pagination));
+            log.info("list = " + boardService.getStudyBoardList(id, pagination));
 
             return "/index";
         } else {
@@ -361,7 +369,8 @@ public class BoardController {
     }
 
     @GetMapping("/studyList/{id}")
-    public String get(Model model,
+    public String studyList(Model model,
+                      HttpServletRequest request,
                       @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
                       @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
                       @PathVariable Integer id) {
@@ -376,8 +385,18 @@ public class BoardController {
             model.addAttribute("pagination", pagination);
             log.info("pagination = " + pagination);
 
-            model.addAttribute("list", boardService.getStudyBoardListAll(pagination));
-            log.info("list = " + boardService.getStudyBoardListAll(pagination));
+            HttpSession session = request.getSession(false);
+            if (session != null && session.getAttribute("id") != null) {
+                Integer user_id = (int) session.getAttribute("id");
+                model.addAttribute("list", boardService.getStudyBoardListAll(user_id, pagination));
+                log.info("list = " + boardService.getStudyBoardListAll(user_id, pagination));
+            } else {
+                Integer user_id = null;
+                model.addAttribute("list", boardService.getStudyBoardListAll(user_id, pagination));
+                log.info("list = " + boardService.getStudyBoardListAll(user_id, pagination));
+            }
+
+
 
             model.addAttribute("id", id);
 
@@ -396,8 +415,8 @@ public class BoardController {
         }
     }
 
-    @GetMapping("/myList")
-    public String myStudylist(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+    @GetMapping("/studyList")
+    public String studyListIndex(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
                               @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
                               @RequestParam Integer id,
                               Model model,
@@ -412,8 +431,17 @@ public class BoardController {
 
             model.addAttribute("pagination", pagination);
             log.info("pagination = {}", pagination);
-            model.addAttribute("list", boardService.getStudyBoardListAll(pagination));
-            log.info("list = {}", boardService.getStudyBoardListAll(pagination));
+
+            HttpSession session = request.getSession(false);
+            if (session != null && session.getAttribute("id") != null) {
+                Integer user_id = (int) session.getAttribute("id");
+                model.addAttribute("list", boardService.getStudyBoardListAll(user_id, pagination));
+                log.info("list = " + boardService.getStudyBoardListAll(user_id, pagination));
+            } else {
+                Integer user_id = null;
+                model.addAttribute("list", boardService.getStudyBoardListAll(user_id, pagination));
+                log.info("list = " + boardService.getStudyBoardListAll(user_id, pagination));
+            }
 
             model.addAttribute("id", id);
 
@@ -423,30 +451,5 @@ public class BoardController {
         }
         return "/board/myStudyList";
     }
-//
-//    @GetMapping("/indexStudyList")
-//    public String newMyStudylist(
-//                        @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-//                        @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
-//                        @RequestParam String id,
-//                        Model model
-//    ){
-//
-//        log.info("id={}", id);
-//        try {
-//            Integer totalRecordCount = boardService.getCountMyStudy(id);
-//            Pagination pagination = new Pagination(currentPage, pageSize);
-//            pagination.setTotalRecordCount(totalRecordCount);
-//
-//            model.addAttribute("pagination", pagination);
-//            model.addAttribute("list", boardService.getStudyBoardList(pagination));
-//            model.addAttribute("id", id);
-//
-//            return "/board/myStudyList";
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return "/board/myStudyList";
-//    }
 
 }
