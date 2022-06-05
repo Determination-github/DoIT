@@ -1,0 +1,30 @@
+/* 구글 폰트 */
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+
+/* 초기화하기 */
+*{
+  font-family: 'Jua', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+.max-width{
+  max-width: 1300px;
+  min-width: 340px;
+  padding: 0 20px;
+  margin: auto;
+}
+
+/* 섹션 공통부분 CSS */
+section{
+  padding: 80px 0;
+}
+
+

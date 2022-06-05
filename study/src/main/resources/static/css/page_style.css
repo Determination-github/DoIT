@@ -8,6 +8,11 @@ ul,li,dl,dt,dd{
   display: block;
 }
 
+.card-section:hover{
+  transform: scale(1.05);
+  border: 0px;
+}
+
 @media (max-width: 992px) {
   .nav-icon {
     display: none;
@@ -204,6 +209,8 @@ button{
     border-radius: 10px;
     padding: 10px 30px;
 }
+
+
 
 
 

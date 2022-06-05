@@ -1,0 +1,90 @@
+.navbar {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  background-color: #283673;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.navbar .max-width{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar .logo{
+  font-size: 30px;
+  font-weight: 600;
+  margin-left: 20px;
+  color: white;
+}
+
+.navbar .logo img{
+  width: 90px;
+  height: 60px;
+}
+
+.menu-btn-single{
+  margin-right: 40px;
+}
+
+.navbar .menubar .menu-btn{
+  list-style: none;
+  margin: 5px 10px 0 0;
+  display: inline-block;
+}
+
+.navbar .menubar .menu-btn-single{
+  list-style: none;
+  margin: 5px 40px 0 0;
+  display: inline-block;
+}
+
+.navbar .menubar .hidden-menu-btn{
+  list-style: none;
+  margin: 5px 40px 0 0;
+  display: inline-block;
+}
+
+.navbar .menubar li i{
+  display: block;
+  text-decoration: none;
+  color: white;
+  font-size: 23px;
+  font-weight: 500;
+  margin-left: 15px;
+  transition: all 0.3s ease;
+}
+
+.navbar .menubar li a{
+  display: block;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 15px;
+  transition: all 0.3s ease;
+}
+
+.navbar button{
+  display: block;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 15px;
+  transition: all 0.3s ease;
+}
+
+.navbar .menubar li a:hover{
+  color: rgb(255, 164, 45);
+  background-color: transparent;
+}
+
+/* 메뉴 버튼 */
+.navbar .hidden-menu-btn{
+  color: white;
+  font-size: 25px;
+  display: none;
+  cursor: pointer;
+}
+

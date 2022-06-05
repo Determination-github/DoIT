@@ -1,62 +1,79 @@
-const navbarMenu = document.querySelector('.dropdown_menu_wrap');
-const navbarToggleBtn = document.querySelector('#toggle_btn');
-navbarToggleBtn.addEventListener('click', () => {
-  navbarMenu.classList.toggle('open');
-});
+var stompClient = null;
+var sender = null;
+var receiver = null;
 
-const navbarSubMenu1 = document.querySelector('.dropdown_menu2_menu');
-const navbarSubMenuToggle1 = document.querySelector('#dropdown_menu2_mypage');
-navbarSubMenuToggle1.addEventListener('click',() => {
-  navbarSubMenu1.classList.toggle('open');
-});
-
-const navbarSubMenu2 = document.querySelector('.dropdown_menu3_menu');
-const navbarSubMenuToggle2 = document.querySelector('#dropdown_menu3_study');
-navbarSubMenuToggle2.addEventListener('click',() => {
-  navbarSubMenu2.classList.toggle('open');
-});
-
-function dropdownBtn(){
-  $(document).ready(function(){
-    $('.dropdown-submenu a.test').on("click", function(e){
-      $(this).next('ul').toggle();
-      e.stopPropagation();
-      e.preventDefault();
-    });
-  });
+function setConnected(connected) {
+    $("#connect").prop("disabled", connected);
+    $("#disconnect").prop("disabled", !connected);
+    if (connected) {
+        $("#conversation").show();
+    }
+    else {
+        $("#conversation").hide();
+    }
+    $("#greetings").html("");
 }
-dropdownBtn()
 
-//function heart(){
-//  var i = 0;
-//    $('i').on('click', function(){
-//        if(i == 0) {
-//            $(this).attr('class', 'bi-heart-fill');
-//            i++;
-//        } else if(i == 1) {
-//            $(this).attr('class', 'bi-heart');
-//            i--;
-//        }
-//    });
-//}
-//heart()
+window.onload = function() {
+    var socket = new SockJS("/websocket");
+    stompClient = Stomp.over(socket);
+    receiver = $("#sessionId").val();
+    stompClient.connect({}, function (frame) {
+        setConnected(true);
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/note/receiving/'+receiver, function (greeting) {
+            $('#noteModal').modal('hide');
+            showGreeting(JSON.parse(greeting.body).content);
+        });
+    });
+}
 
+function disconnect() {
+    if (stompClient !== null) {
+        stompClient.disconnect();
+    }
+    setConnected(false);
+    console.log("Disconnected");
+}
 
-const navbarSide1 = document.querySelector("#dropdown_side1");
-const navbarSide2 = document.querySelector("#dropdown_side2");
-const navbarSideMenu1 = document.getElementById("dropdown_side_menu1");
-const navbarSideMenu2 = document.getElementById("dropdown_side_menu2");
+function sendName() {
+    let id =  document.getElementById('receiver-id').getAttribute('value');
+    stompClient.send("/note/send/"+id, {}, JSON.stringify({
+                                            'user_id' : $("#sender_id").val(),
+                                            'receiver_id' : document.getElementById('receiver-id').getAttribute('value'),
+                                            'title' : $("#note-title").val(),
+                                            'content' : $("#note-content").val()
+                                            }));
+}
 
-navbarSide2.addEventListener('click', () => {
-    navbarSideMenu1.style.display = 'none';
+function showGreeting(message) {
+    $(".notification-container").append("<p>"+message+"</p");
+    showNotification();
+    disabledNotification();
+//    alert(message);
+//    $(".note-bar").append("<li><a class='dropdown-item'>" + message + "</a></li>");
+}
+
+$(function () {
+    $("form").on('submit', function (e) {
+        e.preventDefault();
+    });
+//    $( "#note" ).click(function() { connect(); });
+    $( "#disconnect" ).click(function() { disconnect(); });
+    $( "#send-note" ).click(function() { sendName(); });
 });
-navbarSide1.addEventListener('click', () => {
-    navbarSideMenu2.style.display = 'none';
-});
 
-//const body = document.querySelector("body");
-//
-//body.addEventListener('click', () => {
-//    navbarSideMenu1.style.display = 'none';
-//    navbarSideMenu2.style.display = 'none';
-//});
+const notification = document.getElementById('notification-container')
+
+const showNotification = () => {
+  notification.classList.add('show')
+  setTimeout(() => {
+    notification.classList.remove('show')
+  }, 10000)
+}
+
+const disabledNotification = () => {
+  setTimeout(() => {
+    $(".notification-container *").remove();
+  }, 10000)
+}

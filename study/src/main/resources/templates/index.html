@@ -4,9 +4,9 @@
       layout:decorate="~{layout/default}">
 
 <body  class="d-flex flex-column h-100">
-<div layout:fragment="content">
+<div layout:fragment="content" class="max-width">
 <main class="flex-shrink-0">
-  <section class="section">
+  <section class="study">
     <div class="container col-lg-10">
       <div class="row row5">
         <form class="formSearch" action="/board/search" method="post">
@@ -93,13 +93,16 @@
 
         <th:block th:each="list : ${list}">
           <div class="col-md-4 mb-5">
+            <div class="card-section">
             <div class="card h-100 shadow border-0">
               <div class="row">
                 <div class="col-4 mt-2 ms-4">
                   <div class="badge bg-gradient rounded-pill mb-2" style="background-color : green">[[${list.board_interest1}]]</div>
                 </div>
                 <div class="col-6 text-end mt-2">
-                  <div class="badge bg-gradient rounded-pill mb-2 bg-primary">모집 중</div>
+                  <th:block th:if="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')} <= ${list.board_endDate}">
+                    <div id="recruit_on" class="badge bg-gradient rounded-pill mb-2 bg-primary">모집 중</div>
+                  </th:block>
                 </div>
               </div>
               <div class="card-body">
@@ -128,7 +131,19 @@
                           [[${list.board_location}]]
                         </th:block>
                       </span>
-                        <i class="bi-heart" id="btn_like" style="font-size: 1rem; color: red; cursor: pointer; float: right;"></i>
+                      <th:block th:if="${list.board_writerId} != ${session.id}">
+                        <input type="hidden" th:id="'boardId'+${list.board_id}" th:value="${list.board_id}">
+                        <th:block th:if="!${list.board_like}">
+                          <button style="float: right" class="btn_like" id="btn_like" th:value="${list.board_id}">
+                            <i class="bi-heart"  style="font-size: 1rem; color: red; cursor: pointer; float: right;"></i>
+                          </button>
+                        </th:block>
+                        <th:block th:if="${list.board_like}">
+                          <button style="float: right" class="btn_like_delete" id="btn_like_delete" th:value="${list.board_id}">
+                            <i class="bi-heart-fill"  style="font-size: 1rem; color: red; cursor: pointer; float: right;"></i>
+                          </button>
+                        </th:block>
+                      </th:block>
                     </h6>
                   </div>
                 </div>
@@ -152,6 +167,7 @@
                 </div>
               </div>
             </div>
+            </div>
           </div>
         </th:block>
 
@@ -161,33 +177,39 @@
           </div>
         </th:block>
 
-      <div class="display-flex-row mt-3">
-        <div class="m-auto">
-          <div class="dataTables_paginate paging_simple_numbers">
-            <ul class="pagination">
-              <li class="paginate_button page-item">
-                <a class="page-link" aria-label="Previous"
-                   th:href="@{/board/list(currentPage = ${pagination.currentPage}-1)}">
-                  <span aria-hidden="true"><</span>
-                </a>
-              </li>
-              <li class="paginate_button page-item active" th:each="idx : ${#numbers.sequence(pagination.firstPage,pagination.lastPage)}"
-                  th:class="${idx == pagination.currentPage} ? 'page-item active'">
-                <a class="page-link" th:href="@{'/board/list?currentPage='+${idx}}" th:text="${idx}" href="javascript:pagination(0)"> 1 </a>
-              </li>
-              <li class="paginate_button page-item">
-                <a class="page-link" aria-label="Next"
-                   th:href="@{/board/list(currentPage = ${pagination.currentPage}+1)}">
-                  <span aria-hidden="true">></span>
-                </a>
-              </li>
-            </ul>
+        <div class="display-flex-row mt-3">
+          <div class="m-auto">
+            <div class="dataTables_paginate paging_simple_numbers">
+              <ul class="pagination">
+                <th:block th:if="${pagination.hasPreviousPage}">
+                  <li class="paginate_button page-item">
+                    <a class="page-link" aria-label="Previous"
+                       th:href="@{/board/list(currentPage = ${pagination.currentPage}-1)}">
+                      <span aria-hidden="true"><</span>
+                    </a>
+                  </li>
+                </th:block>
+                <th:block th:if="${pagination.totalRecordCount} != 0">
+                  <li class="paginate_button page-item active" th:each="idx : ${#numbers.sequence(pagination.firstPage,pagination.lastPage)}"
+                      th:class="${idx == pagination.currentPage} ? 'page-item active'">
+                    <a class="page-link" th:id="${idx}" th:href="@{'/board/list?currentPage='+${idx}}" th:text="${idx}"> 1 </a>
+                  </li>
+                </th:block>
+                <th:block th:if="${pagination.hasNextPage}">
+                  <li class="paginate_button page-item">
+                    <a class="page-link" aria-label="Next"
+                       th:href="@{/board/list(currentPage = ${pagination.currentPage}+1)}">
+                      <span aria-hidden="true">></span>
+                    </a>
+                  </li>
+                </th:block>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
-    </div>
+  </div>
   </section>
   </main>
 </div>
@@ -212,6 +234,87 @@
             $("#secondZone").removeAttr("disabled");
           }
         }
+
+        function is_recruit() {
+          document.getElementById('recruitBtn').submit();
+        }
+
+
+        //좋아요 버튼
+        $(".btn_like").click(function(){
+
+            let board_id = $(this).val();
+
+            if([[${session.nickName}]] != null) {
+              let data = {
+                    id : [[${session.id}]],
+                    study_id : $('#boardId'+board_id).val()
+              }
+
+              $.ajax({
+                  type:"POST",
+                  url:"/like/save/" + data.id,
+                  dataType : 'json',
+                  contentType: 'application/json; charset=utf-8',
+                  data: JSON.stringify(data),
+                  cache : false,
+              }).done(function(response) {
+                  const check = confirm("스터디가 위시리스트에 담겼습니다. 위시리스트로 이동하시겠습니까?")
+                  if (check === true) {
+                    location.href = "/like/"+response;
+                  } else {
+                    window.location.reload();
+                  }
+              }).fail(function (error) {
+                  alert(JSON.stringify(error));
+              });
+            } else {
+                const check = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까 ?")
+                  if (check === true) {
+                    location.href = "/login";
+                  } else {
+                    return false;
+                  }
+            }
+        });
+
+        //좋아요 버튼 취소
+       $(".btn_like_delete").click(function(){
+
+            let board_id = $(this).val();
+
+            if([[${session.nickName}]] != null) {
+              let data = {
+                    id : [[${session.id}]],
+                    study_id : $('#boardId'+board_id).val()
+              }
+
+              $.ajax({
+                  type:"DELETE",
+                  url:"/like/delete/" + data.id,
+                  dataType : 'json',
+                  contentType: 'application/json; charset=utf-8',
+                  data: JSON.stringify(data),
+                  cache : false,
+              }).done(function(response) {
+                  const check = confirm("위시리스트에서 제거되었습니다. 위시리스트로 이동하시겠습니까?")
+                  if (check === true) {
+                    location.href = "/like/"+response;
+                  } else {
+                    window.location.reload();
+                  }
+              }).fail(function (error) {
+                  alert(JSON.stringify(error));
+              });
+            } else {
+                const check = confirm("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까 ?")
+                  if (check === true) {
+                    location.href = "/login";
+                  } else {
+                    return false;
+                  }
+            }
+        });
 
 		/*]]>*/
 </script>

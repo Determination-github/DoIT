@@ -1,139 +1,151 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<div layout:fragment="content">
 <head>
+    <title>로그인</title>
     <meta charset="UTF-8">
-    <title>DoIT 로그인</title>
-
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link th:href="@{/css/login.css}" rel="stylesheet">
-
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="/js/bootstrap.bundle.min.js" defer></script>
-
-    <style>
-        .field-error {
-            border-color: #dc3545;
-            color: #dc3545;
-        }
-    </style>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/login/fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="/login/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/login/css/main.css">
+    <!--===============================================================================================-->
+</head>
 <body>
-<div id="wrap">
-    <header id="header">
-        <section id="header_section">
-            <div class="header_logo"></div>
-        </section>
-    </header>
-    <main id="main">
-        <section id="main_section">
-            <div class="main_section_wrap">
-                <p class="main_login_title"></p>
-                <form action="/login" th:action th:object="${loginDto}" method="post">
+<section class="login-section">
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form validate-form" action="/login" th:action th:object="${loginDto}" method="post">
+                <span class="login100-form-title p-b-49">
+                    Login
+                </span>
 
-                    <div class="main_login_wrap">
-
-                        <div class="main_login_ID_wrap">
-                            <img alt="ID" src="/img/ID-icon.png" class="main_login_ID_group main_login_ID_img"/>
-                            <div class="main_login_ID_group main_login_ID_padding">
-
-                                <input class="main_login_ID" type="text" id="loginEmail" th:field="*{email}"
-                                       placeholder="아이디를 입력하세요." th:errorclass="field-error">
-                            </div>
-                        </div>
-                        <div class="field-error" th:errors="*{email}" />
-
-                        <div class="main_login_PW_wrap">
-                            <img alt="PW" src="/img/PW-icon.png" class="main_login_PW_group main_login_PW_img"/>
-                            <div class="main_login_PW_group main_login_PW_padding">
-                                <input class="main_login_PW" type="password" id="password" th:field="*{password}"
-                                       placeholder="비밀번호를 입력하세요." th:errorclass="field-error">
-                            </div>
-                        </div>
-                        <div class="field-error" th:errors="*{password}" />
-
-                        <div th:if="${#fields.hasGlobalErrors()}">
-                            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
-                        </div>
-
-                        <div class="main_login_BTN_wrap">
-                            <button class="main_login_BTN" type="submit">로그인</button>
-                        </div>
-
-                        <div class="main_login_join_BTN_wrap">
-                            <p class="main_login_join">
-                                <a href="#" th:href="@{/join}" class="main_login_join_BTN">회원가입</a>
-                            </p>
-                            <p class="main_login_IDPW">
-                                <a type="button" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="main_login_IDPW_BTN">비밀번호 찾기</a>
-                            </p>
-                        </div>
-
-                        <div class="main_login_border_wrap">
-                            <span class="main_login_border">간편로그인</span>
-                        </div>
-                    </div>
-                </form>
-                <div class="main_login_naver_wrap">
-                    <button class="main_login_kakao" th:onclick="'location.href=\''+ @{${kakaoUrl}} + '\''">
-                        <img src="/img/kakaologo.jpg" alt="kakao" class="main_login_kakao_img"/>
-                        카카오 계정으로 로그인</button>
-                    <button class="main_login_naver" th:onclick="'location.href=\''+ @{${naverUrl}} + '\''">
-                        <img src="/img/네이버.png" alt="naver" class="main_login_naver_img"/>
-                        네이버 계정으로 로그인</button>
+                <div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
+                    <span class="label-input100">Email</span>
+                    <input class="input100" type="text" name="email" id="loginEmail" th:field="*{email}" placeholder="이메일을 입력해주세요">
+                    <span class="focus-input100" data-symbol="&#xf206;"></span>
                 </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    <span class="label-input100">Password</span>
+                    <input class="input100" type="password" name="password" id="password" th:field="*{password}" placeholder="비밀번호를 입력하세요.">
+                    <span class="focus-input100" data-symbol="&#xf190;"></span>
+                </div>
+
+<!--                <div th:if="${#fields.hasGlobalErrors()}">-->
+<!--                    <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>-->
+<!--                </div>-->
+
+                <div class="text-right p-t-8 p-b-31">
+                    <a type="button" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="main_login_IDPW_BTN">
+                        비밀번호 찾기
+                    </a>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button class="login100-form-btn" type="button">
+                            Login
+                        </button>
+                    </div>
+                </div>
+
+                <div class="txt1 text-center p-t-54 p-b-20">
+						<span>
+							Or Sign Up Using
+						</span>
+                </div>
+            </form>
+
+            <div class="flex-c-m">
+                <button th:onclick="'location.href=\''+ @{${kakaoUrl}} + '\''" class="login100-social-item">
+                    <img style="width : 50px; height : 50px;" src="/img/kakaologo.jpg" alt="kakao"/>
+                </button>
+
+                <button th:onclick="'location.href=\''+ @{${naverUrl}} + '\''" class="login100-social-item">
+                    <img style="width : 50px; height : 50px;" src="/img/네이버.png" alt="kakao"/>
+                </button>
             </div>
-        </section>
-    </main>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">비밀번호 찾기</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-floating">
-                        <input type="email" class="form-control" id="findPassword" placeholder="이메일을 입력하세요.">
-                        <label for="findPassword">이메일</label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                    <button type="button" id="sendTempPwd" class="btn btn-primary">비밀번호 찾기</button>
-                </div>
+            <div class="flex-col-c p-t-50">
+						<span class="txt1 p-b-17">
+							Or Sign Up Using
+						</span>
+
+                <a th:href="@{/join}" class="txt2">
+                    Sign Up
+                </a>
             </div>
         </div>
     </div>
 </div>
-<script type="text/javascript" th:inline="javascript">
-		/*<![CDATA[*/
+</section>
 
-        //임시비밀번호 발급
-        $("#sendTempPwd").click(function(){
-            let data = {
-                email : $('#findPassword').val()
-            }
-            const check = confirm("임시비밀번호를 발급하시겠습니까?")
-            if (check === true) {
-                $.ajax({
-                    type:"POST",
-                    url:"/login/findPassword/",
-                    dataType : 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(data),
-                    cache : false,
-                }).done(function(response) {
-                    alert(response.result);
-                    window.location.reload();
-                }).fail(function (error) {
-                    alert(JSON.stringify(error));
-                });
-            }
-        });
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">비밀번호 찾기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="findPassword" placeholder="이메일을 입력하세요.">
+                    <label for="findPassword">이메일</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" id="sendTempPwd" class="btn btn-primary">비밀번호 찾기</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-		/*]]>*/
-</script>
 </body>
+<th:block layout:fragment="extraJs">
+    <style>
+            .field-error {
+                border-color: #dc3545;
+                color: #dc3545;
+            }
+    </style>
+    <script type="text/javascript" th:inline="javascript">
+
+
+            /*<![CDATA[*/
+
+            //임시비밀번호 발급
+            $("#sendTempPwd").click(function(){
+                let data = {
+                    email : $('#findPassword').val()
+                }
+                const check = confirm("임시비밀번호를 발급하시겠습니까?")
+                if (check === true) {
+                    $.ajax({
+                        type:"POST",
+                        url:"/login/findPassword/",
+                        dataType : 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(data),
+                        cache : false,
+                    }).done(function(response) {
+                        alert(response.result);
+                        window.location.reload();
+                    }).fail(function (error) {
+                        alert(JSON.stringify(error));
+                    });
+                }
+            });
+
+            /*]]>*/
+    </script>
+</th:block>
+</div>
 </html>
