@@ -3,8 +3,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 
-<div layout:fragment="content">
-<head>
+
+<th:block layout:fragment="extraCSS">
+
     <title>로그인</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,35 +14,44 @@
     <link rel="stylesheet" type="text/css" href="/login/css/util.css">
     <link rel="stylesheet" type="text/css" href="/login/css/main.css">
     <!--===============================================================================================-->
-</head>
-<body>
+</th:block>
+
+
+<div layout:fragment="content">
 <section class="login-section">
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <form class="login100-form validate-form" action="/login" th:action th:object="${loginDto}" method="post">
+
+            <form class="login100-form validate-form" id="login-form" action="/login" th:action th:object="${loginDto}" method="post">
                 <span class="login100-form-title p-b-49">
                     Login
                 </span>
 
                 <div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
                     <span class="label-input100">Email</span>
-                    <input class="input100" type="text" name="email" id="loginEmail" th:field="*{email}" placeholder="이메일을 입력해주세요">
+                    <input class="input100" type="email" name="email" id="loginEmail" th:field="*{email}"
+                           th:errorclass="field-error" placeholder="이메일을 입력해주세요">
                     <span class="focus-input100" data-symbol="&#xf206;"></span>
                 </div>
+                <div class="field-error" th:errors="*{email}" />
+
 
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
                     <span class="label-input100">Password</span>
-                    <input class="input100" type="password" name="password" id="password" th:field="*{password}" placeholder="비밀번호를 입력하세요.">
+                    <input class="input100" type="password" name="password" id="password" th:field="*{password}"
+                           th:errorclass="field-error" placeholder="비밀번호를 입력하세요.">
                     <span class="focus-input100" data-symbol="&#xf190;"></span>
                 </div>
+                <div class="field-error" th:errors="*{password}" />
 
-<!--                <div th:if="${#fields.hasGlobalErrors()}">-->
-<!--                    <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>-->
-<!--                </div>-->
+
+                <div th:if="${#fields.hasGlobalErrors()}">
+                    <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+                </div>
 
                 <div class="text-right p-t-8 p-b-31">
-                    <a type="button" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="main_login_IDPW_BTN">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="main_login_IDPW_BTN">
                         비밀번호 찾기
                     </a>
                 </div>
@@ -49,7 +59,7 @@
                 <div class="container-login100-form-btn">
                     <div class="wrap-login100-form-btn">
                         <div class="login100-form-bgbtn"></div>
-                        <button class="login100-form-btn" type="button">
+                        <button class="login100-form-btn">
                             Login
                         </button>
                     </div>
@@ -57,30 +67,32 @@
 
                 <div class="txt1 text-center p-t-54 p-b-20">
 						<span>
-							Or Sign Up Using
+							소셜 로그인
 						</span>
                 </div>
-            </form>
 
-            <div class="flex-c-m">
-                <button th:onclick="'location.href=\''+ @{${kakaoUrl}} + '\''" class="login100-social-item">
-                    <img style="width : 50px; height : 50px;" src="/img/kakaologo.jpg" alt="kakao"/>
-                </button>
+                <div class="flex-c-m">
+                    <button th:onclick="'location.href=\''+ @{${kakaoUrl}} + '\''" class="login100-social-item">
+                        <img style="width : 50px; height : 50px;" src="/img/kakaologo.jpg" alt="kakao"/>
+                    </button>
 
-                <button th:onclick="'location.href=\''+ @{${naverUrl}} + '\''" class="login100-social-item">
-                    <img style="width : 50px; height : 50px;" src="/img/네이버.png" alt="kakao"/>
-                </button>
-            </div>
+                    <button th:onclick="'location.href=\''+ @{${naverUrl}} + '\''" class="login100-social-item">
+                        <img style="width : 50px; height : 50px;" src="/img/네이버.png" alt="kakao"/>
+                    </button>
+                </div>
 
-            <div class="flex-col-c p-t-50">
+                <div class="flex-col-c p-t-50">
 						<span class="txt1 p-b-17">
-							Or Sign Up Using
+							계정이 없으십니까?
 						</span>
 
-                <a th:href="@{/join}" class="txt2">
-                    Sign Up
-                </a>
-            </div>
+                    <a th:href="@{/join}" class="txt2">
+                        회원가입
+                    </a>
+                </div>
+
+
+            </form>
         </div>
     </div>
 </div>
@@ -108,8 +120,10 @@
     </div>
 </div>
 
-</body>
 <th:block layout:fragment="extraJs">
+    <!--===============================================================================================-->
+    <script src="/login/js/main.js"></script>
+    <!--===============================================================================================-->
     <style>
             .field-error {
                 border-color: #dc3545;
