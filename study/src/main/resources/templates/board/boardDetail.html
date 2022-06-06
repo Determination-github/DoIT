@@ -3,9 +3,14 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 
-<div layout:fragment="content">
-<body class="d-flex flex-column h-100">
-    <section class="py-3">
+<div layout:fragment="content" class="max-width">
+
+<th:block layout:fragment="extraCSS">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/css/detail.css">
+    <!--===============================================================================================-->
+</th:block>
+    <section class="board-detail">
         <div class="container col-lg-10 mt-3">
             <div class="row gx-5">
                 <th:block th:if="${session.nickName} == null or ${session.id} != ${boardDto.board_writerId}">
@@ -14,20 +19,26 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex flex-column align-items-center text-center">
-                                        <th:block th:if="${boardDto.path} == null">
-                                            <div style="border-radius : 50%; overflow: hidden;">
-                                                <img class="rounded-circle" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" style="width: 120px; height: 120px;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <th:block th:if="${boardDto.path} == null">
+                                                    <div class="circle-img">
+                                                        <img class="rounded-circle" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png">
+                                                    </div>
+                                                </th:block>
+                                                <th:block th:if="${boardDto.path} != null">
+                                                    <div class="circle-img">
+                                                        <img class="rounded-circle" th:src="${boardDto.path}">
+                                                    </div>
+                                                </th:block>
                                             </div>
-                                        </th:block>
-                                        <th:block th:if="${boardDto.path} != null">
-                                            <div style="border-radius : 50%; overflow: hidden;">
-                                                <img class="rounded-circle" th:src="${boardDto.path}" style="width: 120px; height: 120px;">
+                                            <div class="col">
+                                                <div class="mt-3">
+                                                <h4 class="text-break">[[${boardDto.writer_nickName}]]</h4>
+                                                <p class="text-secondary mb-1"></p>
+                                                <a class="btn btn-primary" type="button" th:href="@{/profile/{id}(id = ${boardDto.board_writerId})}">프로필 보기</a>
                                             </div>
-                                        </th:block>
-                                        <div class="mt-3">
-                                            <h4 class="text-break">[[${boardDto.writer_nickName}]]</h4>
-                                            <p class="text-secondary mb-1"></p>
-                                            <a class="btn btn-primary" type="button" th:href="@{/profile/{id}(id = ${boardDto.board_writerId})}">프로필 보기</a>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -37,15 +48,33 @@
                 </th:block>
                 <div class="content-area" th:classappend="${session.id} == ${boardDto.board_writerId} ? 'col-lg-12' : 'col-lg-9'">
                     <article>
-                        <div class="row mb-4">
+                        <div class="mb-4">
                             <div class="row">
-                                <div  class="col-9" style="word-break: break-word;">
-                                    <h1 class="fw-bolder mb-1">[[${boardDto.board_title}]]</h1>
+                                <div  class="col-9">
+                                    <h3 class="header-detail">[[${boardDto.board_title}]]
+                                        <th:block th:if="!${boardDto.board_like}">
+                                            <button class="btn_like" id="btn_like" th:value="${boardDto.board_id}">
+                                                <i class="bi-heart"></i>
+                                            </button>
+                                        </th:block>
+                                        <th:block th:if="${boardDto.board_like}">
+                                            <button id="btn_like_delete" th:value="${boardDto.board_id}">
+                                                <i class="bi-heart-fill"></i>
+                                            </button>
+                                        </th:block>
+                                    </h3>
+                                    <input type="hidden" th:id="boardId" th:value="${boardDto.board_id}">
                                 </div>
                                 <div class="col-3 text-end pr-0">
                                     <h4>
                                         <span class="badge bg-primary">모집 중</span>
                                     </h4>
+                                </div>
+                            </div>
+                            <div class="row writer-profile">
+                                <div class="col text-left">
+                                    <span class="text-break">[[${boardDto.writer_nickName}]]</span>
+                                    <a class="btn btn-sm btn-secondary" type="button" th:href="@{/profile/{id}(id = ${boardDto.board_writerId})}">프로필 보기</a>
                                 </div>
                             </div>
                             <div class="row">
@@ -56,32 +85,103 @@
                             <div class="row mt-3">
                                 <div class="col-6">
                                     <h5 class="d-inline">
-                                        <span class="badge badge-light text-dark mr-1" style="background-color : #b3e5fc">#[[${boardDto.board_interest1}]]</span>
+                                        <span class="badge badge-light text-dark mr-1" >#[[${boardDto.board_interest1}]]</span>
                                     </h5>
                                     <h5 class="d-inline">
-                                        <span class="badge badge-light text-dark mr-1" style="background-color : #b3e5fc">#[[${boardDto.board_interest2}]]</span>
+                                        <span class="badge badge-light text-dark mr-1">#[[${boardDto.board_interest2}]]</span>
                                     </h5>
                                     <h5 class="d-inline">
-                                        <span class="badge badge-light text-dark mr-1" style="background-color : #b3e5fc">#[[${boardDto.board_interest3}]]</span>
+                                        <span class="badge badge-light text-dark mr-1">#[[${boardDto.board_interest3}]]</span>
                                     </h5>
                                 </div>
                                 <div class="col-6 text-end">
                                     <th:block th:if="${session.nickName} == null or ${session.id} != ${boardDto.board_writerId}">
                                         <div>
-                                            <input type="hidden" th:id="boardId" th:value="${boardDto.board_id}">
-                                            <th:block th:if="!${boardDto.board_like}">
-                                                <button style="float: right" class="btn_like" id="btn_like" th:value="${boardDto.board_id}">
-                                                    <i class="bi-heart"  style="font-size: 1rem; color: red; cursor: pointer; float: right;"></i>
-                                                </button>
-                                            </th:block>
-                                            <th:block th:if="${boardDto.board_like}">
-                                                <button style="float: right" class="btn_like_delete" id="btn_like_delete" th:value="${boardDto.board_id}">
-                                                    <i class="bi-heart-fill"  style="font-size: 1rem; color: red; cursor: pointer; float: right;"></i>
-                                                </button>
-                                            </th:block>
-                                            <button type="button" class="btn btn-primary" id="wanna-join">🙋 참여하고 싶어요</button>
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noteModal" id="note">✉ 쪽지보내기</button>
                                         </div>
                                     </th:block>
+                                </div>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div id="main-content" class="container">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <form class="form-inline">
+                                                        <div class="form-group">
+                                                            <label for="connect">WebSocket connection:</label>
+                                                            <button id="connect" class="btn btn-default" type="submit">Connect</button>
+                                                            <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <form class="form-inline">
+                                                        <div class="form-group">
+                                                            <label for="name">What is your name?</label>
+                                                            <input type="text" id="name" class="form-control" placeholder="Your name here...">
+                                                        </div>
+                                                        <button id="send" class="btn btn-default" type="submit">Send</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <table id="conversation" class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Greetings</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="greetings">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="noteModalLabel">쪽지 보내기</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <div class="row">
+                                                    <input hidden id="sender_id" th:value="${session.id}">
+                                                    <div class="col-3" id="receiver-id" th:value=${boardDto.board_writerId} style="padding-right : 0px; width : 19.5%; border-right : dotted 1px black;">
+                                                        <span style="line-height : 2.4;">받는 사람</span>
+                                                    </div>
+                                                    <th:block th:if="${boardDto.path} == null">
+                                                        <div class="col-9">
+                                                            <img class="rounded-circle" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png">
+                                                            <span class="nickname">[[${boardDto.writer_nickName}]]</span>
+                                                        </div>
+                                                    </th:block>
+                                                    <th:block th:if="${boardDto.path} != null">
+                                                        <div class="col-9">
+                                                            <img class="rounded-circle" th:src="${boardDto.path}">
+                                                            <span class="nickname">[[${boardDto.writer_nickName}]]</span>
+                                                        </div>
+                                                    </th:block>
+                                                </div>
+                                                <hr class="mt-3 mb-3"/>
+                                                <div class="mb-3">
+                                                    <label for="note-title" class="form-label">제목</label>
+                                                    <input type="text" class="form-control" id="note-title" placeholder="제목을 입력해주세요.">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="note-content" class="form-label">내용</label>
+                                                    <textarea class="form-control" id="note-content" rows="3" placeholder="내용을 입력해주세요."></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                                <button id="send-note" type="button" class="btn btn-primary">쪽지 보내기</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -106,7 +206,7 @@
                             </div>
                         </div>
                     </article>
-                    <section>
+                    <section class="comment">
                         <form name="commentFrm" id="commentFrm">
                             <input type="hidden" name="totalPage" value>
                             <input type="hidden" name="page" value="0">
@@ -140,13 +240,13 @@
                                                         </th:block>
                                                         <div class="flex-shrink-0">
                                                             <th:block th:if="${comments.path} == null">
-                                                                <div style="border-radius : 50%; overflow: hidden;">
-                                                                    <img class="rounded-circle" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" id="profile-default-img" style="width: 20px; height: 20px;">
+                                                                <div class="circle-img">
+                                                                    <img class="rounded-circle-comment" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" id="profile-default-img">
                                                                 </div>
                                                             </th:block>
                                                             <th:block th:if="${comments.path} != null">
-                                                                <div style="border-radius : 50%; overflow: hidden;">
-                                                                    <img class="rounded-circle" th:src="${comments.path}" id="profile-img" style="width: 20px; height: 20px;">
+                                                                <div class="circle-img">
+                                                                    <img class="rounded-circle-comment" th:src="${comments.path}" id="profile-img">
                                                                 </div>
                                                             </th:block>
                                                         </div>
@@ -176,17 +276,17 @@
                                                     <input type="hidden" th:id="'boardId'+${comments.comment_id}" th:value="${boardDto.board_id}">
                                                     <input type="hidden" th:id="'groupId'+${comments.comment_id}"  th:value="${comments.group_id} != null ? ${comments.group_id} : ${comments.comment_id}">
                                                     <input type="hidden" id="group_indent" value="1">
-                                                    <div th:id="'reply-textarea'+${comments.comment_id}" class="reply-textarea" style="display:none">
+                                                    <div th:id="'reply-textarea'+${comments.comment_id}" class="reply-textarea">
                                                         <div class="re-reply-container">
                                                            <div class='re-reply'>댓글</div>
-                                                           <textarea class='form-control custom-control re-reply' th:id="'reply'+${comments.comment_id}" name='comment' rows='3' style='resize:none'></textarea>
+                                                           <textarea class='form-control custom-control re-reply' th:id="'reply'+${comments.comment_id}" name='comment' rows='3'></textarea>
                                                            <button class='input-group-addon btn btn-primary btn-sm reply-btn' th:value="${comments.comment_id}" id="'add-reply-comment-btn'+${comments.comment_id}">작성</button>
                                                        </div>
                                                     </div>
-                                                    <div th:id="'re-reply-textarea'+${comments.comment_id}" class="reply-textarea" style="display:none">
+                                                    <div th:id="'re-reply-textarea'+${comments.comment_id}" class="reply-textarea">
                                                         <div class="re-reply-container">
                                                             <div class='re-reply'>댓글</div>
-                                                            <textarea class='form-control custom-control re-reply' th:id="'modify'+${comments.comment_id}" name='comment' rows='3' style='resize:none'>[[${comments.comment}]]</textarea>
+                                                            <textarea class='form-control custom-control re-reply' th:id="'modify'+${comments.comment_id}" name='comment' rows='3'>[[${comments.comment}]]</textarea>
                                                             <button class='input-group-addon btn btn-primary btn-sm reply-modify-btn' th:value="${comments.comment_id}" id="'add-re-reply-comment-btn'+${comments.comment_id}">작성</button>
                                                         </div>
                                                     </div>
@@ -199,8 +299,8 @@
                         </div>
                         <th:block th:if="${session.id} == ${boardDto.board_writerId}">
                             <div class="write">
-                                <a class="btn btn-secondary btn-lg btn-block mt-2" type="button" id="edit" style="float: right;">수정하기</a>
-                                <button class="btn btn-secondary btn-lg btn-block mt-2" th:value="${boardDto.board_id}" type="button" id="delete" style="float: right; margin-right: 1%;">삭제하기</button>
+                                <a class="btn btn-secondary btn-lg btn-block mt-2" type="button" id="edit">수정하기</a>
+                                <button class="btn btn-secondary btn-lg btn-block mt-2" th:value="${boardDto.board_id}" type="button" id="delete">삭제하기</button>
                             </div>
                         </th:block>
                     </section>
@@ -208,7 +308,6 @@
             </div>
         </div>
     </section>
-</body>
 </div>
 <th:block layout:fragment="extraJs">
     <script type="text/javascript" th:inline="javascript">

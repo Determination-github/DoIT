@@ -36,6 +36,9 @@
 	padding: 0px; 
 	box-sizing: border-box;
 }
+.login-section{
+    padding: 25px 0;
+}
 
 body, html {
 	height: 100%;

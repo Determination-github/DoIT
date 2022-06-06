@@ -1,124 +1,123 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 
-    <link rel="stylesheet" th:href="@{/css/default.css}" href="../css/default.css">
-    <link rel="stylesheet" th:href="@{/css/join-style.css}" href="../css/join-style.css">
-    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css}"/>
-    <link th:href="@{/css/default.css}" rel="stylesheet">
+<div layout:fragment="content">
+<th:block layout:fragment="extraCSS">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/css/joinForm.css">
+    <!--===============================================================================================-->
+</th:block>
 
-    <script src="https://kit.fontawesome.com/0c4f9b09f5.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<div class="max-width">
+<section class="join-form">
+    <main class="flex-shrink-0">
+    <div class="container col-lg-10">
+        <h3 class="header_join">회원가입</h3>
+        <form action="/join" th:action th:object="${memberDto}" method="post">
+            <div class="main_join_wrap">
+                <div class="main_join_box1">
+                    <p>이름</p>
+                        <div class="main_join_input_group main_join_input_box1">
+                            <input class="main_join_input main_join_input1" type="text" id="name" th:field="*{name}"
+                                   th:placeholder="@{이름을 입력하세요.}" th:errorclass="field-error">
+                        </div>
+                    <span id="nameCheck"></span>
+                    <div class="field-error" th:each="error, stat : ${#fields.errors('name')}" th:text="${error}" th:if="${stat.first}" />
+                </div>
 
-    <title>회원가입 페이지</title>
+                <div class="main_join_box1">
+                    <p>닉네임</p>
+                    <div class="main_join_input_group main_join_input_box2">
+                        <input class="main_join_input main_join_input1" type="text" id="nickname" th:field="*{nickname}"
+                               th:placeholder="@{닉네임을 입력하세요.}" th:errorclass="field-error">
+                    </div>
+                    <span id="nicknameCheck"></span>
+                    <div class="field-error" th:errors="*{nickname}" />
+                </div>
 
+                <div class="main_join_box2">
+                    <p>이메일</p>
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="main_join_input_group main_join_input_box3 main_join_chk">
+                                <p>
+                                    <input class="main_join_input main_join_input2" type="email" id="email" th:field="*{email}"
+                                           th:placeholder="@{이메일을 입력하세요.}" th:errorclass="field-error">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <p id="emailChk" class="doubleChk main_join_chk">인증번호 보내기</p>
+                        </div>
+                    </div>
+
+                    <p id="emailCheck"></p>
+
+                    <div class="row">
+                        <div class="col-8">
+                            <p class="main_join_email_chk main_join_email_double"><input id="sm_email" type="text" name="sm_email" th:placeholder="@{인증번호를 입력하세요.}" title="인증번호 입력" disabled required/></p>
+                        </div>
+                        <div class="col-4">
+                            <p id="emailChk2" class="doubleChk main_join_email_double">이메일 인증</p>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="emailDoubleChk"/>
+                    <div class="field-error" th:errors="*{email}"/>
+                </div>
+
+                <div class="main_join_box3">
+                    <p>비밀번호</p>
+                    <div class="main_join_input_group main_join_input_box4">
+                        <input class="main_join_input main_join_input3" type="password" id="password" th:field="*{password}"
+                               th:placeholder="@{비밀번호를 입력하세요.}" th:errorclass="field-error">
+                    </div>
+                    <div class="field-error" th:each="error, stat : ${#fields.errors('password')}" th:text="${error}" th:if="${stat.first}" />
+                </div>
+
+                <div class="main_join_box3">
+                    <p>비밀번호 확인</p>
+                    <div class="main_join_input_group main_join_input_box5">
+                        <input class="main_join_input main_join_input4" type="password" id="password_check"
+                               th:placeholder="@{비밀번호 중복 확인}">
+                    </div>
+                    <span id="same"></span>
+                </div>
+
+                <div class="main_join_box6 main_join_box_group">
+                    <p>성별</p>
+                    <div class="main_join_input_box6">
+                        <select id="main_join_input_sex_select" class="main_join_input_sex_select"
+                        th:field="*{gender}">
+                            <option value="">성별</option>
+                            <option th:each="gender : ${gender}" th:value="${gender.code}"
+                                    th:text="${gender.gender}"></option>
+                        </select>
+                        <div class="field-error" th:errors="*{gender}"/>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="main_join_BTN" id="button" type="submit" >가입하기</button>
+                </div>
+            </div>
+        </form>
+        </div>
+    </main>
+</section>
+</div>
+</div>
+
+<th:block layout:fragment="extraJs">
     <style>
         .field-error {
             border-color: #dc3545;
             color: #dc3545;
         }
     </style>
-
-</head>
-<body>
-<div id="wrap">
-    <header id="header">
-        <div class="header_login_ID_wrap">
-            <p class="header_login_img"><a th:href="@{/}"><img th:src="@{/img/DoIT-Radius.png}"/></a></p>
-            <p class="header_login_ID">
-                <span class="header_login_ID_span">이미 회원이십니까?</span>
-                <a href="/login" class="header_login_ID_btn">
-                    로그인
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                    </svg>
-                </a>
-            </p>
-        </div>
-        <h1 class="header_join">회원가입</h1>
-    </header>
-    <main id="main">
-        <form action="/join" th:action th:object="${memberDto}" method="post">
-
-        <div class="main_join_wrap">
-
-            <div class="main_join_box1">
-                <p>이름</p>
-                    <div class="main_join_input_group main_join_input_box1">
-                        <input class="main_join_input main_join_input1" type="text" id="name" th:field="*{name}"
-                               th:placeholder="@{이름을 입력하세요.}" th:errorclass="field-error">
-                    </div>
-                <span id="nameCheck"></span>
-                <div class="field-error" th:each="error, stat : ${#fields.errors('name')}" th:text="${error}" th:if="${stat.first}" />
-            </div>
-
-            <div class="main_join_box1">
-                <p>닉네임</p>
-                <div class="main_join_input_group main_join_input_box2">
-                    <input class="main_join_input main_join_input1" type="text" id="nickname" th:field="*{nickname}"
-                           th:placeholder="@{닉네임을 입력하세요.}" th:errorclass="field-error">
-                </div>
-                <span id="nicknameCheck"></span>
-                <div class="field-error" th:errors="*{nickname}" />
-            </div>
-
-            <div class="main_join_box2">
-                <p>이메일</p>
-                <div class="main_join_input_group main_join_input_box3 main_join_chk">
-                    <p>
-                        <input class="main_join_input main_join_input2" type="email" id="email" th:field="*{email}"
-                               th:placeholder="@{이메일을 입력하세요.}" th:errorclass="field-error">
-                    </p>
-                </div>
-                <p id="emailChk" class="doubleChk main_join_chk">인증번호 보내기</p>
-                <p id="emailCheck"></p>
-                <p class="main_join_email_chk main_join_email_double"><input id="sm_email" type="text" name="sm_email" th:placeholder="@{인증번호를 입력하세요.}" title="인증번호 입력" disabled required/></p>
-                <p id="emailChk2" class="doubleChk main_join_email_double">이메일인증</p>
-                <p class="point successEmailChk">이메일 입력후 인증번호 보내기를 해주십시오.</p>
-                <input type="hidden" id="emailDoubleChk"/>
-                <!--<div class="field-error" th:errors="*{email}"/>-->
-            </div>
-
-            <div class="main_join_box3">
-                <p>비밀번호</p>
-                <div class="main_join_input_group main_join_input_box4">
-                    <input class="main_join_input main_join_input3" type="password" id="password" th:field="*{password}"
-                           th:placeholder="@{비밀번호를 입력하세요.}" th:errorclass="field-error">
-                </div>
-                <div class="field-error" th:each="error, stat : ${#fields.errors('password')}" th:text="${error}" th:if="${stat.first}" />
-            </div>
-
-            <div class="main_join_box3">
-                <p>비밀번호 확인</p>
-                <div class="main_join_input_group main_join_input_box5">
-                    <input class="main_join_input main_join_input4" type="password" id="password_check"
-                           th:placeholder="@{비밀번호 중복 확인}">
-                </div>
-                <span id="same"></span>
-            </div>
-
-            <div class="main_join_box6 main_join_box_group">
-                <p>성별</p>
-                <div class="main_join_input_box6">
-                    <select id="main_join_input_sex_select" class="main_join_input_sex_select"
-                    th:field="*{gender}">
-                        <option value="">성별</option>
-                        <option th:each="gender : ${gender}" th:value="${gender.code}"
-                                th:text="${gender.gender}"></option>
-                    </select>
-                    <div class="field-error" th:errors="*{gender}"/>
-                </div>
-            </div>
-
-            <div>
-                <button class="main_join_BTN" id="button" type="submit" >가입하기</button>
-            </div>
-        </div>
-        </form>
-    </main>
-</div>
-<script type="text/javascript" th:inline="javascript">
+    <script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
 
 
@@ -236,29 +235,33 @@
         var code = "";
         $("#emailChk").click(function(){
             var email = $("#email").val();
-            $.ajax({
-                type:"POST",
-                url:"/join/mailCheck",
-                data : {email:email},
-                dataType : 'json',
-                cache : false,
-                success:function(result){
-                    if(result == "error"){
-                        alert("이메일 주소가 올바르지 않습니다. 유효한 이메일 주소를 입력해주세요.");
-                        $("#email").attr("autofocus",true);
-                        $(".successEmailChk").text("유효한 이메일 주소를 입력해주세요.");
-                        $(".successEmailChk").css("color","red");
-                        $('#button').attr("disabled", true);
-                    }else{
-                        alert("인증번호 발송이 완료되었습니다.\n입력한 이메일에서 인증번호 확인을 해주십시오.");
-                        $("#sm_email").attr("disabled",false);
-                        $("#emailChk2").css("display","inline-block");
-                        $(".successEmailChk").text("인증번호를 입력한 뒤 이메일 인증을 눌러주십시오.");
-                        $(".successEmailChk").css("color","green");
-                        code = result;
+            if(!email.length) {
+                alert("이메일을 입력해주세요.");
+            } else {
+                $.ajax({
+                    type:"POST",
+                    url:"/join/mailCheck",
+                    data : {email:email},
+                    dataType : 'json',
+                    cache : false,
+                    success:function(result){
+                        if(result == "error"){
+                            alert("이메일 주소가 올바르지 않습니다. 유효한 이메일 주소를 입력해주세요.");
+                            $("#email").attr("autofocus",true);
+                            $(".successEmailChk").text("유효한 이메일 주소를 입력해주세요.");
+                            $(".successEmailChk").css("color","red");
+                            $('#button').attr("disabled", true);
+                        }else{
+                            alert("인증번호 발송이 완료되었습니다.\n입력한 이메일에서 인증번호 확인을 해주십시오.");
+                            $("#sm_email").attr("disabled",false);
+                            $("#emailChk2").css("display","inline-block");
+                            $(".successEmailChk").text("인증번호를 입력한 뒤 이메일 인증을 눌러주십시오.");
+                            $(".successEmailChk").css("color","green");
+                            code = result;
+                        }
                     }
-                }
-            });
+                });
+            }
         });
 
         //이메일 인증번호 대조
@@ -287,5 +290,5 @@
 
 		/*]]>*/
 </script>
-</body>
+</th:block>
 </html>

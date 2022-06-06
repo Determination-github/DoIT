@@ -40,7 +40,7 @@
             <th:block th:if="${session.nickName != null}">
               <li><a class="dropdown-item" th:href="@{/logout}">로그아웃</a></li>
               <li><a class="dropdown-item" th:href="@{/profile/{id}(id = ${session.id})}">내 정보보기</a></li>
-              <li><a class="dropdown-item" href="#">쪽지함</a></li>
+              <li><a class="dropdown-item" th:href="@{/note/{id}(id = ${session.id})}">쪽지함</a></li>
             </th:block>
           </ul>
         </div>

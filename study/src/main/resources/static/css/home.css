@@ -1,0 +1,29 @@
+
+h2{
+  cursor: pointer
+}
+.card-body .card-title .row{
+  margin-top: 20px;
+}
+.card .row .col-4 .mb-2{
+  background-color : green;
+}
+.row .col .d-inline .mr-1 {
+  background-color: blueviolet;
+}
+.btn_like,
+.btn_like_delete{
+  float: right
+}
+.card-body .row .text-dark{
+  background-color : #b3e5fc
+}
+.radius-circle{
+  border-radius : 50%;
+  overflow: hidden;
+  border: 0.2px;
+}
+.rounded-circle {
+  width: 40px;
+  height: 40px;
+}

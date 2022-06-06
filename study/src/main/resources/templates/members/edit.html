@@ -3,78 +3,52 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 
-<body  class="d-flex flex-column h-100">
-<div layout:fragment="content">
+<div layout:fragment="content" class="max-width">
+
+<th:block layout:fragment="extraCSS">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/css/edit.css">
+  <!--===============================================================================================-->
+</th:block>
+
+<section class="edit">
 <main id="main">
   <div class="main_wrap">
-    <div class="main_text_wrap">
-      <h1 class="main_text">회원 정보 수정</h1>
-    </div>
-    <div id="main_container" style="margin-top : 80px;">
+    <h3 class="header_edit">회원 정보 수정</h3>
+
+    <div id="main_container">
       <form>
-        <ul class="main_form_wrap">
-          <li>
-            <div class="container">
-              <div class="row">
-                <div class="col" style="margin-top : 10px">
-                  <p class="main_text_group main_form_text" >닉네임</p>
-                </div>
-                <div class="col-8">
-                  <div class="main_text_group main_input_group main_nickname ">
-                    <input hidden id="originalNickname" th:value="${profileDto.nickname}">
-                    <input hidden id="id" th:value="${profileDto.id}">
-                    <input th:value="${profileDto.nickname}" id="nickname" type="text" placeholder="닉네임을 입력해 주세요">
-                  </div>
-                </div>
-                <div class="col" style="margin-top : 20px">
-                  <span id="nicknameCheck"></span>
-                </div>
-              </div>
-            </div>
-          </li>
-          <th:block th:if="${profileDto.password != null}">
-          <li>
-            <div class="container">
-              <div class="row">
-                <div class="col" style="margin-top : 10px">
-                  <p class="main_text_group main_form_text">비밀번호</p>
-                </div>
-                <div class="col-8">
-                  <div class="main_text_group main_input_group ">
-                    <input type="password" id="password" placeholder="비밀번호를 입력해 주세요">
-                  </div>
-                </div>
-                <div class="col" style="margin-top : 20px">
-                  <span id="passwordCheck"></span>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="container">
-              <div class="row">
-                <div class="col" style="margin-top : 10px">
-                  <p class="main_text_group main_form_text">비밀번호 확인</p>
-                </div>
-                <div class="col-8">
-                  <div class="main_text_group main_input_group ">
-                    <input type="password" id="password-two" placeholder="비밀번호를 한번 더 입력해 주세요">
-                  </div>
-                </div>
-                <div class="col" style="margin-top : 20px">
-                  <span id="doubleCheck"></span>
-                </div>
-              </div>
-            </div>
-          </li>
-          </th:block>
-        </ul>
-        <ul class="main_btn_wrap">
-          <div style="margin-right : 100px">
-            <li><button class="main_btn" id="modify-btn" disabled>회원 수정</button></li>
-            <li><button type="button" class="main_btn" data-bs-toggle="modal" data-bs-target="#exampleModal" id="delete-btn">계정 탈퇴</button></li>
+        <div class="container">
+          <p class="main_text_group main_form_text" >닉네임</p>
+          <div class="main_text_group main_input_group main_nickname ">
+            <input hidden id="originalNickname" th:value="${profileDto.nickname}">
+            <input hidden id="id" th:value="${profileDto.id}">
+            <input th:value="${profileDto.nickname}" id="nickname" type="text" placeholder="닉네임을 입력해 주세요">
           </div>
-        </ul>
+          <span id="nicknameCheck"></span>
+        </div>
+        <th:block th:if="${profileDto.password != null}">
+          <div class="container">
+            <p class="main_text_group main_form_text">비밀번호</p>
+            <div class="main_text_group main_input_group ">
+              <input type="password" id="password" placeholder="비밀번호를 입력해 주세요">
+            </div>
+            <span id="passwordCheck"></span>
+          </div>
+          <div class="container">
+            <p class="main_text_group main_form_text">비밀번호 확인</p>
+            <div class="main_text_group main_input_group ">
+              <input type="password" id="password-two" placeholder="비밀번호를 한번 더 입력해 주세요">
+            </div>
+            <span id="doubleCheck"></span>
+          </div>
+        </th:block>
+        <div class="row" id="row-btn">
+          <div class="col text-end">
+            <button class="btn btn-primary" id="modify-btn" disabled>회원 수정</button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="delete-btn">계정 탈퇴</button>
+          </div>
+        </div>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -103,7 +77,8 @@
     </div>
   </div>
 </main>
-
+</section>
+<th:block layout:fragment="extraJs">
 <script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
 
@@ -269,7 +244,6 @@
 
 		/*]]>*/
 </script>
-
+</th:block>
 </div>
-</body>
 </html>

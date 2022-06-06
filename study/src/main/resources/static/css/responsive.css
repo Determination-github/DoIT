@@ -1,15 +1,29 @@
 /* 반응형 미디어 쿼리  */
 @media(max-width: 1799px){
-  .home .max-width{
-    margin-left: 5px;
-  }
+
 }
 
 @media(max-width: 1199px){
-  .about .about-content .left img{
-    height: 350px;
-    width: 350px;
+}
+
+@media(max-width: 992px){
+  .profile .mb-4{
+    margin-top : 25px;
   }
+  .container .row .col-lg-3{
+    left: -100%;
+    position: fixed;
+  }
+}
+@media(min-width: 992px){
+  .writer-profile{
+    display: none;
+    cursor: pointer;
+  }
+}
+
+@media(max-width: 992px){
+
 }
 
 @media(max-width: 899px){
@@ -66,42 +80,19 @@
   }
 
   .navbar .menubar li a{
-    
     margin: 20px 0;
     font-size: 25px;
-  }
-
-  .home .home-content .text-2{
-    font-size: 70px;
-  }
-  
-  .home .home-content .text-3{
-    font-size: 35px;
-  }
-
-  .about .about-content .column{
-    width: 100%;
-  }
-
-  .about .about-content .left{
-    display: flex;
-    justify-content: center;
-    margin: 0 auto 60px;
   }
 
   .max-width{
     max-width: 800px;
   }
+}
 
-  .skills .skills-content .column,
-  .my-site .my-site-content .column,
-  .contact .contact-content .column{
-    width: 100%;
-    margin-bottom: 25px;
-  }
-
-  .my-site .my-site-content .site-text{
-    padding: 10px 0;
+@media(min-width: 770px){
+  .wishlist,
+  .myStudylist{
+    padding-top : 160px
   }
 }
 
@@ -110,26 +101,31 @@
     padding: 0 25px;
   } 
 
-  .home .home-section .text-2{
-    font-size: 60px;
+  section{
+    font-size: 15px;
   }
-  
-  .home .home-section .text-3{
-    font-size: 32px;
-  }
-
-  .home .home-section a{
-    font-size: 20px;
-  }
-
 }
 
 @media(max-width: 500px){
-  .home .home-section .text-2{
-    font-size: 50px;
+    section{
+      margin : 5px;
+    }
+}
+
+@media(max-width: 450px){
+  * {
+    font-size : 12px;
+    word-break: keep-all;
   }
-  
-  .home .home-section .text-3{
-    font-size: 27px;
+  input::placeholder {
+    font-size : 12px;
+  }
+  textarea::placeholder {
+    font-size : 12px;
+  }
+  .header_edit{
+    font-size:25px;
+    font-weight:400;
+    padding: 10px 0 10px 0;
   }
 }

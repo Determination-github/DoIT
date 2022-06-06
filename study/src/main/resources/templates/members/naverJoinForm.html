@@ -1,120 +1,117 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <link th:href="@{/css/join-style.css}" href="../css/join-style.css" rel="stylesheet">
-    <link th:href="@{/css/default.css}" href="../css/default.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/0c4f9b09f5.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <title>네이버 회원 가입 페이지</title>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 
-    <style>
-        .field-error {
-            border-color: #dc3545;
-            color: #dc3545;
-        }
-    </style>
-
-</head>
-<body>
-<div id="wrap">
-    <header id="header">
-            <h1 class="header_join">회원가입</h1>
-    </header>
+<div layout:fragment="content" class="max-width">
+<th:block layout:fragment="extraCSS">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/css/joinForm.css">
+    <!--===============================================================================================-->
+</th:block>
+<section class="join-form">
+    <h2 class="header_join">회원가입</h2>
     <main id="main">
         <form action="/join/naver" th:action th:object="${naverDto}" method="post">
         <input type="hidden" th:field="*{social_type}">
         <input type="hidden" th:field="*{token}">
 
-        <div class="main_join_wrap">
-
-            <div class="main_join_box1">
-                <p>이름</p>
-                <div class="main_join_input_group main_join_input_box">
-                    <input class="main_join_input main_join_input" type="text" id="name" th:value="${naverDto.socialName}"
-                           readonly>
+            <div class="main_join_wrap">
+                <div class="main_join_box1">
+                    <p>이름</p>
+                    <div class="main_join_input_group main_join_input_box">
+                        <input class="main_join_input main_join_input" type="text" id="name" th:value="${naverDto.socialName}"
+                               readonly>
+                    </div>
+                    <span id="nameCheck"></span>
                 </div>
-                <span id="nameCheck"></span>
-            </div>
 
-            <div class="main_join_box1">
-                <p>닉네임</p>
-                <div class="main_join_input_group main_join_input_box">
-                    <input class="main_join_input main_join_input1" type="text" id="nickname" th:field="*{socialNickname}"
-                           th:placeholder="@{닉네임을 입력하세요.}" th:errorclass="field-error">
+                <div class="main_join_box1">
+                    <p>닉네임</p>
+                    <div class="main_join_input_group main_join_input_box">
+                        <input class="main_join_input main_join_input1" type="text" id="nickname" th:field="*{socialNickname}"
+                               th:placeholder="@{닉네임을 입력하세요.}" th:errorclass="field-error">
+                    </div>
+                    <span id="nicknameCheck"></span>
+                    <div class="field-error" th:errors="*{socialNickname}" />
                 </div>
-                <span id="nicknameCheck"></span>
-                <div class="field-error" th:errors="*{socialNickname}" />
-            </div>
 
-            <div class="main_join_box2">
-                <p>이메일</p>
-                <div class="main_join_input_group main_join_input_box">
-                    <p th:if="${not #strings.isEmpty(naverDto.socialEmail)}">
-                        <input class="main_join_input main_join_input2" type="email" id="emailNaver"
-                               th:value="${naverDto.socialEmail}" readonly>
-                    </p>
+                <div class="main_join_box2">
+                    <p>이메일</p>
+                    <div class="main_join_input_group main_join_input_box">
+                        <p th:if="${not #strings.isEmpty(naverDto.socialEmail)}">
+                            <input class="main_join_input main_join_input2" type="email" id="emailNaver"
+                                   th:value="${naverDto.socialEmail}" readonly>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="main_join_box6 main_join_box_group">
+                    <p>성별</p>
+                    <div class="main_join_input_box6">
+                        <select readonly th:if="${not #strings.isEmpty(naverDto.socialGender)}" id="main_join_input_sex_select2" class="main_join_input_sex_select"
+                                th:value="${naverDto.socialGender}">
+                            <th:block th:if="${#strings.equals(naverDto.socialGender, 'M')}">
+                                <option th:value="${naverDto.socialGender}" th:text="남자">
+                                </option>
+                            </th:block>
+                            <th:block th:if="${#strings.equals(naverDto.socialGender, 'F')}">
+                                <option th:value="${naverDto.socialGender}" th:text="여자">
+                                </option>
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="main_join_BTN" type="submit">가입하기</button>
                 </div>
             </div>
-
-            <div class="main_join_box6 main_join_box_group">
-                <p>성별</p>
-                <div class="main_join_input_box6">
-                    <select readonly th:if="${not #strings.isEmpty(naverDto.socialGender)}" id="main_join_input_sex_select2" class="main_join_input_sex_select"
-                            th:value="${naverDto.socialGender}">
-                        <th:block th:if="${#strings.equals(naverDto.socialGender, 'M')}">
-                            <option th:value="${naverDto.socialGender}" th:text="남자">
-                            </option>
-                        </th:block>
-                        <th:block th:if="${#strings.equals(naverDto.socialGender, 'F')}">
-                            <option th:value="${naverDto.socialGender}" th:text="여자">
-                            </option>
-                        </th:block>
-                    </select>
-                </div>
-            </div>
-
-            <div>
-                <button class="main_join_BTN" type="submit">가입하기</button>
-            </div>
-        </div>
         </form>
     </main>
+</section>
 </div>
+<th:block layout:fragment="extraJs">
+<style>
+    .field-error {
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+</style>
 <script type="text/javascript" th:inline="javascript">
-		/*<![CDATA[*/
+    /*<![CDATA[*/
 
-		$('#nickname').focusout(function() {
-		    let nickname = $('#nickname').val();
-		    if(nickname != '') {
-                $.ajax({
-                    url : "/join/nicknameCheck",
-                    type : "post",
-                    data : {nickname:nickname},
-                    dataType : 'json',
-                    success : function(result) {
-                        if(result == 0) {
-                            $('#nicknameCheck').text('사용 가능한 닉네임입니다.');
-                            $('#nicknameCheck').css("color","green");
-                        } else if(result == 1) {
-                            $('#nicknameCheck').text('공백 혹은 특수 문자는 입력하실 수 없습니다.');
-                            $('#nicknameCheck').css("color","red");
-                        } else if(result == 2) {
-                            $('#nicknameCheck').text('닉네임은 2~10자리 이내여야 합니다.');
-                            $('#nicknameCheck').css("color","red");
-                        } else {
-                            $('#nicknameCheck').text('사용할 수 없는 닉네임입니다.');
-                            $('#nicknameCheck').css("color","red");
-                        }
-                    },
-                    error : function() {
-                        alert("서버 요청 실패");
+    $('#nickname').focusout(function() {
+        let nickname = $('#nickname').val();
+        if(nickname != '') {
+            $.ajax({
+                url : "/join/nicknameCheck",
+                type : "post",
+                data : {nickname:nickname},
+                dataType : 'json',
+                success : function(result) {
+                    if(result == 0) {
+                        $('#nicknameCheck').text('사용 가능한 닉네임입니다.');
+                        $('#nicknameCheck').css("color","green");
+                    } else if(result == 1) {
+                        $('#nicknameCheck').text('공백 혹은 특수 문자는 입력하실 수 없습니다.');
+                        $('#nicknameCheck').css("color","red");
+                    } else if(result == 2) {
+                        $('#nicknameCheck').text('닉네임은 2~10자리 이내여야 합니다.');
+                        $('#nicknameCheck').css("color","red");
+                    } else {
+                        $('#nicknameCheck').text('사용할 수 없는 닉네임입니다.');
+                        $('#nicknameCheck').css("color","red");
                     }
-                })
-            }
-        })
+                },
+                error : function() {
+                    alert("서버 요청 실패");
+                }
+            })
+        }
+    })
 
-		/*]]>*/
+    /*]]>*/
 </script>
-</body>
+</th:block>
 </html>

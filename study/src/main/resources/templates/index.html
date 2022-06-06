@@ -3,6 +3,11 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 
+<th:block layout:fragment="extraCSS">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/css/home.css">
+  <!--===============================================================================================-->
+</th:block>
 <body  class="d-flex flex-column h-100">
 <div layout:fragment="content" class="max-width">
 <main class="flex-shrink-0">
@@ -69,7 +74,6 @@
           </div>
           <div class="row">
             <div class="col text-end">
-              <button type="reset" id="resetSearch" class="btn btn-secondary btn-sm">초기화</button>
               <button type="submit" id="search" class="btn btn-sm btn-primary btn-search">검색하기</button>
             </div>
           </div>
@@ -77,7 +81,7 @@
       </div>
         <div class="row mt-4">
           <div class="col-8">
-            <h2 class="fw-bolder fs-4 mb-4">당신이 원하는 스터디그룹을 찾아보세요.</h2>
+            <h2 class="fw-bolder fs-4 mb-4">스터디그룹</h2>
           </div>
           <div class="col text-end">
             <th:block th:if="${session.nickName != null}">
@@ -93,11 +97,10 @@
 
         <th:block th:each="list : ${list}">
           <div class="col-md-4 mb-5">
-            <div class="card-section">
             <div class="card h-100 shadow border-0">
               <div class="row">
                 <div class="col-4 mt-2 ms-4">
-                  <div class="badge bg-gradient rounded-pill mb-2" style="background-color : green">[[${list.board_interest1}]]</div>
+                  <div class="badge bg-gradient rounded-pill mb-2" >[[${list.board_interest1}]]</div>
                 </div>
                 <div class="col-6 text-end mt-2">
                   <th:block th:if="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')} <= ${list.board_endDate}">
@@ -105,23 +108,28 @@
                   </th:block>
                 </div>
               </div>
+
               <div class="card-body">
 
-                <h2 class="card-title" style="cursor: pointer;"><a th:href="@{/board/result/{id}(id = ${list.board_id})}">
+                <h2 class="card-title">
+                  <a th:href="@{/board/result/{id}(id = ${list.board_id})}">
                   [[${list.board_title}]]([[${list.board_commentCount}]])
-                </a></h2>
-                <div class="row" style="margin-top : 20px;">
-                  <div class="col">
-                    <h6 class="d-inline">
-                      <span class="badge bg-gradient rounded-pill mb-2 text-dark" style="background-color : #b3e5fc">#[[${list.board_interest2}]]</span>
-                      <span class="badge bg-gradient rounded-pill mb-2 text-dark" style="background-color : #b3e5fc">#[[${list.board_interest3}]]</span>
-                    </h6>
-                  </div>
-                </div>
+                  </a>
+                </h2>
+
                 <div class="row">
                   <div class="col">
                     <h6 class="d-inline">
-                      <span class="badge badge-info mr-1" style="background-color: blueviolet;">
+                      <span class="badge bg-gradient rounded-pill mb-2 text-dark">#[[${list.board_interest2}]]</span>
+                      <span class="badge bg-gradient rounded-pill mb-2 text-dark">#[[${list.board_interest3}]]</span>
+                    </h6>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <h6 class="d-inline">
+                      <span class="badge badge-info mr-1">
                         <th:block th:if="${list.board_on_off}==1">
                           <i class="bi bi-globe"></i>
                           온라인
@@ -134,13 +142,13 @@
                       <th:block th:if="${list.board_writerId} != ${session.id}">
                         <input type="hidden" th:id="'boardId'+${list.board_id}" th:value="${list.board_id}">
                         <th:block th:if="!${list.board_like}">
-                          <button style="float: right" class="btn_like" id="btn_like" th:value="${list.board_id}">
-                            <i class="bi-heart"  style="font-size: 1rem; color: red; cursor: pointer; float: right;"></i>
+                          <button class="btn_like" id="btn_like" th:value="${list.board_id}">
+                            <i class="bi-heart"></i>
                           </button>
                         </th:block>
                         <th:block th:if="${list.board_like}">
-                          <button style="float: right" class="btn_like_delete" id="btn_like_delete" th:value="${list.board_id}">
-                            <i class="bi-heart-fill"  style="font-size: 1rem; color: red; cursor: pointer; float: right;"></i>
+                          <button class="btn_like_delete" id="btn_like_delete" th:value="${list.board_id}">
+                            <i class="bi-heart-fill"></i>
                           </button>
                         </th:block>
                       </th:block>
@@ -151,13 +159,13 @@
               <div class="align-items-end justify-content-between m-lg-2">
                 <div class="d-flex align-items-center">
                   <th:block th:if="${list.path} == null">
-                    <div style="border-radius : 50%; overflow: hidden;">
-                      <img class="rounded-circle me-3" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" id="profile-default-img" style="width: 40px; height: 40px;">
+                    <div class="radius-circle">
+                      <img class="rounded-circle me-3" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" id="profile-default-img">
                     </div>
                   </th:block>
                   <th:block th:if="${list.path} != null">
-                    <div style="border-radius : 50%; overflow: hidden;">
-                      <img class="rounded-circle me-3" th:src="${list.path}" id="profile-img" style="width: 40px; height: 40px;">
+                    <div class="radius-circle">
+                      <img class="rounded-circle me-3" th:src="${list.path}" id="profile-img">
                     </div>
                   </th:block>
                   <div class="small">
@@ -166,7 +174,6 @@
                   </div>
                 </div>
               </div>
-            </div>
             </div>
           </div>
         </th:block>
@@ -207,11 +214,11 @@
             </div>
           </div>
         </div>
+        </div>
       </div>
     </div>
-  </div>
   </section>
-  </main>
+</main>
 </div>
 </body>
 <th:block layout:fragment="extraJs">

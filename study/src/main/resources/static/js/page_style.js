@@ -56,7 +56,7 @@ function showGreeting(message) {
 
 $(function () {
     $("form").on('submit', function (e) {
-        e.preventDefault();
+//        e.preventDefault();
     });
 //    $( "#note" ).click(function() { connect(); });
     $( "#disconnect" ).click(function() { disconnect(); });

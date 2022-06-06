@@ -1,185 +1,183 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
-      class="fontawesome-i2svg-active fontawesome-i2svg-complete"
-      xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
+      layout:decorate="~{layout/default}">}">
 
-<body class="d-flex flex-column h-100">
-<div layout:fragment="content">
-
+<div layout:fragment="content" class="max-width">
+<section class="profile">
   <main class="flex-shrink-0">
-    <section class="py-5">
-      <div class="container col-lg-10">
-        <div class="row gx-5">
+    <div class="container col-lg-10">
+      <div class="row gx-5">
 
-          <div class="col-lg-3 text-center menu-container">
+        <div class="col-lg-3 text-center menu-container">
 
-            <div class="mobile-display-none">
-              <a th:href="@{/}" class="text-decoration-none">
-                <div class="align-items-center mt-lg-5 mb-4 text-center">
-                  <div class="ms-3 ">
-                    <h5 class="fw-bold text-dark">
-                      <a th:href="@{/}">스터디 홈</a>
-                    </h5>
+          <div class="mobile-display-none">
+            <a th:href="@{/}" class="text-decoration-none">
+              <div class="align-items-center mt-lg-5 mb-4 text-center">
+                <div class="ms-3 ">
+                  <h5 class="fw-bold text-dark">
+                    <a th:href="@{/}">스터디 홈</a>
+                  </h5>
+                </div>
+              </div>
+            </a>
+
+
+            <div class="dropdown-divider"></div>
+
+            <a th:href="@{/board/studyList/{id}(id = ${profileDto.id})}" class="text-decoration-none">
+              <div class="d-flex-align-items-center mt-lg-5 mb-4">
+                <div class="ms-3">
+                  <h5 class="fw-bold text-dark">개설한 스터디</h5>
+                </div>
+              </div>
+            </a>
+            <th:block th:if="${session.nickName} != null and ${session.id} == ${profileDto.id}">
+              <a th:href="@{/like/{id}(id = ${session.id})}" class="text-decoration-none">
+                <div class="d-flex-align-items-center mt-lg-5 mb-4">
+                  <div class="ms-3">
+                    <h5 class="fw-bold text-dark">위시 리스트</h5>
                   </div>
                 </div>
               </a>
-
-
-              <div class="dropdown-divider"></div>
-                <a th:href="@{/board/studyList/{id}(id = ${profileDto.id})}" class="text-decoration-none">
-                  <div class="d-flex-align-items-center mt-lg-5 mb-4">
-                    <div class="ms-3">
-                      <h5 class="fw-bold text-dark">개설한 스터디</h5>
-                    </div>
+              <a th:href="@{/profile/edit/}+${session.id}" class="text-decoration-none">
+                <div class="d-flex-align-items-center mt-lg-5 mb-4">
+                  <div class="ms-3">
+                    <h5 class="fw-bold text-dark" style="white-space:nowrap">회원 정보 수정하기</h5>
                   </div>
-                </a>
-                <th:block th:if="${session.nickName} != null and ${session.id} == ${profileDto.id}">
-                  <a th:href="@{/wishlist/{id}(id = ${session.id})}" class="text-decoration-none">
-                    <div class="d-flex-align-items-center mt-lg-5 mb-4">
-                      <div class="ms-3">
-                        <h5 class="fw-bold text-dark">위시 리스트</h5>
-                      </div>
-                    </div>
-                  </a>
-                  <a th:href="@{/profile/edit/}+${session.id}" class="text-decoration-none">
-                    <div class="d-flex-align-items-center mt-lg-5 mb-4">
-                      <div class="ms-3">
-                        <h5 class="fw-bold text-dark" style="white-space:nowrap">회원 정보 수정하기</h5>
-                      </div>
-                    </div>
-                  </a>
-                </th:block>
-              </div>
-          </div>
-
-          <div class="col-lg-9 row">
-            <article>
-              <div class="card card-primary card-outline">
-                <div class="card-body box-profile row">
-
-                  <div class="col-md-6">
-                      <div class="text-center">
-                        <th:block th:if="${profileDto.file_path} == null">
-                          <div style="border-radius : 50%; overflow: hidden;">
-                            <img class="profile-user-img img-fluid rounded-circle" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" id="profile-default-img" style="width: 120px; height: 120px; padding-bottom : 10px;">
-                          </div>
-                        </th:block>
-                        <th:block th:if="${profileDto.file_path} != null">
-                          <div style="border-radius : 50%; overflow: hidden;">
-                            <img class="profile-user-img img-fluid rounded-circle" th:src="${profileDto.file_path}" id="profile-img" style="width: 120px; height: 120px; padding-bottom : 10px;">
-                          </div>
-                        </th:block>
-                        <form enctype="multipart/form-data">
-                          <div class="input-group">
-                            <input type="hidden" id="userId" th:value="${profileDto.id}">
-                            <input type="file" class="form-control" id="inputGroupFile04" aria-label="Upload">
-                            <button class="btn btn-outline-secondary profile-upload" type="button" id="inputGroupFileAddon04">프로필 수정</button>
-                          </div>
-                        </form>
-                      </div>
-                  </div>
-
-                  <div class="row col-md-6">
-                    <div class="col-6 mt-4">
-                      <div class="text-center">
-                        <strong>위시 리스트</strong>
-                      </div>
-                      <p class="text-center">
-                        <span class="badge badge-primary mt-2" style="color: #000000; font-size: 30px;">0</span>
-                      </p>
-                    </div>
-
-                    <div class="col-6 mt-4">
-                      <div class="text-center">
-                        <strong>개설 횟수</strong>
-                      </div>
-                      <p class="text-center">
-                        <span class="badge badge-info mt-2" style="color: #000000; font-size: 30px;">[[${profileDto.size}]]</span>
-                      </p>
-                    </div>
-                  </div>
-
                 </div>
-              </div>
-
-              <div class="card card-primary mt-lg-5 mobile-mt-5">
-                <div class="card-header">
-                  <h3 class="card-title">About Me</h3>
-                </div>
-
-                <div class="card-body">
-                  <strong>
-                    <i class="bi bi-pencil-fill"></i>
-                    닉네임<br>
-                    <p class="badge bg-gradient rounded-pill mb-2" style="background-color : green">[[${profileDto.nickname}]]</p>
-                    </strong>
-
-                  <p class="text-muted"></p>
-                  <hr>
-                  <strong>
-                    <i class="bi bi-geo-alt-fill"></i>
-                    이메일<br>
-                    <p class="badge bg-gradient rounded-pill mb-2" style="background-color : skyblue">[[${profileDto.email}]]</p>
-                  </strong>
-
-                  <p class="text-muted">
-                    <a href class="text-decoration-none" target="_blank"></a>
-                  </p>
-
-                </div>
-              </div>
-            </article>
+              </a>
+            </th:block>
           </div>
         </div>
+
+        <div class="col-lg-9 row">
+          <article>
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile row">
+
+                <div class="col-md-6">
+                    <div class="text-center">
+                      <th:block th:if="${profileDto.file_path} == null">
+                        <div style="border-radius : 50%; overflow: hidden;">
+                          <img class="profile-user-img img-fluid rounded-circle" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" id="profile-default-img" style="width: 120px; height: 120px; padding-bottom : 10px;">
+                        </div>
+                      </th:block>
+                      <th:block th:if="${profileDto.file_path} != null">
+                        <div style="border-radius : 50%; overflow: hidden;">
+                          <img class="profile-user-img img-fluid rounded-circle" th:src="${profileDto.file_path}" id="profile-img" style="width: 120px; height: 120px; padding-bottom : 10px;">
+                        </div>
+                      </th:block>
+                      <form enctype="multipart/form-data">
+                        <div class="input-group">
+                          <input type="hidden" id="userId" th:value="${profileDto.id}">
+                          <input type="file" class="form-control" id="inputGroupFile04" aria-label="Upload">
+                          <button class="btn btn-outline-secondary profile-upload" type="button" id="inputGroupFileAddon04">프로필 수정</button>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+
+                <div class="row col-md-6">
+                  <div class="col-6 mt-4">
+                    <div class="text-center">
+                      <strong>위시 리스트</strong>
+                    </div>
+                    <p class="text-center">
+                      <span class="badge badge-primary mt-2" style="color: #000000; font-size: 30px;">0</span>
+                    </p>
+                  </div>
+
+                  <div class="col-6 mt-4">
+                    <div class="text-center">
+                      <strong>개설 횟수</strong>
+                    </div>
+                    <p class="text-center">
+                      <span class="badge badge-info mt-2" style="color: #000000; font-size: 30px;">[[${profileDto.size}]]</span>
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="card card-primary mt-lg-5 mobile-mt-5">
+              <div class="card-header">
+                <h3 class="card-title">About Me</h3>
+              </div>
+
+              <div class="card-body">
+                <strong>
+                  <i class="bi bi-pencil-fill"></i>
+                  닉네임<br>
+                  <p class="badge bg-gradient rounded-pill mb-2" style="background-color : green">[[${profileDto.nickname}]]</p>
+                  </strong>
+
+                <p class="text-muted"></p>
+                <hr>
+                <strong>
+                  <i class="bi bi-geo-alt-fill"></i>
+                  이메일<br>
+                  <p class="badge bg-gradient rounded-pill mb-2" style="background-color : skyblue">[[${profileDto.email}]]</p>
+                </strong>
+
+                <p class="text-muted">
+                  <a href class="text-decoration-none" target="_blank"></a>
+                </p>
+              </div>
+
+            </div>
+          </article>
+        </div>
       </div>
-    </section>
-    <script type="text/javascript" th:inline="javascript">
-		/*<![CDATA[*/
-
-        //프로필 이미지 수정
-        $(".profile-upload").click(function(){
-            let data = {
-                id : $("#userId").val(),
-                file : $("#inputGroupFile04").val()
-            }
-
-            let form = $("#inputGroupFile04")[0].files[0];
-            let formData = new FormData();
-
-            formData.append('file',form);
-
-            extension = data.file.slice(data.file.indexOf(".")+1).toLowerCase();
-
-            if (!data.file) {
-                alert("사진을 선택해주세요.");
-                return false;
-            } else if(extension != "jpg" && extension != "png") {
-                alert("jpg나 png 파일만 첨부 가능합니다.");
-                return false;
-            } else {
-                $.ajax({
-                    type : "POST",
-                    data : formData,
-                    url : "/profile/"+data.id,
-                    cache : false,
-                    contentType : false,
-                    processData : false,
-                    enctype : 'multipart/form-data'
-                }).done(function (response) {
-                    let url = response.path;
-                    window.location.reload();
-                }).fail(function (error) {
-                    alert("실패");
-                    alert(JSON.stringify(error));
-                });
-            }
-        });
-
-		/*]]>*/
-    </script>
+    </div>
   </main>
+</section>
+<th:block layout:fragment="extraJs">
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+
+    //프로필 이미지 수정
+    $(".profile-upload").click(function(){
+        let data = {
+            id : $("#userId").val(),
+            file : $("#inputGroupFile04").val()
+        }
+
+        let form = $("#inputGroupFile04")[0].files[0];
+        let formData = new FormData();
+
+        formData.append('file',form);
+
+        extension = data.file.slice(data.file.indexOf(".")+1).toLowerCase();
+
+        if (!data.file) {
+            alert("사진을 선택해주세요.");
+            return false;
+        } else if(extension != "jpg" && extension != "png") {
+            alert("jpg나 png 파일만 첨부 가능합니다.");
+            return false;
+        } else {
+            $.ajax({
+                type : "POST",
+                data : formData,
+                url : "/profile/"+data.id,
+                cache : false,
+                contentType : false,
+                processData : false,
+                enctype : 'multipart/form-data'
+            }).done(function (response) {
+                let url = response.path;
+                window.location.reload();
+            }).fail(function (error) {
+                alert("실패");
+                alert(JSON.stringify(error));
+            });
+        }
+    });
+
+    /*]]>*/
+</script>
+</th:block>
 </div>
-</body>
 </html>

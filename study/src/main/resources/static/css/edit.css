@@ -1,0 +1,38 @@
+.edit{
+    padding-top: 120px;
+}
+#main{
+    width:100%;
+}
+.header_edit{
+  text-align:center;
+  font-size:40px;
+  font-weight:500;
+  color:#083670;
+  padding: 20px 0 20px 0;
+}
+.container{
+  margin: 20px auto;
+}
+.main_wrap{
+    margin:auto 20px;
+}
+.main_form_text{
+    font-size:25px;
+    font-weight: 700;
+}
+.main_input_group input{
+    width:100%;
+    padding:10px 15px;
+    border-radius: 10px;
+    margin-top:10px;
+}
+#row-btn{
+    margin-top : 50px;
+}
+
+
+
+
+
+

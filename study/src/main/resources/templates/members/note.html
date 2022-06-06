@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<div layout:fragment="content" class="max-width">
+<th:block layout:fragment="extraCSS">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/css/note.css">
+    <!--===============================================================================================-->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+</th:block>
+<section class="note">
+<div class="page-content container note-has-grid">
+    <h3 class="header-note"><i class="bi bi-envelope"></i></h3>
+    <div class="tab-content bg-transparent">
+        <div id="note-full-container" class="note-has-grid row">
+            <div class="col-md-4 single-note-item all-category" style="">
+                <div class="card card-body">
+                    <span class="side-stick"></span>
+                    <h5 class="note-title text-truncate w-75 mb-0" data-noteheading="Book a Ticket for Movie">Book a Ticket for Movie <i class="point fa fa-circle ml-1 font-10"></i></h5>
+                    <p class="note-date font-12 text-muted">11 March 2009</p>
+                    <div class="note-content">
+                        <p class="note-inner-content text-muted" data-notecontent="Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis.">Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis.</p>
+                    </div>
+                    <div class="col text-end">
+                        <span class="mr-1"><i class="fa fa-trash remove-note"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<th:block layout:fragment="extraJs">
+    <script type="text/javascript" src="/js/note.js"></script>
+</th:block>
+</div>
+</html>

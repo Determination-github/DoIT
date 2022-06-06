@@ -8,7 +8,6 @@
 
     <title>로그인</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="/login/fonts/iconic/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" type="text/css" href="/login/css/util.css">
@@ -17,7 +16,7 @@
 </th:block>
 
 
-<div layout:fragment="content">
+<div layout:fragment="content" class="max-width">
 <section class="login-section">
 <div class="limiter">
     <div class="container-login100">
@@ -64,35 +63,34 @@
                         </button>
                     </div>
                 </div>
+            </form>
 
-                <div class="txt1 text-center p-t-54 p-b-20">
-						<span>
-							소셜 로그인
-						</span>
-                </div>
+            <div class="txt1 text-center p-t-54 p-b-20">
+                <span>
+                    소셜 로그인
+                </span>
+            </div>
 
-                <div class="flex-c-m">
-                    <button th:onclick="'location.href=\''+ @{${kakaoUrl}} + '\''" class="login100-social-item">
-                        <img style="width : 50px; height : 50px;" src="/img/kakaologo.jpg" alt="kakao"/>
-                    </button>
+            <div class="flex-c-m">
+                <button th:onclick="'location.href=\''+ @{${kakaoUrl}} + '\''" class="login100-social-item">
+                    <img style="width : 50px; height : 50px;" src="/img/kakaologo.jpg" alt="kakao"/>
+                </button>
 
-                    <button th:onclick="'location.href=\''+ @{${naverUrl}} + '\''" class="login100-social-item">
-                        <img style="width : 50px; height : 50px;" src="/img/네이버.png" alt="kakao"/>
-                    </button>
-                </div>
+                <button th:onclick="'location.href=\''+ @{${naverUrl}} + '\''" class="login100-social-item">
+                    <img style="width : 50px; height : 50px;" src="/img/네이버.png" alt="kakao"/>
+                </button>
+            </div>
 
-                <div class="flex-col-c p-t-50">
+            <div class="flex-col-c p-t-50">
 						<span class="txt1 p-b-17">
 							계정이 없으십니까?
 						</span>
 
-                    <a th:href="@{/join}" class="txt2">
-                        회원가입
-                    </a>
-                </div>
+                <a th:href="@{/join}" class="txt2">
+                    회원가입
+                </a>
+            </div>
 
-
-            </form>
         </div>
     </div>
 </div>

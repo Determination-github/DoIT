@@ -2,54 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
-<th:block layout:fragment="library">
 
-  <link rel="stylesheet" href="/css/new.css">
-
+<th:block layout:fragment="extraCSS">
   <!--달력용-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
   <!--섬머노트-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.css" integrity="sha512-ngQ4IGzHQ3s/Hh8kMyG4FC74wzitukRMIcTOoKT3EyzFZCILOPF0twiXOQn75eDINUfKBYmzYn2AA8DkAk8veQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.js" integrity="sha512-6F1RVfnxCprKJmfulcxxym1Dar5FsT/V2jiEUvABiaEiFWoQ8yHvqRM/Slf0qJKiwin6IDQucjXuolCfCKnaJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
   <style>
-        .field-error {
-            border-color: #dc3545;
-            color: #dc3545;
-        }
+    .form-group.required label:after {
+       content : " *";
+       color: red;
+    }
   </style>
-
-  <script>
-      $.datepicker.setDefaults({
-        dateFormat: 'yy-mm-dd',
-        prevText: '이전 달',
-        nextText: '다음 달',
-        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-        showMonthAfterYear: true,
-        yearSuffix: '년'
-      });
-      $( function() {
-        $( "#datepicker_to" ).datepicker();
-        $( "#datepicker_from" ).datepicker();
-      } );
-  </script>
-
 </th:block>
-<div layout:fragment="content">
+
+<div layout:fragment="content" class="max-width">
+  <section class="writeForm">
   <main class="flex-shrink-0">
-    <section class="py-5">
       <div class="container">
         <form action="/board/write" th:action th:object="${boardDto}" method="post">
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">제목</label>
+            <label for="exampleFormControlInput1" class="form-label"><h2>제목</h2></label>
             <input type="text" th:field="*{board_title}" th:errorclass="field-error" class="form-control form-control-lg" id="exampleFormControlInput1" placeholder="제목을 입력해주세요.">
           </div>
           <div class="field-error" th:errors="*{board_title}"/>
@@ -201,18 +174,50 @@
           <div class="field-error" th:errors="*{board_content}"/>
 
           <div class="mb-3">
-            <input id="subBtn" type="submit" value="작성하기" style="float: right;" onclick="goWrite(this.form)"/>
+            <input id="subBtn" class="btn btn-primary" type="submit" value="작성하기" style="float: right;" onclick="goWrite(this.form)"/>
           </div>
 
         </form>
       </div>
-    </section>
   </main>
+  </section>
 </div>
 <th:block layout:fragment="extraJs">
+
+<!--달력용-->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!--섬머노트-->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.js" integrity="sha512-6F1RVfnxCprKJmfulcxxym1Dar5FsT/V2jiEUvABiaEiFWoQ8yHvqRM/Slf0qJKiwin6IDQucjXuolCfCKnaJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <style>
+      .field-error {
+          border-color: #dc3545;
+          color: #dc3545;
+      }
+</style>
+
+<script defer>
+    $.datepicker.setDefaults({
+      dateFormat: 'yy-mm-dd',
+      prevText: '이전 달',
+      nextText: '다음 달',
+      monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+      monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+      dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+      dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+      dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+      showMonthAfterYear: true,
+      yearSuffix: '년'
+    });
+    $( function() {
+      $( "#datepicker_to" ).datepicker();
+      $( "#datepicker_from" ).datepicker();
+    } );
+</script>
 <script type="text/javascript" src="/js/category.js" ></script>
 <script type="text/javascript" src="/js/zone.js"></script>
-<script type="text/javascript" src="/js/new.js"></script>
 <script type="text/javascript" th:inline="javascript">
   /*<![CDATA[*/
 
