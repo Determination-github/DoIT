@@ -26,7 +26,7 @@ public class CommentSQL {
             "LEFT OUTER JOIN SR_COMMENT_TB t2 " +
             "ON t1.comment_id = t2.group_id " +
             "WHERE t1.study_id = #{study_id} " +
-            "GROUP BY t1.comment " +
+            "GROUP BY t1.comment_id " +
             "ORDER BY SEQ_CHAR";
 
     public static final String getNickname =
@@ -39,7 +39,9 @@ public class CommentSQL {
                     " AND GROUP_ID = #{comment.group_id}";
 
     public static final String delete =
-            "DELETE FROM SR_COMMENT_TB " +
+            "UPDATE SR_COMMENT_TB " +
+                    " SET COMMENT = '삭제된 댓글입니다.', " +
+                    " reg_date = CURRENT_TIMESTAMP " +
                     " WHERE COMMENT_ID = #{comment_id} ";
 
 }

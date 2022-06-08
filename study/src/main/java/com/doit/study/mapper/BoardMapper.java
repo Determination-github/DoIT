@@ -1,9 +1,7 @@
 package com.doit.study.mapper;
 
-//import com.doit.study.Board.domain.Board;
 import com.doit.study.board.domain.Board;
 import com.doit.study.board.domain.Pagination;
-import com.doit.study.board.dto.BoardDto;
 import com.doit.study.board.dto.SearchDto;
 import com.doit.study.wishlist.dto.WishlistDto;
 import org.apache.ibatis.annotations.*;

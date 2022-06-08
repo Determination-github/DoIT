@@ -260,6 +260,7 @@ public class BoardController {
             model.addAttribute("comments", null);
         } else {
             model.addAttribute("comments", comments);
+            log.info("comments={}", comments);
         }
     }
 

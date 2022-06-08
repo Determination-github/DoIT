@@ -7,6 +7,8 @@ import com.doit.study.member.dto.MemberDto;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.service.BoardService;
 
+import com.doit.study.note.dto.NoteDto;
+import com.doit.study.note.service.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -24,6 +27,7 @@ import javax.servlet.http.HttpSession;
 public class HomeController {
 
     private final BoardService boardService;
+    private final NoteService noteService;
 
     @GetMapping
     public String home(
@@ -53,18 +57,27 @@ public class HomeController {
                 nickName = naverDto.getNickname();
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
+                //알람 가져오기
+                getAlarmList(session, id);
             } else if (kakaoDto != null) {
                 id = kakaoDto.getId();
                 nickName = kakaoDto.getNickname();
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
+                //알람 가져오기
+                getAlarmList(session, id);
             } else if (memberDto != null) {
                 id = memberDto.getId();
                 nickName = memberDto.getNickname();
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
+                //알람 가져오기
+                getAlarmList(session, id);
             }
         }
+
+
+
 
 
         Integer totalRecordCount = boardService.getCount();
@@ -85,5 +98,13 @@ public class HomeController {
         }
 
         return null;
+    }
+
+    //알람정보 가져오기
+    private void getAlarmList(HttpSession session, Integer id) {
+        List<NoteDto> alarmList = noteService.getAlarmMessage(id);
+        if(!alarmList.isEmpty()) {
+            session.setAttribute("alarmList", alarmList);
+        }
     }
 }

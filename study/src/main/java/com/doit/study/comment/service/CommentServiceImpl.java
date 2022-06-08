@@ -48,6 +48,8 @@ public class CommentServiceImpl implements CommentService{
                 commentDto.setPath(path);
             }
 
+            log.info("commentDto={}", commentDto);
+
             commentDtos.add(commentDto);
         }
         return commentDtos;
