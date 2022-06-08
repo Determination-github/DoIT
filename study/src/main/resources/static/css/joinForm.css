@@ -7,10 +7,10 @@ input{
 }
 .header_join{
   text-align:center;
-  font-size:70px;
+  font-size:50px;
   font-weight:500;
   color:#083670;
-  padding:100px 0 50px 0;
+  padding:30px 0 30px 0;
 }
 .main_join_wrap{
   height:auto;

@@ -106,12 +106,6 @@
   }
 }
 
-@media(max-width: 500px){
-    section{
-      margin : 5px;
-    }
-}
-
 @media(max-width: 450px){
   * {
     font-size : 12px;

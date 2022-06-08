@@ -2,41 +2,20 @@ var stompClient = null;
 var sender = null;
 var receiver = null;
 
-function setConnected(connected) {
-    $("#connect").prop("disabled", connected);
-    $("#disconnect").prop("disabled", !connected);
-    if (connected) {
-        $("#conversation").show();
-    }
-    else {
-        $("#conversation").hide();
-    }
-    $("#greetings").html("");
-}
-
 window.onload = function() {
     var socket = new SockJS("/websocket");
     stompClient = Stomp.over(socket);
     receiver = $("#sessionId").val();
     stompClient.connect({}, function (frame) {
-        setConnected(true);
         console.log('Connected: ' + frame);
         stompClient.subscribe('/note/receiving/'+receiver, function (greeting) {
             $('#noteModal').modal('hide');
-            showGreeting(JSON.parse(greeting.body).content);
+            showGreeting(JSON.parse(greeting.body).content, JSON.parse(greeting.body).url);
         });
     });
 }
 
-function disconnect() {
-    if (stompClient !== null) {
-        stompClient.disconnect();
-    }
-    setConnected(false);
-    console.log("Disconnected");
-}
-
-function sendName() {
+function sendNote() {
     let id =  document.getElementById('receiver-id').getAttribute('value');
     stompClient.send("/note/send/"+id, {}, JSON.stringify({
                                             'user_id' : $("#sender_id").val(),
@@ -44,23 +23,38 @@ function sendName() {
                                             'title' : $("#note-title").val(),
                                             'content' : $("#note-content").val()
                                             }));
+    $('#noteModal').modal('hide');
+    alert("쪽지가 전송되었습니다.");
 }
 
-function showGreeting(message) {
-    $(".notification-container").append("<p>"+message+"</p");
+function replyNote() {
+    let note_id =  $("#reply-note-id").val();
+    let id =  $("#receiver_id"+note_id).val();
+    stompClient.send("/note/send/"+id, {}, JSON.stringify({
+                                            'user_id' : $('#sender_id'+note_id).val(),
+                                            'receiver_id' : $('#receiver_id'+note_id).val(),
+                                            'title' : $('#note-title'+note_id).val(),
+                                            'content' : $('#note-content'+note_id).val()
+                                            }));
+    $('#noteModal-reply'+note_id).modal('hide');
+    alert("답장이 전송되었습니다.");
+    window.location.reload();
+}
+
+function showGreeting(message, url) {
     showNotification();
     disabledNotification();
-//    alert(message);
-//    $(".note-bar").append("<li><a class='dropdown-item'>" + message + "</a></li>");
+    removeItem();
+    $(".notification-container").append("<p>" + message + "</p>");
+    $("#alarm").append("<li><a id='alarm-msg' href="+url+" class='dropdown-item'>" + message + "</a></li>");
 }
 
 $(function () {
     $("form").on('submit', function (e) {
 //        e.preventDefault();
     });
-//    $( "#note" ).click(function() { connect(); });
-    $( "#disconnect" ).click(function() { disconnect(); });
-    $( "#send-note" ).click(function() { sendName(); });
+    $( "#send-note" ).click(function() { sendNote(); });
+    $( "#reply-note" ).click(function() { replyNote(); });
 });
 
 const notification = document.getElementById('notification-container')
@@ -76,4 +70,10 @@ const disabledNotification = () => {
   setTimeout(() => {
     $(".notification-container *").remove();
   }, 10000)
+}
+
+function removeItem()  {
+
+    $(".empty-dropdown").remove();
+
 }
