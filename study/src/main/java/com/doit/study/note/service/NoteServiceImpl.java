@@ -33,36 +33,6 @@ public class NoteServiceImpl implements NoteService{
         noteMapper.saveReceiverNote(note);
     }
 
-    @Override
-    public List<NoteDto> getAlarmMessage(Integer id) {
-        log.info("id={}", id);
-
-        List<Note> noteList = noteMapper.getAlarm(id);
-
-        List<NoteDto> noteDtos = new ArrayList<>();
-
-        if(!noteList.isEmpty()) {
-            for (Note note : noteList) {
-                NoteDto noteDto = new NoteDto();
-
-                //알림 내용 설정
-                String content = noteDto.makeMsg(note.getGubun(), note.getTitle());
-                noteDto.setContent(content);
-
-                //경로 설정
-                if (note.getGubun() == 0) {
-                    noteDto.setPath("/note/" + note.getReceiver_id());
-                } else {
-
-                }
-                log.info("noteDto = {}", noteDto);
-
-                noteDtos.add(noteDto);
-            }
-        }
-
-        return noteDtos;
-    }
 
     @Override
     public List<NoteDto> getNote(Integer id) {
@@ -100,10 +70,7 @@ public class NoteServiceImpl implements NoteService{
         return noteDtos;
     }
 
-    @Override
-    public Integer updateReadYN(Integer id) {
-        return noteMapper.updateReadYN(id);
-    }
+
 
     @Override
     public void deleteNote(Integer note_id) {

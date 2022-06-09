@@ -21,5 +21,4 @@ $(function() {
         $(this).addClass('active');
     })
 
-    removeNote();
 });

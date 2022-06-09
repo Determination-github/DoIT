@@ -15,17 +15,9 @@ public interface NoteMapper {
     @Insert(NoteSQL.saveReceiverNote)
     void saveReceiverNote(@Param("note") Note note);
 
-    //알람 정보 가져오기
-    @Select(NoteSQL.getAlarm)
-    List<Note> getAlarm(@Param("receiver_id") Integer id);
-
     //노트 정보 가져오기
     @Select(NoteSQL.getNote)
     List<Note> getNote(@Param("id") Integer id);
-
-    //읽음 처리
-    @Update(NoteSQL.updateReadYN)
-    Integer updateReadYN(@Param("note_id") Integer id);
 
     //삭제 처리
     @Delete(NoteSQL.deleteNote)

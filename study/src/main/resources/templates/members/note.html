@@ -7,23 +7,21 @@
 <th:block layout:fragment="extraCSS">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="/css/note.css">
-    <!--===============================================================================================-->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 </th:block>
 <section class="note">
 <div class="page-content container note-has-grid">
     <h3 class="header-note"><i class="bi bi-envelope"></i></h3>
     <ul class="nav nav-pills p-3 bg-white mb-3 rounded-pill align-items-center">
         <li class="nav-item">
-            <a class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2 active" id="all-category">
-                <i class="icon-layers mr-1"></i><span class="d-none d-md-block">전체 쪽지함</span>
+            <a class="nav-link rounded-pill note-link d-flex align-items-center active" id="all-category">
+                <span class="d-none d-md-block">전체 쪽지함</span>
             </a>
         </li>
         <li class="nav-item">
-            <a href="javascript:void(0)" class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2" id="note-receive"> <i class="icon-briefcase mr-1"></i><span class="d-none d-md-block">받은 쪽지함</span></a>
+            <a href="javascript:void(0)" class="nav-link rounded-pill note-link d-flex align-items-center  " id="note-receive"><span class="d-none d-md-block">받은 쪽지함</span></a>
         </li>
         <li class="nav-item">
-            <a href="javascript:void(0)" class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2" id="note-send"> <i class="icon-share-alt mr-1"></i><span class="d-none d-md-block">보낸 쪽지함</span></a>
+            <a href="javascript:void(0)" class="nav-link rounded-pill note-link d-flex align-items-center" id="note-send"><span class="d-none d-md-block">보낸 쪽지함</span></a>
         </li>
     </ul>
     <div class="tab-content bg-transparent">
@@ -158,26 +156,6 @@
 <th:block layout:fragment="extraJs">
 <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
-
-        //쪽지 읽음 체크
-        function open_modal(object) {
-            let id = $(object).attr('value');
-            let data = {
-                note_id : id
-            }
-            $.ajax({
-                type:"PUT",
-                url:"/note/" + data.note_id,
-                dataType : 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data),
-                cache : false,
-            }).done(function() {
-                return false;
-            }).fail(function (error) {
-                alert(JSON.stringify(error));
-            });
-        }
 
         function delete_note(object) {
             $(".remove-note").off('click').on('click', function(event) {

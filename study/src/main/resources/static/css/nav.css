@@ -91,7 +91,7 @@
   display: none;
   cursor: pointer;
 }
-#alarm{
+.alarm-msg{
   display: flex;
   flex-direction: column-reverse;
 }

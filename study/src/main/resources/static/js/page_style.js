@@ -8,16 +8,16 @@ window.onload = function() {
     receiver = $("#sessionId").val();
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/note/receiving/'+receiver, function (greeting) {
+        stompClient.subscribe('/alarm/receiving/'+receiver, function (greeting) {
             $('#noteModal').modal('hide');
-            showGreeting(JSON.parse(greeting.body).content, JSON.parse(greeting.body).url);
+            showGreeting(JSON.parse(greeting.body).message, JSON.parse(greeting.body).url);
         });
     });
 }
 
 function sendNote() {
     let id =  document.getElementById('receiver-id').getAttribute('value');
-    stompClient.send("/note/send/"+id, {}, JSON.stringify({
+    stompClient.send("/server/note/"+id, {}, JSON.stringify({
                                             'user_id' : $("#sender_id").val(),
                                             'receiver_id' : document.getElementById('receiver-id').getAttribute('value'),
                                             'title' : $("#note-title").val(),
@@ -30,7 +30,7 @@ function sendNote() {
 function replyNote() {
     let note_id =  $("#reply-note-id").val();
     let id =  $("#receiver_id"+note_id).val();
-    stompClient.send("/note/send/"+id, {}, JSON.stringify({
+    stompClient.send("/server/note/"+id, {}, JSON.stringify({
                                             'user_id' : $('#sender_id'+note_id).val(),
                                             'receiver_id' : $('#receiver_id'+note_id).val(),
                                             'title' : $('#note-title'+note_id).val(),
@@ -46,7 +46,7 @@ function showGreeting(message, url) {
     disabledNotification();
     removeItem();
     $(".notification-container").append("<p>" + message + "</p>");
-    $("#alarm").append("<li><a id='alarm-msg' href="+url+" class='dropdown-item'>" + message + "</a></li>");
+    $(".alarm-msg").append("<li><a id='alarm-msg' href="+url+" class='dropdown-item'>" + message + "</a></li>");
 }
 
 $(function () {

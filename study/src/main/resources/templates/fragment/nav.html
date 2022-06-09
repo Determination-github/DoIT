@@ -18,17 +18,18 @@
           <div class="dropdown">
             <button class="bi bi-chat-square-dots dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <ul class="dropdown-menu alarm-msg" aria-labelledby="dropdownMenuButton1">
                 <th:block th:if="${session.alarmList == null}">
                     <li class="empty-dropdown"><a class="dropdown-item">알림 내용이 없습니다.</a></li>
                 </th:block>
                 <th:block th:each="list : ${session.alarmList}">
-                    <li class="dropdown"><a class="dropdown-item" th:href="${list.path}">[[${list.content}]]</a></li>
+                    <li><a class="dropdown-item" onclick="click_alarm(this)" th:value="${list.alarm_id}" th:href="${list.url}">[[${list.message}]]</a></li>
                 </th:block>
             </ul>
           </div>
         </li>
       </th:block>
+
       <th:block th:if="${session.nickName != null}">
         <li class="menu-btn">
           <div class="dropdown">
@@ -69,7 +70,37 @@
     <input hidden id="sessionId" th:value="${session.id}"/>
   </div>
 
+  <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+
+        //알람 읽음 체크
+        function click_alarm(object) {
+            alert(object);
+            let id = $(object).attr('value');
+            let data = {
+                alarm_id : id
+            }
+            $.ajax({
+                type:"DELETE",
+                url:"/alarm/" + data.alarm_id,
+                dataType : 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data),
+                cache : false,
+            }).done(function() {
+                return false;
+            }).fail(function (error) {
+                alert(JSON.stringify(error));
+            });
+        }
+
+        /*]]>*/
+  </script>
+
 </nav>
 </div>
 </body>
+<th:block layout:fragment="extraJs">
+
+</th:block>
 </html>

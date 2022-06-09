@@ -1,14 +1,14 @@
 package com.doit.study;
 
 
+import com.doit.study.alarm.dto.AlarmDto;
+import com.doit.study.alarm.service.AlarmService;
 import com.doit.study.member.SessionConst;
 import com.doit.study.member.dto.MemberDto;
 
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.service.BoardService;
 
-import com.doit.study.note.dto.NoteDto;
-import com.doit.study.note.service.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ import java.util.List;
 public class HomeController {
 
     private final BoardService boardService;
-    private final NoteService noteService;
+    private final AlarmService alarmService;
 
     @GetMapping
     public String home(
@@ -102,7 +102,7 @@ public class HomeController {
 
     //알람정보 가져오기
     private void getAlarmList(HttpSession session, Integer id) {
-        List<NoteDto> alarmList = noteService.getAlarmMessage(id);
+        List<AlarmDto> alarmList = alarmService.getAlarm(id);
         if(!alarmList.isEmpty()) {
             session.setAttribute("alarmList", alarmList);
         }

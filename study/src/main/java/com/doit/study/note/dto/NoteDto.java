@@ -21,8 +21,9 @@ public class NoteDto {
     private Integer sender_id;
     private String title;
     private String content;
-    private Integer gubun;
     private Date reg_date;
+
+    private String study_id;
 
     //닉네임 설정
     private String sender_nickname;

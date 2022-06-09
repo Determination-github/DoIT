@@ -12,8 +12,8 @@ public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/note", "/alarm");
-        config.setApplicationDestinationPrefixes("/note");
+        config.enableSimpleBroker("/alarm");
+        config.setApplicationDestinationPrefixes("/server");
     }
 
     @Override
