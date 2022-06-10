@@ -27,14 +27,12 @@ public class NoteDto {
 
     //닉네임 설정
     private String sender_nickname;
-    private String receiver_nickname;
 
     //알림 클릭시 이동을 위한 경로설정
     private String path;
 
     //프로필 이미지 경로
     private String sender_img_path;
-    private String receiver_img_path;
 
     public Note toEntity(NoteDto noteDto) {
         return Note.builder()

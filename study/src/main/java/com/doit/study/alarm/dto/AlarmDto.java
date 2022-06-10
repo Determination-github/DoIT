@@ -16,10 +16,10 @@ public class AlarmDto {
 
     private Integer alarm_id;
     private Integer receiver_id;
+    private Integer study_id;
     private Integer gubun;
     private String message;
     private String url;
-    private Integer read_yn;
     private Date reg_date;
 
     public AlarmDto(Integer receiver_id,
@@ -50,14 +50,14 @@ public class AlarmDto {
         return alarmDto;
     }
 
-    public String makeMsg(int gubun, String title) {
+    public String makeMsg(int gubun, String content) {
         if(gubun == 0) {
-            title = "[쪽지], " + HtmlUtils.htmlEscape(title);
+            content = "[쪽지], " + HtmlUtils.htmlEscape(content);
         } else {
-            title = "[댓글], " + HtmlUtils.htmlEscape(title);
+            content = "[댓글], " + HtmlUtils.htmlEscape(content);
         }
 
-        return title;
+        return content;
     }
 
 }

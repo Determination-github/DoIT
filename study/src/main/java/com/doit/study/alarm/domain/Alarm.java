@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Alarm {
 
-    private Integer alarm_id, user_id, gubun, read_yn;
+    private Integer alarm_id, user_id, gubun;
     private String message, url;
     private Date reg_date;
 

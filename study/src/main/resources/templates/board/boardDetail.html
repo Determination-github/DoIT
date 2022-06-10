@@ -197,6 +197,7 @@
                                         </th:block>
                                         <th:block th:each="comments : ${comments}">
                                             <div th:style="${comments.group_indent == 1 ? 'padding-left: 40px;' : ''}">
+                                                <th:block th:if="${comments.comment} != '삭제된 댓글입니다.'">
                                                 <div class="d-flex justify-content-between">
                                                     <div class="left-box">
                                                         <th:block th:if="${comments.group_indent == 1}" >
@@ -221,14 +222,15 @@
                                                     </div>
                                                     <div class="reply-panel mr-2">
                                                         <th:block th:if="${session.id == comments.writer_id}" >
-                                                        <button class="btn btn-light" th:id="'modify-comment'+${comments.comment_id}" th:value="${comments.comment_id}"><i class="bi bi-pencil-square"></i>수정</button>
+                                                        <button type="button" class="btn btn-light" th:id="'modify-comment'+${comments.comment_id}" th:value="${comments.comment_id}"><i class="bi bi-pencil-square"></i>수정</button>
                                                         </th:block>
                                                         <th:block th:if="${session.id == comments.writer_id}" >
-                                                        <button class="btn btn-light" th:id="'delete-comment'+${comments.comment_id}" th:value="${comments.comment_id}"><i class="bi bi-trash"></i>삭제</button>
+                                                        <button type="button" class="btn btn-light" th:id="'delete-comment'+${comments.comment_id}" th:value="${comments.comment_id}"><i class="bi bi-trash"></i>삭제</button>
                                                         </th:block>
-                                                        <button class="btn btn-light" th:id="'reply-comment'+${comments.comment_id}" th:value="${comments.comment_id}"><i class="bi bi-chat"></i>댓글</button>
+                                                        <button type="button" class="btn btn-light" th:id="'reply-comment'+${comments.comment_id}" th:value="${comments.comment_id}"><i class="bi bi-chat"></i>댓글</button>
                                                     </div>
                                                 </div>
+                                                </th:block>
                                                 <ul class="list-group-flush">
                                                     <li class="list-group-item">
                                                         <div th:id="'reply-content'+${comments.comment_id}">[[${comments.comment}]]</div>
@@ -237,21 +239,22 @@
                                                 </ul>
                                                 <form class="re-reply-form">
                                                     <input type="hidden" th:id="'writerId'+${comments.comment_id}" th:value="${session.id}">
+                                                    <input type="hidden" th:id="'receiverId'+${comments.comment_id}" th:value="${comments.writer_id}">
                                                     <input type="hidden" th:id="'boardId'+${comments.comment_id}" th:value="${boardDto.board_id}">
                                                     <input type="hidden" th:id="'groupId'+${comments.comment_id}"  th:value="${comments.group_id} != null ? ${comments.group_id} : ${comments.comment_id}">
                                                     <input type="hidden" id="group_indent" value="1">
-                                                    <div th:id="'reply-textarea'+${comments.comment_id}" class="reply-textarea">
+                                                    <div th:id="'reply-textarea'+${comments.comment_id}" class="reply-textarea" style="display : none">
                                                         <div class="re-reply-container">
                                                            <div class='re-reply'>댓글</div>
                                                            <textarea class='form-control custom-control re-reply' th:id="'reply'+${comments.comment_id}" name='comment' rows='3'></textarea>
-                                                           <button class='input-group-addon btn btn-primary btn-sm reply-btn' th:value="${comments.comment_id}" id="'add-reply-comment-btn'+${comments.comment_id}">작성</button>
+                                                           <button class='input-group-addon btn btn-primary btn-sm reply-btn' th:value="${comments.comment_id}" th:id="'add-reply-comment-btn'+${comments.comment_id}">작성</button>
                                                        </div>
                                                     </div>
-                                                    <div th:id="'re-reply-textarea'+${comments.comment_id}" class="reply-textarea">
+                                                    <div th:id="'re-reply-textarea'+${comments.comment_id}" class="reply-textarea" style="display : none">
                                                         <div class="re-reply-container">
                                                             <div class='re-reply'>댓글</div>
                                                             <textarea class='form-control custom-control re-reply' th:id="'modify'+${comments.comment_id}" name='comment' rows='3'>[[${comments.comment}]]</textarea>
-                                                            <button class='input-group-addon btn btn-primary btn-sm reply-modify-btn' th:value="${comments.comment_id}" id="'add-re-reply-comment-btn'+${comments.comment_id}">작성</button>
+                                                            <button class='input-group-addon btn btn-primary btn-sm reply-modify-btn' th:value="${comments.comment_id}" th:id="'add-re-reply-comment-btn'+${comments.comment_id}">작성</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -279,6 +282,10 @@
 
             //댓글 작성
             $("#add-comment-btn").click(function(){
+
+                let id = [[${boardDto.board_writerId}]]
+
+
                 let data = {
                     writer_id : $("#writerId").val(),
                     study_id : $("#boardId").val(),
@@ -305,6 +312,13 @@
                             } else if(response.result == 1){
                                 alert("댓글이 등록되었습니다.");
                                 window.location.reload();
+                                if(id != [[${session.id}]]){
+                                    stompClient.send("/server/comment/"+id, {}, JSON.stringify({
+                                                            'study_id' : $('#boardId').val(),
+                                                            'receiver_id' : id,
+                                                            'message' : $('#comment').val()
+                                                            }));
+                                }
                             } else {
                                 alert("댓글 등록 중 오류가 발생했습니다.");
                             }
@@ -362,6 +376,7 @@
             //대댓글 작성
             $(".reply-btn").click(function(){
                 let id = $(this).val();
+
                 let data = {
                     writer_id : $('#writerId'+id).val(),
                     study_id : $('#boardId'+id).val(),
@@ -389,6 +404,11 @@
                         } else if(response.result == 1){
                             alert("댓글이 등록되었습니다.");
                             window.location.reload();
+                            stompClient.send("/server/comment/"+id, {}, JSON.stringify({
+                                        'study_id' : $('#boardId'+id).val(),
+                                        'receiver_id' : $('#receiverId'+id).val(),
+                                        'message' : $('#reply'+id).val()
+                                        }));
                         }
                     }).fail(function (error) {
                         alert(JSON.stringify(error));
@@ -532,6 +552,8 @@
                       }
                 }
             });
+
+
 
 
         /*]]>*/

@@ -2,9 +2,6 @@
 textarea{
   resize: none;
 }
-img{
-  border: 0.02px solid;
-}
 .circle-img{
   border-radius: 50%;
   overFlow: hidden;
@@ -74,8 +71,8 @@ i{
   line-height : 2.4;
   text-align : left;
 }
-.reply-textarea{
-  display: none;
+.btn-light{
+  box-shadow: none !important;
 }
 .re-reply {
   margin : 5px 10px;

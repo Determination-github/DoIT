@@ -8,8 +8,7 @@ public class AlarmSQL {
 
     public static final String getAlarm =
             "SELECT * FROM ALARM_TB WHERE user_id = #{user_id} " +
-                    "AND read_yn = 0 " +
-                    "ORDER BY reg_date";
+                    "ORDER BY reg_date DESC";
 
     public static final String deleteAlarm =
             "DELETE FROM ALARM_TB " +

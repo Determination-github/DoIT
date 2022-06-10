@@ -16,6 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -46,26 +49,33 @@ public class AlarmController {
     }
 
     @DeleteMapping("/alarm/{id}")
-    public ResponseEntity deleteAlarm(@PathVariable Integer id) {
+    public ResponseEntity deleteAlarm(@PathVariable Integer id,
+                                      HttpServletRequest request) {
 
         log.info("alarm_id={}", id);
 
         alarmService.deleteAlarm(id);
+
         return ResponseEntity.ok(id);
     }
 
-//    @MessageMapping("/comment/{id}")
-//    public void commentAlarm(@DestinationVariable("id") Integer id,
-//                             AlarmDto alarmDto) throws Exception {
-//        Thread.sleep(1000); // simulated delay
-//
-//        log.info("alarmDto={}", alarmDto);
-//
-//
-//        String content = "[댓글], " + HtmlUtils.htmlEscape(alarmDto.getContent());
-//        String url = "/board/result/"+alarmDto.getStudy_id();
-//
-//        simpMessagingTemplate.convertAndSend("/alarm/receiving/" + alarmDto.getReceiver_id() , alarmDto);
-//    }
+    @MessageMapping("/comment/{id}")
+    public void commentAlarm(@DestinationVariable("id") Integer id,
+                             AlarmDto alarmDto) throws Exception {
+        Thread.sleep(1000); // simulated delay
+
+        log.info("alarmDto={}", alarmDto);
+
+        //url 설정
+        String url = "/board/result/" + alarmDto.getStudy_id();
+        alarmDto.setUrl(url);
+
+        //gubun 설정
+        alarmDto.setGubun(1);
+
+        alarmService.saveAlarm(alarmDto);
+
+        simpMessagingTemplate.convertAndSend("/alarm/receiving/" + alarmDto.getReceiver_id() , alarmDto);
+    }
 
 }

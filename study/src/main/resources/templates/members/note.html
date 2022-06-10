@@ -6,7 +6,10 @@
 <div layout:fragment="content" class="max-width">
 <th:block layout:fragment="extraCSS">
     <!--===============================================================================================-->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="/css/note.css">
+    <!--===============================================================================================-->
 </th:block>
 <section class="note">
 <div class="page-content container note-has-grid">
@@ -31,7 +34,7 @@
                     <div class="card h-100 card-body">
                         <span class="side-stick"></span>
                         <h5 class="note-title text-truncate w-75 mb-0" data-noteheading="${note.title}">
-                            <a onclick="open_modal(this)" th:value="${note.note_id}" data-bs-toggle="modal" th:data-bs-target="'#noteModal'+${note.note_id}">[[${note.title}]]</a>
+                            <a th:value="${note.note_id}" data-bs-toggle="modal" th:data-bs-target="'#noteModal'+${note.note_id}">[[${note.title}]]</a>
                         </h5>
                         <p class="note-date font-12 text-muted">[[${#dates.format(note.reg_date, 'yyyy-MM-dd')}]]</p>
                         <div class="note-content">
@@ -57,7 +60,7 @@
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="col-3" style="padding-right : 0px; width : 19.5%; border-right : dotted 1px black;">
-                                            <span style="line-height : 2.4;">보내는 사람</span>
+                                            <span style="line-height : 2.4;">보낸 사람</span>
                                         </div>
                                         <th:block th:if="${note.sender_img_path} == null">
                                             <div class="col-9">
@@ -110,18 +113,18 @@
                                         <input hidden th:id="'sender_id'+${note.note_id}" th:value="${note.receiver_id}">
                                         <input hidden th:id="'receiver_id'+${note.note_id}" th:value="${note.sender_id}">
                                         <div class="col-3" style="padding-right : 0px; width : 19.5%; border-right : dotted 1px black;">
-                                            <span style="line-height : 2.4;">보내는 사람</span>
+                                            <span style="line-height : 2.4;">받는 사람</span>
                                         </div>
-                                        <th:block th:if="${note.receiver_img_path} == null">
+                                        <th:block th:if="${note.sender_img_path} == null">
                                             <div class="col-9">
                                                 <img class="rounded-circle-profile" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png">
-                                                <span class="nickname">[[${note.receiver_nickname}]]</span>
+                                                <span class="nickname">[[${note.sender_nickname}]]</span>
                                             </div>
                                         </th:block>
-                                        <th:block th:if="${note.receiver_img_path} != null">
+                                        <th:block th:if="${note.sender_img_path} != null">
                                             <div class="col-9">
-                                                <img class="rounded-circle-profile" th:src="${note.receiver_img_path}">
-                                                <span class="nickname">[[${note.receiver_nickname}]]</span>
+                                                <img class="rounded-circle-profile" th:src="${note.sender_img_path}">
+                                                <span class="nickname">[[${note.sender_nickname}]]</span>
                                             </div>
                                         </th:block>
                                     </div>
@@ -142,7 +145,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                    <button id="reply-note" type="button" class="btn btn-primary">쪽지 보내기</button>
+                                    <button onclick="reply(this)" type="button" th:value="${note.note_id}" class="btn btn-primary reply-note">쪽지 보내기</button>
                                 </div>
                             </div>
                         </div>
@@ -163,7 +166,7 @@
               let data = {
                     note_id : $(object).attr('value')
               }
-              const check = confirm("댓글을 삭제하시겠습니까?")
+              const check = confirm("쪽지를 삭제하시겠습니까?")
               if (check === true) {
                   $(this).parents('.single-note-item').remove();
                     $.ajax({

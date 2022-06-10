@@ -50,19 +50,9 @@ public class NoteServiceImpl implements NoteService{
                 noteDto.setSender_img_path(senderPath);
             }
 
-            //receiver 프로필 사진 가져오기
-            String receiverPath = profileMapper.getImagePath(note.getReceiver_id());
-            if(receiverPath != null) {
-                noteDto.setReceiver_img_path(receiverPath);
-            }
-
             //sender 닉네임 가져오기
             String senderNickName = memberMapper.findNickname(note.getSender_id());
             noteDto.setSender_nickname(senderNickName);
-
-            //receiver 닉네임 가져오기
-            String receiverNickname = memberMapper.findNickname(note.getReceiver_id());
-            noteDto.setReceiver_nickname(receiverNickname);
 
             noteDtos.add(noteDto);
         }

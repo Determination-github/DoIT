@@ -58,21 +58,21 @@ public class HomeController {
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
                 //알람 가져오기
-                getAlarmList(session, id);
+                getAlarmList(model, id);
             } else if (kakaoDto != null) {
                 id = kakaoDto.getId();
                 nickName = kakaoDto.getNickname();
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
                 //알람 가져오기
-                getAlarmList(session, id);
+                getAlarmList(model, id);
             } else if (memberDto != null) {
                 id = memberDto.getId();
                 nickName = memberDto.getNickname();
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
                 //알람 가져오기
-                getAlarmList(session, id);
+                getAlarmList(model, id);
             }
         }
 
@@ -101,10 +101,10 @@ public class HomeController {
     }
 
     //알람정보 가져오기
-    private void getAlarmList(HttpSession session, Integer id) {
+    private void getAlarmList(Model model, Integer id) {
         List<AlarmDto> alarmList = alarmService.getAlarm(id);
         if(!alarmList.isEmpty()) {
-            session.setAttribute("alarmList", alarmList);
+            model.addAttribute("alarmList", alarmList);
         }
     }
 }

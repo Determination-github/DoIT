@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!--섬머노트-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.css" integrity="sha512-ngQ4IGzHQ3s/Hh8kMyG4FC74wzitukRMIcTOoKT3EyzFZCILOPF0twiXOQn75eDINUfKBYmzYn2AA8DkAk8veQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
   <style>
     .form-group.required label:after {
        content : " *";
@@ -55,7 +57,7 @@
                 <div class="form-row">
                   <div class="form-group required col">
                     <label for="firstCategory" class="form-label">1차 카테고리</label>
-                      <select th:field="*{board_interest1}" id="firstCategory" name="firstCategory" th:errorclass="field-error" class="form-control" onclick="category_change(this.value, secondCategory)">
+                      <select th:field="*{board_interest1}" id="firstCategory" name="firstCategory" th:errorclass="field-error" class="form-control" onchange="category_change(this.value, secondCategory)">
                       <option value="">선택하세요</option>
                       <option value="1">개발</option>
                       <option value="2">자격증</option>
@@ -70,7 +72,7 @@
               <div class="col">
                 <div class="form-group required col">
                     <label for="secondCategory" class="form-label">2차 카테고리</label>
-                      <select th:field="*{board_interest2}" id="secondCategory" name="secondCategory" th:errorclass="field-error" class="form-control" onclick="category2_change(this.value, thirdCategory)">
+                      <select th:field="*{board_interest2}" id="secondCategory" name="secondCategory" th:errorclass="field-error" class="form-control" onchange="category2_change(this.value, thirdCategory)">
                       <option value="">선택하세요.</option>
                     </select>
                     <small class="invalid-feedback">2차 카테고리를 선택해주세요</small>
@@ -189,6 +191,7 @@
                         }
                     });
                 }
+
               </script>
             </div>
           </div>
@@ -204,12 +207,6 @@
   </section>
 </div>
 <th:block layout:fragment="extraJs">
-
-<!--달력용-->
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<!--섬머노트-->
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.js" integrity="sha512-6F1RVfnxCprKJmfulcxxym1Dar5FsT/V2jiEUvABiaEiFWoQ8yHvqRM/Slf0qJKiwin6IDQucjXuolCfCKnaJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <style>
@@ -218,7 +215,6 @@
         color: #dc3545;
     }
 </style>
-
 
 <script type="text/javascript" src="/js/category.js" ></script>
 <script type="text/javascript" src="/js/zone.js"></script>
@@ -241,6 +237,6 @@
   }
 
   /*]]>*/
-  </script>
+</script>
 </th:block>
 </html>

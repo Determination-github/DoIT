@@ -27,20 +27,6 @@ function sendNote() {
     alert("쪽지가 전송되었습니다.");
 }
 
-function replyNote() {
-    let note_id =  $("#reply-note-id").val();
-    let id =  $("#receiver_id"+note_id).val();
-    stompClient.send("/server/note/"+id, {}, JSON.stringify({
-                                            'user_id' : $('#sender_id'+note_id).val(),
-                                            'receiver_id' : $('#receiver_id'+note_id).val(),
-                                            'title' : $('#note-title'+note_id).val(),
-                                            'content' : $('#note-content'+note_id).val()
-                                            }));
-    $('#noteModal-reply'+note_id).modal('hide');
-    alert("답장이 전송되었습니다.");
-    window.location.reload();
-}
-
 function showGreeting(message, url) {
     showNotification();
     disabledNotification();
@@ -54,8 +40,22 @@ $(function () {
 //        e.preventDefault();
     });
     $( "#send-note" ).click(function() { sendNote(); });
-    $( "#reply-note" ).click(function() { replyNote(); });
 });
+
+
+function reply(object) {
+            let note_id = $(object).attr('value');
+            let id =  $("#receiver_id"+note_id).val();
+            stompClient.send("/server/note/"+id, {}, JSON.stringify({
+                                                    'user_id' : $('#sender_id'+note_id).val(),
+                                                    'receiver_id' : $('#receiver_id'+note_id).val(),
+                                                    'title' : $('#note-title'+note_id).val(),
+                                                    'content' : $('#note-content'+note_id).val()
+                                                    }));
+            $('#noteModal-reply'+note_id).modal('hide');
+            alert("답장이 전송되었습니다.");
+            window.location.reload();
+}
 
 const notification = document.getElementById('notification-container')
 
