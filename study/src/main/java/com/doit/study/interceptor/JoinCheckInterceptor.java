@@ -19,10 +19,12 @@ public class JoinCheckInterceptor implements HandlerInterceptor {
 
         HttpSession session = request.getSession(false);
 
-        if (session != null || session.getAttribute("LoginDto") != null) {
-            log.info("로그인 회원의 회원가입 시도");
+        if (    session != null ||
+                session.getAttribute("LoginDto") != null
+        ) {
+            log.info("로그인 회원의 잘못된 접근");
             //로그아웃으로 redirect
-            response.sendRedirect("/members/login?redirectURL=" + requestURI);
+            response.sendRedirect("/?redirectURL=" + requestURI);
             return false;
         }
 

@@ -1,0 +1,125 @@
+/* 반응형 미디어 쿼리  */
+@media(max-width: 1799px){
+
+}
+
+@media(max-width: 1199px){
+}
+
+@media(max-width: 992px){
+  .profile .mb-4{
+    margin-top : 25px;
+  }
+  .container .row .col-lg-3{
+    left: -100%;
+    position: fixed;
+  }
+}
+@media(min-width: 992px){
+  .writer-profile{
+    display: none;
+    cursor: pointer;
+  }
+}
+
+@media(max-width: 992px){
+
+}
+
+@media(max-width: 899px){
+  .max-width{
+    padding: 0 50px;
+  } 
+}
+
+@media(max-width: 899px){
+  .navbar .hidden-menu-btn{ 
+    display: inline-block;
+    z-index: 999;
+  }
+
+  .navbar .menubar{
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    left: -100%;
+    top: 0;
+    background: #111;
+    text-align: center;
+    padding-top: 80px;
+    transition: all 0.3s ease;
+  }
+
+  .navbar .menubar.active{
+    left: 0;
+  }
+
+  .navbar .menubar .menu-btn,
+  .navbar .menubar .menu-btn-single{
+    display: block;
+    margin: 50px auto;
+  }
+
+  .navbar button{
+    display: inline-block;
+  }
+
+  .navbar .dropdown-menu{
+    position: inherit;
+    text-align: center;
+  }
+
+  .navbar .btn-secondary{
+    background-color: #111;
+    border-color: #111;
+  }
+
+  .navbar .dropdown-menu .dropdown-item{
+    font-size: 20px;
+    margin: 5px 0;
+  }
+
+  .navbar .menubar li a{
+    margin: 20px 0;
+    font-size: 25px;
+  }
+
+  .max-width{
+    max-width: 800px;
+  }
+}
+
+@media(min-width: 770px){
+  .wishlist,
+  .myStudylist{
+    padding-top : 160px
+  }
+}
+
+@media(max-width: 599px){
+  .max-width{
+    padding: 0 25px;
+  } 
+
+  section{
+    font-size: 15px;
+  }
+}
+
+@media(max-width: 450px){
+  * {
+    font-size : 12px;
+    word-break: keep-all;
+  }
+  input::placeholder {
+    font-size : 12px;
+  }
+  textarea::placeholder {
+    font-size : 12px;
+  }
+  .header_edit{
+    font-size:25px;
+    font-weight:400;
+    padding: 10px 0 10px 0;
+  }
+}

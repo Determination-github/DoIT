@@ -3,9 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/doit.iml" filepath="$PROJECT_DIR$/.idea/doit.iml" />
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/study.iml" filepath="$PROJECT_DIR$/.idea/modules/study.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/study.main.iml" filepath="$PROJECT_DIR$/.idea/modules/study.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/study.test.iml" filepath="$PROJECT_DIR$/.idea/modules/study.test.iml" />
+=======
+>>>>>>> woongseop
     </modules>
   </component>
 </project>

@@ -1,8 +1,7 @@
 package com.doit.study;
 
-
 import com.doit.study.config.EmailConfig;
-import com.doit.study.config.WebConfig;
+import com.doit.study.config.S3Config;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +15,7 @@ public class StudyApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(StudyApplication.class, args);
-		ApplicationContext context = new AnnotationConfigApplicationContext(WebConfig.class, EmailConfig.class);
+		ApplicationContext context = new AnnotationConfigApplicationContext(EmailConfig.class, S3Config.class);
 	}
 
 }

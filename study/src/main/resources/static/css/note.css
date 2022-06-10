@@ -1,0 +1,84 @@
+body{
+    background: #edf1f5;
+}
+ul{
+    justify-content: center;
+}
+.header-note{
+  text-align:center;
+  font-size:70px;
+  font-weight:500;
+  color:#083670;
+  padding:10px 0 20px 0;
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid transparent;
+    border-radius: 0;
+    margin-bottom: 30px;
+}
+ .note-has-grid .single-note-item .card {
+     border-radius: 10px
+ }
+
+ .note-has-grid .single-note-item .side-stick {
+     position: absolute;
+     width: 3px;
+     height: 35px;
+     left: 0;
+     background-color: #283673;
+ }
+
+   .note-has-grid .single-note-item.note-send .side-stick {
+       background-color: rgba(44, 208, 126, .5)
+   }
+
+
+   .note-has-grid .single-note-item.note-receive .side-stick {
+       background-color: rgba(44, 171, 227, .5)
+   }
+
+
+ .single-note-item:hover{
+   transform: scale(1.05);
+ }
+
+
+ @media (max-width:991.98px) {
+     .note-has-grid .single-note-item {
+         max-width: 216px;
+         margin: 10px 0;
+     }
+ }
+ .rounded-circle-profile{
+   width: 35px;
+   height: 35px;
+   border-radius: 50%;
+   overFlow: hidden;
+ }
+ .title,
+ .content{
+   border-botton: solid;
+ }
+
+ @media (max-width:480px) {
+       #note-full-container{
+          justify-content : center;
+       }
+   }
+
+ @media (max-width:450px) {
+      .bi-envelope {
+          font-size: 55px;
+      }
+      *{
+          font-size: 15px;
+      }
+ }
+

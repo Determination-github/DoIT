@@ -1,12 +1,13 @@
 package com.doit.study.member.service;
 
+import com.doit.study.member.domain.Social;
 import com.doit.study.member.dto.*;
 import com.doit.study.mapper.MemberMapper;
 import com.doit.study.member.domain.Member;
+import com.doit.study.profile.dto.ProfileDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 @Slf4j
@@ -18,15 +19,12 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public MemberDto join(MemberDto memberDto) {
-        String user_id = UUID.randomUUID().toString();
-        Member member = memberDto.toEntity(user_id, memberDto);
-        
+        Member member = memberDto.toEntity(memberDto);
+
         //member 객체 저장값 출력
-        log.info("user_id={}, name={}, email={}, password={}, sex={}," +
-                        "interest1={}, interest2={}, interest3={}, nickname={}",
-                member.getUser_id(), member.getName(), member.getEmail(), member.getPassword(),
-                member.getSex(), member.getInterest1(), member.getInterest2(),
-                member.getInterest3(), member.getNickname());
+        log.info("name={}, email={}, password={}, gender={}, nickname={}",
+                member.getName(), member.getEmail(), member.getPassword(),
+                member.getGender(), member.getNickname());
 
         Integer result = memberMapper.insert(member);
 
@@ -34,6 +32,28 @@ public class MemberServiceImpl implements MemberService{
             return new MemberDto().toDto(member);
         }
 
+        return null;
+    }
+
+    @Override
+    public SocialDto joinSocial(SocialDto socialDto) {
+        Member member = socialDto.toEntity(socialDto);
+
+        //소셜회원 객체 저장값 출력
+        log.info("name={}, email={}, gender={}, nickname={}",
+                member.getName(), member.getEmail(), member.getGender(), member.getNickname());
+
+        Integer result = memberMapper.insertSocialToUser(member);
+
+        if(result != null) {
+            int id = memberMapper.findLastId();
+            Social social = socialDto.toSocial(id, socialDto.getSocialId(),
+                                socialDto.getSocial_type(), socialDto.getToken());
+            Integer socialResult = memberMapper.insertSocial(social);
+            if(social != null) {
+                return socialDto;
+            }
+        }
         return null;
     }
 
@@ -47,6 +67,10 @@ public class MemberServiceImpl implements MemberService{
 
         Optional<Member> findMember = memberMapper.findByEmail(email);
         log.info("findMember는 findMember={}", findMember);
+        if(!findMember.isPresent()) {
+            return null;
+        }
+
         Member member = findMember.get();
         log.info("member={}", member);
         log.info("password={}", member.getPassword());
@@ -68,5 +92,19 @@ public class MemberServiceImpl implements MemberService{
         return memberMapper.checkEmail(email);
     }
 
+    @Override
+    public ProfileDto findMember(Integer id) {
+        Member member = memberMapper.findMember(id);
+        ProfileDto profileDto = new ProfileDto(
+                member.getId(),
+                member.getEmail(),
+                member.getName(),
+                member.getNickname(),
+                member.getPassword()
+        );
 
+        log.info("profileDto={}", profileDto);
+
+        return profileDto;
+    }
 }

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<div layout:fragment="content" class="max-width">
+<th:block layout:fragment="extraCSS">
+    <!--===============================================================================================-->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/css/note.css">
+    <!--===============================================================================================-->
+</th:block>
+<section class="note">
+<div class="page-content container note-has-grid">
+    <h3 class="header-note"><i class="bi bi-envelope"></i></h3>
+    <ul class="nav nav-pills p-3 bg-white mb-3 rounded-pill align-items-center">
+        <li class="nav-item">
+            <a class="nav-link rounded-pill note-link d-flex align-items-center active" id="all-category">
+                <span class="d-none d-md-block">전체 쪽지함</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link rounded-pill note-link d-flex align-items-center  " id="note-receive"><span class="d-none d-md-block">받은 쪽지함</span></a>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link rounded-pill note-link d-flex align-items-center" id="note-send"><span class="d-none d-md-block">보낸 쪽지함</span></a>
+        </li>
+    </ul>
+    <div class="tab-content bg-transparent">
+        <div id="note-full-container" class="note-has-grid row">
+            <th:block th:each="note : ${note}">
+                <div class="col-md-4 single-note-item all-category" th:classappend="${note.receiver_id} == ${session.id} ? note-receive : note-send">
+                    <div class="card h-100 card-body">
+                        <span class="side-stick"></span>
+                        <h5 class="note-title text-truncate w-75 mb-0" data-noteheading="${note.title}">
+                            <a th:value="${note.note_id}" data-bs-toggle="modal" th:data-bs-target="'#noteModal'+${note.note_id}">[[${note.title}]]</a>
+                        </h5>
+                        <p class="note-date font-12 text-muted">[[${#dates.format(note.reg_date, 'yyyy-MM-dd')}]]</p>
+                        <div class="note-content">
+                            <p class="note-inner-content text-muted" data-notecontent="Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis.">[[${note.content}]]</p>
+                        </div>
+                        <div class="col text-end">
+                            <a onclick="delete_note(this)" th:value="${note.note_id}">
+                                <span class="mr-1"><i class="fa fa-trash remove-note" th:value="${note.note_id}"></i></span>
+                            </a>
+                        </div>
+                        <input hidden class="user-id" th:value="${note.user_id}"/>
+                    </div>
+                </div>
+                <!-- Modal 1 -->
+                <div class="modal fade" th:id="'noteModal'+${note.note_id}" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="noteModalLabel">쪽지</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col-3" style="padding-right : 0px; width : 19.5%; border-right : dotted 1px black;">
+                                            <span style="line-height : 2.4;">보낸 사람</span>
+                                        </div>
+                                        <th:block th:if="${note.sender_img_path} == null">
+                                            <div class="col-9">
+                                                <img class="rounded-circle-profile" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png">
+                                                <span class="nickname">[[${note.sender_nickname}]]</span>
+                                            </div>
+                                        </th:block>
+                                        <th:block th:if="${note.sender_img_path} != null">
+                                            <div class="col-9">
+                                                <img class="rounded-circle-profile" th:src="${note.sender_img_path}">
+                                                <span class="nickname">[[${note.sender_nickname}]]</span>
+                                            </div>
+                                        </th:block>
+                                    </div>
+                                    <hr class="mt-3 mb-3"/>
+                                    <div class="mb-3">
+                                        <label for="title" class="form-label">제목</label>
+                                        <div class="row">
+                                            <span id="title">[[${note.title}]]</span>
+                                        </div>
+                                    </div>
+                                    <hr class="mt-3 mb-3"/>
+                                    <div class="mb-3">
+                                        <label for="content" class="form-label">내용</label>
+                                        <div class="row">
+                                            <span id="content">[[${note.content}]]</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                    <button data-bs-toggle="modal" th:data-bs-target="'#noteModal-reply'+${note.note_id}" id="reply-modal" type="button" class="btn btn-primary">답장</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal 2 -->
+                <div class="modal fade" th:id="'noteModal-reply'+${note.note_id}" tabindex="-1" aria-labelledby="noteModalLabel-reply" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="noteModalLabel-reply">답장</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <input hidden id="reply-note-id" th:value="${note.note_id}">
+                                        <input hidden th:id="'sender_id'+${note.note_id}" th:value="${note.receiver_id}">
+                                        <input hidden th:id="'receiver_id'+${note.note_id}" th:value="${note.sender_id}">
+                                        <div class="col-3" style="padding-right : 0px; width : 19.5%; border-right : dotted 1px black;">
+                                            <span style="line-height : 2.4;">받는 사람</span>
+                                        </div>
+                                        <th:block th:if="${note.sender_img_path} == null">
+                                            <div class="col-9">
+                                                <img class="rounded-circle-profile" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png">
+                                                <span class="nickname">[[${note.sender_nickname}]]</span>
+                                            </div>
+                                        </th:block>
+                                        <th:block th:if="${note.sender_img_path} != null">
+                                            <div class="col-9">
+                                                <img class="rounded-circle-profile" th:src="${note.sender_img_path}">
+                                                <span class="nickname">[[${note.sender_nickname}]]</span>
+                                            </div>
+                                        </th:block>
+                                    </div>
+                                    <hr class="mt-3 mb-3"/>
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <label th:for="'note-title'+${note.note_id}" class="form-label">제목</label>
+                                            <input type="text" class="form-control" th:id="'note-title'+${note.note_id}" placeholder="제목을 입력해주세요.">
+                                        </div>
+                                    </div>
+                                    <hr class="mt-3 mb-3"/>
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <label th:for="'note-content'+${note.note_id}" class="form-label">내용</label>
+                                            <textarea class="form-control" th:id="'note-content'+${note.note_id}" rows="3" placeholder="내용을 입력해주세요."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                    <button onclick="reply(this)" type="button" th:value="${note.note_id}" class="btn btn-primary reply-note">쪽지 보내기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</div>
+</section>
+<th:block layout:fragment="extraJs">
+<script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+
+        function delete_note(object) {
+            $(".remove-note").off('click').on('click', function(event) {
+              event.stopPropagation();
+              let data = {
+                    note_id : $(object).attr('value')
+              }
+              const check = confirm("쪽지를 삭제하시겠습니까?")
+              if (check === true) {
+                  $(this).parents('.single-note-item').remove();
+                    $.ajax({
+                        type:"DELETE",
+                        url:"/note/" + [[${session.id}]],
+                        dataType : 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(data),
+                        cache : false,
+                    }).done(function() {
+                        alert("쪽지가 삭제되었습니다.");
+                        window.location.reload();
+                    }).fail(function (error) {
+                        alert(JSON.stringify(error));
+                    });
+                }
+            });
+        }
+
+        /*]]>*/
+</script>
+<script type="text/javascript" src="/js/note.js"></script>
+</th:block>
+</div>
+</html>

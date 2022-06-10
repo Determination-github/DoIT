@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.io.IOException;
 import java.util.Properties;
+
 @Configuration
 @Slf4j
 @PropertySource("classpath:email.properties")

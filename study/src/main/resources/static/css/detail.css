@@ -1,0 +1,106 @@
+
+textarea{
+  resize: none;
+}
+.circle-img{
+  border-radius: 50%;
+  overFlow: hidden;
+}
+.rounded-circle{
+  width: 120px;
+  height: 120px;
+}
+.rounded-circle-profile{
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  overFlow: hidden;
+}
+.rounded-circle-comment{
+  width: 20px;
+  height: 20px;
+}
+.left-box > *{
+  float:left;
+  margin-right:5px;
+}
+.comment-section {
+  background : #fff;
+}
+.content-area .row{
+  margin : 10px 0 10px 0;
+}
+.header-detail{
+  font-size:30px;
+  font-weight:500;
+  color:#083670;
+}
+.btn-light {
+  font-size : 0.5rem;
+}
+.d-inline .mr-1{
+  margin: 3px 0 3px 0;
+}
+.comment{
+  padding-top: 20px;
+}
+.btn-light{
+  font-size: 13px;
+  background: transparent;
+  border: none;
+}
+i{
+  margin-right: 5px;
+}
+.row .col-6 .d-inline .mr-1{
+  background-color : #b3e5fc;
+}
+.bi-heart,
+.bi-heart-fill{
+  float: none;
+}
+#note{
+  margin-right : 3px;
+}
+.modal-body .row .col-9{
+  overflow: hidden;
+  text-align : left;
+
+}
+.nickname{
+  line-height : 2.4;
+  text-align : left;
+}
+.btn-light{
+  box-shadow: none !important;
+}
+.re-reply {
+  margin : 5px 10px;
+  width : 96%;
+}
+.reply-btn, .reply-modify-btn {
+  margin : 10px;
+  position : absolute;
+  right : 0;
+}
+.re-reply-container {
+  border : solid;
+  height : 180px;
+  border-width : 0.1px;
+  border-color : #dcdcdc;
+  margin-bottom : 20px;
+  position : relative;
+}
+.mr-1{
+  margin-right : 1px;
+}
+.py-1{
+  padding-left : 0px;
+}
+.write a{
+  float: right;
+}
+.write button{
+  float: right;
+  margin-right: 1%;
+}

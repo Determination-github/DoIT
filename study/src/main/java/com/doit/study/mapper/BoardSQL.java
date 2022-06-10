@@ -3,49 +3,65 @@ package com.doit.study.mapper;
 public class BoardSQL {
 
     public static final String count =
-            "SELECT COUNT (*) FROM BO_STUDY_TB";
+            "SELECT COUNT(*) FROM SR_MOIM_TB WHERE DATE_FORMAT(NOW(), '%Y-%m-%d') <= schedule_end";
 
-    public static final String deleteAll =
-            "DELETE FROM BO_STUDY_TB";
-
-    public static final String delete =
-            "DELETE FROM BO_STUDY_TB WHERE board_Id = #{board_Id}";
-
-    public static final String insert =
-            "insert into BO_STUDY_TB (board_Id, board_Title, board_Content, board_Count, " +
-            "board_Comment, board_Date, board_Notify, board_Writer) " +
-            "values (board_id_seq.NEXTVAL, #{board_Title}, #{board_Content}, '0', '0', sysdate, 'tr', #{board_Writer})";
-
-    public static final String selectAll =
-            "SELECT board_Id, board_Title, board_Content, board_Count, board_Comment, TO_CHAR(BOARD_DATE, 'YYYY.MM.DD DAY HH:MI:SS') " +
-            "FROM BO_STUDY_TB " +
-            "ORDER BY BOARD_ID DESC";
-
-    public static final String select =
-            "SELECT board_Id, board_Title, board_Content, board_Count " +
-            "FROM BO_STUDY_TB " +
-            "WHERE board_Id = #{board_Id}";
-  
     public static final String selectPage =
-        "SELECT board_Id, board_Title, board_Content, board_Count, board_Comment, board_date\n" +
-                "FROM (\n" +
-                "         SELECT rownum rnum, A.*\n" +
-                "         from (\n" +
-                "                  select board_Id, board_Title, board_Content, board_Count, board_Comment, board_date\n" +
-                "                  from BO_STUDY_TB\n" +
-                "                  order by board_Id desc\n" +
-                "              ) A\n" +
-                "     )\n" +
-                "where rnum > ${firstRecordIndex} AND rnum <= ${lastRecordIndex}";
+            "SELECT * FROM SR_MOIM_TB WHERE DATE_FORMAT(NOW(), '%Y-%m-%d') <= schedule_end ORDER BY study_id DESC LIMIT ${pagination.firstRecordIndex} , ${pagination.countPerPage}";
 
-    public static final String update =
-            "UPDATE BO_STUDY_TB " +
-            "SET board_Title = #{board_Title}" +
-            ", board_Content = #{board_Content} " +
-            "WHERE board_Id = #{board_Id}";
+    public static final String selectPageAll =
+            "SELECT * FROM SR_MOIM_TB ORDER BY study_id DESC LIMIT ${pagination.firstRecordIndex} , ${pagination.countPerPage}";
+
+    public static final String selectWishPageAll =
+            "<script> " +
+            "SELECT * FROM SR_MOIM_TB WHERE study_id IN " +
+                    "<foreach collection='wishlist' item='wishlist' open='(' separator=',' close=')'> " +
+                        "#{wishlist.study_id} " +
+                    "</foreach> " +
+                    "ORDER BY study_id DESC LIMIT ${pagination.firstRecordIndex} , ${pagination.countPerPage}" +
+            "</script>";
+
+    public static final String getLastBoard =
+            "SELECT * FROM SR_MOIM_TB WHERE id = #{id} ORDER BY study_id DESC LIMIT 1";
+
+    public static final String insertBoard =
+            "insert into SR_MOIM_TB (id, schedule_start, schedule_end, " +
+                    "title, content, location, on_off, " +
+                    "interest1, interest2, interest3) " +
+                    "values (#{board.id}, #{board.schedule_start}, #{board.schedule_end}, " +
+                    "#{board.title}, #{board.content}, " +
+                    "#{board.location}, #{board.on_off}, #{board.interest1}, " +
+                    "#{board.interest2}, #{board.interest3})";
 
     public static final String increaseViewCount =
-            "UPDATE BO_STUDY_TB " +
-            "SET board_Count = board_Count + 1 " +
-            "WHERE board_Id = #{board_Id}";
+            "UPDATE SR_MOIM_TB SET view_count = view_count + 1 WHERE study_id = #{study_id}";
+
+    public static final String getBoard =
+            "SELECT * FROM SR_MOIM_TB WHERE study_id = #{study_id}";
+
+    //검색어로 스터디 글 개수 가져오기
+    public static final String getCountByKeyword =
+            "SELECT count(*) FROM " +
+                    "(SELECT * FROM SR_MOIM_TB WHERE on_off = #{searchDto.on_off} and location like IFNULL(CONCAT('%',#{searchDto.location},'%'), '%%')) sub" +
+                    " WHERE sub.title like IFNULL(CONCAT('%',#{searchDto.keyword},'%'), '%%') " +
+                    "OR sub.content like IFNULL(CONCAT('%',#{searchDto.keyword},'%'), '%%')";
+
+    //글 수정하기
+    public static final String updateBoard =
+            "UPDATE SR_MOIM_TB SET title = #{board.title}, content = #{board.content}, location = #{board.location}, on_off = #{board.on_off}, " +
+                    "interest1 = #{board.interest1}, interest2 = #{board.interest2}, interest3 = #{board.interest3}, " +
+                    "schedule_start = #{board.schedule_start}, schedule_end = #{board.schedule_end} " +
+                    "WHERE study_id = #{board.study_id}";
+
+    //글 삭제하기
+    public static final String deleteBoard =
+            "DELETE FROM SR_MOIM_TB WHERE study_id = #{study_id}";
+
+    //게시글 개수 조회 by id
+    public static final String getCountById =
+            "SELECT COUNT(*) FROM SR_MOIM_TB WHERE id = #{id}";
+
+    public static final String getMyStudyList =
+            "SELECT COUNT (*) FROM SR_MOIM_TB WHERE user_id = #{user_id}";
+
+
 }

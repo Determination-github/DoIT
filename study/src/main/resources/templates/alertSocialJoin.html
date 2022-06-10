@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>알림창</title>
+</head>
+
+<body>
+<form th:object="${socialDto}" name="dataForm" th:action="${url}" method="get" style="display: none;">
+    <input type="hidden" th:field="*{socialName}"/>
+    <input type="hidden" th:field="*{socialEmail}"/>
+    <input type="hidden" th:field="*{socialGender}"/>
+    <input type="hidden" th:field="*{socialId}"/>
+    <input type="hidden" th:field="*{token}"/>
+    <input type="hidden" th:field="*{social_type}"/>
+</form>
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+    var url = [[${url}]];
+    var message = [[${msg}]];
+    alert(message);
+    document.dataForm.submit();
+
+</script>
+</body>
+</html>

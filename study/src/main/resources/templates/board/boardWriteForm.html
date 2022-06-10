@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<th:block layout:fragment="extraCSS">
+  <!--달력용-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!--섬머노트-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.css" integrity="sha512-ngQ4IGzHQ3s/Hh8kMyG4FC74wzitukRMIcTOoKT3EyzFZCILOPF0twiXOQn75eDINUfKBYmzYn2AA8DkAk8veQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+  <style>
+    .form-group.required label:after {
+       content : " *";
+       color: red;
+    }
+  </style>
+  <script>
+    $.datepicker.setDefaults({
+      dateFormat: 'yy-mm-dd',
+      prevText: '이전 달',
+      nextText: '다음 달',
+      monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+      monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+      dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+      dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+      dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+      showMonthAfterYear: true,
+      yearSuffix: '년'
+    });
+
+    $( function() {
+      $( "#datepicker_to" ).datepicker();
+      $( "#datepicker_from" ).datepicker();
+    } );
+</script>
+</th:block>
+
+<div layout:fragment="content" class="max-width">
+  <section class="writeForm">
+  <main class="flex-shrink-0">
+      <div class="container">
+        <form action="/board/write" th:action th:object="${boardDto}" method="post">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"><h2>제목</h2></label>
+            <input type="text" th:field="*{board_title}" th:errorclass="field-error" class="form-control form-control-lg" id="exampleFormControlInput1" placeholder="제목을 입력해주세요.">
+          </div>
+          <div class="field-error" th:errors="*{board_title}"/>
+          <div class="mb-3">
+            <div class="row">
+              <div class="col">
+                <input hidden type="text" name="id" th:field="*{board_writerId}"/>
+                <input hidden type="text" name="nickname" th:field="*{writer_nickName}"/>
+                <div class="form-row">
+                  <div class="form-group required col">
+                    <label for="firstCategory" class="form-label">1차 카테고리</label>
+                      <select th:field="*{board_interest1}" id="firstCategory" name="firstCategory" th:errorclass="field-error" class="form-control" onchange="category_change(this.value, secondCategory)">
+                      <option value="">선택하세요</option>
+                      <option value="1">개발</option>
+                      <option value="2">자격증</option>
+                      <option value="3">프로그램</option>
+                    </select>
+                    <small id="categoryHelp" class="form-text text-muted"></small>
+                  </div>
+                  <div class="field-error" th:errors="*{board_interest1}"/>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="form-group required col">
+                    <label for="secondCategory" class="form-label">2차 카테고리</label>
+                      <select th:field="*{board_interest2}" id="secondCategory" name="secondCategory" th:errorclass="field-error" class="form-control" onchange="category2_change(this.value, thirdCategory)">
+                      <option value="">선택하세요.</option>
+                    </select>
+                    <small class="invalid-feedback">2차 카테고리를 선택해주세요</small>
+                </div>
+                <div class="field-error" th:errors="*{board_interest2}"/>
+              </div>
+
+              <div class="col">
+                <div class="form-group required col">
+                  <label for="thirdcategory" class="form-label">3차 카테고리</label>
+                    <select th:field="*{board_interest3}" id="thirdCategory" name="thirdCategory" th:errorclass="field-error" class="form-control">
+                    <option value="">선택하세요.</option>
+                  </select>
+                  <small class="invalid-feedback">3차 카테고리를 선택해주세요</small>
+                </div>
+                <div class="field-error" th:errors="*{board_interest3}"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div  class="form-group col">
+              <label class="form-label" >모집기간 🗓️</label>
+              <div class="calender_wrap">
+                <div class="calender_group"><input autocomplete="off" name="start" th:errorclass="field-error" class="calender1 form-control" type="text" id="datepicker_to" th:field="*{board_startDate}" placeholder="날짜를 선택하세요."></div>
+                <div class="field-error" th:errors="*{board_startDate}"/>
+                <span class="calender_group calender_font_event"><strong style="font-size:30px;">~</strong></span>
+                <div class="calender_group"><input autocomplete="off" name="end" th:errorclass="field-error" class="calender2 form-control" type="text" id="datepicker_from" th:field="*{board_endDate}" placeholder="날짜를 선택하세요."></div>
+                <div class="field-error" th:errors="*{board_endDate}"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="row">
+              <div class="col">
+                <div class="form-group required col">
+                  <label for="firstZone" class="form-label">1차 지역</label>
+                  <select th:field="*{board_location1}" id="firstZone" name="firstZone" class="form-control" onchange="zone_change(this.value, secondZone)">
+                    <option value="">선택하세요.</option>
+                    <option value="1">서울특별시</option>
+                    <option value="2">부산광역시</option>
+                    <option value="3">대구광역시</option>
+                    <option value="4">인천광역시</option>
+                    <option value="5">광주광역시</option>
+                    <option value="6">대전광역시</option>
+                    <option value="7">울산광역시</option>
+                    <option value="8">강원도</option>
+                    <option value="9">경기도</option>
+                    <option value="10">경상남도</option>
+                    <option value="11">경상북도</option>
+                    <option value="12">전라남도</option>
+                    <option value="13">전라북도</option>
+                    <option value="14">충청남도</option>
+                    <option value="15">충청북도</option>
+                    <option value="16">제주도</option>
+                  </select>
+                  <small id="categoryHelp two" class="form-text text-muted"></small>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="form-group required col">
+                  <label for="secondZone" class="form-label">2차 지역</label>
+                  <select th:field="*{board_location2}" id="secondZone" name="secondZone" class="form-control">
+                    <option value="">선택하세요</option>
+                  </select>
+                </div>
+              </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="form-check pull-right mr-0" style="margin-top : 10px;">
+              <input class="form-check-input" type="checkbox" onclick="is_checked()" id="onOffLine" th:field="*{board_onOffLine}">
+              <label class="form-check-label" for="onOffLine">
+                <b>Online</b>
+              </label>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <textarea name="board_content" id="board_content" class="form-control" th:errorclass="field-error"  placeholder="Type the content here!" th:field="*{board_content}"></textarea>
+              <script>
+
+                $(document).ready(function() {
+                    $('#board_content').summernote({
+                        height : 300,
+                        minHeight : null,
+                        maxHeight : null,
+                        focus : true,
+                        callbacks : {
+                            onImageUpload : function(files, editor, welEditable) {
+                                for (var i = 0; i < files.length; i++) {
+                                    sendFile(files[i], this);
+                                }
+                            }
+                        }
+                    });
+                });
+
+                function sendFile(file, el) {
+                    var form_data = new FormData();
+                    form_data.append('file', file);
+                    $.ajax({
+                        data : form_data,
+                        type : "POST",
+                        url : '/file/images',
+                        cache : false,
+                        contentType : false,
+                        enctype : 'multipart/form-data',
+                        processData : false,
+                        success : function(url) {
+                            $(el).summernote('insertImage', url, function($image) {
+                                $image.css('width', "50%");
+                            });
+                        }
+                    });
+                }
+
+              </script>
+            </div>
+          </div>
+          <div class="field-error" th:errors="*{board_content}"/>
+
+          <div class="mb-3">
+            <input id="subBtn" class="btn btn-primary" type="submit" value="작성하기" style="float: right;" onclick="goWrite(this.form)"/>
+          </div>
+
+        </form>
+      </div>
+  </main>
+  </section>
+</div>
+<th:block layout:fragment="extraJs">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.js" integrity="sha512-6F1RVfnxCprKJmfulcxxym1Dar5FsT/V2jiEUvABiaEiFWoQ8yHvqRM/Slf0qJKiwin6IDQucjXuolCfCKnaJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<style>
+    .field-error {
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+</style>
+
+<script type="text/javascript" src="/js/category.js" ></script>
+<script type="text/javascript" src="/js/zone.js"></script>
+<script type="text/javascript" th:inline="javascript">
+  /*<![CDATA[*/
+
+  function is_checked() {
+
+    const checkbox = document.getElementById('onOffLine');
+
+    const is_checked = checkbox.checked;
+
+    if(is_checked === true) {
+      $("#firstZone").attr("disabled", true);
+      $("#secondZone").attr("disabled", true);
+    } else {
+      $("#firstZone").removeAttr("disabled");
+      $("#secondZone").removeAttr("disabled");
+    }
+  }
+
+  /*]]>*/
+</script>
+</th:block>
+</html>

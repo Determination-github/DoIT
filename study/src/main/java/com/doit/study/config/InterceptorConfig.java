@@ -14,13 +14,13 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(1)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/", "/members/join", "/index",
+                .excludePathPatterns("/", "/join", "/login",
                         "/css/**", "/*.ico", "/error");
 
-        registry.addInterceptor(new JoinCheckInterceptor())
-                .order(2)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/", "/members/login", "/index",
-                        "/css/**", "/*.ico", "/error");
+//        registry.addInterceptor(new JoinCheckInterceptor())
+//                .order(2)
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/", "/logout",
+//                        "/css/**", "/*.ico", "/error");
     }
 }

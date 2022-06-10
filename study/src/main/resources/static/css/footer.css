@@ -1,0 +1,29 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 999;
+  background-color: #283673;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.notification-container {
+  background: #283673;
+  opacity: 0.9;
+  border-radius: 10px 10px 0 0 ;
+  padding: 15px 20px;
+  position: relative;
+  bottom: -50px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.notification-container.show {
+  transform: translateY(-50px);
+}
+
+.notification-container p {
+  color : white;
+  font-weight : bold;
+  text-align : center;
+}
