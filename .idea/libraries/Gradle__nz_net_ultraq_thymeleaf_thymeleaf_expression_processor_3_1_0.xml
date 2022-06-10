@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: nz.net.ultraq.thymeleaf:thymeleaf-expression-processor:3.1.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/nz.net.ultraq.thymeleaf/thymeleaf-expression-processor/3.1.0/a14d6c0fe36bd115956098fed6f6542bc2dd6818/thymeleaf-expression-processor-3.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/nz.net.ultraq.thymeleaf/thymeleaf-expression-processor/3.1.0/7cd37b8cde2fcc060674a5d6f17986650802ece9/thymeleaf-expression-processor-3.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
