@@ -13,11 +13,14 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -46,6 +49,19 @@ public class AlarmController {
         alarmService.saveAlarm(alarmDto);
 
         simpMessagingTemplate.convertAndSend("/alarm/receiving/" + noteDto.getReceiver_id() , alarmDto);
+    }
+
+    @GetMapping("/alarm/{id}")
+    public ResponseEntity getAlarm(@PathVariable Integer id,
+                                   Model model) {
+
+        log.info("실행됨");
+        List<AlarmDto> alarmDtoList = alarmService.getAlarm(id);
+        if(!alarmDtoList.isEmpty()) {
+            model.addAttribute("alarmList", alarmDtoList);
+        }
+
+        return ResponseEntity.ok(id);
     }
 
     @DeleteMapping("/alarm/{id}")

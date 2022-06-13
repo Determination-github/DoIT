@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -20,13 +22,23 @@ public class NoteController {
     private final NoteService noteService;
 
     @GetMapping("/note/{id}")
-    public String profile(@PathVariable Integer id, Model model) {
+    public String profile(@PathVariable Integer id,
+                          Model model,
+                          HttpServletRequest request) {
 
-        //노트 정보 가져오기
-        List<NoteDto> note = noteService.getNote(id);
-        model.addAttribute("note", note);
+        HttpSession session = request.getSession(false);
+        Integer userId = (Integer) session.getAttribute("id");
 
-        return "/members/note";
+        if(id == userId) {
+            //노트 정보 가져오기
+            List<NoteDto> note = noteService.getNote(id);
+            model.addAttribute("note", note);
+
+            return "/members/note";
+        } else {
+            return null;
+        }
+
     }
 
     @DeleteMapping("/note/{id}")

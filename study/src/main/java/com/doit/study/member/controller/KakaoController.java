@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -44,13 +43,11 @@ public class KakaoController {
      * @param code
      * @param model
      * @param session
-     * @param redirectAttributes
      */
     @RequestMapping(value = "/kakao/callback", method = {RequestMethod.GET, RequestMethod.POST})
     public String callback(@RequestParam String code,
                            Model model,
-                           HttpSession session,
-                           RedirectAttributes redirectAttributes) {
+                           HttpSession session) {
         log.info("code = " + code);
 
         //access token 발급 받기
@@ -98,7 +95,10 @@ public class KakaoController {
         session.setAttribute("token", accessToken);
         log.info("memberDto = " + memberDto);
 
-        return "redirect:/";
+        String redirectURL = (String) session.getAttribute("redirectURL");
+        log.info("redirectUrl= " + redirectURL);
+
+        return "redirect:"+redirectURL;
     }
 
 //    /**

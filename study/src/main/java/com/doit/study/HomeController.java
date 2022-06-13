@@ -76,10 +76,6 @@ public class HomeController {
             }
         }
 
-
-
-
-
         Integer totalRecordCount = boardService.getCount();
         if(totalRecordCount != null) {
             Pagination pagination = new Pagination(currentPage, pageSize);

@@ -46,7 +46,6 @@ public class NaverController {
     public String callback(Model model,
                            @RequestParam String code,
                            @RequestParam String state,
-                           HttpServletRequest request,
                            HttpSession session) throws IOException, ParseException {
         OAuth2AccessToken oauthToken;
         oauthToken = naverService.getAccessToken(session, code, state);
@@ -97,7 +96,11 @@ public class NaverController {
         session.setAttribute(SessionConst.NAVER_MEMBER, memberDto);
         session.setAttribute("token", accessToken);
         log.info("memberDto = " + memberDto);
-        return "redirect:/";
+
+        String redirectURL = (String) session.getAttribute("redirectURL");
+        log.info("redirectUrl= " + redirectURL);
+
+        return "redirect:"+redirectURL;
     }
 
 

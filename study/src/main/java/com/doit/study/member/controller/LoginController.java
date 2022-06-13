@@ -38,7 +38,8 @@ public class LoginController {
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginDto") LoginDto loginDto,
                             Model model,
-                            HttpSession session) {
+                            HttpSession session,
+                            @RequestParam(defaultValue = "/") String redirectURL) {
 
         //네이보 로그인을 위한 콜백 url 생성
         String naverAuthUrl = naverService.getAuthorizationUrl(session);
@@ -48,10 +49,13 @@ public class LoginController {
         String kakaoAuthUrl = kakaoService.getKaKaoCallbackUrl();
         log.info("카카오: " + kakaoAuthUrl);
 
+        log.info("redirectUrl = " + redirectURL);
 
         //네이버, 카카오 콜백 url 저장
         model.addAttribute("naverUrl", naverAuthUrl);
         model.addAttribute("kakaoUrl", kakaoAuthUrl);
+
+        session.setAttribute("redirectURL", redirectURL);
 
         return "/members/loginForm";
     }

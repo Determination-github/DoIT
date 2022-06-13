@@ -19,12 +19,15 @@
             <button class="bi bi-chat-square-dots dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
             </button>
             <ul class="dropdown-menu alarm-msg" aria-labelledby="dropdownMenuButton1">
-                <th:block th:if="${alarmList == null}">
-                    <li class="empty-dropdown"><a class="dropdown-item">알림 내용이 없습니다.</a></li>
-                </th:block>
-                <th:block th:each="list : ${alarmList}">
-                    <li><a class="dropdown-item" onclick="click_alarm(this)" th:value="${list.alarm_id}" th:href="${list.url}">[[${list.message}]]</a></li>
-                </th:block>
+              <th:block th:if="${session.id != null}">
+                <input hidden id="menu-id" th:value="${session.id}">
+              </th:block>
+              <th:block th:if="${session.alarmList == null}">
+                  <li class="empty-dropdown"><a class="dropdown-item">알림 내용이 없습니다.</a></li>
+              </th:block>
+              <th:block th:each="list : ${session.alarmList}">
+                  <li><a class="dropdown-item" onclick="click_alarm(this)" th:value="${list.alarm_id}" th:href="${list.url}">[[${list.message}]]</a></li>
+              </th:block>
             </ul>
           </div>
         </li>
