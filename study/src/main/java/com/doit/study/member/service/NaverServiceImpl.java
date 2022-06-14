@@ -75,7 +75,11 @@ public class NaverServiceImpl implements NaverService {
         return new BigInteger(130, random).toString(32);
     }
 
-    /* 네이버 아이디로 인증  URL 생성  Method */
+    /**
+     * 네이버 아이디로 인증  URL 생성
+     * @param session
+     * @return String
+     */
     @Override
     public String getAuthorizationUrl(HttpSession session) {
 
@@ -97,7 +101,14 @@ public class NaverServiceImpl implements NaverService {
         return oauthService.getAuthorizationUrl();
     }
 
-    /* 네이버아이디로 Callback 처리 및  AccessToken 획득 Method */
+    /**
+     * 네이버아이디로 Callback 처리 및  AccessToken 획득
+     * @param session
+     * @param code
+     * @param state
+     * @return OAuth2AccessToken
+     * @throws IOException
+     */
     @Override
     public OAuth2AccessToken getAccessToken(HttpSession session, String code, String state) throws IOException {
 
@@ -119,7 +130,12 @@ public class NaverServiceImpl implements NaverService {
         return null;
     }
 
-    /* Access Token을 이용하여 네이버 사용자 프로필 API를 호출 */
+    /**
+     * Access Token을 이용하여 네이버 사용자 프로필 API를 호출
+     * @param oauthToken
+     * @return String
+     * @throws IOException
+     */
     @Override
     public String getUserProfile(OAuth2AccessToken oauthToken) throws IOException{
 
@@ -134,7 +150,12 @@ public class NaverServiceImpl implements NaverService {
         return response.getBody();
     }
 
-    //네이버 로그인 회원 정보 가져오기
+    /**
+     * 네이버 로그인 회원 정보 가져오기
+     * @param apiResult
+     * @return HashMap<String, String>
+     * @throws ParseException
+     */
     @Override
     public HashMap<String, String> getNaverUserInfo(String apiResult) throws ParseException {
         JSONParser parser = new JSONParser();
@@ -164,6 +185,10 @@ public class NaverServiceImpl implements NaverService {
         return userInfo;
     }
 
+    /***
+     * 네이버 회원 정보 삭제
+     * @param accessToken
+     */
     @Override
     public void deleteAccessToken(String accessToken) {
         String deleteUrl =
@@ -175,7 +200,11 @@ public class NaverServiceImpl implements NaverService {
         //result : success
     }
 
-    //네이버 로그인한 회원 정보 찾기
+    /**
+     * 네이버 로그인한 회원 정보 찾기
+     * @param id
+     * @return MemberDto
+     */
     @Override
     public MemberDto findSocialMember(String id) {
         Optional<Member> findMember = memberMapper.findSocialMemberBySocialId(id);

@@ -50,7 +50,7 @@ public class CommentController {
     @PostMapping("/comments/save/reply/{writer_id}")
     public ResponseEntity<Map<String, Integer>> writeReply(
                         @PathVariable Integer writer_id,
-                        @RequestBody CommentDto commentDto) {
+                        @RequestBody CommentDto commentDto) throws Exception {
         log.info("writer_id={}", writer_id);
         log.info("commentDto={}", commentDto);
 
@@ -71,7 +71,7 @@ public class CommentController {
     @PutMapping("/comments/modify/reply/{writer_id}")
     public ResponseEntity modifyReply(
             @PathVariable Integer writer_id,
-            @RequestBody CommentDto commentDto) {
+            @RequestBody CommentDto commentDto) throws Exception {
 
         log.info("수정");
         log.info("writer_id={}", writer_id);
@@ -84,7 +84,7 @@ public class CommentController {
 
     @DeleteMapping("/comments/delete/reply/{comment_id}")
     public ResponseEntity remove(
-            @PathVariable Integer comment_id){
+            @PathVariable Integer comment_id) throws Exception {
 
         commentService.deleteComment(comment_id);
 

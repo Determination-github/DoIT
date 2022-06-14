@@ -22,6 +22,7 @@ public class EmailController {
     public String mailCheck(@RequestParam("email") String email) {
         //메일에 보낸 key번호 반환
         String result = emailService.mailSend(email);
+        log.info("이메일 전송 = " + result);
         return result;
     }
 

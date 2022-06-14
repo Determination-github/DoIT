@@ -101,24 +101,6 @@ public class KakaoController {
         return "redirect:"+redirectURL;
     }
 
-//    /**
-//     * 카카오 로그아웃 컨트롤러
-//     * @param request
-//     */
-//    @RequestMapping(value = "/kakaoLogout")
-//    public String logout(HttpServletRequest request) {
-//
-//        //세션 값 가져오기
-//        HttpSession session = request.getSession(false);
-//
-//        if(session != null) {
-//            session.invalidate();
-//        }
-//
-//        return "redirect:/";
-//    }
-
-
     /**
      * 카카오 연결 끊기
      * @param kakaoDto
@@ -149,7 +131,7 @@ public class KakaoController {
     @PostMapping("/join/kakao")
     public String kakaoJoin(@Valid @ModelAttribute("kakaoDto") SocialDto kakaoDto,
                             BindingResult bindingResult,
-                            HttpSession session) {
+                            HttpSession session) throws Exception {
 
         //저장값 출력
         log.info("id={}, name={}, email={}, gender={}",

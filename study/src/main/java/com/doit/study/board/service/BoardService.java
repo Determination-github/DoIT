@@ -22,7 +22,7 @@ public interface BoardService {
     List<BoardDto> getWishlistBoardListAll(Integer id, List<WishlistDto> wishlist, Pagination pagination);
 
     //글 추가하기
-    Integer insertStudyBoard(BoardDto boardWriteDto);
+    Integer insertStudyBoard(BoardDto boardWriteDto) throws Exception;
 
     //게시글 정보 가져오기
     BoardDto findResultById(int study_id, BoardDto boardWriteDto);
@@ -31,22 +31,16 @@ public interface BoardService {
     BoardDto findStudyById(int study_id);
 
     //게시글 수정하기
-    BoardDto updateBoard(BoardDto boardDto);
+    BoardDto updateBoard(BoardDto boardDto) throws Exception;
 
     //게시글 삭제하기
-    Integer deleteBoard(int study_id);
+    Integer deleteBoard(int study_id) throws Exception;
 
     //작성한 글 개수 BY 회원아이디
     Integer getCountById(int id);
 
+    //검색 내용에 따른 게시글 개수
     Integer getCountBySearching(SearchDto searchDto);
-
-
-    //Integer getCountMyStudy(String id);
-
-
-
-
 
 }
 

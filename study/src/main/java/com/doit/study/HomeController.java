@@ -58,21 +58,21 @@ public class HomeController {
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
                 //알람 가져오기
-                getAlarmList(model, id);
+                getAlarm(session, id);
             } else if (kakaoDto != null) {
                 id = kakaoDto.getId();
                 nickName = kakaoDto.getNickname();
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
                 //알람 가져오기
-                getAlarmList(model, id);
+                getAlarm(session, id);
             } else if (memberDto != null) {
                 id = memberDto.getId();
                 nickName = memberDto.getNickname();
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
                 //알람 가져오기
-                getAlarmList(model, id);
+                getAlarm(session, id);
             }
         }
 
@@ -97,10 +97,13 @@ public class HomeController {
     }
 
     //알람정보 가져오기
-    private void getAlarmList(Model model, Integer id) {
-        List<AlarmDto> alarmList = alarmService.getAlarm(id);
-        if(!alarmList.isEmpty()) {
-            model.addAttribute("alarmList", alarmList);
+    private void getAlarm(HttpSession session, Integer id) throws Exception {
+        session.removeAttribute("alarmList");
+        List<AlarmDto> alarm = alarmService.getAlarm(id);
+        if(alarm.isEmpty()) {
+            session.setAttribute("alarmList", null);
+        } else {
+            session.setAttribute("alarmList", alarm);
         }
     }
 }

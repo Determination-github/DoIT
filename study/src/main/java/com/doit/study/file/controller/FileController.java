@@ -31,21 +31,9 @@ public class FileController {
     private final FileService fileService;
     private final S3Uploader s3Uploader;
 
-//    @PostMapping("/file/images")
-//    public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
-//        String originalFilename = file.getOriginalFilename();
-//        FileDto fileDto = fileService.insertFile(originalFilename);
-//        String saveFileName = fileService.fileSave(fileDto, file);
-//
-//        log.info("saveFileName={}", saveFileName);
-//        log.info("fileDto={}", fileDto);
-//
-//        return ResponseEntity.ok().body("/file/images/" +fileDto.getFileId());
-//    }
-
     @PostMapping("/file/images")
     @ResponseBody
-    public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file) throws Exception {
         FileDto fileDto = new FileDto();
         s3Uploader.upload(file, "studyImageUpload", fileDto);
         log.info("fileDto는 ? " + fileDto);

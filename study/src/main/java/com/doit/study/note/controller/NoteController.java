@@ -43,7 +43,7 @@ public class NoteController {
 
     @DeleteMapping("/note/{id}")
     public ResponseEntity deleteNote(@PathVariable Integer id,
-                                     @RequestBody NoteDto noteDto) {
+                                     @RequestBody NoteDto noteDto) throws Exception {
 
         noteService.deleteNote(noteDto.getNote_id());
 

@@ -1,8 +1,6 @@
 package com.doit.study.profile.controller;
 
-import com.doit.study.file.dto.FileDto;
 import com.doit.study.board.service.BoardService;
-import com.doit.study.file.service.FileService;
 import com.doit.study.file.service.S3Uploader;
 import com.doit.study.profile.dto.ProfileDto;
 import com.doit.study.member.service.MemberService;
@@ -10,9 +8,8 @@ import com.doit.study.profile.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +27,7 @@ import java.util.Map;
 public class ProfileController {
 
     @Autowired
-    ResourceLoader resourceLoader;
+    private PasswordEncoder passwordEncoder;
 
     private final MemberService memberService;
     private final ProfileService profileService;
@@ -61,7 +57,7 @@ public class ProfileController {
     @PostMapping("/profile/{id}")
     @ResponseBody
     public ResponseEntity<?> uploadProfile(@RequestParam("file") MultipartFile file,
-                                           @PathVariable Integer id) throws IOException {
+                                           @PathVariable Integer id) throws Exception {
         log.info("MultipartFile={}", file);
 
         ProfileDto profileDto = new ProfileDto();
@@ -72,7 +68,7 @@ public class ProfileController {
 
         try {
             log.info("id = " + fileId);
-            profileDto = profileService.findFile(fileId);
+            profileDto = profileService.findProfile(fileId);
             log.info("path = " + profileDto.getFile_path());
             Map<String, String> path = new HashMap<>();
             path.put("path", profileDto.getFile_path());
@@ -99,8 +95,11 @@ public class ProfileController {
 
     @PutMapping("/profile/update/{id}")
     public ResponseEntity<?> updateProfile(@PathVariable Integer id,
-                                @RequestBody ProfileDto profileDto) {
+                                @RequestBody ProfileDto profileDto) throws Exception {
         log.info("id={}", id);
+
+        //비밀번호 암호화
+        profileDto.setPassword(passwordEncoder.encode(profileDto.getPassword()));
 
         profileService.updateProfile(profileDto);
         return ResponseEntity.ok().body(id);
@@ -109,7 +108,7 @@ public class ProfileController {
     @DeleteMapping("/profile/delete/{id}")
     public ResponseEntity<?> deleteProfile(@PathVariable Integer id,
                                            @RequestBody ProfileDto profileDto,
-                                           HttpServletRequest request) {
+                                           HttpServletRequest request) throws Exception {
         log.info("id={}", id);
 
         profileService.deleteProfile(profileDto, request);

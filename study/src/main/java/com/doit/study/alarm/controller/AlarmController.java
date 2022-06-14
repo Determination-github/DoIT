@@ -53,7 +53,7 @@ public class AlarmController {
 
     @GetMapping("/alarm/{id}")
     public ResponseEntity getAlarm(@PathVariable Integer id,
-                                   Model model) {
+                                   Model model) throws Exception {
 
         log.info("실행됨");
         List<AlarmDto> alarmDtoList = alarmService.getAlarm(id);
@@ -66,7 +66,7 @@ public class AlarmController {
 
     @DeleteMapping("/alarm/{id}")
     public ResponseEntity deleteAlarm(@PathVariable Integer id,
-                                      HttpServletRequest request) {
+                                      HttpServletRequest request) throws Exception {
 
         log.info("alarm_id={}", id);
 

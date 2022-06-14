@@ -6,6 +6,7 @@ import com.doit.study.mapper.AlarmMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +14,13 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class AlarmServiceImpl implements AlarmService{
 
     private final AlarmMapper alarmMapper;
 
     @Override
-    public void saveAlarm(AlarmDto alarmDto) {
+    public void saveAlarm(AlarmDto alarmDto) throws Exception {
         log.info("alarmDto={}", alarmDto);
 
         //msg만들기
@@ -32,7 +34,7 @@ public class AlarmServiceImpl implements AlarmService{
     }
 
     @Override
-    public List<AlarmDto> getAlarm(Integer id) {
+    public List<AlarmDto> getAlarm(Integer id) throws Exception {
         log.info("id={}", id);
 
         List<Alarm> alarmList = alarmMapper.getAlarm(id);
@@ -55,7 +57,7 @@ public class AlarmServiceImpl implements AlarmService{
     }
 
     @Override
-    public void deleteAlarm(Integer id) {
+    public void deleteAlarm(Integer id) throws Exception {
         alarmMapper.deleteAlarm(id);
     }
 

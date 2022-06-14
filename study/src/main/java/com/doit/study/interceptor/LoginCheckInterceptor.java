@@ -85,7 +85,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         }
     }
 
-    private void getAlarm(HttpSession session, Integer id) {
+    private void getAlarm(HttpSession session, Integer id) throws Exception {
         session.removeAttribute("alarmList");
         List<AlarmDto> alarm = alarmService.getAlarm(id);
         if(alarm.isEmpty()) {

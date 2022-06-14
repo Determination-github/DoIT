@@ -20,7 +20,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .order(1)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/", "/join", "/login", "/logout", "/kakao/**", "/naver/**",
-                        "/board/result/**", "/css/**", "/img/**", "/js/**", "/login/**", "/error");
+                        "/board/result/**", "/css/**", "/img/**", "/js/**", "/join/**", "/login/**", "/error");
 
         registry.addInterceptor(new JoinCheckInterceptor())
                 .order(2)

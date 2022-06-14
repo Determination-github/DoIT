@@ -103,13 +103,6 @@ public class NaverController {
         return "redirect:"+redirectURL;
     }
 
-
-//      네이버 회원 삭제
-    @GetMapping("/naverUnlink")
-    public String delete() {
-        return "redirect:/https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=Rqvi_Vwj3d5f4g6XhkfFjWrm_6DQMWQVCOM28WRZYNY&client_secret=GwjoZZh06n&access_token=AAAAPMRNkTMZILcNCr1l9oY2C1bheoqEgosG7NktTFps4qf2UPjapjsC4JZjAKzyoUm1RIcIUJSei2vIX0OL4PugiOw&service_provider=NAVER\n";
-    }
-
     /**
      * 네이버 회원가입 컨트롤러
      * @param naverDto
@@ -130,7 +123,7 @@ public class NaverController {
     @PostMapping("/join/naver")
     public String naverJoin(@Valid @ModelAttribute("naverDto") SocialDto naverDto,
                             BindingResult bindingResult,
-                            HttpSession session) {
+                            HttpSession session) throws Exception {
 
         //저장값 출력
         log.info("id={}, name={}, email={}, gender={}",

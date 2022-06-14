@@ -50,7 +50,7 @@ public class JoinController {
      * @param bindingResult
      */
     @PostMapping
-    public String join(@Valid @ModelAttribute("memberDto") MemberDto memberDto, BindingResult bindingResult) {
+    public String join(@Valid @ModelAttribute("memberDto") MemberDto memberDto, BindingResult bindingResult) throws Exception {
         //저장값 출력
         log.info("nickname={}, email={}, password={}",
                 memberDto.getNickname(), memberDto.getEmail(), memberDto.getPassword());

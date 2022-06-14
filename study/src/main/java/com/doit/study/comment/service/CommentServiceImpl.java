@@ -7,6 +7,7 @@ import com.doit.study.mapper.ProfileMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,22 +15,37 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CommentServiceImpl implements CommentService{
 
     private final CommentMapper commentMapper;
     private final ProfileMapper profileMapper;
 
+    /***
+     * 댓글 수 가져오기
+     * @param study_id
+     * @return Integer
+     */
     @Override
     public Integer getCount(Integer study_id) {
         return commentMapper.count(study_id);
     }
 
+    /***
+     * 댓글 작성
+     * @param commentDto
+     */
     @Override
     public void insertComment(CommentDto commentDto) {
         Comment comment = getComment(commentDto);
         commentMapper.insert(comment);
     }
 
+    /***
+     * 댓글 목록 가져오기
+     * @param study_id
+     * @return List<CommentDto>
+     */
     @Override
     public List<CommentDto> getComment(int study_id) {
         List<Comment> commentList = commentMapper.getComment(study_id);
@@ -55,12 +71,20 @@ public class CommentServiceImpl implements CommentService{
         return commentDtos;
     }
 
+    /***
+     * 댓글 업데이트
+     * @param commentDto
+     */
     @Override
     public void updateComment(CommentDto commentDto) {
         Comment comment = getComment(commentDto);
         commentMapper.modify(comment);
     }
 
+    /***
+     * 댓글 삭제
+     * @param comment_id
+     */
     @Override
     public void deleteComment(Integer comment_id) {
         commentMapper.delete(comment_id);

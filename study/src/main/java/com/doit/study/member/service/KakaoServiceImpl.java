@@ -13,6 +13,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -35,7 +36,10 @@ public class KakaoServiceImpl implements KakaoService {
     @Value("${kakao.login.redirect.url}")
     private String REDIRECT_URL; //리다이렉트 url
 
-    //카카오 로그인 콜백 url
+    /**
+     * 카카오 로그인 콜백 url
+     * @return String
+     */
     @Override
     public String getKaKaoCallbackUrl() {
         String kakaoUrl =
@@ -46,7 +50,11 @@ public class KakaoServiceImpl implements KakaoService {
         return kakaoUrl;
     }
 
-    //카카오 로그인 AccessToken 얻기
+    /**
+     * 카카오 로그인 AccessToken 얻기
+     * @param authorize_code
+     * @return String
+     */
     @Override
     public String getAccessKakaoToken(String authorize_code) {
         String access_Token = "";
@@ -104,7 +112,11 @@ public class KakaoServiceImpl implements KakaoService {
     }
 
 
-    //access token과 url을 통해 카카오 로그인한 회원 정보 얻기
+    /**
+     * access token과 url을 통해 카카오 로그인한 회원 정보 얻기
+     * @param access_Token
+     * @return HashMap<String, String>
+     */
     @Override
     public HashMap<String, String> getKaKaoUserInfo(String access_Token) {
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
@@ -161,7 +173,10 @@ public class KakaoServiceImpl implements KakaoService {
         return userInfo;
     }
 
-    //카카오 회원 정보 삭제
+    /**
+     * 카카오 회원 정보 삭제
+     * @param access_Token
+     */
     @Override
     public void unlinkKakao(String access_Token) {
         String reqURL = "https://kapi.kakao.com/v1/user/unlink";
@@ -187,7 +202,11 @@ public class KakaoServiceImpl implements KakaoService {
         }
     }
 
-    //카카오 로그인한 회원 정보 찾기
+    /**
+     * 카카오 로그인한 회원 정보 찾기
+     * @param id
+     * @return MemberDto
+     */
     @Override
     public MemberDto findSocialMember(String id) {
         Optional<Member> findMember = memberMapper.findSocialMemberBySocialId(id);

@@ -118,7 +118,7 @@ public class BoardController {
                         @Valid @ModelAttribute("boardDto") BoardDto boardDto,
                         BindingResult bindingResult,
                         @PathVariable Optional<Integer> board_id,
-                        RedirectAttributes redirectAttributes) {
+                        RedirectAttributes redirectAttributes) throws Exception {
 
         if(bindingResult.hasErrors()) {
             log.info("error={}", bindingResult);
@@ -367,7 +367,7 @@ public class BoardController {
     }
 
     @DeleteMapping("/delete/{study_id}")
-    public ResponseEntity<?> deleteStudy(@PathVariable("study_id") Integer study_id) {
+    public ResponseEntity<?> deleteStudy(@PathVariable("study_id") Integer study_id) throws Exception {
         log.info("study_id={}", study_id);
 
         //S3업로드 파일 삭제
