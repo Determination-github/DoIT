@@ -37,20 +37,17 @@ public class MemberServiceImpl implements MemberService{
         //password 암호화
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
 
+        //dto to entity
         Member member = memberDto.toEntity(memberDto);
 
-        //member 객체 저장값 출력
-        log.info("name={}, email={}, password={}, gender={}, nickname={}",
-                member.getName(), member.getEmail(), member.getPassword(),
-                member.getGender(), member.getNickname());
-
+        //회원 정보 저장
         Integer result = memberMapper.insert(member);
 
         if(result != null) {
             return new MemberDto().toDto(member);
+        } else {
+            return null;
         }
-
-        return null;
     }
 
     /**
@@ -63,16 +60,17 @@ public class MemberServiceImpl implements MemberService{
     public SocialDto joinSocial(SocialDto socialDto) throws Exception {
         Member member = socialDto.toEntity(socialDto);
 
-        //소셜회원 객체 저장값 출력
-        log.info("name={}, email={}, gender={}, nickname={}",
-                member.getName(), member.getEmail(), member.getGender(), member.getNickname());
-
         Integer result = memberMapper.insertSocialToUser(member);
 
         if(result != null) {
+            //가입 정보 가져오기
             int id = memberMapper.findLastId();
+
+            //dto to entity
             Social social = socialDto.toSocial(id, socialDto.getSocialId(),
                                 socialDto.getSocial_type(), socialDto.getToken());
+
+            //social 회원 정보 저장
             Integer socialResult = memberMapper.insertSocial(social);
             if(social != null) {
                 return socialDto;
@@ -88,27 +86,22 @@ public class MemberServiceImpl implements MemberService{
      */
     @Override
     public MemberDto login(LoginDto loginDto) {
+        //이메일과 비밀번호 정보 가져오기
         String email = loginDto.getEmail();
-        log.info("email은 email={}", email);
         String password = loginDto.getPassword();
-        log.info("password은 password={}", password);
 
-
+        //member 객체 찾기 by email
         Optional<Member> findMember = memberMapper.findByEmail(email);
-        log.info("findMember는 findMember={}", findMember);
-        if(!findMember.isPresent()) {
+        if(!findMember.isPresent()) { //정보가 없으면 null 반환
             return null;
         }
 
         Member member = findMember.get();
-        log.info("member={}", member);
-        log.info("password={}", member.getPassword());
-
-        if(passwordEncoder.matches(password, member.getPassword())) {
-            log.info("비밀번호가 일치해야 실행됨");
+        if(passwordEncoder.matches(password, member.getPassword())) { //패스워드 일치하는지 확인
             return new MemberDto().toDto(member);
+        } else {
+            return null;
         }
-        return null;
     }
 
     /**
@@ -138,6 +131,7 @@ public class MemberServiceImpl implements MemberService{
      */
     @Override
     public ProfileDto findMember(Integer id) {
+        //프로필 정보가져오기
         Member member = memberMapper.findMember(id);
         ProfileDto profileDto = new ProfileDto(
                 member.getId(),
@@ -146,8 +140,6 @@ public class MemberServiceImpl implements MemberService{
                 member.getNickname(),
                 member.getPassword()
         );
-
-        log.info("profileDto={}", profileDto);
 
         return profileDto;
     }

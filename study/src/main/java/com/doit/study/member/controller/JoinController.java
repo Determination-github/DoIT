@@ -23,7 +23,10 @@ public class JoinController {
     private final MemberService memberService;
     private String pattern;
 
-    //성별 정보
+    /**
+     * 성별 정보
+     * @return List<Gender>
+     */
     @ModelAttribute("gender")
     public List<Gender> gender() {
         List<Gender> genders = new ArrayList<>();
@@ -31,7 +34,6 @@ public class JoinController {
         genders.add(new Gender("F", "여자"));
         return genders;
     }
-    
 
     /**
      * 회원가입 화면 불러오기
@@ -51,19 +53,20 @@ public class JoinController {
      */
     @PostMapping
     public String join(@Valid @ModelAttribute("memberDto") MemberDto memberDto, BindingResult bindingResult) throws Exception {
-        //저장값 출력
-        log.info("nickname={}, email={}, password={}",
-                memberDto.getNickname(), memberDto.getEmail(), memberDto.getPassword());
-
+        //유효성 검사
         if(bindingResult.hasErrors()) {
             log.info("error={}", bindingResult);
             return "members/joinForm";
         }
 
+        //회원가입
         memberService.join(memberDto);
 
         return "redirect:/login";
     }
+
+    //-----------------------------------유효성 검사 메서드 ---------------------------------
+
 
     /**
      * 이름 패턴 검사 컨트롤러
@@ -72,8 +75,6 @@ public class JoinController {
     @PostMapping("nameCheck")
     @ResponseBody
     public int nameCheck(@RequestParam("name") String name) {
-        log.info("name은 ? "+ name);
-
         //결과 초기값
         int result = 0;
 
@@ -92,7 +93,6 @@ public class JoinController {
     @PostMapping("nicknameCheck")
     @ResponseBody
     public int nicknameCheck(@RequestParam("nickname") String nickname) {
-        log.info("nickname은 ? "+ nickname);
         int result = 0;
 
         //검증 패턴
@@ -115,7 +115,6 @@ public class JoinController {
     @PostMapping("emailCheck")
     @ResponseBody
     public int emailCheck(@RequestParam("email") String email) {
-        log.info("email은 ? "+ email);
         int result;
         
         //검증 패턴
@@ -128,10 +127,14 @@ public class JoinController {
         return memberService.findEmail(email);
     }
 
+    /**
+     * 비밀번호 체크
+     * @param password
+     * @return
+     */
     @PostMapping("passwordCheck")
     @ResponseBody
     public int passwordCheck(@RequestParam("password") String password) {
-        log.info("password는 ? "+ password);
         int result = 0;
 
         //검증 패턴

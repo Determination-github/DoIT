@@ -37,6 +37,7 @@ public class CommentServiceImpl implements CommentService{
      */
     @Override
     public void insertComment(CommentDto commentDto) {
+        //comment 정보 가져오기
         Comment comment = getComment(commentDto);
         commentMapper.insert(comment);
     }
@@ -48,8 +49,10 @@ public class CommentServiceImpl implements CommentService{
      */
     @Override
     public List<CommentDto> getComment(int study_id) {
+        //list 객체에 정보 담기
         List<Comment> commentList = commentMapper.getComment(study_id);
 
+        //comment 정보를 담을 list 객체
         List<CommentDto> commentDtos = new ArrayList<>();
 
         for (Comment comment : commentList) {
@@ -63,8 +66,6 @@ public class CommentServiceImpl implements CommentService{
             if(path != null) {
                 commentDto.setPath(path);
             }
-
-            log.info("commentDto={}", commentDto);
 
             commentDtos.add(commentDto);
         }

@@ -32,11 +32,13 @@ public class ProfileServiceImpl implements ProfileService{
      */
     @Override
     public ProfileDto findProfile(String fileId) {
+        //프로필 정보 가져오기
         ProfileDto profileDto = profileMapper.findById(fileId);
         if(profileDto!=null) {
             return profileDto;
+        } else {
+            return null;
         }
-        return null;
     }
 
     /**
@@ -46,8 +48,8 @@ public class ProfileServiceImpl implements ProfileService{
      */
     @Override
     public String findImage(Integer id) {
-        String path = profileMapper.getImagePath(id);
-        return path;
+        //이미지 경로 반환
+        return profileMapper.getImagePath(id);
     }
 
     /**
@@ -59,7 +61,7 @@ public class ProfileServiceImpl implements ProfileService{
     public void updateProfile(ProfileDto profileDto) throws Exception {
         int result;
 
-        if(profileDto.getPassword() != null) {
+        if(profileDto.getPassword() != null) { //패스워드에 따라 다른 update sql문 실행
             result = memberMapper.updateMemberWithPassword(profileDto);
         } else {
             result = memberMapper.updateMemberWithoutPassword(profileDto);
@@ -74,28 +76,28 @@ public class ProfileServiceImpl implements ProfileService{
      */
     @Override
     public void deleteProfile(ProfileDto profileDto, HttpServletRequest request) throws Exception {
+        //회원 정보 가져오기
         Integer result = memberMapper.checkSocialMember(profileDto.getId());
-        log.info("회원 아이디는 {}", result);
 
-        if(result != null) {
+        if(result != null) { //회원정보가 있다면
+            //social 회원 정보 가져오기
             Social social = memberMapper.findSocialMemberById(result);
 
+            //social type 정보 가져오기
             String social_type = social.getSocial_type();
-            log.info("type = " + social_type);
 
             //토큰 가져오기
             HttpSession session = request.getSession();
             String token = (String) session.getAttribute("token");
-            log.info("token = " + token);
 
-            if(social_type.equals("naver")) {
+            if(social_type.equals("naver")) { //네이버 회원 탈퇴
                 memberMapper.deleteMemberById(result);
                 naverService.deleteAccessToken(token);
-            } else {
+            } else { //카카오 회원 탈퇴
                 memberMapper.deleteMemberById(result);
                 kakaoService.unlinkKakao(token);
             }
-        } else {
+        } else { //일반 회원 탈퇴
             memberMapper.deleteMemberById(result);
         }
     }

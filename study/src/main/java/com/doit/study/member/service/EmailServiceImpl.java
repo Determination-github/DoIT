@@ -1,9 +1,6 @@
 package com.doit.study.member.service;
 
-import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
-import com.amazonaws.services.simpleemail.model.*;
 import com.doit.study.mapper.MemberMapper;
-import com.doit.study.member.dto.EmailDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,22 +30,23 @@ public class EmailServiceImpl implements EmailService {
      * @return String
      */
     public String mailSend(String email) {
+        //인증용 랜덤키 생성
         int key = (int)((Math.random()* (99999 - 10000 + 1)) + 10000);
-        log.info("key = "+ key);
 
         String result;
 
         try {
-            log.info("보내는 메일 주소 : {}", email);
+            //이메일 전송 객체 생성
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+
+            //정보 설정
             simpleMailMessage.setTo(email);
             simpleMailMessage.setSubject(title);
-            log.info("title = "+title);
             simpleMailMessage.setText("\"귀하의 이메일 인증번호는 \"" + key + "\" 입니다. 인증번호를 복사하여 입력해주세요.\"");
-            log.info("simpleMailMessage = "+simpleMailMessage);
+
+            //메일 보내기
             javaMailSender.send(simpleMailMessage);
             result = Integer.toString(key);
-            log.info("result = " + result);
         } catch (Exception e) {
             result = "error";
             log.error("error = " + e);
@@ -62,12 +60,7 @@ public class EmailServiceImpl implements EmailService {
      * @return String
      */
     public String findMemberByEmail(String email) {
-        log.info("email={}", email);
-
-        String result = memberMapper.findMemberByEmail(email);
-        log.info("result={}", result);
-
-        return result;
+        return memberMapper.findMemberByEmail(email);
     }
 
     /***
@@ -75,26 +68,22 @@ public class EmailServiceImpl implements EmailService {
      * @param email
      */
     public void sendTempPwd(String email) {
+        //임시비밀번호 생성
         String uuid = UUID.randomUUID().toString().replaceAll("-", ""); // -를 제거해 주었다.
         String password = uuid.substring(0, 10);
-        log.info("password = "+ password);
 
-        try {
-            log.info("보내는 메일 주소 : {}", email);
-            SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-            simpleMailMessage.setTo(email);
-            simpleMailMessage.setSubject(tempTitle);
-            log.info("tempTitle = "+tempTitle);
-            simpleMailMessage.setText("\"귀하의 임시 비밀번호는 \"" + password + "\" 입니다. 인증번호를 복사하여 입력해주세요.\"");
-            javaMailSender.send(simpleMailMessage);
+        //메일 전송 객체 생성
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 
-            //db 비밀번호 변경
-            memberMapper.updatePwdById(email, password);
+        //메일 정보 설정
+        simpleMailMessage.setTo(email);
+        simpleMailMessage.setSubject(tempTitle);
+        simpleMailMessage.setText("\"귀하의 임시 비밀번호는 \"" + password + "\" 입니다. 인증번호를 복사하여 입력해주세요.\"");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //메일 전송
+        javaMailSender.send(simpleMailMessage);
+
+        //db 비밀번호 변경
+        memberMapper.updatePwdById(email, password);
     }
-
-
 }

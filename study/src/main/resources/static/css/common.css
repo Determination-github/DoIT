@@ -51,6 +51,9 @@ html{
   cursor: pointer;
   float: right;
 }
+.circle-margin{
+  margin-right: 10px;
+}
 
 /* 섹션 공통부분 CSS */
 section{

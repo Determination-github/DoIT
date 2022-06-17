@@ -30,7 +30,6 @@ public class NoteServiceImpl implements NoteService{
      */
     @Override
     public void saveNote(NoteDto noteDto) throws Exception {
-        log.info("noteDto={}", noteDto);
 
         //보내는 사람 노트 DB 저장
         Note note = noteDto.toEntity(noteDto);
@@ -48,10 +47,10 @@ public class NoteServiceImpl implements NoteService{
      */
     @Override
     public List<NoteDto> getNote(Integer id) {
-        log.info("id={}", id);
-
+        //noteList 목록 가져오기
         List<Note> noteList = noteMapper.getNote(id);
 
+        //noteList 목록을 담을 list객체 생성
         List<NoteDto> noteDtos = new ArrayList<>();
         for (Note note : noteList) {
             NoteDto noteDto = new NoteDto().toDto(note);

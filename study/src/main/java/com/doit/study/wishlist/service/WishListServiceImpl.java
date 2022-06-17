@@ -26,8 +26,6 @@ public class WishListServiceImpl implements WishListService{
      */
     @Override
     public void save(WishlistDto wishlistDto) throws Exception {
-        log.info("wishlistDto={}", wishlistDto);
-
         wishListMapper.save(wishlistDto);
     }
 
@@ -49,8 +47,6 @@ public class WishListServiceImpl implements WishListService{
      */
     @Override
     public Integer getCountByIdAndStudyId(Integer id, Integer study_id) {
-        log.info("id={}, study_id={}", id, study_id);
-
         return wishListMapper.getWishlistCount(id, study_id);
     }
 
@@ -61,11 +57,15 @@ public class WishListServiceImpl implements WishListService{
      */
     @Override
     public List<WishlistDto> getWishlist(Integer id) {
+        //위시리스트 목록 가져오기
         List<Wishlist> wishlists = wishListMapper.getWishlist(id);
+
+        //위시리스트 목록을 담을 list 객체 생성
         List<WishlistDto> wishlistDtos = new ArrayList<>();
 
-        if(wishlists != null) {
+        if(wishlists != null) { //wishlist가 있다면
             for (Wishlist wishlist : wishlists) {
+                //entity to dto
                 WishlistDto wishlistDto = new WishlistDto().toDto(wishlist);
                 wishlistDtos.add(wishlistDto);
             }

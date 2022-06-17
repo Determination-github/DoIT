@@ -37,11 +37,6 @@ public class NaverServiceImpl implements NaverService {
 
     private final MemberMapper memberMapper;
 
-    /* 인증 요청문을 구성하는 파라미터 */
-    //client_id: 애플리케이션 등록 후 발급받은 클라이언트 아이디
-    //response_type: 인증 과정에 대한 구분값. code로 값이 고정돼 있습니다.
-    //redirect_uri: 네이버 로그인 인증의 결과를 전달받을 콜백 URL(URL 인코딩). 애플리케이션을 등록할 때 Callback URL에 설정한 정보입니다.
-    //state: 애플리케이션이 생성한 상태 토큰
     @Value("${naver.login.client.id}")
     private String CLIENT_ID;
 
@@ -139,13 +134,17 @@ public class NaverServiceImpl implements NaverService {
     @Override
     public String getUserProfile(OAuth2AccessToken oauthToken) throws IOException{
 
+        //OAuth20Service 객체 정보 설정
         OAuth20Service oauthService =new ServiceBuilder()
                 .apiKey(CLIENT_ID)
                 .apiSecret(CLIENT_SECRET)
                 .callback(REDIRECT_URI).build(NaverLoginApi.instance());
 
+        //OAuthRequest 응답 객체 생성
         OAuthRequest request = new OAuthRequest(Verb.GET, PROFILE_API_URL, oauthService);
         oauthService.signRequest(oauthToken, request);
+
+        //정보 전송
         Response response = request.send();
         return response.getBody();
     }
@@ -161,18 +160,13 @@ public class NaverServiceImpl implements NaverService {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(apiResult);
         JSONObject jsonObj = (JSONObject) obj;
-        log.info("jsonObj = "+jsonObj);
-
-
         JSONObject response_obj = (JSONObject)jsonObj.get("response");
-        log.info("response_obj = "+response_obj);
 
         //회원정보 가져오기
         String id = (String)response_obj.get("id");
         String email = (String)response_obj.get("email");
         String gender = (String)response_obj.get("gender");
         String name = (String)response_obj.get("name");
-        log.info("id={}, email={}, gender={}, name={} ", id, email, gender, name);
 
         HashMap<String, String> userInfo = new HashMap<>();
 
@@ -208,7 +202,6 @@ public class NaverServiceImpl implements NaverService {
     @Override
     public MemberDto findSocialMember(String id) {
         Optional<Member> findMember = memberMapper.findSocialMemberBySocialId(id);
-        log.info("findMember는 findMember={}", findMember);
 
         if(findMember.isPresent()) {
             Member member = findMember.get();
