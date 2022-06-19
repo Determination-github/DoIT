@@ -71,13 +71,13 @@
                         <div class="align-items-end justify-content-between m-lg-2">
                             <div class="d-flex align-items-center">
                                 <th:block th:if="${list.path} == null">
-                                    <div style="border-radius : 50%; overflow: hidden;">
-                                        <img class="rounded-circle me-3" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" id="profile-default-img" style="width: 40px; height: 40px;">
+                                    <div class="circle-margin" style="border-radius : 50%; overflow: hidden;">
+                                        <img class="rounded-circle circle-margin" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" id="profile-default-img" style="width: 40px; height: 40px;">
                                     </div>
                                 </th:block>
                                 <th:block th:if="${list.path} != null">
-                                    <div style="border-radius : 50%; overflow: hidden;">
-                                        <img class="rounded-circle me-3" th:src="${list.path}" id="profile-img" style="width: 40px; height: 40px;">
+                                    <div class="circle-margin" style="border-radius : 50%; overflow: hidden;">
+                                        <img class="rounded-circle circle-margin" th:src="${list.path}" id="profile-img" style="width: 40px; height: 40px;">
                                     </div>
                                 </th:block>
                                 <div class="small">
@@ -99,6 +99,7 @@
             <div class="display-flex-row mt-3">
                 <div class="m-auto">
                     <div class="dataTables_paginate paging_simple_numbers">
+                        <th:block th:if="${pagination != null}">
                         <ul class="pagination">
                             <th:block th:if="${pagination.hasPreviousPage}">
                                 <li class="paginate_button page-item">
@@ -123,6 +124,7 @@
                                 </li>
                             </th:block>
                         </ul>
+                        </th:block>
                     </div>
                 </div>
             </div>

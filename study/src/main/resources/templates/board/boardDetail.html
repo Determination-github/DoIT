@@ -321,6 +321,7 @@
                                 }
                             } else {
                                 alert("댓글 등록 중 오류가 발생했습니다.");
+                                console.log(JSON.stringify(error));
                             }
                         }
                     });
@@ -367,7 +368,8 @@
                             alert("댓글이 삭제되었습니다.");
                             window.location.reload();
                         }).fail(function (error) {
-                            alert(JSON.stringify(error));
+                            alert("댓글 등록 중 오류가 발생했습니다.");
+                            console.log(JSON.stringify(error));
                         });
                     }
                 }
@@ -403,12 +405,15 @@
                             alert("댓글은 500자 미만으로 입력해주세요.");
                         } else if(response.result == 1){
                             alert("댓글이 등록되었습니다.");
+                            alert(data.writer_id)
                             window.location.reload();
-                            stompClient.send("/server/comment/"+id, {}, JSON.stringify({
-                                        'study_id' : $('#boardId'+id).val(),
-                                        'receiver_id' : $('#receiverId'+id).val(),
-                                        'message' : $('#reply'+id).val()
-                                        }));
+                            if(data.writer_id != [[${session.id}]]){
+                                stompClient.send("/server/comment/"+id, {}, JSON.stringify({
+                                            'study_id' : $('#boardId'+id).val(),
+                                            'receiver_id' : $('#receiverId'+id).val(),
+                                            'message' : $('#reply'+id).val()
+                                            }));
+                            }
                         }
                     }).fail(function (error) {
                         alert(JSON.stringify(error));

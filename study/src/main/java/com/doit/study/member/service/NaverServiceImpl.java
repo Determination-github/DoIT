@@ -37,11 +37,6 @@ public class NaverServiceImpl implements NaverService {
 
     private final MemberMapper memberMapper;
 
-    /* 인증 요청문을 구성하는 파라미터 */
-    //client_id: 애플리케이션 등록 후 발급받은 클라이언트 아이디
-    //response_type: 인증 과정에 대한 구분값. code로 값이 고정돼 있습니다.
-    //redirect_uri: 네이버 로그인 인증의 결과를 전달받을 콜백 URL(URL 인코딩). 애플리케이션을 등록할 때 Callback URL에 설정한 정보입니다.
-    //state: 애플리케이션이 생성한 상태 토큰
     @Value("${naver.login.client.id}")
     private String CLIENT_ID;
 
@@ -75,7 +70,11 @@ public class NaverServiceImpl implements NaverService {
         return new BigInteger(130, random).toString(32);
     }
 
-    /* 네이버 아이디로 인증  URL 생성  Method */
+    /**
+     * 네이버 아이디로 인증  URL 생성
+     * @param session
+     * @return String
+     */
     @Override
     public String getAuthorizationUrl(HttpSession session) {
 
@@ -97,7 +96,14 @@ public class NaverServiceImpl implements NaverService {
         return oauthService.getAuthorizationUrl();
     }
 
-    /* 네이버아이디로 Callback 처리 및  AccessToken 획득 Method */
+    /**
+     * 네이버아이디로 Callback 처리 및  AccessToken 획득
+     * @param session
+     * @param code
+     * @param state
+     * @return OAuth2AccessToken
+     * @throws IOException
+     */
     @Override
     public OAuth2AccessToken getAccessToken(HttpSession session, String code, String state) throws IOException {
 
@@ -119,39 +125,48 @@ public class NaverServiceImpl implements NaverService {
         return null;
     }
 
-    /* Access Token을 이용하여 네이버 사용자 프로필 API를 호출 */
+    /**
+     * Access Token을 이용하여 네이버 사용자 프로필 API를 호출
+     * @param oauthToken
+     * @return String
+     * @throws IOException
+     */
     @Override
     public String getUserProfile(OAuth2AccessToken oauthToken) throws IOException{
 
+        //OAuth20Service 객체 정보 설정
         OAuth20Service oauthService =new ServiceBuilder()
                 .apiKey(CLIENT_ID)
                 .apiSecret(CLIENT_SECRET)
                 .callback(REDIRECT_URI).build(NaverLoginApi.instance());
 
+        //OAuthRequest 응답 객체 생성
         OAuthRequest request = new OAuthRequest(Verb.GET, PROFILE_API_URL, oauthService);
         oauthService.signRequest(oauthToken, request);
+
+        //정보 전송
         Response response = request.send();
         return response.getBody();
     }
 
-    //네이버 로그인 회원 정보 가져오기
+    /**
+     * 네이버 로그인 회원 정보 가져오기
+     * @param apiResult
+     * @return HashMap<String, String>
+     * @throws ParseException
+     */
     @Override
     public HashMap<String, String> getNaverUserInfo(String apiResult) throws ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(apiResult);
         JSONObject jsonObj = (JSONObject) obj;
-        log.info("jsonObj = "+jsonObj);
-
-
         JSONObject response_obj = (JSONObject)jsonObj.get("response");
-        log.info("response_obj = "+response_obj);
 
         //회원정보 가져오기
         String id = (String)response_obj.get("id");
         String email = (String)response_obj.get("email");
         String gender = (String)response_obj.get("gender");
         String name = (String)response_obj.get("name");
-        log.info("id={}, email={}, gender={}, name={} ", id, email, gender, name);
 
         HashMap<String, String> userInfo = new HashMap<>();
 
@@ -164,6 +179,10 @@ public class NaverServiceImpl implements NaverService {
         return userInfo;
     }
 
+    /***
+     * 네이버 회원 정보 삭제
+     * @param accessToken
+     */
     @Override
     public void deleteAccessToken(String accessToken) {
         String deleteUrl =
@@ -175,11 +194,14 @@ public class NaverServiceImpl implements NaverService {
         //result : success
     }
 
-    //네이버 로그인한 회원 정보 찾기
+    /**
+     * 네이버 로그인한 회원 정보 찾기
+     * @param id
+     * @return MemberDto
+     */
     @Override
     public MemberDto findSocialMember(String id) {
         Optional<Member> findMember = memberMapper.findSocialMemberBySocialId(id);
-        log.info("findMember는 findMember={}", findMember);
 
         if(findMember.isPresent()) {
             Member member = findMember.get();

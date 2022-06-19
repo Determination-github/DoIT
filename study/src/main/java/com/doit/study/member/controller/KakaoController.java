@@ -13,10 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +30,10 @@ public class KakaoController {
     private final MemberService memberService;
     private String accessToken;
 
-    //성별 정보
+    /**
+     * 성별 정보 담기
+     * @return
+     */
     @ModelAttribute("gender")
     public List<Gender> gender() {
         List<Gender> genders = new ArrayList<>();
@@ -44,25 +47,20 @@ public class KakaoController {
      * @param code
      * @param model
      * @param session
-     * @param redirectAttributes
      */
     @RequestMapping(value = "/kakao/callback", method = {RequestMethod.GET, RequestMethod.POST})
     public String callback(@RequestParam String code,
                            Model model,
-                           HttpSession session,
-                           RedirectAttributes redirectAttributes) {
-        log.info("code = " + code);
+                           HttpSession session) throws IOException {
 
         //access token 발급 받기
         accessToken = kakaoService.getAccessKakaoToken(code);
-        log.info("생성된 access_Token은 ?" + accessToken);
+        if(accessToken == null) {
+            throw new IOException();
+        }
 
         //access token으로 얻은 로그인한 유저 정보 얻어오기
         HashMap<String, String> userInfo = kakaoService.getKaKaoUserInfo(accessToken);
-        log.info("nickname : " + userInfo.get("nickname"));
-        log.info("email : " + userInfo.get("email"));
-        log.info("gender : " + userInfo.get("gender"));
-        log.info("id : " + userInfo.get("id"));
 
         //카카오 회원 고유 id값 가져오기
         String id = userInfo.get("id");
@@ -74,60 +72,27 @@ public class KakaoController {
 
         //kakaoDto 초기화
         SocialDto socialDto = new SocialDto(accessToken, id, userInfo.get("nickname"), userInfo.get("email"), userInfo.get("gender"));
-        log.info("새로운 socialDto = " + socialDto);
 
         //회원타입 설정
         socialDto.setSocial_type("kakao");
 
-        //찾는 회원이 회원가입되어 있지 않을 경우
-        if(kakaoService.findSocialMember(id) == null) {
-            log.info("회원가입이 필요합니다.");
+        if(kakaoService.findSocialMember(id) == null) { //찾는 회원이 회원가입되어 있지 않을 경우
             model.addAttribute("socialDto", socialDto);
             model.addAttribute("url", "/join/kakao");
             model.addAttribute("msg", "회원정보가 없습니다. 회원가입이 필요합니다.");
-            return "/alertSocialJoin";
-        } else {
-            //찾는 회원이 회원가입되어 있을 경우
-            log.info("회원 찾기 성공");
+            return "/members/alertSocialJoin";
+        } else { //이미 회원 가입이 되어 있는 경우
             memberDto = kakaoService.findSocialMember(id);
-            log.info("회원 socialDto는 ? = " + socialDto);
         }
 
         //세션에 카카오 회원 정보 전달
         session.setAttribute(SessionConst.KAKAO_MEMBER, memberDto);
         session.setAttribute("token", accessToken);
-        log.info("memberDto = " + memberDto);
 
-        return "redirect:/";
-    }
+        //리다이렉트
+        String redirectURL = (String) session.getAttribute("redirectURL");
 
-//    /**
-//     * 카카오 로그아웃 컨트롤러
-//     * @param request
-//     */
-//    @RequestMapping(value = "/kakaoLogout")
-//    public String logout(HttpServletRequest request) {
-//
-//        //세션 값 가져오기
-//        HttpSession session = request.getSession(false);
-//
-//        if(session != null) {
-//            session.invalidate();
-//        }
-//
-//        return "redirect:/";
-//    }
-
-
-    /**
-     * 카카오 연결 끊기
-     * @param kakaoDto
-     */
-    @RequestMapping(value = "/kakaoUnlink")
-    public String unlink(@SessionAttribute(name = SessionConst.KAKAO_MEMBER, required = false) SocialDto kakaoDto) {
-        log.info("kakaoDto = " + kakaoDto);
-        kakaoService.unlinkKakao(accessToken);
-        return "/";
+        return "redirect:"+redirectURL;
     }
 
     /**
@@ -136,7 +101,6 @@ public class KakaoController {
      */
     @GetMapping("/join/kakao")
     public String kakaoJoinForm(@ModelAttribute("kakaoDto") SocialDto kakaoDto) {
-        log.info("kakaoDto = " + kakaoDto);
         return "members/kakaoJoinForm";
     }
 
@@ -149,13 +113,9 @@ public class KakaoController {
     @PostMapping("/join/kakao")
     public String kakaoJoin(@Valid @ModelAttribute("kakaoDto") SocialDto kakaoDto,
                             BindingResult bindingResult,
-                            HttpSession session) {
+                            HttpSession session) throws Exception {
 
-        //저장값 출력
-        log.info("id={}, name={}, email={}, gender={}",
-                kakaoDto.getSocialId(), kakaoDto.getSocialName(), kakaoDto.getSocialEmail(), kakaoDto.getSocialGender());
-
-        //오류 발생시 오류 결과 리턴
+        //유효성 검사
         if(bindingResult.hasErrors()) {
             log.info("error={}", bindingResult);
             return "members/kakaoJoinForm";

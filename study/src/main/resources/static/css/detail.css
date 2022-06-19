@@ -5,6 +5,7 @@ textarea{
 .circle-img{
   border-radius: 50%;
   overFlow: hidden;
+  font-size: 12px;
 }
 .rounded-circle{
   width: 120px;

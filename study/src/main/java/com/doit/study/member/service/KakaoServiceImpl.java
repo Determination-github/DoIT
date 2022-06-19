@@ -13,9 +13,11 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +37,10 @@ public class KakaoServiceImpl implements KakaoService {
     @Value("${kakao.login.redirect.url}")
     private String REDIRECT_URL; //리다이렉트 url
 
-    //카카오 로그인 콜백 url
+    /**
+     * 카카오 로그인 콜백 url
+     * @return String
+     */
     @Override
     public String getKaKaoCallbackUrl() {
         String kakaoUrl =
@@ -46,7 +51,11 @@ public class KakaoServiceImpl implements KakaoService {
         return kakaoUrl;
     }
 
-    //카카오 로그인 AccessToken 얻기
+    /**
+     * 카카오 로그인 AccessToken 얻기
+     * @param authorize_code
+     * @return String
+     */
     @Override
     public String getAccessKakaoToken(String authorize_code) {
         String access_Token = "";
@@ -72,7 +81,6 @@ public class KakaoServiceImpl implements KakaoService {
 
             //결과 코드가 200이라면 성공
             int responseCode = conn.getResponseCode();
-            log.info("response Code = " + responseCode);
 
             //요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -83,16 +91,12 @@ public class KakaoServiceImpl implements KakaoService {
                 result += line;
             }
 
-            log.info("response body = " + result);
-
             //Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(result);
             JSONObject jsonObj = (JSONObject) obj;
 
             access_Token = (String) jsonObj.get("access_token");
-
-            log.info("access_token = " + access_Token);
 
             br.close();
             bw.close();
@@ -104,100 +108,100 @@ public class KakaoServiceImpl implements KakaoService {
     }
 
 
-    //access token과 url을 통해 카카오 로그인한 회원 정보 얻기
+    /**
+     * access token과 url을 통해 카카오 로그인한 회원 정보 얻기
+     * @param access_Token
+     * @return HashMap<String, String>
+     */
     @Override
-    public HashMap<String, String> getKaKaoUserInfo(String access_Token) {
-        //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
+    public HashMap<String, String> getKaKaoUserInfo(String access_Token) throws IOException, ParseException {
+        //요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, String> userInfo = new HashMap<String, String>();
         String reqURL = "https://kapi.kakao.com/v2/user/me";
-        try {
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
 
-            //    요청에 필요한 Header에 포함될 내용
-            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+        URL url = new URL(reqURL);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
 
-            int responseCode = conn.getResponseCode();
-            log.info("response code = " + responseCode);
+        //요청에 필요한 Header에 포함될 내용
+        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        int responseCode = conn.getResponseCode();
 
-            String line = "";
-            String result = "";
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-            while ((line = br.readLine()) != null) {
-                result += line;
-            }
-            log.info("response body = " + result);
+        String line = "";
+        String result = "";
 
-            JSONParser parser = new JSONParser();
-            Object obj = parser.parse(result);
-            JSONObject jsonObj = (JSONObject) obj;
-
-            //고유 카카오 회원 아이디
-            Long id = (Long) jsonObj.get("id");
-
-            JSONObject properties_obj = (JSONObject)jsonObj.get("properties");
-            JSONObject kakao_account_obj = (JSONObject)jsonObj.get("kakao_account");
-
-            //회원정보 가져오기
-            String nickname = (String)properties_obj.get("nickname");
-            String email = (String)kakao_account_obj.get("email");
-            String gender = (String)kakao_account_obj.get("gender");
-
-            //회원정보 저장
-            userInfo.put("accessToken", access_Token);
-            userInfo.put("id", String.valueOf(id));
-            userInfo.put("nickname", nickname);
-            userInfo.put("email", email);
-            userInfo.put("gender", gender);
-
-        } catch (IOException | ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        while ((line = br.readLine()) != null) {
+            result += line;
         }
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(result);
+        JSONObject jsonObj = (JSONObject) obj;
+
+        //고유 카카오 회원 아이디
+        Long id = (Long) jsonObj.get("id");
+
+        JSONObject properties_obj = (JSONObject)jsonObj.get("properties");
+        JSONObject kakao_account_obj = (JSONObject)jsonObj.get("kakao_account");
+
+        //회원정보 가져오기
+        String nickname = (String)properties_obj.get("nickname");
+        String email = (String)kakao_account_obj.get("email");
+        String gender = (String)kakao_account_obj.get("gender");
+
+        //회원정보 저장
+        userInfo.put("accessToken", access_Token);
+        userInfo.put("id", String.valueOf(id));
+        userInfo.put("nickname", nickname);
+        userInfo.put("email", email);
+        userInfo.put("gender", gender);
 
         return userInfo;
     }
 
-    //카카오 회원 정보 삭제
+    /**
+     * 카카오 회원 정보 삭제
+     * @param access_Token
+     */
     @Override
-    public void unlinkKakao(String access_Token) {
+    public void unlinkKakao(String access_Token) throws IOException {
         String reqURL = "https://kapi.kakao.com/v1/user/unlink";
 
-        try { URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-            int responseCode = conn.getResponseCode();
+        //url 설정
+        URL url = new URL(reqURL);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+        int responseCode = conn.getResponseCode();
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String result = "";
-            String line = "";
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String result = "";
+        String line = "";
 
-            while ((line = br.readLine()) != null) {
-                result += line;
-            }
-
-            log.info("result = " + result);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
+        while ((line = br.readLine()) != null) {
+            result += line;
         }
     }
 
-    //카카오 로그인한 회원 정보 찾기
+    /**
+     * 카카오 로그인한 회원 정보 찾기
+     * @param id
+     * @return MemberDto
+     */
     @Override
     public MemberDto findSocialMember(String id) {
+        //member객체 찾기
         Optional<Member> findMember = memberMapper.findSocialMemberBySocialId(id);
-        log.info("findMember는 findMember={}", findMember);
 
-        if(findMember.isPresent()) {
+        if(findMember.isPresent()) { //있으면 member 객체 반환
             Member member = findMember.get();
             return new MemberDto().toDto(member);
+        } else {
+            return null;
         }
-        return null;
     }
 
 }

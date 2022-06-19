@@ -6,11 +6,15 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface ProfileService {
 
-    ProfileDto findFile(String fileId);
+    //프로필 정보 가져오기
+    ProfileDto findProfile(String fileId);
 
+    //이미지 찾기
     String findImage(Integer id);
 
-    void updateProfile(ProfileDto profileDto);
+    //회원 정보 업데이트
+    void updateProfile(ProfileDto profileDto) throws Exception;
 
-    void deleteProfile(ProfileDto profileDto, HttpServletRequest request);
+    //회원 탈퇴
+    void deleteProfile(ProfileDto profileDto, HttpServletRequest request) throws Exception;
 }

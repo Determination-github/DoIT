@@ -65,6 +65,7 @@
                     </div>
 
                     <input type="hidden" id="emailDoubleChk"/>
+                    <div class="successEmailChk"/>
                     <div class="field-error" th:errors="*{email}"/>
                 </div>
 
@@ -252,9 +253,8 @@
                             $(".successEmailChk").css("color","red");
                             $('#button').attr("disabled", true);
                         }else{
-                            alert("인증번호 발송이 완료되었습니다.\n입력한 이메일에서 인증번호 확인을 해주십시오.");
+                            alert("인증번호 발송이 완료되었습니다.\n 이메일에서 인증번호 확인을 해주십시오.");
                             $("#sm_email").attr("disabled",false);
-                            $("#emailChk2").css("display","inline-block");
                             $(".successEmailChk").text("인증번호를 입력한 뒤 이메일 인증을 눌러주십시오.");
                             $(".successEmailChk").css("color","green");
                             code = result;

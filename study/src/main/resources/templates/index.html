@@ -159,13 +159,13 @@
               <div class="align-items-end justify-content-between m-lg-2">
                 <div class="d-flex align-items-center">
                   <th:block th:if="${list.path} == null">
-                    <div class="radius-circle">
-                      <img class="rounded-circle me-3" src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" id="profile-default-img">
+                    <div class="radius-circle circle-margin">
+                      <img class="rounded-circle " src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" id="profile-default-img">
                     </div>
                   </th:block>
                   <th:block th:if="${list.path} != null">
-                    <div class="radius-circle">
-                      <img class="rounded-circle me-3" th:src="${list.path}" id="profile-img">
+                    <div class="radius-circle circle-margin">
+                      <img class="rounded-circle " th:src="${list.path}" id="profile-img">
                     </div>
                   </th:block>
                   <div class="small">

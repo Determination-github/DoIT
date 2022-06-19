@@ -1,10 +1,8 @@
 package com.doit.study.member.controller;
 
 import com.doit.study.member.service.EmailService;
-import com.doit.study.member.service.EmailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,22 +16,34 @@ public class EmailController {
 
     private final EmailService emailService;
 
+    /**
+     * 메일 체크 메서드
+     * @param email
+     * @return String
+     */
     @PostMapping("/join/mailCheck")
+    @ResponseBody
     public String mailCheck(@RequestParam("email") String email) {
         //메일에 보낸 key번호 반환
         String result = emailService.mailSend(email);
+
+        if(result == null) { //key번호가 전송되지 않은 경우
+            return "error";
+        }
+
         return result;
     }
 
+    /**
+     * 비밀번호 찾기
+     * @param data
+     * @return ResponseEntity
+     */
     @PostMapping("/login/findPassword")
-    public ResponseEntity<?> findPwd(@RequestBody Map<String, String> data) {
-
-        log.info("data = " + data);
-
-        String email = data.get("email");
-        log.info("email = "+ email);
+    public ResponseEntity findPwd(@RequestBody Map<String, String> data) {
 
         //이메일로 비밀번호가 존재하는 회원인지 확인
+        String email = data.get("email");
         String result = emailService.findMemberByEmail(email);
 
         Map<String, String> map = new HashMap<>();

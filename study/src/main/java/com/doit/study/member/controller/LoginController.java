@@ -38,26 +38,22 @@ public class LoginController {
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginDto") LoginDto loginDto,
                             Model model,
-                            HttpSession session) {
+                            HttpSession session,
+                            @RequestParam(defaultValue = "/") String redirectURL) {
 
         //네이보 로그인을 위한 콜백 url 생성
         String naverAuthUrl = naverService.getAuthorizationUrl(session);
-        log.info("네이버: " + naverAuthUrl);
 
         //카카오 콜백 url 생성
         String kakaoAuthUrl = kakaoService.getKaKaoCallbackUrl();
-        log.info("카카오: " + kakaoAuthUrl);
-
 
         //네이버, 카카오 콜백 url 저장
         model.addAttribute("naverUrl", naverAuthUrl);
         model.addAttribute("kakaoUrl", kakaoAuthUrl);
 
-        return "/members/loginForm";
-    }
+        session.setAttribute("redirectURL", redirectURL);
 
-    private Map<String, ?> getInputFlashMap(HttpServletRequest request) {
-        return RequestContextUtils.getInputFlashMap(request);
+        return "/members/loginForm";
     }
 
     /**
@@ -75,15 +71,11 @@ public class LoginController {
 
         //유효성 검사
         if(bindingResult.hasErrors()) {
-            log.info("타입 오류 발생, error={}", bindingResult);
             return "/members/loginForm";
         }
 
-        log.info("login값 email={}, password={}", loginDto.getEmail(), loginDto.getPassword());
-
         //입력한 이메일과 비밀번호로 회원 정보 가져오기
         MemberDto memberDto = memberService.login(loginDto);
-        log.info("memberDto={}", memberDto);
 
         //로그인 실패 시
         if(memberDto == null) {
@@ -93,10 +85,8 @@ public class LoginController {
 
         //로그인 성공 시
         //세션에 회원 정보 저장
-        log.info("로그인 성공");
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER, memberDto);
-        log.info("redirect url = {}", redirectURL);
         return "redirect:" + redirectURL;
     }
 
@@ -107,15 +97,18 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if(session != null) {
+        if(session != null) { //세션 초기화
             session.invalidate();
         }
         return "redirect:/";
     }
 
+    /**
+     * 비밀번호 찾기
+     * @return String
+     */
     @GetMapping("/find")
     public String find() {
-
         return "members/findPassword";
     }
 

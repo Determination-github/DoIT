@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface AlarmService {
 
-    void saveAlarm(AlarmDto alarmDto);
+    void saveAlarm(AlarmDto alarmDto) throws Exception;
 
-    List<AlarmDto> getAlarm(Integer id);
+    List<AlarmDto> getAlarm(Integer id) throws Exception;
 
-    void deleteAlarm(Integer id);
+    void deleteAlarm(Integer id) throws Exception;
 }

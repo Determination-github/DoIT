@@ -29,6 +29,15 @@ public class HomeController {
     private final BoardService boardService;
     private final AlarmService alarmService;
 
+    /**
+     * 홈 컨트롤러
+     * @param request
+     * @param currentPage
+     * @param pageSize
+     * @param model
+     * @return String
+     * @throws Exception
+     */
     @GetMapping
     public String home(
             HttpServletRequest request,
@@ -36,6 +45,7 @@ public class HomeController {
             @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
             Model model) throws Exception {
 
+        //세션값 세팅
         HttpSession session = request.getSession(false);
 
         Integer id = null;
@@ -48,63 +58,58 @@ public class HomeController {
             MemberDto kakaoDto = (MemberDto) session.getAttribute(SessionConst.KAKAO_MEMBER);
             MemberDto memberDto = (MemberDto) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
-            log.info("naverDto = " + naverDto);
-            log.info("kakaoDto = " + kakaoDto);
-            log.info("memberDto = " + memberDto);
-
             if (naverDto != null) {
                 id = naverDto.getId();
                 nickName = naverDto.getNickname();
-                session.setAttribute("id", id);
-                session.setAttribute("nickName", nickName);
+                setSessionInfo(session, id, nickName);
                 //알람 가져오기
-                getAlarmList(model, id);
+                getAlarm(session, id);
             } else if (kakaoDto != null) {
                 id = kakaoDto.getId();
                 nickName = kakaoDto.getNickname();
-                session.setAttribute("id", id);
-                session.setAttribute("nickName", nickName);
+                setSessionInfo(session, id, nickName);
                 //알람 가져오기
-                getAlarmList(model, id);
+                getAlarm(session, id);
             } else if (memberDto != null) {
                 id = memberDto.getId();
                 nickName = memberDto.getNickname();
-                session.setAttribute("id", id);
-                session.setAttribute("nickName", nickName);
+                setSessionInfo(session, id, nickName);
                 //알람 가져오기
-                getAlarmList(model, id);
+                getAlarm(session, id);
             }
         }
 
-
-
-
-
         Integer totalRecordCount = boardService.getCount();
         if(totalRecordCount != null) {
+
+            //페이징 처리
             Pagination pagination = new Pagination(currentPage, pageSize);
-
             pagination.setTotalRecordCount(totalRecordCount);
-            log.info("totalRecordCount = " + totalRecordCount);
-
             model.addAttribute("pagination", pagination);
-            log.info("pagination = " + pagination);
 
             model.addAttribute("list", boardService.getStudyBoardList(id, pagination));
-            log.info("list = " + boardService.getStudyBoardList(id, pagination));
-
-
-            return "/index";
         }
 
-        return null;
+        return "/index";
+    }
+
+
+    //---------------------------------------------extracted Method------------------------------
+
+    //세션값 저장
+    private void setSessionInfo(HttpSession session, Integer id, String nickName) {
+        session.setAttribute("id", id);
+        session.setAttribute("nickName", nickName);
     }
 
     //알람정보 가져오기
-    private void getAlarmList(Model model, Integer id) {
-        List<AlarmDto> alarmList = alarmService.getAlarm(id);
-        if(!alarmList.isEmpty()) {
-            model.addAttribute("alarmList", alarmList);
+    private void getAlarm(HttpSession session, Integer id) throws Exception {
+        session.removeAttribute("alarmList");
+        List<AlarmDto> alarm = alarmService.getAlarm(id);
+        if(alarm.isEmpty()) {
+            session.setAttribute("alarmList", null);
+        } else {
+            session.setAttribute("alarmList", alarm);
         }
     }
 }

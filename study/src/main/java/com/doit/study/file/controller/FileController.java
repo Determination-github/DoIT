@@ -1,7 +1,6 @@
 package com.doit.study.file.controller;
 
 import com.doit.study.file.dto.FileDto;
-import com.doit.study.board.service.BoardService;
 import com.doit.study.file.service.FileService;
 import com.doit.study.file.service.S3Uploader;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @Slf4j
@@ -31,57 +27,44 @@ public class FileController {
     private final FileService fileService;
     private final S3Uploader s3Uploader;
 
-//    @PostMapping("/file/images")
-//    public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
-//        String originalFilename = file.getOriginalFilename();
-//        FileDto fileDto = fileService.insertFile(originalFilename);
-//        String saveFileName = fileService.fileSave(fileDto, file);
-//
-//        log.info("saveFileName={}", saveFileName);
-//        log.info("fileDto={}", fileDto);
-//
-//        return ResponseEntity.ok().body("/file/images/" +fileDto.getFileId());
-//    }
-
+    /**
+     * 게시글 이미지 파일 업로드
+     * @param file
+     * @return ResponseEntity
+     * @throws Exception
+     */
     @PostMapping("/file/images")
-    @ResponseBody
-    public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity uploadImage(@RequestParam("file") MultipartFile file) throws Exception {
         FileDto fileDto = new FileDto();
+        //S3에 파일 업로드
         s3Uploader.upload(file, "studyImageUpload", fileDto);
-        log.info("fileDto는 ? " + fileDto);
 
         return ResponseEntity.ok().body("/file/images/" +fileDto.getFile_id());
     }
 
+    /**
+     * 이미지 파일 가져오기
+     * @param fileId
+     * @param request
+     * @return
+     */
     @GetMapping("/file/images/{fileId}")
-    public ResponseEntity<?> serveFile(@PathVariable String fileId,
-                                       HttpServletRequest request) {
-        try {
-            log.info("id = " + fileId);
+    public ResponseEntity serveFile(@PathVariable String fileId,
+                                       HttpServletRequest request) throws Exception {
 
-            //세션에 담긴 study_id 가져오기
-            HttpSession session = request.getSession(false);
-            Integer study_id = (Integer) session.getAttribute("study_id");
-            log.info("study_id = "+study_id);
+        //세션에 담긴 study_id 가져오기
+        HttpSession session = request.getSession(false);
+        Integer study_id = (Integer) session.getAttribute("study_id");
 
-            FileDto fileDto = fileService.findFile(fileId);
-            log.info("fileDto = " + fileDto);
-            if(fileDto.getStudy_id() == null) {
-                fileService.insertStudyId(study_id, fileId);
-            }
+        FileDto fileDto = fileService.findFile(fileId);
 
-            String path = fileDto.getFile_path();
-            Resource resource = resourceLoader.getResource(path);
-            return ResponseEntity.ok().body(resource);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
+        if(fileDto.getStudy_id() == null) {
+            fileService.insertStudyId(study_id, fileId);
         }
+
+        String path = fileDto.getFile_path();
+        Resource resource = resourceLoader.getResource(path);
+        return ResponseEntity.ok().body(resource);
     }
-
-
-
-
-
 
 }
