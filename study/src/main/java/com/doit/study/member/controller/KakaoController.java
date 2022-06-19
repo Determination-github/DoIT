@@ -9,6 +9,7 @@ import com.doit.study.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -51,7 +52,7 @@ public class KakaoController {
     @RequestMapping(value = "/kakao/callback", method = {RequestMethod.GET, RequestMethod.POST})
     public String callback(@RequestParam String code,
                            Model model,
-                           HttpSession session) throws IOException {
+                           HttpSession session) throws IOException, ParseException {
 
         //access token 발급 받기
         accessToken = kakaoService.getAccessKakaoToken(code);

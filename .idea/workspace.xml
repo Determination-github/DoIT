@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/join-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/static/css/join-style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/secondWriteBoardForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/board/secondWriteBoardForm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/findpassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/members/findpassword.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/joinForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/study/src/main/resources/templates/members/joinForm.html" afterDir="false" />
-    </list>
+    <list default="true" id="a60be7dc-9f50-406e-912a-c5a7be683b1c" name="Changes" comment="Refactor: &quot;게시글 수정&quot;&#10;&#10;게시글을 작성한 사용자만 수정, 삭제 가능합니다." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,6 +27,21 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="study" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="study" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="study" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="study" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -125,7 +133,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/study/src/main/resources/static/js" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.20689656" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
@@ -236,6 +244,19 @@
       <option name="MAIN_CLASS_NAME" value="com.doit.study.member.service.MemberServiceImplTest" />
       <option name="METHOD_NAME" value="InsertMember" />
       <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="study" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="study" />
+      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
