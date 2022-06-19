@@ -6,10 +6,6 @@ import com.doit.study.member.domain.Social;
 import com.doit.study.profile.dto.ProfileDto;
 import org.apache.ibatis.annotations.*;
 
-<<<<<<< HEAD
-import java.util.List;
-=======
->>>>>>> woongseop
 import java.util.Optional;
 
 @Mapper
@@ -18,10 +14,6 @@ public interface MemberMapper {
     //회원가입
     @Insert(MemberSQL.insert)
     Integer insert(@Param("member") Member member);
-<<<<<<< HEAD
-
-=======
->>>>>>> woongseop
 
     //Social 회원가입
     @Insert(MemberSQL.insertSocialMemberToUser)
@@ -94,10 +86,5 @@ public interface MemberMapper {
     int update(Member member);
 
     int delete(Member member);
-<<<<<<< HEAD
-=======
-
->>>>>>> woongseop
-
 
 }
