@@ -93,7 +93,6 @@ public class HomeController {
         return "/index";
     }
 
-
     //---------------------------------------------extracted Method------------------------------
 
     //세션값 저장
