@@ -81,7 +81,7 @@ public class KakaoController {
             model.addAttribute("socialDto", socialDto);
             model.addAttribute("url", "/join/kakao");
             model.addAttribute("msg", "회원정보가 없습니다. 회원가입이 필요합니다.");
-            return "/members/alertSocialJoin";
+            return "members/alertSocialJoin";
         } else { //이미 회원 가입이 되어 있는 경우
             memberDto = kakaoService.findSocialMember(id);
         }
@@ -126,6 +126,6 @@ public class KakaoController {
         kakaoDto = memberService.joinSocial(kakaoDto);
 
         session.setAttribute(SessionConst.KAKAO_MEMBER, kakaoDto);
-        return "redirect:/";
+        return "redirect:";
     }
 }

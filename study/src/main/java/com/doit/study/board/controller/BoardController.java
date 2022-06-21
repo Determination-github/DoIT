@@ -107,7 +107,7 @@ public class BoardController {
                 boardDto.setWriter_nickName(nickName);
             }
 
-            return "/board/boardWriteForm";
+            return "board/boardWriteForm";
 
         } else { //게시글 수정
             //스터디 아이디로 게시글 정보 가져오기
@@ -129,7 +129,7 @@ public class BoardController {
             //boardDto 객체 반환
             model.addAttribute("boardDto", boardDto);
 
-            return "/board/boardWriteForm";
+            return "board/boardWriteForm";
         }
     }
 
@@ -191,7 +191,7 @@ public class BoardController {
 
             redirectAttributes.addFlashAttribute("boardDto", boardDto);
 
-            return "redirect:/board/result/" + study_id;
+            return "redirect:board/result/" + study_id;
         } else { //게시글 수정
             int study_id = board_id.get();
 
@@ -205,7 +205,7 @@ public class BoardController {
 
             redirectAttributes.addFlashAttribute("boardDto", boardDto);
 
-            return "redirect:/board/result/" + study_id;
+            return "redirect:board/result/" + study_id;
         }
     }
 
@@ -245,7 +245,7 @@ public class BoardController {
             getStudyInfo(model, id, session, boardDto);
             model.addAttribute("boardDto", boardDto);
 
-            return "/board/boardDetail";
+            return "board/boardDetail";
 
         } else { //게시글 목록에서 게시글 세부화면으로 이동하는 경우
             BoardDto boardDto = boardService.findStudyById(id);
@@ -258,7 +258,7 @@ public class BoardController {
             getStudyInfo(model, id, session, boardDto);
             model.addAttribute("boardDto", boardDto);
 
-            return "/board/boardDetail";
+            return "board/boardDetail";
         }
     }
 
@@ -420,10 +420,10 @@ public class BoardController {
             //아이디값 담기
             model.addAttribute("id", id);
 
-            return "/board/myStudyList";
+            return "board/myStudyList";
         } else { //게시글 작성 목록이 없는 경우
             model.addAttribute("list", null);
-            return "/board/myStudyList";
+            return "board/myStudyList";
         }
     }
 
@@ -496,7 +496,6 @@ public class BoardController {
             model.addAttribute("comments", null);
         } else {
             model.addAttribute("comments", comments);
-            log.info("comments={}", comments);
         }
     }
 

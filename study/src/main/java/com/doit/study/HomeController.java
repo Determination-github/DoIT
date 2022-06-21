@@ -90,7 +90,7 @@ public class HomeController {
             model.addAttribute("list", boardService.getStudyBoardList(id, pagination));
         }
 
-        return "/index";
+        return "index";
     }
 
     //---------------------------------------------extracted Method------------------------------

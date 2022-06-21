@@ -92,7 +92,7 @@ public class NaverController {
             model.addAttribute("socialDto", socialDto);
             model.addAttribute("url", "/join/naver");
             model.addAttribute("msg", "회원정보가 없습니다. 회원가입이 필요합니다.");
-            return "/members/alertSocialJoin";
+            return "members/alertSocialJoin";
         } else { //찾는 회원이 회원가입되어 있을 경우
             memberDto = naverService.findSocialMember(social_id);
         }
@@ -137,7 +137,7 @@ public class NaverController {
         naverDto = memberService.joinSocial(naverDto);
 
         session.setAttribute(SessionConst.NAVER_MEMBER, naverDto);
-        return "redirect:/";
+        return "redirect:";
     }
 
 }

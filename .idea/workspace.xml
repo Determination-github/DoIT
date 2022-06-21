@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a60be7dc-9f50-406e-912a-c5a7be683b1c" name="Changes" comment="Refactor: &quot;게시글 수정&quot;&#10;&#10;게시글을 작성한 사용자만 수정, 삭제 가능합니다." />
+    <list default="true" id="a60be7dc-9f50-406e-912a-c5a7be683b1c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,6 +32,12 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="study" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="study" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -108,6 +114,14 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/study/build.gradle" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/KakaoServiceImpl.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/KakaoController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/MemberMapper.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/study/src/main/java/com/doit/study/profile/controller/ProfileController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/study/src/main/java/com/doit/study/HomeController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/study/scripts/deploy.sh" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/study/src/main/java/com/doit/study/StudyApplication.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/study/appspec.yml" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -150,11 +164,11 @@
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\scripts" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\img" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\css" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\members" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\board" />
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.doit.study.member.controller" />
@@ -179,6 +193,27 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="study [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/study" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
     </configuration>
     <configuration name="study [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -274,14 +309,15 @@
       <item itemvalue="JUnit.MemberControllerTest" />
       <item itemvalue="JUnit.MemberControllerTest.testGetTime" />
       <item itemvalue="JUnit.MemberServiceImplTest.InsertMember" />
+      <item itemvalue="Gradle.study [build]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.study [build]" />
         <item itemvalue="Application.StudyApplication" />
         <item itemvalue="Gradle.study [dependencies]" />
         <item itemvalue="JUnit.MemberServiceImplTest.InsertMember" />
         <item itemvalue="JUnit.MemberControllerTest.testGetTime" />
-        <item itemvalue="JUnit.MemberControllerTest" />
       </list>
     </recent_temporary>
   </component>

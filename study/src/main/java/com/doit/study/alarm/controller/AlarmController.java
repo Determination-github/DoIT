@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -58,7 +57,7 @@ public class AlarmController {
         alarmService.saveAlarm(alarmDto);
 
         //메시지 보내기
-        simpMessagingTemplate.convertAndSend("/alarm/receiving/" + noteDto.getReceiver_id() , alarmDto);
+        simpMessagingTemplate.convertAndSend("alarm/receiving/" + noteDto.getReceiver_id() , alarmDto);
     }
 
     /**
@@ -119,7 +118,7 @@ public class AlarmController {
         alarmService.saveAlarm(alarmDto);
 
         //댓글 알림 보내기
-        simpMessagingTemplate.convertAndSend("/alarm/receiving/" + alarmDto.getReceiver_id() , alarmDto);
+        simpMessagingTemplate.convertAndSend("alarm/receiving/" + alarmDto.getReceiver_id() , alarmDto);
     }
 
 }

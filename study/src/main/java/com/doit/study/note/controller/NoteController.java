@@ -48,7 +48,7 @@ public class NoteController {
             List<NoteDto> note = noteService.getNote(id);
             model.addAttribute("note", note);
 
-            return "/members/note";
+            return "members/note";
         } else {
             throw new IOException();
         }

@@ -59,7 +59,7 @@ public class ProfileController {
 
         model.addAttribute("profileDto", profileDto);
 
-        return "/members/profile";
+        return "members/profile";
     }
 
     /**
@@ -100,7 +100,7 @@ public class ProfileController {
                               Model model) {
         ProfileDto profileDto = memberService.findMember(id);
         model.addAttribute("profileDto", profileDto);
-        return "/members/edit";
+        return "members/edit";
     }
 
     /**

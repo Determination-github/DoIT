@@ -62,7 +62,7 @@ public class JoinController {
         //회원가입
         memberService.join(memberDto);
 
-        return "redirect:/login";
+        return "redirect:login";
     }
 
     //-----------------------------------유효성 검사 메서드 ---------------------------------

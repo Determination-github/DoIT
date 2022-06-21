@@ -79,6 +79,7 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public void updateComment(CommentDto commentDto) {
         Comment comment = getComment(commentDto);
+
         commentMapper.modify(comment);
     }
 

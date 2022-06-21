@@ -53,7 +53,7 @@ public class LoginController {
 
         session.setAttribute("redirectURL", redirectURL);
 
-        return "/members/loginForm";
+        return "members/loginForm";
     }
 
     /**
@@ -80,7 +80,7 @@ public class LoginController {
         //로그인 실패 시
         if(memberDto == null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 일치하지 않습니다.");
-            return "/members/loginForm";
+            return "members/loginForm";
         }
 
         //로그인 성공 시
