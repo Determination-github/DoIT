@@ -35,8 +35,7 @@ public class CommentSQL {
     public static final String modifyReply =
             "UPDATE SR_COMMENT_TB SET COMMENT = #{comment.comment}" +
                     " WHERE STUDY_ID = #{comment.study_id} " +
-                    " AND COMMENT_ID = #{comment.comment_id} " +
-                    " AND GROUP_ID = #{comment.group_id}";
+                    " AND COMMENT_ID = #{comment.comment_id} ";
 
     public static final String delete =
             "UPDATE SR_COMMENT_TB " +
