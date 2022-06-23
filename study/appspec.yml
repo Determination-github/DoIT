@@ -1,23 +1,16 @@
 version: 0.0
-
-os: linux
+os: ubuntu
 
 files:
-  - source:  / # 현재 프로젝트의 루트 경로
-    destination: /home/ec2-user/doit  # EC2 내부 배포 할 위치
-    overwrite: yes # 덮어쓰기
+  - source: /
+    destination: /home/ec2-user
 
 hooks:
-  AfterInstall: # 배포가 끝나면 아래 명령어를 실행
-    - location: scripts/deploy.sh
-      timeout: 60
-  # ApplicationStart: # ApplicationStart 단계에서 해당 파일을 실행
-    # - location: scripts/deploy.sh
-    #   timeout: 60
-    #   runas: ec2-user
+  ApplicationStop:
+    - location: Scripts/kill_process.sh
 
-permissions:
-  - object: /
-    pattern: "**"
-    owner: ec2-user
-    group: ec2-user
+  BeforeInstall:
+    - location: Scripts/remove_before.sh
+
+  ApplicationStart:
+    - location: Scripts/run_process.sh
