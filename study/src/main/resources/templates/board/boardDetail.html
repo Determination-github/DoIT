@@ -95,7 +95,7 @@
                                     </h5>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <th:block th:if="${session.nickName} == null or ${session.id} != ${boardDto.board_writerId}">
+                                    <th:block th:if="${session.nickName} != null and ${session.id} != ${boardDto.board_writerId}">
                                         <div>
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noteModal" id="note">✉ 쪽지보내기</button>
                                         </div>

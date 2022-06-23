@@ -77,7 +77,7 @@ public class BoardController {
             model.addAttribute("list", boardService.getStudyBoardList(null, pagination));
         }
 
-        return "/index";
+        return "index";
     }
 
     /**
@@ -341,12 +341,12 @@ public class BoardController {
             //게시글 목록 정보 담기
             model.addAttribute("list", boardService.getStudyBoardList(id, pagination));
 
-            return "/index";
+            return "index";
         } else {
             //게시글 검색 결과가 없는 경우
             model.addAttribute("list", null);
 
-            return "/index";
+            return "index";
         }
     }
 
