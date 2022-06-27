@@ -1,4 +1,4 @@
-REPOSITORY=/home/ec2-user/app
+REPOSITORY=/home/ec2-user/app/study
 cd $REPOSITORY
 
 APP_NAME=study #1
@@ -17,4 +17,4 @@ else
 fi
 
 echo "> $JAR_PATH 배포" #3
-nohup java -jar /home/ec2-user/app/build/libs/study-0.0.1-SNAPSHOT.jar --spring.config.location=/home/ec2-user/application.yml > /dev/null 2> /dev/null < /dev/null &
+nohup java -jar /home/ec2-user/app/study/build/libs/study-0.0.1-SNAPSHOT.jar --spring.config.location=/home/ec2-user/application.yml > /dev/null 2> /dev/null < /dev/null &
