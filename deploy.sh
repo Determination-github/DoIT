@@ -17,4 +17,4 @@ else
 fi
 
 echo "> $JAR_PATH 배포" #3
-nohup java -jar /home/ec2-user/app/build/libs/study-0.0.1-SNAPSHOT.jar
+nohup java -jar /home/ec2-user/app/build/libs/doit-0.0.1-SNAPSHOT.jar
