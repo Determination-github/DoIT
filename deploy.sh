@@ -1,7 +1,7 @@
 REPOSITORY=/home/ec2-user/app
 cd $REPOSITORY
 
-APP_NAME=study #1
+APP_NAME=doit #1
 JAR_NAME=$(ls $REPOSITORY/build/libs/ | grep '.jar' | tail -n 1)
 JAR_PATH=$REPOSITORY/build/libs/$JAR_NAME
 
@@ -17,4 +17,4 @@ else
 fi
 
 echo "> $JAR_PATH 배포" #3
-nohup java -jar /home/ec2-user/app/build/libs/doit-0.0.1-SNAPSHOT.jar 
+nohup java -jar /home/ec2-user/app/build/libs/doit-0.0.1-SNAPSHOT.jar
