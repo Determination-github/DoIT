@@ -2,12 +2,14 @@ name: Deploy to Amazon EC2
 
 on:
   push:
-    branches: [ main ]
+    branches:  main 
+    
 env:
   AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: doit-build-file
   CODE_DEPLOY_APPLICATION_NAME: DoIT-Codedeploy
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: Doit-Codedeploy-Group
+  
 jobs:
   build:
     runs-on: ubuntu-latest
