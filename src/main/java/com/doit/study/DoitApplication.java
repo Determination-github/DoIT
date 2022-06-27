@@ -10,11 +10,11 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 @MapperScan(value = {"com.doit.study.mapper"})
 @SpringBootApplication
-public class StudyApplication {
+public class DoitApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(StudyApplication.class, args);
+		SpringApplication.run(DoitApplication.class, args);
 		ApplicationContext context = new AnnotationConfigApplicationContext(EmailConfig.class, S3Config.class);
 	}
 
