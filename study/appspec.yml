@@ -1,16 +1,23 @@
 version: 0.0
-os: ubuntu
+os: linux
 
 files:
-  - source: /
-    destination: /home/ec2-user
+  - source:  /
+    destination: /home/ubuntu/app
+    overwrite: yes
+
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu
 
 hooks:
-  ApplicationStop:
-    - location: Scripts/kill_process.sh
-
-  BeforeInstall:
-    - location: Scripts/remove_before.sh
-
+  AfterInstall:
+    - location: scripts/stop.sh
+      timeout: 60
+      runas: ubuntu
   ApplicationStart:
-    - location: Scripts/run_process.sh
+    - location: scripts/start.sh
+      timeout: 60
+      runas: ubuntu
