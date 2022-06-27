@@ -4,13 +4,214 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a60be7dc-9f50-406e-912a-c5a7be683b1c" name="Changes" comment="" />
+    <list default="true" id="a60be7dc-9f50-406e-912a-c5a7be683b1c" name="Changes" comment="Refactor: &quot;게시글 수정&quot;&#10;&#10;게시글을 작성한 사용자만 수정, 삭제 가능합니다.">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DoIT.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/appspec.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/build/libs/study-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/hs_err_pid17640.log" beforeDir="false" afterPath="$PROJECT_DIR$/hs_err_pid17640.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/replay_pid17640.log" beforeDir="false" afterPath="$PROJECT_DIR$/replay_pid17640.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/scripts/start.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/scripts/stop.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/StudyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/StudyApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/alarm/controller/AlarmController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/alarm/controller/AlarmController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/alarm/domain/Alarm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/alarm/domain/Alarm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/alarm/dto/AlarmDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/alarm/dto/AlarmDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/alarm/service/AlarmService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/alarm/service/AlarmService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/alarm/service/AlarmServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/alarm/service/AlarmServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/board/controller/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/domain/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/board/domain/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/domain/Pagination.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/board/domain/Pagination.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/BoardDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/board/dto/BoardDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/dto/SearchDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/board/dto/SearchDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/board/service/BoardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/board/service/BoardServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/board/service/ImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/board/service/ImageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/comment/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/comment/controller/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/comment/domain/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/comment/domain/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/comment/dto/CommentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/comment/dto/CommentDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/comment/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/comment/service/CommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/comment/service/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/comment/service/CommentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/config/EmailConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/config/EmailConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/config/InterceptorConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/config/InterceptorConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/config/S3Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/config/S3Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/config/WebsocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/config/WebsocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/exception/DoITExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/exception/DoITExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/file/controller/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/file/controller/FileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/file/domain/FileEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/file/domain/FileEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/file/dto/FileDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/file/dto/FileDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/file/service/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/file/service/FileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/file/service/FileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/file/service/FileServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/file/service/S3Uploader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/file/service/S3Uploader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/interceptor/JoinCheckInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/interceptor/JoinCheckInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/interceptor/LoginCheckInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/interceptor/LoginCheckInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/AlarmMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/AlarmMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/AlarmSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/AlarmSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/BoardMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/BoardSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/BoardSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/CommentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/CommentMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/CommentSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/CommentSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/FileMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/FileMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/FileSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/FileSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/MemberMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/MemberMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/MemberSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/MemberSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/NoteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/NoteMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/NoteSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/NoteSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/ProfileMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/ProfileMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/ProfileSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/ProfileSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/WishListMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/WishListMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/WishListSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/mapper/WishListSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/SessionConst.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/SessionConst.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/EmailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/controller/EmailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/JoinController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/controller/JoinController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/KakaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/controller/KakaoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/NaverController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/controller/NaverController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/domain/Gender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/domain/Gender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/domain/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/domain/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/domain/Social.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/domain/Social.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/dto/LoginDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/dto/LoginDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/dto/MemberDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/dto/SocialDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/dto/SocialDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/naver/NaverLoginApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/naver/NaverLoginApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/service/EmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/EmailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/service/EmailServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/KakaoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/service/KakaoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/KakaoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/service/KakaoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/service/MemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/service/MemberServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/NaverService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/service/NaverService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/NaverServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/member/service/NaverServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/note/controller/NoteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/note/controller/NoteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/note/domain/Note.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/note/domain/Note.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/note/dto/NoteDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/note/dto/NoteDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/note/service/NoteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/note/service/NoteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/note/service/NoteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/note/service/NoteServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/option/category/FirstInterestCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/option/category/FirstInterestCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/option/category/Interest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/option/category/Interest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/option/category/SecondInterestCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/option/category/SecondInterestCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/option/category/ThirdInterestCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/option/category/ThirdInterestCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/option/location/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/option/location/Address.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/profile/controller/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/profile/controller/ProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/profile/domain/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/profile/domain/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/profile/dto/ProfileDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/profile/dto/ProfileDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/profile/service/ProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/profile/service/ProfileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/profile/service/ProfileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/profile/service/ProfileServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/session/SessionConst.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/session/SessionConst.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/wishlist/controller/WishlistController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/wishlist/controller/WishlistController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/wishlist/domain/Wishlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/wishlist/domain/Wishlist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/wishlist/dto/WishlistDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/wishlist/dto/WishlistDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/wishlist/service/WishListService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/wishlist/service/WishListService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/java/com/doit/study/wishlist/service/WishListServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/doit/study/wishlist/service/WishListServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/email.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/login.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/bootstrap.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/common.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/common.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/detail.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/detail.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/edit.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/edit.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/error.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/error.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/footer.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/footer.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/joinForm.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/joinForm.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/nav.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/nav.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/note.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/note.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/css/responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/responsive.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/DoIT-Radius.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/DoIT-Radius.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/DoIT.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/DoIT.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/ID-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/ID-icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/PW-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/PW-icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/circle-plus-solid.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/circle-plus-solid.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/come.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/come.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/geo-alt.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/geo-alt.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/kakaologo.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/kakaologo.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/kakaotalk.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/kakaotalk.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/location-dot-solid.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/location-dot-solid.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/logocopy.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/logocopy.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/naver.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/naver.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/people.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/people.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/네이버.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/네이버.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/셀카.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/셀카.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/카카오2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/카카오2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/코딩왕.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/코딩왕.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/img/파밀리아 성당.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/img/파밀리아 성당.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/js/alert.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/alert.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/js/bootstrap.bundle.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/bootstrap.bundle.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/js/category.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/category.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/js/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/js/note.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/note.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/js/zone.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/zone.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/css/util.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/css/util.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/iconic/css/material-design-iconic-font.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/iconic/css/material-design-iconic-font.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/iconic/fonts/Material-Design-Iconic-Font.eot" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/iconic/fonts/Material-Design-Iconic-Font.eot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/iconic/fonts/Material-Design-Iconic-Font.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/iconic/fonts/Material-Design-Iconic-Font.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/iconic/fonts/Material-Design-Iconic-Font.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/iconic/fonts/Material-Design-Iconic-Font.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/iconic/fonts/Material-Design-Iconic-Font.woff" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/iconic/fonts/Material-Design-Iconic-Font.woff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/iconic/fonts/Material-Design-Iconic-Font.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/iconic/fonts/Material-Design-Iconic-Font.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-Black.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-Black.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-BlackItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-BlackItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-Bold.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-Bold.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-BoldItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-BoldItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-ExtraBold.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-ExtraBold.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-ExtraBoldItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-ExtraBoldItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-ExtraLight.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-ExtraLight.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-ExtraLightItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-ExtraLightItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-Italic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-Italic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-Light.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-Light.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-LightItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-LightItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-Medium.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-Medium.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-MediumItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-MediumItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-Regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-Regular.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-SemiBold.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-SemiBold.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-SemiBoldItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-SemiBoldItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-Thin.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-Thin.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/fonts/poppins/Poppins-ThinItalic.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/fonts/poppins/Poppins-ThinItalic.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/static/login/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/login/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/board/boardDetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/boardWriteForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/board/boardWriteForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/myStudyList.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/board/myStudyList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/board/wishlist.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/board/wishlist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/error/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/error/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/error/500.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/error/500.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/fragment/config.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragment/config.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/fragment/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragment/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/fragment/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragment/nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/layout/default.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout/default.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/alertSocialJoin.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/members/alertSocialJoin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/members/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/joinForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/members/joinForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/kakaoJoinForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/members/kakaoJoinForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/loginForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/members/loginForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/naverJoinForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/members/naverJoinForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/note.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/members/note.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/study/src/main/resources/templates/members/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/members/profile.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
     <projectState path="$PROJECT_DIR$/study">
       <ProjectState />
     </projectState>
@@ -21,35 +222,12 @@
         <task path="$PROJECT_DIR$/study">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="study" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="study" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="study" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="study" type="f1a62948:ProjectNode" />
-                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="study" type="f1a62948:ProjectNode" />
-                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -112,17 +290,6 @@
       </RecentBranches>
     </option>
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/study/build.gradle" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/study/src/main/java/com/doit/study/member/service/KakaoServiceImpl.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/study/src/main/java/com/doit/study/member/controller/KakaoController.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/study/src/main/java/com/doit/study/mapper/MemberMapper.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/study/src/main/java/com/doit/study/profile/controller/ProfileController.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/study/src/main/java/com/doit/study/HomeController.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/study/scripts/deploy.sh" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/study/src/main/java/com/doit/study/StudyApplication.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/study/appspec.yml" root0="FORCE_HIGHLIGHTING" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -164,11 +331,11 @@
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study" />
+      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\scripts" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\img" />
       <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\static\css" />
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\members" />
-      <recent name="C:\Users\rladn\OneDrive\문서\doit\study\src\main\resources\templates\board" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.doit.study.member.controller" />
@@ -183,7 +350,7 @@
   <component name="RunManager" selected="Application.StudyApplication">
     <configuration name="StudyApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.doit.study.StudyApplication" />
-      <module name="study.main" />
+      <module name="doit.main" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.doit.study.*" />
@@ -193,6 +360,48 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="doit [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencies" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="doit [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
     </configuration>
     <configuration name="study [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -236,37 +445,6 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="MemberControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="study.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.doit.study.member.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.doit.study.member.controller" />
-      <option name="MAIN_CLASS_NAME" value="com.doit.study.member.controller.MemberControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MemberControllerTest.testGetTime" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="study.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.doit.study.member.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.doit.study.member.controller" />
-      <option name="MAIN_CLASS_NAME" value="com.doit.study.member.controller.MemberControllerTest" />
-      <option name="METHOD_NAME" value="testGetTime" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="MemberServiceImplTest.InsertMember" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="study.test" />
       <extension name="coverage">
@@ -306,25 +484,25 @@
     <list>
       <item itemvalue="Application.StudyApplication" />
       <item itemvalue="Gradle.study [dependencies]" />
-      <item itemvalue="JUnit.MemberControllerTest" />
-      <item itemvalue="JUnit.MemberControllerTest.testGetTime" />
-      <item itemvalue="JUnit.MemberServiceImplTest.InsertMember" />
       <item itemvalue="Gradle.study [build]" />
+      <item itemvalue="JUnit.MemberServiceImplTest.InsertMember" />
+      <item itemvalue="Gradle.doit [dependencies]" />
+      <item itemvalue="Gradle.doit [jar]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.doit [jar]" />
+        <item itemvalue="Gradle.doit [dependencies]" />
         <item itemvalue="Gradle.study [build]" />
         <item itemvalue="Application.StudyApplication" />
         <item itemvalue="Gradle.study [dependencies]" />
-        <item itemvalue="JUnit.MemberServiceImplTest.InsertMember" />
-        <item itemvalue="JUnit.MemberControllerTest.testGetTime" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5db90fa1-fc31-4a27-9179-1fa4f65f1382" name="Changes" comment="" />
+      <changelist id="a60be7dc-9f50-406e-912a-c5a7be683b1c" name="Changes" comment="" />
       <created>1647085072989</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
