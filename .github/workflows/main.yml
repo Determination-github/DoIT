@@ -1,11 +1,7 @@
 name: DoIT-deploy
 
 on:
-  push:
-    branches: [main]
-    
-permissions:
-  contents: read
+  workflow_dispatch:
   
 env:
   S3_BUCKET_NAME: doit-build-file
