@@ -3,14 +3,14 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ubuntu/doit/ # 인스턴스에서 파일이 저장될 위치
+    destination: /home/ec2-user/doit/ # 인스턴스에서 파일이 저장될 위치
     overwrite: yes
 
 permissions:
   - object: /
     pattern: "**"
-    owner: ubuntu
-    group: ubuntu
+    owner: ec2-user
+    group: ec2-user
 
 hooks:
   ApplicationStart:
