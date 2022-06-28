@@ -10,8 +10,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./doit
       
     steps:
       - name: Checkout
@@ -26,9 +24,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
         shell: bash
-        working-directory: ${{env.working-directory}}
         
       - name: Build with Gradle
         run: ./gradlew bootjar
         shell: bash
-        working-directory: ${{env.working-directory}}
