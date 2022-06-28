@@ -10,8 +10,6 @@ permissions:
 env:
   S3_BUCKET_NAME: doit-build-file
   PROJECT_NAME: doit
-  CODE_DEPLOY_APPLICATION_NAME: DoIT-CodeDeploy
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: DoIT-CodeDeploy-Group
   
 jobs:
   build:
@@ -50,9 +48,6 @@ jobs:
         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$PROJECT_NAME/$GITHUB_SHA.zip
         
       - name: Code Deploy
-        run: aws deploy create-deployment \
-          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-          --deployment-config-name CodeDeployDefault.AllAtOnce \
-          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \ 
-          --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
+        run: aws deploy create-deployment --application-name DoIT-CodeDeploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name DoIT-CodeDeploy-Group --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
+
         
