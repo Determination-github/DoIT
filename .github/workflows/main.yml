@@ -33,11 +33,10 @@ jobs:
       - name: make application.properties
         if: contains(github.ref, 'main') # branch가 develop일 때
         run: |
-          cd ./src/main/resources
-          touch ./application.properties 
+          touch server/src/main/resources/application.properties 
           echo "${{ secrets.APPLICATION }}" > ./application.properties 
           shell: bash
-        
+          
       - name: Build with Gradle
         run: ./gradlew build
         shell: bash
