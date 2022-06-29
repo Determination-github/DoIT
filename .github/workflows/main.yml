@@ -29,7 +29,6 @@ jobs:
         run: chmod +x gradlew
         shell: bash
         
-      ## create application.properties
       - name: make application.properties
         if: contains(github.ref, 'main')
         run: |
@@ -50,6 +49,48 @@ jobs:
         shell: bash
         env:
           DEV_PROP: ${{ secrets.APPLICATION }}
+          
+      - name: make email.properties
+        if: contains(github.ref, 'main')
+        run: |
+          echo "ls -a . & pwd"
+          pwd
+          ls -a .
+
+          echo "mkdir & touch"
+          mkdir -p ./src/main/resources 
+          cd ./src/main/resources
+          touch ./email.properties
+          pwd
+          ls -a .
+
+          echo "copy properties"
+          echo $DEV_PROP >> ./email.properties
+          cat email.properties
+        shell: bash
+        env:
+          DEV_PROP: ${{ secrets.EMAIL }}
+      
+      - name: make login.properties
+        if: contains(github.ref, 'main')
+        run: |
+          echo "ls -a . & pwd"
+          pwd
+          ls -a .
+
+          echo "mkdir & touch"
+          mkdir -p ./src/main/resources 
+          cd ./src/main/resources
+          touch ./login.properties
+          pwd
+          ls -a .
+
+          echo "copy properties"
+          echo $DEV_PROP >> ./login.properties
+          cat login.properties
+        shell: bash
+        env:
+          DEV_PROP: ${{ secrets.LOGIN }}
 
       - name: Build with Gradle
         run: ./gradlew build
