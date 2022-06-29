@@ -21,6 +21,20 @@ jobs:
           java-version: "11"
           distribution: "temurin"
           
+       ## create application.properties
+      - name: make application.properties
+        if: contains(github.ref, 'main') # branch가 develop일 때
+        run: |
+          # spring의 resources 경로로 이동
+          cd ./src/main/resources 
+        
+          # application-dev.properties 파일 생성
+          touch ./application.properties 
+        
+          # GitHub-Actions에서 설정한 값을 application-dev.properties 파일에 쓰기
+          echo "${{ secrets.APPLICATION }}" > ./application.properties 
+          shell: bash
+          
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
         shell: bash
