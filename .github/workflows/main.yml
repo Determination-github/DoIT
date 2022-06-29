@@ -31,9 +31,9 @@ jobs:
         
       ## create application.properties
       - name: make application.properties
-        if: contains(github.ref, 'main') # branch가 develop일 때
+        if: contains(github.ref, 'main')
         run: |
-          touch server/src/main/resources/application.properties 
+          touch ./src/main/resources/application.properties 
           echo "${{ secrets.APPLICATION }}" > ./application.properties 
           shell: bash
           
