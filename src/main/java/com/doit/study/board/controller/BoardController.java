@@ -427,6 +427,44 @@ public class BoardController {
         }
     }
 
+    @GetMapping("/studyList")
+    public String studyListIndex(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+                                 @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
+                                 @RequestParam Integer id,
+                                 Model model,
+                                 HttpServletRequest request) {
+
+        Integer totalRecordCount = boardService.getCountById(id);
+        if (totalRecordCount != 0) {
+            //페이징
+            Pagination pagination = paging(currentPage, pageSize, totalRecordCount, model);
+
+            //게시글 개수 세팅
+            pagination.setTotalRecordCount(totalRecordCount);
+
+            model.addAttribute("pagination", pagination);
+
+            //세션에서 아이디값 가져오기
+            HttpSession session = request.getSession(false);
+            if (session != null && session.getAttribute("id") != null) { //로그인 되어있는 경우
+                Integer user_id = (int) session.getAttribute("id");
+                model.addAttribute("list", boardService.getStudyBoardListAll(user_id, pagination));
+            } else { //로그인 되어있지 않은 경우
+                Integer user_id = null;
+                model.addAttribute("list", boardService.getStudyBoardListAll(user_id, pagination));
+            }
+
+            //아이디값 담기
+            model.addAttribute("id", id);
+
+            return "board/myStudyList";
+        } else { //게시글 작성 목록이 없는 경우
+            model.addAttribute("list", null);
+            return "board/myStudyList";
+        }
+    }
+
+
     //--------------------------------extracted method-----------------------------------------
 
     /**
