@@ -33,11 +33,24 @@ jobs:
       - name: make application.properties
         if: contains(github.ref, 'main')
         run: |
-          touch ./src/main/resources/application.properties 
-          echo "${{ secrets.APPLICATION }}" > ./application.properties.b64
-          base64 -d -i application.properties.b64 > ./src/main/resources/application.properties
+          echo "ls -a . & pwd"
+          pwd
+          ls -a .
 
-          
+          echo "mkdir & touch"
+          mkdir -p ./src/main/resources 
+          cd ./src/main/resources
+          touch ./application.properties
+          pwd
+          ls -a .
+
+          echo "copy properties"
+          echo $DEV_PROP >> ./application.properties
+          cat application.properties
+        shell: bash
+        env:
+          DEV_PROP: ${{ secrets.APPLICATION }}
+
       - name: Build with Gradle
         run: ./gradlew build
         shell: bash
