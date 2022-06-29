@@ -23,7 +23,9 @@ if [ ! -z ${TARGET_PID} ]; then
 fi
 
 nohup java -jar
-  -Dspring.config.location=classpath:/application.properties, /home/ec2-user/doit/application.properties, /home/ec2-user/doit/email.properties, /home/ec2-user/doit/login.properties
+  -Dspring.config.location=classpath:/application.properties, /home/ec2-user/doit/application.properties
+  -Dspring.config.location=classpath:/email.properties, /home/ec2-user/doit/email.properties
+  -Dspring.config.location=classpath:/login.properties, /home/ec2-user/doit/login.properties
   -Dserver.port=${TARGET_PORT} /home/ec2-user/doit/build/libs/* > /home/ec2-user/nohup.out 2>&1 &
 echo "> Now new WAS runs at ${TARGET_PORT}."
 exit 0
