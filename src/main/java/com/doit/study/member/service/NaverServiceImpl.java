@@ -33,6 +33,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @PropertySource("classpath:login.properties")
+@PropertySource("classpath:naver_secret.properties")
 public class NaverServiceImpl implements NaverService {
 
     private final MemberMapper memberMapper;

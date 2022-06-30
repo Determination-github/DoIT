@@ -14,6 +14,7 @@ import java.util.Properties;
 @Configuration
 @Slf4j
 @PropertySource("classpath:email.properties")
+@PropertySource("classpath:email_pwd.properties")
 /**
  *
  * 이메일용 설정 파일
