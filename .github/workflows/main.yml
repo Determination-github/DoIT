@@ -29,7 +29,7 @@ jobs:
         run: chmod +x gradlew
         shell: bash
         
-      - name: make application.properties
+      - name: make amazon_accesskey.properties
         if: contains(github.ref, 'main')
         run: |
           echo "ls -a . & pwd"
@@ -39,18 +39,18 @@ jobs:
           echo "mkdir & touch"
           mkdir -p ./src/main/resources 
           cd ./src/main/resources
-          touch ./application.properties
+          touch ./amazon_accesskey.properties
           pwd
           ls -a .
 
           echo "copy properties"
-          echo $DEV_PROP >> ./application.properties
-          cat application.properties
+          echo $DEV_PROP >> ./amazon_accesskey.properties
+          cat amazon_accesskey.properties
         shell: bash
         env:
-          DEV_PROP: ${{ secrets.APPLICATION }}
+          DEV_PROP: ${{ secrets.AMAZON_ACCESS_KEY }}
           
-      - name: make email.properties
+      - name: make amazon_secretkey.properties
         if: contains(github.ref, 'main')
         run: |
           echo "ls -a . & pwd"
@@ -60,18 +60,18 @@ jobs:
           echo "mkdir & touch"
           mkdir -p ./src/main/resources 
           cd ./src/main/resources
-          touch ./email.properties
+          touch ./amazon_secretkey.properties
           pwd
           ls -a .
 
           echo "copy properties"
-          echo $DEV_PROP >> ./email.properties
-          cat email.properties
+          echo $DEV_PROP >> ./amazon_secretkey.properties
+          cat amazon_secretkey.properties
         shell: bash
         env:
-          DEV_PROP: ${{ secrets.EMAIL }}
+          DEV_PROP: ${{ secrets.AMAZON_SECRET_KEY }}
       
-      - name: make login.properties
+      - name: make email_pwd.properties
         if: contains(github.ref, 'main')
         run: |
           echo "ls -a . & pwd"
@@ -81,16 +81,37 @@ jobs:
           echo "mkdir & touch"
           mkdir -p ./src/main/resources 
           cd ./src/main/resources
-          touch ./login.properties
+          touch ./email_pwd.properties
           pwd
           ls -a .
 
           echo "copy properties"
-          echo $DEV_PROP >> ./login.properties
-          cat login.properties
+          echo $DEV_PROP >> ./email_pwd.properties
+          cat email_pwd.properties
         shell: bash
         env:
-          DEV_PROP: ${{ secrets.LOGIN }}
+          DEV_PROP: ${{ secrets.EMAIL_PASSWORD }}
+          
+      - name: make naver_secret.properties
+        if: contains(github.ref, 'main')
+        run: |
+          echo "ls -a . & pwd"
+          pwd
+          ls -a .
+
+          echo "mkdir & touch"
+          mkdir -p ./src/main/resources 
+          cd ./src/main/resources
+          touch ./naver_secret.properties
+          pwd
+          ls -a .
+
+          echo "copy properties"
+          echo $DEV_PROP >> ./naver_secret.properties
+          cat naver_secret.properties
+        shell: bash
+        env:
+          DEV_PROP: ${{ secrets.NAVER_SECRET }}
 
       - name: Build with Gradle
         run: ./gradlew build
