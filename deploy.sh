@@ -1,4 +1,4 @@
-REPOSITORY=/home/ec2-user/app
+REPOSITORY=/home/ec2-user/doit
 cd $REPOSITORY
 
 APP_NAME=doit #1
@@ -17,4 +17,4 @@ else
 fi
 
 echo "> $JAR_PATH 배포" #3
-nohup java -jar /home/ec2-user/app/build/libs/doit-0.0.1-SNAPSHOT.jar
+nohup java -jar /home/ec2-user/doit/build/libs/doit-0.0.1-SNAPSHOT.jar
