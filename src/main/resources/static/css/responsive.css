@@ -22,10 +22,6 @@
   }
 }
 
-@media(max-width: 992px){
-
-}
-
 @media(max-width: 899px){
   .max-width{
     padding: 0 50px;
@@ -94,6 +90,12 @@
   .myStudylist{
     padding-top : 160px
   }
+}
+
+@media(max-width: 768px){
+    .note-receive {
+        margin-top: 10px;
+    }
 }
 
 @media(max-width: 599px){
