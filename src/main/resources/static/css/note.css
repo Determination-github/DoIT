@@ -49,11 +49,14 @@ ul{
    transform: scale(1.05);
  }
 
+.note-has-grid .single-note-item {
+  margin: 10px 0;
+}
+
 
  @media (max-width:991.98px) {
      .note-has-grid .single-note-item {
          max-width: 216px;
-         margin: 10px 0;
      }
  }
  .rounded-circle-profile{
