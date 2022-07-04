@@ -18,6 +18,11 @@ ul,li,dl,dt,dd{
   padding:0;
 }
 
+.field-error {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
 .align-items-center{
   margin-left: 10px;
   margin-bottom: 10px;
