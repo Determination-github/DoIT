@@ -76,3 +76,18 @@ function zone_change(key, sel){
     sel.options[i + 1] = new Option(name[i], name[i]);
   }
 }
+
+function is_checked() {
+
+    let checkbox = document.getElementById('onOffLine');
+
+    let is_checked = checkbox.checked;
+
+    if(is_checked === true) {
+      $("#firstZone").attr("disabled", true);
+      $("#secondZone").attr("disabled", true);
+    } else {
+      $("#firstZone").removeAttr("disabled");
+      $("#secondZone").removeAttr("disabled");
+    }
+}

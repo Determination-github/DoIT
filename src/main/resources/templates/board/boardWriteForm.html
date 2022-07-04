@@ -11,32 +11,12 @@
   <!--섬머노트-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.css" integrity="sha512-ngQ4IGzHQ3s/Hh8kMyG4FC74wzitukRMIcTOoKT3EyzFZCILOPF0twiXOQn75eDINUfKBYmzYn2AA8DkAk8veQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+  <!--write form css-->
+  <link rel="stylesheet" type="text/css" href="/css/write.css">
 
-  <style>
-    .form-group.required label:after {
-       content : " *";
-       color: red;
-    }
-  </style>
-  <script>
-    $.datepicker.setDefaults({
-      dateFormat: 'yy-mm-dd',
-      prevText: '이전 달',
-      nextText: '다음 달',
-      monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-      monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-      dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-      dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-      dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-      showMonthAfterYear: true,
-      yearSuffix: '년'
-    });
+  <!--datepicker-->
+  <script type="text/javascript" src="/js/datepicker.js"></script>
 
-    $( function() {
-      $( "#datepicker_to" ).datepicker();
-      $( "#datepicker_from" ).datepicker();
-    } );
-</script>
 </th:block>
 
 <div layout:fragment="content" class="max-width">
@@ -155,44 +135,7 @@
 
           <div class="mb-3">
             <textarea name="board_content" id="board_content" class="form-control" th:errorclass="field-error"  placeholder="Type the content here!" th:field="*{board_content}"></textarea>
-              <script>
-
-                $(document).ready(function() {
-                    $('#board_content').summernote({
-                        height : 300,
-                        minHeight : null,
-                        maxHeight : null,
-                        focus : true,
-                        callbacks : {
-                            onImageUpload : function(files, editor, welEditable) {
-                                for (var i = 0; i < files.length; i++) {
-                                    sendFile(files[i], this);
-                                }
-                            }
-                        }
-                    });
-                });
-
-                function sendFile(file, el) {
-                    var form_data = new FormData();
-                    form_data.append('file', file);
-                    $.ajax({
-                        data : form_data,
-                        type : "POST",
-                        url : '/file/images',
-                        cache : false,
-                        contentType : false,
-                        enctype : 'multipart/form-data',
-                        processData : false,
-                        success : function(url) {
-                            $(el).summernote('insertImage', url, function($image) {
-                                $image.css('width', "50%");
-                            });
-                        }
-                    });
-                }
-
-              </script>
+            <script type="text/javascript" src="/js/summernote.js"></script>
             </div>
           </div>
           <div class="field-error" th:errors="*{board_content}"/>
@@ -207,36 +150,11 @@
   </section>
 </div>
 <th:block layout:fragment="extraJs">
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.js" integrity="sha512-6F1RVfnxCprKJmfulcxxym1Dar5FsT/V2jiEUvABiaEiFWoQ8yHvqRM/Slf0qJKiwin6IDQucjXuolCfCKnaJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<style>
-    .field-error {
-        border-color: #dc3545;
-        color: #dc3545;
-    }
-</style>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.js" integrity="sha512-6F1RVfnxCprKJmfulcxxym1Dar5FsT/V2jiEUvABiaEiFWoQ8yHvqRM/Slf0qJKiwin6IDQucjXuolCfCKnaJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script type="text/javascript" src="/js/category.js" ></script>
-<script type="text/javascript" src="/js/zone.js"></script>
-<script type="text/javascript" th:inline="javascript">
-  /*<![CDATA[*/
+  <script type="text/javascript" src="/js/category.js" ></script>
+  <script type="text/javascript" src="/js/zone.js"></script>
 
-  function is_checked() {
-
-    const checkbox = document.getElementById('onOffLine');
-
-    const is_checked = checkbox.checked;
-
-    if(is_checked === true) {
-      $("#firstZone").attr("disabled", true);
-      $("#secondZone").attr("disabled", true);
-    } else {
-      $("#firstZone").removeAttr("disabled");
-      $("#secondZone").removeAttr("disabled");
-    }
-  }
-
-  /*]]>*/
-</script>
 </th:block>
 </html>
