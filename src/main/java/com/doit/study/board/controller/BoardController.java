@@ -191,7 +191,7 @@ public class BoardController {
 
             redirectAttributes.addFlashAttribute("boardDto", boardDto);
 
-            return "redirect:board/result/" + study_id;
+            return "redirect:result/" + study_id;
         } else { //게시글 수정
             int study_id = board_id.get();
 
@@ -205,7 +205,7 @@ public class BoardController {
 
             redirectAttributes.addFlashAttribute("boardDto", boardDto);
 
-            return "redirect:board/result/" + study_id;
+            return "redirect:result/" + study_id;
         }
     }
 
