@@ -32,15 +32,14 @@ public class WishlistController {
     @PostMapping("/like/save/{id}")
     public ResponseEntity like(@PathVariable("id") Integer id,
                                   @RequestBody WishlistDto wishlistDto) throws Exception {
-        log.info("id={}, wishlistDto={}", id, wishlistDto);
-
         //중복으로 담지 않도록 체크
         Integer result = wishListService.getCountByIdAndStudyId(id, wishlistDto.getStudy_id());
         if(result == 0) {
             wishListService.save(wishlistDto);
         }
 
-        return ResponseEntity.ok(HttpStatus.OK);
+        //사용자 아이디 반환
+        return ResponseEntity.ok(id);
     }
 
     /**
