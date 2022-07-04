@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 
 @Controller
@@ -41,13 +42,13 @@ public class NoteController {
 
         //세션에서 아이디값 가져오기
         HttpSession session = request.getSession(false);
-        Integer userId = (Integer) session.getAttribute("id");
+        Integer userId = (Integer)session.getAttribute("id");
+        log.info("userId = "+ userId);
 
-        if(id == userId) { //아이디랑 노트 정보가 같은 경우
+        if(Objects.equals(id, userId)) { //아이디랑 노트 정보가 같은 경우
             //노트 정보 가져오기
             List<NoteDto> note = noteService.getNote(id);
             model.addAttribute("note", note);
-
             return "members/note";
         } else {
             throw new IOException();
