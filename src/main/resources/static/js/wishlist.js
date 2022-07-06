@@ -1,14 +1,15 @@
 //좋아요 버튼 취소
 $(".btn_like_delete").click(function(){
 
-    let board_id = $(this).val();
+    const board_id = $(this).val();
 
-    let data = {
+    const data = {
         id : session_id,
         study_id : $('#boardId'+board_id).val()
     }
 
     const check = confirm("위시리스트에서 제거하시겠습니까?")
+
     if(check === true) {
         $.ajax({
             type:"DELETE",

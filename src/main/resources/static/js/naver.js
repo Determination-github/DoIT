@@ -1,5 +1,5 @@
 $('#nickname').focusout(function() {
-    let nickname = $('#nickname').val();
+    const nickname = $('#nickname').val();
     if(nickname != '') {
         $.ajax({
             url : "/join/nicknameCheck",

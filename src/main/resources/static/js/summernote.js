@@ -15,7 +15,7 @@ $(document).ready(function() {
 });
 
 function sendFile(file, el) {
-    var form_data = new FormData();
+    const form_data = new FormData();
     form_data.append('file', file);
     $.ajax({
         data : form_data,

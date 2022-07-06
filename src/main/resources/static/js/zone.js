@@ -1,11 +1,11 @@
 /*  eslint-disable no-unused-vars */
 
-var zone_num = new Array (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
-var zone_name = new Array('서울특별시', '부산광역시', '대구광역시', '인천광역시', '광주광역시', '대전광역시',
+const zone_num = new Array (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+const zone_name = new Array('서울특별시', '부산광역시', '대구광역시', '인천광역시', '광주광역시', '대전광역시',
 '울산광역시', '강원도', '경기도', '경상남도', '경상북도', '전라남도', '전라북도', '충청남도', '충청북도', '제주도');
 
-var zone2_num = new Array();
-var zone2_name = new Array();
+const zone2_num = new Array();
+const zone2_name = new Array();
 
 zone2_num[1] = new Array(17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41);

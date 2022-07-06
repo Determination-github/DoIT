@@ -1,11 +1,9 @@
-var stompClient = null;
-var sender = null;
-var receiver = null;
+let stompClient = null;
 
 window.onload = function() {
-    var socket = new SockJS("/websocket");
+    let socket = new SockJS("/websocket");
     stompClient = Stomp.over(socket);
-    receiver = $("#sessionId").val();
+    let receiver = $("#sessionId").val();
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/alarm/receiving/'+receiver, function (greeting) {
@@ -16,7 +14,7 @@ window.onload = function() {
 }
 
 function sendNote() {
-    let id =  document.getElementById('receiver-id').getAttribute('value');
+    const id =  document.getElementById('receiver-id').getAttribute('value');
     stompClient.send("/server/note/"+id, {}, JSON.stringify({
                                             'user_id' : $("#sender_id").val(),
                                             'receiver_id' : document.getElementById('receiver-id').getAttribute('value'),
@@ -44,8 +42,8 @@ $(function () {
 
 
 function reply(object) {
-            let note_id = $(object).attr('value');
-            let id =  $("#receiver_id"+note_id).val();
+            const note_id = $(object).attr('value');
+            const id =  $("#receiver_id"+note_id).val();
             stompClient.send("/server/note/"+id, {}, JSON.stringify({
                                                     'user_id' : $('#sender_id'+note_id).val(),
                                                     'receiver_id' : $('#receiver_id'+note_id).val(),
@@ -73,7 +71,5 @@ const disabledNotification = () => {
 }
 
 function removeItem()  {
-
     $(".empty-dropdown").remove();
-
 }

@@ -1,6 +1,6 @@
 //임시비밀번호 발급
 $("#sendTempPwd").click(function(){
-    let data = {
+    const data = {
         email : $('#findPassword').val()
     }
     const check = confirm("임시비밀번호를 발급하시겠습니까?")

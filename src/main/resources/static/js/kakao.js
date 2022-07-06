@@ -1,5 +1,5 @@
 $('#nickname').focusout(function() {
-    let nickname = $('#nickname').val();
+    const nickname = $('#nickname').val();
     if(nickname != '') {
         $.ajax({
             url : "/join/nicknameCheck",
@@ -30,7 +30,7 @@ $('#nickname').focusout(function() {
 
 
 $('#email').focusout(function() {
-    let email = $('#email').val();
+    const email = $('#email').val();
         if(email != '') {
         $.ajax({
             url : "/join/emailCheck",
@@ -57,9 +57,9 @@ $('#email').focusout(function() {
 })
 
 //이메일 인증
-var code = "";
 $("#emailChk").click(function(){
-    var email = $("#email").val();
+    let code = "";
+    const email = $("#email").val();
     $.ajax({
         type:"POST",
         url:"/join/mailCheck",
@@ -79,23 +79,24 @@ $("#emailChk").click(function(){
                 $(".successEmailChk").text("인증번호를 입력한 뒤 이메일 인증을 눌러주십시오.");
                 $(".successEmailChk").css("color","green");
                 code = result;
+
+                //이메일 인증번호 대조
+                $("#emailChk2").click(function(){
+                    if($("#sm_email").val() == code){
+                        $(".successEmailChk").text("인증번호가 일치합니다.");
+                        $(".successEmailChk").css("color","green");
+                        $("#emailDoubleChk").val("true");
+                        $("#sm_email").attr("disabled",true);
+                        //$("#email").attr("disabled",true);
+                    }else{
+                        $(".successEmailChk").text("인증번호가 일치하지 않습니다. 확인해주시기 바랍니다.");
+                        $(".successEmailChk").css("color","red");
+                        $("#emailDoubleChk").val("false");
+                        $("#sm_email").attr("autofocus",true);
+                    }
+                });
             }
         }
     });
 });
 
-//이메일 인증번호 대조
-$("#emailChk2").click(function(){
-    if($("#sm_email").val() == code){
-        $(".successEmailChk").text("인증번호가 일치합니다.");
-        $(".successEmailChk").css("color","green");
-        $("#emailDoubleChk").val("true");
-        $("#sm_email").attr("disabled",true);
-        //$("#email").attr("disabled",true);
-    }else{
-        $(".successEmailChk").text("인증번호가 일치하지 않습니다. 확인해주시기 바랍니다.");
-        $(".successEmailChk").css("color","red");
-        $("#emailDoubleChk").val("false");
-        $("#sm_email").attr("autofocus",true);
-    }
-});

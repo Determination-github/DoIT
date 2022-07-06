@@ -6,15 +6,15 @@ $(function() {
 //        });
 //    }
 
-    var $btns = $('.note-link').click(function() {
+    const $btns = $('.note-link').click(function() {
         if (this.id == 'all-category') {
-          var $el = $('.' + this.id).fadeIn();
+          let $el = $('.' + this.id).fadeIn();
           $('#note-full-container > div').not($el).hide();
         } if (this.id == 'important') {
-          var $el = $('.' + this.id).fadeIn();
+          let $el = $('.' + this.id).fadeIn();
           $('#note-full-container > div').not($el).hide();
         } else {
-          var $el = $('.' + this.id).fadeIn();
+          let $el = $('.' + this.id).fadeIn();
           $('#note-full-container > div').not($el).hide();
         }
         $btns.removeClass('active');
@@ -26,7 +26,7 @@ $(function() {
 function delete_note(object) {
     $(".remove-note").off('click').on('click', function(event) {
       event.stopPropagation();
-      let data = {
+      const data = {
             note_id : $(object).attr('value')
       }
       const check = confirm("쪽지를 삭제하시겠습니까?")

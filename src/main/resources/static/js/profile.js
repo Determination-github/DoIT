@@ -1,12 +1,12 @@
 //프로필 이미지 수정
 $(".profile-upload").click(function(){
-    let data = {
+    const data = {
         id : $("#userId").val(),
         file : $("#inputGroupFile04").val()
     }
 
-    let form = $("#inputGroupFile04")[0].files[0];
-    let formData = new FormData();
+    const form = $("#inputGroupFile04")[0].files[0];
+    const formData = new FormData();
 
     formData.append('file',form);
 

@@ -1,13 +1,13 @@
 /*  eslint-disable no-unused-vars */
 
-var category_num = new Array(1, 2, 3);
-var category_name = new Array('개발', '자격증', '프로젝트');
+const category_num = new Array(1, 2, 3);
+const category_name = new Array('개발', '자격증', '프로젝트');
 
-var category2_num = new Array();
-var category2_name = new Array();
+const category2_num = new Array();
+const category2_name = new Array();
 
-var category3_num = new Array();
-var category3_name = new Array();
+const category3_num = new Array();
+const category3_name = new Array();
 
 category2_num[1] = new Array(4, 5);
 category2_name[1] = new Array('Back-End', 'Front-End');

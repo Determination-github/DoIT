@@ -1,10 +1,10 @@
 //좋아요 버튼
 $(".btn_like").click(function(){
 
-    let board_id = $(this).val();
+    const board_id = $(this).val();
 
     if(session_nickname != null) {
-      let data = {
+      const data = {
             id : session_id,
             study_id : $('#boardId'+board_id).val()
       }
@@ -39,10 +39,10 @@ $(".btn_like").click(function(){
 //좋아요 버튼 취소
 $(".btn_like_delete").click(function(){
 
-    let board_id = $(this).val();
+    const board_id = $(this).val();
 
     if(session_nickname != null) {
-      let data = {
+      const data = {
             id : session_id,
             study_id : $('#boardId'+board_id).val()
       }

@@ -2,8 +2,8 @@ var state1 = true;
 var state2;
 
 $('#nickname').focusout(function() {
-    let nickname = $('#nickname').val();
-    let originalNickname = $('#originalNickname').val();
+    const nickname = $('#nickname').val();
+    const originalNickname = $('#originalNickname').val();
     nickname.trim();
     if(nickname != originalNickname) {
         if(nickname != '') {
@@ -44,7 +44,7 @@ $('#nickname').focusout(function() {
 })
 
 $('#password').focusout(function() {
-    let password = $('#password').val();
+    const password = $('#password').val();
     password.trim();
     if(password != '') {
         $.ajax({
@@ -73,7 +73,7 @@ $('#password').focusout(function() {
 })
 
 $(function(){
-//비밀번호 확인
+    //비밀번호 확인
     $('#password-two').blur(function(){
        if($('#password').val() != $('#password-two').val()){
             if($('#password-two').val()!=''){
@@ -106,7 +106,7 @@ var checkState = function(){
 
 //프로필 수정
 $("#modify-btn").click(function(){
-    let data = {
+    const data = {
         id : $('#id').val(),
         password : $('#password-two').val(),
         nickname : $('#nickname').val()
@@ -132,7 +132,7 @@ $("#modify-btn").click(function(){
 
 //회원 정보 삭제
 $("#floatingDelete").click(function(){
-    let data = {
+    const data = {
         id : $('#id').val(),
         text : $('#deleteText').val()
     }

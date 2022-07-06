@@ -1,7 +1,7 @@
 //댓글 작성
 $("#add-comment-btn").click(function(){
 
-    let data = {
+    const data = {
         writer_id : $("#writerId").val(),
         study_id : $("#boardId").val(),
         comment : $("#comment").val()
@@ -45,10 +45,10 @@ $("#add-comment-btn").click(function(){
 
 //대댓글, 수정, 삭제버튼 누를 경우
 $(".btn-light").click(function(){
-    let id = $(this).val();
-    let button = $(this).text();
-    let reply = document.getElementById('reply-textarea'+id);
-    let re_reply = document.getElementById('re-reply-textarea'+id);
+    const id = $(this).val();
+    const button = $(this).text();
+    const reply = document.getElementById('reply-textarea'+id);
+    const re_reply = document.getElementById('re-reply-textarea'+id);
 
     if(button === '댓글') {
         if(reply.style.display==='none'){
@@ -68,7 +68,7 @@ $(".btn-light").click(function(){
         }
     } else {
         //댓글 삭제
-        let data = {
+        const data = {
             comment_id : id
         }
         const check = confirm("댓글을 삭제하시겠습니까?")
@@ -94,9 +94,9 @@ $(".btn-light").click(function(){
 
 //대댓글 작성
 $(".reply-btn").click(function(){
-    let id = $(this).val();
+    const id = $(this).val();
 
-    let data = {
+    const data = {
         writer_id : $('#writerId'+id).val(),
         study_id : $('#boardId'+id).val(),
         group_id : $('#groupId'+id).val(),
@@ -139,9 +139,9 @@ $(".reply-btn").click(function(){
 
 //댓글 수정
 $(".reply-modify-btn").click(function(){
-    let id = $(this).val();
+    const id = $(this).val();
 
-    let data = {
+    const data = {
         writer_id : $('#writerId'+id).val(),
         study_id : $('#boardId'+id).val(),
         group_id : $('#groupId'+id).val(),
@@ -173,7 +173,7 @@ $(".reply-modify-btn").click(function(){
 
 //글 수정
 $("#edit").click(function(){
-    let data = {
+    const data = {
         board_id : modify_board_id
     }
 
@@ -185,7 +185,7 @@ $("#edit").click(function(){
 
 //글 삭제
 $("#delete").click(function(){
-    let id = $(this).val();
+    const id = $(this).val();
 
     const check = confirm("글을 삭제하시겠습니까?")
     if(check === true) {
@@ -207,7 +207,7 @@ $("#delete").click(function(){
 $(".btn_like").click(function(){
 
     if(session_nickname != null) {
-      let data = {
+      const data = {
             id : session_id,
             study_id : $(this).val()
       }
@@ -241,7 +241,7 @@ $(".btn_like").click(function(){
 //좋아요 버튼 취소
 $(".btn_like_delete").click(function(){
 
-    let board_id = $(this).val();
+    const board_id = $(this).val();
 
     if(session_nickname != null) {
         let data = {
