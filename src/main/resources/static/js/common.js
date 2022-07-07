@@ -9,7 +9,6 @@ window.onload = function() {
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/alarm/receiving/'+receiver, function (greeting) {
-            alert(실행됨);
             showGreeting(JSON.parse(greeting.body).message, JSON.parse(greeting.body).url);
         });
     });
