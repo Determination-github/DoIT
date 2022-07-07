@@ -1,20 +1,22 @@
-let stompClient = null;
+var stompClient = null;
+var sender = null;
+var receiver = null;
 
 window.onload = function() {
-    let socket = new SockJS("/websocket");
+    var socket = new SockJS("/websocket");
     stompClient = Stomp.over(socket);
-    let receiver = $("#sessionId").val();
+    receiver = $("#sessionId").val();
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/alarm/receiving/'+receiver, function (greeting) {
-            $('#noteModal').modal('hide');
+            alert(실행됨);
             showGreeting(JSON.parse(greeting.body).message, JSON.parse(greeting.body).url);
         });
     });
 }
 
 function sendNote() {
-    const id =  document.getElementById('receiver-id').getAttribute('value');
+    let id =  document.getElementById('receiver-id').getAttribute('value');
     stompClient.send("/server/note/"+id, {}, JSON.stringify({
                                             'user_id' : $("#sender_id").val(),
                                             'receiver_id' : document.getElementById('receiver-id').getAttribute('value'),
@@ -42,8 +44,8 @@ $(function () {
 
 
 function reply(object) {
-            const note_id = $(object).attr('value');
-            const id =  $("#receiver_id"+note_id).val();
+            let note_id = $(object).attr('value');
+            let id =  $("#receiver_id"+note_id).val();
             stompClient.send("/server/note/"+id, {}, JSON.stringify({
                                                     'user_id' : $('#sender_id'+note_id).val(),
                                                     'receiver_id' : $('#receiver_id'+note_id).val(),

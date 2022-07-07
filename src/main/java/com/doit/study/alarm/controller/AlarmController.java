@@ -57,7 +57,7 @@ public class AlarmController {
         alarmService.saveAlarm(alarmDto);
 
         //메시지 보내기
-        simpMessagingTemplate.convertAndSend("alarm/receiving/" + noteDto.getReceiver_id() , alarmDto);
+        simpMessagingTemplate.convertAndSend("/alarm/receiving/" + noteDto.getReceiver_id() , alarmDto);
     }
 
     /**
@@ -118,7 +118,7 @@ public class AlarmController {
         alarmService.saveAlarm(alarmDto);
 
         //댓글 알림 보내기
-        simpMessagingTemplate.convertAndSend("alarm/receiving/" + alarmDto.getReceiver_id() , alarmDto);
+        simpMessagingTemplate.convertAndSend("/alarm/receiving/" + alarmDto.getReceiver_id() , alarmDto);
     }
 
 }
