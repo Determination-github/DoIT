@@ -25,6 +25,9 @@ jar {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
+	//세션 저장
+	implementation 'org.springframework.session:spring-session-jdbc:2.7.0'
+
 	//OAuth 2.0 네이버 로그인
 	implementation 'com.github.scribejava:scribejava-apis:2.8.1'
 
