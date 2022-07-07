@@ -1,8 +1,7 @@
-
+const socket = new SockJS("/websocket");
+const stompClient = Stomp.over(socket);
 
 window.onload = function() {
-    const socket = new SockJS("/websocket");
-    let stompClient = Stomp.over(socket);
     const receiver = $("#sessionId").val();
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
@@ -14,8 +13,6 @@ window.onload = function() {
 
 function sendNote() {
     let id =  document.getElementById('receiver-id').getAttribute('value');
-    const socket = new SockJS("/websocket");
-    let stompClient = Stomp.over(socket);
     stompClient.send("/server/note/"+id, {}, JSON.stringify({
                                             'user_id' : $("#sender_id").val(),
                                             'receiver_id' : document.getElementById('receiver-id').getAttribute('value'),
@@ -45,8 +42,6 @@ $(function () {
 function reply(object) {
             let note_id = $(object).attr('value');
             let id =  $("#receiver_id"+note_id).val();
-            const socket = new SockJS("/websocket");
-            let stompClient = Stomp.over(socket);
             stompClient.send("/server/note/"+id, {}, JSON.stringify({
                                                     'user_id' : $('#sender_id'+note_id).val(),
                                                     'receiver_id' : $('#receiver_id'+note_id).val(),
