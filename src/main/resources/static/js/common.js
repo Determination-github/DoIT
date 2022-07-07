@@ -1,11 +1,9 @@
-var stompClient = null;
-var sender = null;
-var receiver = null;
+let stompClient = null;
 
 window.onload = function() {
-    var socket = new SockJS("/websocket");
+    const socket = new SockJS("/websocket");
     stompClient = Stomp.over(socket);
-    receiver = $("#sessionId").val();
+    const receiver = $("#sessionId").val();
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/alarm/receiving/'+receiver, function (greeting) {
@@ -73,4 +71,25 @@ const disabledNotification = () => {
 
 function removeItem()  {
     $(".empty-dropdown").remove();
+}
+
+//알람 읽음 체크
+function click_alarm(object) {
+    const id = $(object).attr('value');
+
+    const data = {
+        alarm_id : id
+    }
+    $.ajax({
+        type:"DELETE",
+        url:"/alarm/" + data.alarm_id,
+        dataType : 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(data),
+        cache : false,
+    }).done(function() {
+
+    }).fail(function (error) {
+        alert(JSON.stringify(error));
+    });
 }
