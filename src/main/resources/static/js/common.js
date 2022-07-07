@@ -1,4 +1,4 @@
-let stompClient = null;
+var stompClient = null;
 
 window.onload = function() {
     const socket = new SockJS("/websocket");
