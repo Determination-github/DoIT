@@ -7,12 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.util.HtmlUtils;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AlarmDto {
+public class AlarmDto implements Serializable {
 
     private Integer alarm_id;
     private Integer receiver_id;
