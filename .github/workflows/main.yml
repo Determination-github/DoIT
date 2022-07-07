@@ -112,6 +112,48 @@ jobs:
         shell: bash
         env:
           DEV_PROP: ${{ secrets.NAVER_SECRET }}
+          
+      - name: make database_id.properties
+        if: contains(github.ref, 'main')
+        run: |
+          echo "ls -a . & pwd"
+          pwd
+          ls -a .
+
+          echo "mkdir & touch"
+          mkdir -p ./src/main/resources 
+          cd ./src/main/resources
+          touch ./database_id.properties
+          pwd
+          ls -a .
+
+          echo "copy properties"
+          echo $DEV_PROP >> ./database_id.properties
+          cat database_id.properties
+        shell: bash
+        env:
+          DEV_PROP: ${{ secrets.DB_ID }}
+       
+      - name: make database_pwd.properties
+        if: contains(github.ref, 'main')
+        run: |
+          echo "ls -a . & pwd"
+          pwd
+          ls -a .
+
+          echo "mkdir & touch"
+          mkdir -p ./src/main/resources 
+          cd ./src/main/resources
+          touch ./database_pwd.properties
+          pwd
+          ls -a .
+
+          echo "copy properties"
+          echo $DEV_PROP >> ./database_pwd.properties
+          cat database_pwd.properties
+        shell: bash
+        env:
+          DEV_PROP: ${{ secrets.DB_PWD }} 
 
       - name: Build with Gradle
         run: ./gradlew build
