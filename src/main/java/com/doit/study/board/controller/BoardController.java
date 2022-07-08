@@ -272,9 +272,12 @@ public class BoardController {
      * @return String
      * @throws Exception
      */
-    @PostMapping("/search")
+    @GetMapping("/search")
     public String searchStudy(@ModelAttribute SearchDto searchDto,
                               HttpServletRequest request,
+                              @RequestParam(value = "keyword", required = false) String keyword,
+                              @RequestParam(value = "online", required = false) Boolean online,
+                              @RequestParam(value = "location", required = false) String location,
                               @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
                               @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
                               Model model) throws Exception{
@@ -315,7 +318,7 @@ public class BoardController {
         String location2;
 
         //주소 설정
-        if(searchDto.getLocation1() != null) {
+        if(!Objects.equals(searchDto.getLocation1(), "")) {
             location1 = addressMap.get(searchDto.getLocation1());
             if(searchDto.getLocation2() != null) {
                 location2 = searchDto.getLocation2();
@@ -323,6 +326,8 @@ public class BoardController {
             } else {
                 searchDto.setLocation(location1);
             }
+        } else {
+            searchDto.setLocation(null);
         }
 
         //on_off 설정
@@ -334,19 +339,22 @@ public class BoardController {
 
         //검색 게시글 개수
         Integer totalRecordCount = boardService.getCountBySearching(searchDto);
+        log.info("searchDto={}", searchDto);
+        log.info("totalRecordCount={}", totalRecordCount);
         if(totalRecordCount != 0) {
             //페이징
             Pagination pagination = paging(currentPage, pageSize, totalRecordCount, model);
 
             //게시글 목록 정보 담기
-            model.addAttribute("list", boardService.getStudyBoardList(id, pagination));
+            model.addAttribute("list", boardService.getSearchStudyBoardList(id, searchDto, pagination));
+            model.addAttribute("searchDto", searchDto);
 
-            return "index";
+            return "board/boardSearching";
         } else {
             //게시글 검색 결과가 없는 경우
             model.addAttribute("list", null);
 
-            return "index";
+            return "board/boardSearching";
         }
     }
 
@@ -384,9 +392,8 @@ public class BoardController {
     }
 
     /**
-     * 내 스터디 목록 보기
+     * 회원이 작성한 게시글 목록 보기
      * @param model
-     * @param request
      * @param currentPage
      * @param pageSize
      * @param id
@@ -394,74 +401,28 @@ public class BoardController {
      */
     @GetMapping("/studyList/{id}")
     public String studyList(Model model,
-                      HttpServletRequest request,
                       @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
                       @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
                       @PathVariable Integer id) {
 
-        Integer totalRecordCount = boardService.getCountById(id);
-        if (totalRecordCount != 0) {
-            //페이징
-            Pagination pagination = paging(currentPage, pageSize, totalRecordCount, model);
-
-            //게시글 개수 세팅
-            pagination.setTotalRecordCount(totalRecordCount);
-
-            //세션에서 아이디값 가져오기
-            HttpSession session = request.getSession(false);
-            if (session != null && session.getAttribute("id") != null) { //로그인 되어있는 경우
-                Integer user_id = (int) session.getAttribute("id");
-                model.addAttribute("list", boardService.getStudyBoardListAll(user_id, pagination));
-            } else { //로그인 되어있지 않은 경우
-                Integer user_id = null;
-                model.addAttribute("list", boardService.getStudyBoardListAll(user_id, pagination));
-            }
-
-            //아이디값 담기
-            model.addAttribute("id", id);
-
-            return "board/myStudyList";
-        } else { //게시글 작성 목록이 없는 경우
-            model.addAttribute("list", null);
-            return "board/myStudyList";
-        }
+        return getUserStudyList(model, currentPage, pageSize, id);
     }
 
+    /**
+     * 작성한 게시글 목록 페이징
+     * @param currentPage
+     * @param pageSize
+     * @param id
+     * @param model
+     * @return String
+     */
     @GetMapping("/studyList")
     public String studyListIndex(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
                                  @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
                                  @RequestParam Integer id,
-                                 Model model,
-                                 HttpServletRequest request) {
+                                 Model model) {
 
-        Integer totalRecordCount = boardService.getCountById(id);
-        if (totalRecordCount != 0) {
-            //페이징
-            Pagination pagination = paging(currentPage, pageSize, totalRecordCount, model);
-
-            //게시글 개수 세팅
-            pagination.setTotalRecordCount(totalRecordCount);
-
-            model.addAttribute("pagination", pagination);
-
-            //세션에서 아이디값 가져오기
-            HttpSession session = request.getSession(false);
-            if (session != null && session.getAttribute("id") != null) { //로그인 되어있는 경우
-                Integer user_id = (int) session.getAttribute("id");
-                model.addAttribute("list", boardService.getStudyBoardListAll(user_id, pagination));
-            } else { //로그인 되어있지 않은 경우
-                Integer user_id = null;
-                model.addAttribute("list", boardService.getStudyBoardListAll(user_id, pagination));
-            }
-
-            //아이디값 담기
-            model.addAttribute("id", id);
-
-            return "board/myStudyList";
-        } else { //게시글 작성 목록이 없는 경우
-            model.addAttribute("list", null);
-            return "board/myStudyList";
-        }
+        return getUserStudyList(model, currentPage, pageSize, id);
     }
 
 
@@ -527,13 +488,51 @@ public class BoardController {
         return pagination;
     }
 
-    //댓글 여부 확인 메서드
+    /**
+     * 댓글 여부 확인 메서드
+     * @param model
+     * @param id
+     */
     private void commentCheck(Model model, int id) {
         List<CommentDto> comments = commentService.getComment(id);
         if (comments.isEmpty()) {
             model.addAttribute("comments", null);
         } else {
             model.addAttribute("comments", comments);
+        }
+    }
+
+
+    /**
+     * 회원 게시글 가져오기
+     * @param model
+     * @param currentPage
+     * @param pageSize
+     * @param id
+     * @return String
+     */
+    private String getUserStudyList(Model model, int currentPage, int pageSize, Integer id) {
+        Integer totalRecordCount = boardService.getCountById(id);
+        if (totalRecordCount != 0) {
+            //페이징
+            Pagination pagination = paging(currentPage, pageSize, totalRecordCount, model);
+
+            //게시글 개수 세팅
+            pagination.setTotalRecordCount(totalRecordCount);
+
+            //페이징
+            model.addAttribute("pagination", pagination);
+
+            //회원의 작성글 가져오기
+            model.addAttribute("list", boardService.getMyStudyBoardList(id, pagination));
+
+            //아이디값 담기
+            model.addAttribute("id", id);
+
+            return "board/myStudyList";
+        } else { //게시글 작성 목록이 없는 경우
+            model.addAttribute("list", null);
+            return "board/myStudyList";
         }
     }
 
