@@ -150,7 +150,7 @@ $("#floatingDelete").click(function(){
                 alert("회원정보가 성공적으로 삭제되었습니다.");
                 location.href = "/";
             }).fail(function (error) {
-                alert(JSON.stringify(error));
+                alert("다시 시도해주세요.");
             });
         }
     } else {
