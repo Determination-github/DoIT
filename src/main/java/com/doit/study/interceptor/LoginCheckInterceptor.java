@@ -4,6 +4,7 @@ import com.doit.study.alarm.dto.AlarmDto;
 import com.doit.study.alarm.service.AlarmService;
 import com.doit.study.member.SessionConst;
 import com.doit.study.member.dto.MemberDto;
+import com.doit.study.member.dto.SocialDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +56,8 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         if(session!=null) {
 
-            MemberDto naverDto = (MemberDto) session.getAttribute(SessionConst.NAVER_MEMBER);
-            MemberDto kakaoDto = (MemberDto) session.getAttribute(SessionConst.KAKAO_MEMBER);
+            SocialDto naverDto = (SocialDto) session.getAttribute(SessionConst.NAVER_MEMBER);
+            SocialDto kakaoDto = (SocialDto) session.getAttribute(SessionConst.KAKAO_MEMBER);
             MemberDto memberDto = (MemberDto) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
             log.info("naverDto = " + naverDto);
@@ -64,14 +65,14 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             log.info("memberDto = " + memberDto);
 
             if (naverDto != null) {
-                id = naverDto.getId();
-                nickName = naverDto.getNickname();
+                id = naverDto.getUser_id();
+                nickName = naverDto.getSocialNickname();
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
                 getAlarm(session, id);
             } else if (kakaoDto != null) {
-                id = kakaoDto.getId();
-                nickName = kakaoDto.getNickname();
+                id = kakaoDto.getUser_id();
+                nickName = kakaoDto.getSocialNickname();
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
                 getAlarm(session, id);

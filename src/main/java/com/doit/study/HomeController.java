@@ -9,6 +9,7 @@ import com.doit.study.member.dto.MemberDto;
 import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.service.BoardService;
 
+import com.doit.study.member.dto.SocialDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -54,19 +55,19 @@ public class HomeController {
 
         if(session!=null) {
 
-            MemberDto naverDto = (MemberDto) session.getAttribute(SessionConst.NAVER_MEMBER);
-            MemberDto kakaoDto = (MemberDto) session.getAttribute(SessionConst.KAKAO_MEMBER);
+            SocialDto naverDto = (SocialDto) session.getAttribute(SessionConst.NAVER_MEMBER);
+            SocialDto kakaoDto = (SocialDto) session.getAttribute(SessionConst.KAKAO_MEMBER);
             MemberDto memberDto = (MemberDto) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
             if (naverDto != null) {
-                id = naverDto.getId();
-                nickName = naverDto.getNickname();
+                id = naverDto.getUser_id();
+                nickName = naverDto.getSocialNickname();
                 setSessionInfo(session, id, nickName);
                 //알람 가져오기
                 getAlarm(session, id);
             } else if (kakaoDto != null) {
-                id = kakaoDto.getId();
-                nickName = kakaoDto.getNickname();
+                id = kakaoDto.getUser_id();
+                nickName = kakaoDto.getSocialNickname();
                 setSessionInfo(session, id, nickName);
                 //알람 가져오기
                 getAlarm(session, id);
