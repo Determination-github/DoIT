@@ -94,7 +94,6 @@
         </div>
       <div class="container2 mt-3">
         <div class="row gx-4 gx-lg-5">
-
         <th:block th:each="list : ${list}">
           <div class="col-md-4 mb-5">
             <div class="card h-100 shadow border-0">
@@ -184,36 +183,38 @@
           </div>
         </th:block>
 
-        <div class="display-flex-row mt-3">
-          <div class="m-auto">
-            <div class="dataTables_paginate paging_simple_numbers">
-              <ul class="pagination">
-                <th:block th:if="${pagination.hasPreviousPage}">
-                  <li class="paginate_button page-item">
-                    <a class="page-link" aria-label="Previous"
-                       th:href="@{/board/list(currentPage = ${pagination.currentPage}-1)}">
-                      <span aria-hidden="true"><</span>
-                    </a>
-                  </li>
-                </th:block>
-                <th:block th:if="${pagination.totalRecordCount} != 0">
-                  <li class="paginate_button page-item active" th:each="idx : ${#numbers.sequence(pagination.firstPage,pagination.lastPage)}"
-                      th:class="${idx == pagination.currentPage} ? 'page-item active'">
-                    <a class="page-link" th:id="${idx}" th:href="@{'/board/list?currentPage='+${idx}}" th:text="${idx}"> 1 </a>
-                  </li>
-                </th:block>
-                <th:block th:if="${pagination.hasNextPage}">
-                  <li class="paginate_button page-item">
-                    <a class="page-link" aria-label="Next"
-                       th:href="@{/board/list(currentPage = ${pagination.currentPage}+1)}">
-                      <span aria-hidden="true">></span>
-                    </a>
-                  </li>
-                </th:block>
-              </ul>
+        <th:block th:if="${pagination != null}">
+          <div class="display-flex-row mt-3">
+            <div class="m-auto">
+              <div class="dataTables_paginate paging_simple_numbers">
+                <ul class="pagination">
+                  <th:block th:if="${pagination.hasPreviousPage}">
+                    <li class="paginate_button page-item">
+                      <a class="page-link" aria-label="Previous"
+                         th:href="@{/board/list(currentPage = ${pagination.currentPage}-1)}">
+                        <span aria-hidden="true"><</span>
+                      </a>
+                    </li>
+                  </th:block>
+                  <th:block th:if="${pagination.totalRecordCount} != 0">
+                    <li class="paginate_button page-item active" th:each="idx : ${#numbers.sequence(pagination.firstPage,pagination.lastPage)}"
+                        th:class="${idx == pagination.currentPage} ? 'page-item active'">
+                      <a class="page-link" th:id="${idx}" th:href="@{'/board/list?currentPage='+${idx}}" th:text="${idx}"> 1 </a>
+                    </li>
+                  </th:block>
+                  <th:block th:if="${pagination.hasNextPage}">
+                    <li class="paginate_button page-item">
+                      <a class="page-link" aria-label="Next"
+                         th:href="@{/board/list(currentPage = ${pagination.currentPage}+1)}">
+                        <span aria-hidden="true">></span>
+                      </a>
+                    </li>
+                  </th:block>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
+        </th:block>
         </div>
       </div>
     </div>
