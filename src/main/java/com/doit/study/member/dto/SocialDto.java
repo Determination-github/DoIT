@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class SocialDto implements Serializable {
 
-    private int user_id;
+    private Integer user_id;
 
     @NotEmpty
     private String token, socialId, socialEmail, socialName, socialNickname, socialGender;
@@ -53,7 +53,7 @@ public class SocialDto implements Serializable {
                 .build();
     }
 
-    public Social toSocial(int user_id, String socialId, String social_type, String token) {
+    public Social toSocial(Integer user_id, String socialId, String social_type, String token) {
         return Social.builder()
                 .user_id(user_id)
                 .social_id(socialId)
