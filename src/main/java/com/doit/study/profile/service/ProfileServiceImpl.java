@@ -98,7 +98,7 @@ public class ProfileServiceImpl implements ProfileService{
                 kakaoService.unlinkKakao(token);
             }
         } else { //일반 회원 탈퇴
-            memberMapper.deleteMemberById(result);
+            memberMapper.deleteMemberById(profileDto.getId());
         }
     }
 }
