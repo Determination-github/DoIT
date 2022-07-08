@@ -56,8 +56,8 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         if(session!=null) {
 
-            SocialDto naverDto = (SocialDto) session.getAttribute(SessionConst.NAVER_MEMBER);
-            SocialDto kakaoDto = (SocialDto) session.getAttribute(SessionConst.KAKAO_MEMBER);
+            MemberDto naverDto = (MemberDto) session.getAttribute(SessionConst.NAVER_MEMBER);
+            MemberDto kakaoDto = (MemberDto) session.getAttribute(SessionConst.KAKAO_MEMBER);
             MemberDto memberDto = (MemberDto) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
             log.info("naverDto = " + naverDto);
@@ -65,14 +65,14 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             log.info("memberDto = " + memberDto);
 
             if (naverDto != null) {
-                id = naverDto.getUser_id();
-                nickName = naverDto.getSocialNickname();
+                id = naverDto.getId();
+                nickName = naverDto.getNickname();
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
                 getAlarm(session, id);
             } else if (kakaoDto != null) {
-                id = kakaoDto.getUser_id();
-                nickName = kakaoDto.getSocialNickname();
+                id = kakaoDto.getId();
+                nickName = kakaoDto.getNickname();
                 session.setAttribute("id", id);
                 session.setAttribute("nickName", nickName);
                 getAlarm(session, id);

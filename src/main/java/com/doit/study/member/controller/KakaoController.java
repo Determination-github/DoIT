@@ -125,7 +125,21 @@ public class KakaoController {
         //오류가 없으면 회원가입 실행
         kakaoDto = memberService.joinSocial(kakaoDto);
 
-        session.setAttribute(SessionConst.KAKAO_MEMBER, kakaoDto);
+        //MemberDto로 전환
+        MemberDto memberDto = toMemberDto(kakaoDto);
+
+        session.setAttribute(SessionConst.KAKAO_MEMBER, memberDto);
         return "redirect:";
+    }
+
+    /**
+     * MemberDto로 전환
+     * @param kakaoDto
+     */
+    private MemberDto toMemberDto(SocialDto kakaoDto) {
+        MemberDto memberDto = new MemberDto();
+        memberDto.setId(kakaoDto.getUser_id());
+        memberDto.setNickname(kakaoDto.getSocialNickname());
+        return memberDto;
     }
 }

@@ -141,8 +141,22 @@ public class NaverController {
         //오류가 없으면 회원가입 실행
         naverDto = memberService.joinSocial(naverDto);
 
-        session.setAttribute(SessionConst.NAVER_MEMBER, naverDto);
+        //MemberDto로 전환
+        MemberDto memberDto = toMemberDto(naverDto);
+
+        session.setAttribute(SessionConst.NAVER_MEMBER, memberDto);
         return "redirect:";
+    }
+
+    /**
+     * MemberDto로 전환
+     * @param naverDto
+     */
+    private MemberDto toMemberDto(SocialDto naverDto) {
+        MemberDto memberDto = new MemberDto();
+        memberDto.setId(naverDto.getUser_id());
+        memberDto.setNickname(naverDto.getSocialNickname());
+        return memberDto;
     }
 
 }
