@@ -111,14 +111,12 @@ public class S3Uploader {
         profileDto.setId(id);
 
         Profile profile = profileDto.toEntity(profileDto);
-        log.info("id={}, fileId={}, fileName={}, path={}", profile.getId(), profile.getFile_id(), profile.getFile_origin_name(), profile.getFile_path());
 
         //기존 프로필 삭제
         profileMapper.deleteProfile(id);
 
         //DB 저장
         Integer result = profileMapper.insert(profile);
-        log.info("profile db 저장");
 
         if(result != null) {
             removeNewFile(uploadFile);
@@ -159,7 +157,7 @@ public class S3Uploader {
      * @throws IOException
      */
     private Optional<File> convert(MultipartFile file) throws IOException {
-        File convertFile = new File(System.getProperty("user.dir") + "/" + file.getOriginalFilename());
+        File convertFile = new File(System.getProperty("user.home") + "/" + file.getOriginalFilename());
         if (convertFile.createNewFile()) { // 바로 위에서 지정한 경로에 File이 생성됨 (경로가 잘못되었다면 생성 불가능)
             try (FileOutputStream fos = new FileOutputStream(convertFile)) { // FileOutputStream 데이터를 파일에 바이트 스트림으로 저장하기 위함
                 fos.write(file.getBytes());
