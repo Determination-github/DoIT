@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<th:block layout:fragment="extraCSS">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/css/home.css">
+    <!--===============================================================================================-->
+</th:block>
+<body  class="d-flex flex-column h-100">
+<div layout:fragment="content" class="max-width">
+<main class="flex-shrink-0">
+  <section class="study">
+    <div class="container col-lg-10">
+      <div class="row row5">
+        <form class="formSearch" action="/board/search" method="get">
+          <h5 class="mt-5">원하는 스터디 그룹을 찾아보세요 🔎</h5>
+          <div class="card mb-2">
+            <div class="card-body p-2 mt-1">
+              <div class="row mb-2">
+                <div class="col-2 text-center">
+                  <label class="col-form-label" for="firstZone">
+                    <h6 class="mb-0">지역</h6>
+                  </label>
+                </div>
+                <div class="col-4">
+                  <select id="firstZone" name="location1" class="form-control" th:value="${searchDto.location1}" onchange="zone_change(this.value, secondZone)">
+                    <option value="">선택하세요.</option>
+                    <option value="1">서울특별시</option>
+                    <option value="2">부산광역시</option>
+                    <option value="3">대구광역시</option>
+                    <option value="4">인천광역시</option>
+                    <option value="5">광주광역시</option>
+                    <option value="6">대전광역시</option>
+                    <option value="7">울산광역시</option>
+                    <option value="8">강원도</option>
+                    <option value="9">경기도</option>
+                    <option value="10">경상남도</option>
+                    <option value="11">경상북도</option>
+                    <option value="12">전라남도</option>
+                    <option value="13">전라북도</option>
+                    <option value="14">충청남도</option>
+                    <option value="15">충청북도</option>
+                    <option value="16">제주도</option>
+                  </select>
+                </div>
+                <div class="col-4">
+                  <select id="secondZone" name="location2" class="form-control">
+                    <option>선택하세요.</option>
+                  </select>
+                </div>
+                <div class="col-2">
+                  <div class="form-check pl-0 py-1">
+                    <input type="checkbox" onclick="is_checked()" name="online" id="onOffLine" class="form-check-inline mr-1">
+                    <input type="hidden" name="_online" class="form-check-inline mr-1" value="on">
+                    <label class="form-check-label online" for="onOffLine">Online</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-2 mt-1">
+              <div class="row mb-2">
+                <div class="col-2 text-center">
+                  <label class="col-form-label" for="searchKeyword">
+                    <h6 class="mb-0">검색어</h6>
+                  </label>
+                </div>
+                <div class="col-8">
+                  <input type="text" id="searchKeyword" name="keyword" class="form-control" th:value="${searchDto.keyword}" placeholder="찾고있는 스터디를 검색해보세요.">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col text-end">
+              <button type="submit" id="search" class="btn btn-sm btn-primary btn-search">검색하기</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="row mt-4">
+        <div class="col-8">
+          <h2 class="fw-bolder fs-4 mb-4">스터디그룹</h2>
+        </div>
+        <div class="col text-end">
+          <th:block th:if="${session.nickName != null}">
+            <a class="text-decoration-none btn btn-primary" th:href="@{/board/write}">
+              <i class="bi bi-plus-lg"></i>
+              스터디그룹
+            </a>
+          </th:block>
+        </div>
+      </div>
+      <div class="container2 mt-3">
+        <div class="row gx-4 gx-lg-5">
+        <th:block th:each="list : ${list}">
+          <div class="col-md-4 mb-5">
+            <div class="card h-100 shadow border-0">
+              <div class="row">
+                <div class="col-4 mt-2 ms-4">
+                  <div class="badge bg-gradient rounded-pill mb-2" >[[${list.board_interest1}]]</div>
+                </div>
+                <div class="col-6 text-end mt-2">
+                  <th:block th:if="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')} <= ${list.board_endDate}">
+                    <div id="recruit_on" class="badge bg-gradient rounded-pill mb-2 bg-primary">모집 중</div>
+                  </th:block>
+                </div>
+              </div>
+
+              <div class="card-body">
+
+                <h2 class="card-title">
+                    <a th:href="@{/board/result/{id}(id = ${list.board_id})}">
+                        [[${list.board_title}]]([[${list.board_commentCount}]])
+                    </a>
+                </h2>
+
+                <div class="row">
+                  <div class="col">
+                    <h6 class="d-inline">
+                      <span class="badge bg-gradient rounded-pill mb-2 text-dark">#[[${list.board_interest2}]]</span>
+                      <span class="badge bg-gradient rounded-pill mb-2 text-dark">#[[${list.board_interest3}]]</span>
+                    </h6>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <h6 class="d-inline">
+                      <span class="badge badge-info mr-1">
+                        <th:block th:if="${list.board_on_off}==1">
+                          <i class="bi bi-globe"></i>
+                          온라인
+                        </th:block>
+                        <th:block th:if="${list.board_on_off}==0">
+                          <i class="bi bi-geo-alt"></i>
+                          [[${list.board_location}]]
+                        </th:block>
+                      </span>
+                      <th:block th:if="${list.board_writerId} != ${session.id}">
+                        <input type="hidden" th:id="'boardId'+${list.board_id}" th:value="${list.board_id}">
+                        <th:block th:if="!${list.board_like}">
+                          <button class="btn_like" id="btn_like" th:value="${list.board_id}">
+                            <i class="bi-heart"></i>
+                          </button>
+                        </th:block>
+                        <th:block th:if="${list.board_like}">
+                          <button class="btn_like_delete" id="btn_like_delete" th:value="${list.board_id}">
+                            <i class="bi-heart-fill"></i>
+                          </button>
+                        </th:block>
+                      </th:block>
+                    </h6>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="align-items-end justify-content-between m-lg-2">
+                <div class="d-flex align-items-center">
+                  <th:block th:if="${list.path} == null">
+                    <div class="radius-circle circle-margin">
+                      <img class="rounded-circle " src="https://doitstudybucket.s3.ap-northeast-2.amazonaws.com/profileImageUpload/user.png" id="profile-default-img">
+                    </div>
+                  </th:block>
+                  <th:block th:if="${list.path} != null">
+                    <div class="radius-circle circle-margin">
+                      <img class="rounded-circle " th:src="${list.path}" id="profile-img">
+                    </div>
+                  </th:block>
+                  <div class="small">
+                    <div class="fw-bold">[[${list.writer_nickName}]]</div>
+                    <div class="text-muted">[[${#dates.format(list.board_regDate, 'yyyy-MM-dd')}]]</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </th:block>
+
+        <th:block th:if="${list} == null">
+          <div class="alert alert-danger" role="alert">
+            찾는 스터디가 존재하지 않습니다.
+          </div>
+        </th:block>
+
+        <th:block th:if="${pagination != null}">
+          <div class="display-flex-row mt-3">
+            <div class="m-auto">
+              <div class="dataTables_paginate paging_simple_numbers">
+                <ul class="pagination">
+                  <th:block th:if="${pagination.hasPreviousPage}">
+                    <li class="paginate_button page-item">
+                      <a class="page-link" aria-label="Previous"
+                        th:href="@{/board/search(currentPage = ${pagination.currentPage}-1, keyword = ${searchDto.keyword}, online = ${searchDto.online}, location1=${searchDto.location1}, location2=${searchDto.location2})}">
+                        <span aria-hidden="true"><</span>
+                      </a>
+                    </li>
+                  </th:block>
+                  <th:block th:if="${pagination.totalRecordCount} != 0">
+                    <li class="paginate_button page-item active" th:each="idx : ${#numbers.sequence(pagination.firstPage,pagination.lastPage)}"
+                      th:class="${idx == pagination.currentPage} ? 'page-item active'">
+                      <a class="page-link" th:id="${idx}"
+                      th:href="@{'/board/search?currentPage='+${idx}+'&keyword='+${searchDto.keyword}}+'&online='+${searchDto.online}+'&location1='+${searchDto.location1}+'&location2='+${searchDto.location2}" th:text="${idx}"> 1 </a>
+                    </li>
+                  </th:block>
+                  <th:block th:if="${pagination.hasNextPage}">
+                    <li class="paginate_button page-item">
+                      <a class="page-link" aria-label="Next"
+                        th:href="@{/board/search(currentPage = ${pagination.currentPage}+1, keyword = ${searchDto.keyword}, online = ${searchDto.online}, location1=${searchDto.location1}, location2=${searchDto.location2})}">
+                        <span aria-hidden="true">></span>
+                      </a>
+                    </li>
+                  </th:block>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </th:block>
+      </div>
+    </div>
+  </div>
+  </section>
+</main>
+</div>
+</body>
+<th:block layout:fragment="extraJs">
+    <script src="/js/zone.js" defer></script>
+    <script src="/js/category.js" defer></script>
+    <script src="/js/like.js" defer></script>
+    <script src="/js/search.js" defer></script>
+    <script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+
+            const session_id = [[${session.id}]]
+            const session_nickname = [[${session.nickName}]]
+            const location1 = [[${searchDto.location1}]]
+            const location2 = [[${searchDto.location2}]]
+            const onOff = [[${searchDto.online}]]
+
+		/*]]>*/
+</script>
+</th:block>
+</html>
