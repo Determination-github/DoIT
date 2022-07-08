@@ -332,15 +332,13 @@ public class BoardController {
 
         //on_off 설정
         if(searchDto.isOnline()) {
-            searchDto.setOn_off("1");
+            searchDto.setOn_off(1);
         } else {
-            searchDto.setOn_off("0");
+            searchDto.setOn_off(0);
         }
 
         //검색 게시글 개수
         Integer totalRecordCount = boardService.getCountBySearching(searchDto);
-        log.info("searchDto={}", searchDto);
-        log.info("totalRecordCount={}", totalRecordCount);
         if(totalRecordCount != 0) {
             //페이징
             Pagination pagination = paging(currentPage, pageSize, totalRecordCount, model);

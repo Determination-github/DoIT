@@ -39,7 +39,14 @@ public class BoardSQL {
             "SELECT * FROM SR_MOIM_TB WHERE study_id = #{study_id}";
 
     //검색어로 스터디 글 개수 가져오기
-    public static final String getCountByKeyword =
+    public static final String getOnlineBoardCountByKeyword =
+            "SELECT count(*) FROM " +
+                    "(SELECT * FROM SR_MOIM_TB WHERE on_off = #{searchDto.on_off}) sub" +
+                    " WHERE sub.title like IFNULL(CONCAT('%',#{searchDto.keyword},'%'), '%%') " +
+                    "OR sub.content like IFNULL(CONCAT('%',#{searchDto.keyword},'%'), '%%')";
+
+    //검색어로 스터디 글 개수 가져오기
+    public static final String getOfflineBoardCountByKeyword =
             "SELECT count(*) FROM " +
                     "(SELECT * FROM SR_MOIM_TB WHERE on_off = #{searchDto.on_off} and location like IFNULL(CONCAT('%',#{searchDto.location},'%'), '%%')) sub" +
                     " WHERE sub.title like IFNULL(CONCAT('%',#{searchDto.keyword},'%'), '%%') " +
@@ -60,10 +67,18 @@ public class BoardSQL {
     public static final String getCountById =
             "SELECT COUNT(*) FROM SR_MOIM_TB WHERE id = #{id}";
 
-    //검색어로 스터디 글 가져오기
-    public static final String getBoardByKeyword =
+    //검색어로 오프라인 스터디 글 가져오기
+    public static final String getOfflineBoardByKeyword =
             "SELECT * FROM " +
                     "(SELECT * FROM SR_MOIM_TB WHERE on_off = #{searchDto.on_off} and location like IFNULL(CONCAT('%',#{searchDto.location},'%'), '%%')) sub" +
+                    " WHERE sub.title like IFNULL(CONCAT('%',#{searchDto.keyword},'%'), '%%') " +
+                    "OR sub.content like IFNULL(CONCAT('%',#{searchDto.keyword},'%'), '%%') " +
+                    "AND DATE_FORMAT(NOW(), '%Y-%m-%d') <= schedule_end ORDER BY study_id DESC LIMIT ${pagination.firstRecordIndex} , ${pagination.countPerPage}";
+
+    //검색어로 온라인 스터디 글 가져오기
+    public static final String getOnlineBoardByKeyword =
+            "SELECT * FROM " +
+                    "(SELECT * FROM SR_MOIM_TB WHERE on_off = #{searchDto.on_off}) sub" +
                     " WHERE sub.title like IFNULL(CONCAT('%',#{searchDto.keyword},'%'), '%%') " +
                     "OR sub.content like IFNULL(CONCAT('%',#{searchDto.keyword},'%'), '%%') " +
                     "AND DATE_FORMAT(NOW(), '%Y-%m-%d') <= schedule_end ORDER BY study_id DESC LIMIT ${pagination.firstRecordIndex} , ${pagination.countPerPage}";

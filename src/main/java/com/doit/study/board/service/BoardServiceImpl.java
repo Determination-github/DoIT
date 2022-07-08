@@ -307,7 +307,16 @@ public class BoardServiceImpl implements BoardService {
      */
     @Override
     public Integer getCountBySearching(SearchDto searchDto) {
-        return boardMapper.getCountByKeyword(searchDto);
+
+        Integer count;
+
+        //온라인 오프라인 구분하기
+        if(searchDto.getOn_off().equals(1)) {
+            count = boardMapper.getOnlineBoardCountByKeyword(searchDto);
+        } else {
+            count = boardMapper.getOfflineBoardCountByKeyword(searchDto);
+        }
+        return count;
     }
 
     /**
@@ -319,7 +328,13 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<BoardDto> getSearchStudyBoardList(Integer id, SearchDto searchDto, Pagination pagination) {
         //boardlist 가져오기
-        List<Board> boardList = boardMapper.selectSearchPage(searchDto, pagination);
+        List<Board> boardList;
+
+        if(searchDto.getOn_off().equals(1)) {
+            boardList = boardMapper.selectOnlineSearchPage(searchDto, pagination);
+        } else {
+            boardList = boardMapper.selectOfflineSearchPage(searchDto, pagination);
+        }
 
         //boardlist를 담을 board dto 리스트 객체 생성
         List<BoardDto> boardDtos = new ArrayList<>();

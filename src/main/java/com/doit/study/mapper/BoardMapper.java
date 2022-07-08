@@ -46,9 +46,13 @@ public interface BoardMapper {
     @Select(BoardSQL.getBoard)
     Optional<Board> findById(@Param("study_id") int study_id);
 
-    //검색한 내용으로 게시글 개수 가져오기
-    @Select(BoardSQL.getCountByKeyword)
-    Integer getCountByKeyword(@Param("searchDto") SearchDto searchDto);
+    //검색한 온라인 스터디 내용으로 게시글 개수 가져오기
+    @Select(BoardSQL.getOnlineBoardCountByKeyword)
+    Integer getOnlineBoardCountByKeyword(@Param("searchDto") SearchDto searchDto);
+
+    //검색한 오프라인 스터디 내용으로 게시글 개수 가져오기
+    @Select(BoardSQL.getOfflineBoardCountByKeyword)
+    Integer getOfflineBoardCountByKeyword(@Param("searchDto") SearchDto searchDto);
 
     //게시글 업데이트
     @Update(BoardSQL.updateBoard)
@@ -62,9 +66,14 @@ public interface BoardMapper {
     @Select(BoardSQL.getCountById)
     Integer getCountById(int id);
 
-    //검색어로 스터디 글 가져오기
-    @Select(BoardSQL.getBoardByKeyword)
-    List<Board> selectSearchPage(@Param("searchDto") SearchDto searchDto,
+    //검색어로 오프라인 스터디 글 가져오기
+    @Select(BoardSQL.getOfflineBoardByKeyword)
+    List<Board> selectOfflineSearchPage(@Param("searchDto") SearchDto searchDto,
+                                 @Param("pagination") Pagination pagination);
+
+    //검색어로 온라인 스터디 글 가져오기
+    @Select(BoardSQL.getOnlineBoardByKeyword)
+    List<Board> selectOnlineSearchPage(@Param("searchDto") SearchDto searchDto,
                                  @Param("pagination") Pagination pagination);
 
     @Select(BoardSQL.getMyStudyList)
