@@ -15,8 +15,8 @@ public interface BoardService {
     //모집 중인 전체 스터디 글 가져오기
     List<BoardDto> getStudyBoardList(Integer id, Pagination pagination);
 
-    //전체 스터디 글 가져오기
-    List<BoardDto> getStudyBoardListAll(Integer id, Pagination pagination);
+    //회원 게시글 가져오기
+    List<BoardDto> getMyStudyBoardList(Integer id, Pagination pagination);
 
     //위시리스트 스터디 글 가져오기
     List<BoardDto> getWishlistBoardListAll(Integer id, List<WishlistDto> wishlist, Pagination pagination);
@@ -41,6 +41,9 @@ public interface BoardService {
 
     //검색 내용에 따른 게시글 개수
     Integer getCountBySearching(SearchDto searchDto);
+
+    //검색한 스터디 글 가져오기
+    List<BoardDto> getSearchStudyBoardList(Integer id, SearchDto searchDto, Pagination pagination);
 
 }
 
