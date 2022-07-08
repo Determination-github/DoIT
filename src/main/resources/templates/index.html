@@ -14,7 +14,7 @@
   <section class="study">
     <div class="container col-lg-10">
       <div class="row row5">
-        <form class="formSearch" action="/board/search" method="post">
+        <form class="formSearch" action="/board/search" method="get">
           <h5 class="mt-5">원하는 스터디 그룹을 찾아보세요 🔎</h5>
           <div class="card mb-2">
             <div class="card-body p-2 mt-1">
@@ -52,9 +52,9 @@
                 </div>
                 <div class="col-2">
                   <div class="form-check pl-0 py-1">
-                    <input type="checkbox" onclick="is_checked()" name="online" id="online" class="form-check-inline mr-1">
+                    <input type="checkbox" onclick="is_checked()" name="online" id="onOffLine" class="form-check-inline mr-1">
                     <input type="hidden" name="_online" class="form-check-inline mr-1" value="on">
-                    <label class="form-check-label online" for="online">Online</label>
+                    <label class="form-check-label online" for="onOffline">Online</label>
                   </div>
                 </div>
               </div>
@@ -62,14 +62,14 @@
             <div class="card-body p-2 mt-1">
               <div class="row mb-2">
                 <div class="col-2 text-center">
-                    <label class="col-form-label" for="searchKeyword">
-                      <h6 class="mb-0">검색어</h6>
-                    </label>
-                  </div>
-                  <div class="col-8">
-                    <input type="text" id="searchKeyword" name="keyword" class="form-control" placeholder="찾고있는 스터디를 검색해보세요.">
-                  </div>
+                  <label class="col-form-label" for="searchKeyword">
+                    <h6 class="mb-0">검색어</h6>
+                  </label>
                 </div>
+                <div class="col-8">
+                  <input type="text" id="searchKeyword" name="keyword" class="form-control" placeholder="찾고있는 스터디를 검색해보세요.">
+                </div>
+              </div>
             </div>
           </div>
           <div class="row">
@@ -79,19 +79,19 @@
           </div>
         </form>
       </div>
-        <div class="row mt-4">
-          <div class="col-8">
-            <h2 class="fw-bolder fs-4 mb-4">스터디그룹</h2>
-          </div>
-          <div class="col text-end">
-            <th:block th:if="${session.nickName != null}">
-            <a class="text-decoration-none btn btn-primary" th:href="@{/board/write}">
-              <i class="bi bi-plus-lg"></i>
-              스터디그룹
-            </a>
-            </th:block>
-          </div>
+      <div class="row mt-4">
+        <div class="col-8">
+          <h2 class="fw-bolder fs-4 mb-4">스터디그룹</h2>
         </div>
+        <div class="col text-end">
+          <th:block th:if="${session.nickName != null}">
+          <a class="text-decoration-none btn btn-primary" th:href="@{/board/write}">
+            <i class="bi bi-plus-lg"></i>
+            스터디그룹
+          </a>
+          </th:block>
+        </div>
+      </div>
       <div class="container2 mt-3">
         <div class="row gx-4 gx-lg-5">
         <th:block th:each="list : ${list}">
@@ -154,7 +154,9 @@
                     </h6>
                   </div>
                 </div>
+
               </div>
+
               <div class="align-items-end justify-content-between m-lg-2">
                 <div class="d-flex align-items-center">
                   <th:block th:if="${list.path} == null">
