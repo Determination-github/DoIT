@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -123,6 +124,7 @@ public class NaverController {
      * @param session
      */
     @PostMapping("/join/naver")
+    @Transactional
     public String naverJoin(@Valid @ModelAttribute("naverDto") SocialDto naverDto,
                             BindingResult bindingResult,
                             HttpSession session) throws Exception {
@@ -132,6 +134,9 @@ public class NaverController {
             log.info("error={}", bindingResult);
             return "members/naverJoinForm";
         }
+
+        //social_type 설정
+        naverDto.setSocial_type("naver");
 
         //오류가 없으면 회원가입 실행
         naverDto = memberService.joinSocial(naverDto);
