@@ -64,11 +64,15 @@ public class MemberServiceImpl implements MemberService{
 
         if(result != null) {
             //가입 정보 가져오기
-            int id = memberMapper.findLastId();
+            Integer user_id = memberMapper.findLastId();
+
+            socialDto.setUser_id(user_id);
 
             //dto to entity
-            Social social = socialDto.toSocial(id, socialDto.getSocialId(),
+            Social social = socialDto.toSocial(socialDto.getUser_id(), socialDto.getSocialId(),
                                 socialDto.getSocial_type(), socialDto.getToken());
+
+            log.info("socialDto={}", socialDto);
 
             //social 회원 정보 저장
             Integer socialResult = memberMapper.insertSocial(social);
