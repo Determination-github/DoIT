@@ -6,6 +6,7 @@ import com.doit.study.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,6 +53,7 @@ public class JoinController {
      * @param bindingResult
      */
     @PostMapping
+    @Transactional
     public String join(@Valid @ModelAttribute("memberDto") MemberDto memberDto, BindingResult bindingResult) throws Exception {
         //유효성 검사
         if(bindingResult.hasErrors()) {
