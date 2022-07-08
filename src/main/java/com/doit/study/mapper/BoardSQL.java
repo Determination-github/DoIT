@@ -8,8 +8,8 @@ public class BoardSQL {
     public static final String selectPage =
             "SELECT * FROM SR_MOIM_TB WHERE DATE_FORMAT(NOW(), '%Y-%m-%d') <= schedule_end ORDER BY study_id DESC LIMIT ${pagination.firstRecordIndex} , ${pagination.countPerPage}";
 
-    public static final String selectPageAll =
-            "SELECT * FROM SR_MOIM_TB ORDER BY study_id DESC LIMIT ${pagination.firstRecordIndex} , ${pagination.countPerPage}";
+    public static final String selectPageById =
+            "SELECT * FROM SR_MOIM_TB WHERE id = ${id} ORDER BY study_id DESC LIMIT ${pagination.firstRecordIndex} , ${pagination.countPerPage}";
 
     public static final String selectWishPageAll =
             "<script> " +
@@ -59,6 +59,14 @@ public class BoardSQL {
     //게시글 개수 조회 by id
     public static final String getCountById =
             "SELECT COUNT(*) FROM SR_MOIM_TB WHERE id = #{id}";
+
+    //검색어로 스터디 글 가져오기
+    public static final String getBoardByKeyword =
+            "SELECT * FROM " +
+                    "(SELECT * FROM SR_MOIM_TB WHERE on_off = #{searchDto.on_off} and location like IFNULL(CONCAT('%',#{searchDto.location},'%'), '%%')) sub" +
+                    " WHERE sub.title like IFNULL(CONCAT('%',#{searchDto.keyword},'%'), '%%') " +
+                    "OR sub.content like IFNULL(CONCAT('%',#{searchDto.keyword},'%'), '%%') " +
+                    "AND DATE_FORMAT(NOW(), '%Y-%m-%d') <= schedule_end ORDER BY study_id DESC LIMIT ${pagination.firstRecordIndex} , ${pagination.countPerPage}";
 
     public static final String getMyStudyList =
             "SELECT COUNT (*) FROM SR_MOIM_TB WHERE user_id = #{user_id}";

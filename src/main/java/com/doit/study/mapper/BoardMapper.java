@@ -21,8 +21,9 @@ public interface BoardMapper {
     List<Board> selectPage(@Param("pagination") Pagination pagination);
 
     //페이징 처리한 후 게시글 정보 모두 가져오기
-    @Select(BoardSQL.selectPageAll)
-    List<Board> selectPageAll(@Param("pagination") Pagination pagination);
+    @Select(BoardSQL.selectPageById)
+    List<Board> selectPageAll(@Param("id") Integer id,
+                              @Param("pagination") Pagination pagination);
 
     //페이징 처리한 후 게시글 정보 모두 가져오기
     @Select(BoardSQL.selectWishPageAll)
@@ -60,6 +61,11 @@ public interface BoardMapper {
     //게시글 개수 조회 by id
     @Select(BoardSQL.getCountById)
     Integer getCountById(int id);
+
+    //검색어로 스터디 글 가져오기
+    @Select(BoardSQL.getBoardByKeyword)
+    List<Board> selectSearchPage(@Param("searchDto") SearchDto searchDto,
+                                 @Param("pagination") Pagination pagination);
 
     @Select(BoardSQL.getMyStudyList)
     Integer getMyStudyList(@Param("user_id") String id);
