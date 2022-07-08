@@ -5,11 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
-public class BoardDto {
+public class BoardDto implements Serializable {
     private int  board_id, board_writerId;
     private String  writer_nickName, board_location;
     private int     board_on_off, board_viewCount, board_commentCount;
