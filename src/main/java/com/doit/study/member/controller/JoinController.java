@@ -106,7 +106,7 @@ public class JoinController {
         } else {
             //닉네임 중복 검사
             result = memberService.findNickname(nickname);
-            return result;
+            return result = 3;
         }
     }
 
