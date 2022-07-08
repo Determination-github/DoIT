@@ -15,7 +15,7 @@ public class MemberSQL {
 
     public static final String insertSocialTB =
             "INSERT INTO SOCIAL_USERS_TB(id, social_id, social_type) " +
-            "VALUES ( #{social.user_id}, #{social.social_id}, #{social.social_type}";
+            "VALUES ( #{social.user_id}, #{social.social_id}, #{social.social_type} )";
 
     public static final String findBySocialId =
             "SELECT * FROM USERS_TB " +
