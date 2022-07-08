@@ -98,7 +98,7 @@ public class JoinController {
         //검증 패턴
         pattern = "^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$";
         if(!Pattern.matches(pattern, nickname)){
-            return result = 3;
+            return result = 1;
         } else if(nickname.length() > 10 || nickname.length() < 2) {
             return result = 2;
         } else {

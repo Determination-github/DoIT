@@ -36,7 +36,7 @@ $('#nickname').focusout(function() {
                 if(result == 0) {
                     $('#nicknameCheck').text('사용 가능한 닉네임입니다.');
                     $('#nicknameCheck').css("color","green");
-                } else if(result == 3) {
+                } else if(result == 1) {
                     $('#nicknameCheck').text('공백 혹은 특수 문자는 입력하실 수 없습니다.');
                     $('#nicknameCheck').css("color","red");
                     $('#button').attr("disabled", true);
