@@ -273,7 +273,7 @@ public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
 
 <br>
 
-- Websocket을 사용할 수 없는 경우 대체(Fallback) 옵션을 사용하기 위해 SockJS 프로토콜을 <strong>'withSockjs()'</strong>를 사용해 활성화합니다.
+- Websocket을 사용할 수 없는 경우 <strong>대체(Fallback) 옵션</strong>을 사용하기 위해 SockJS 프로토콜을 <strong>'withSockjs()'</strong>를 사용해 활성화합니다.
 - 다음은 쪽지를 받았을 경우 알림창이 뜨고 쪽지함으로 이동하는 시연 영상입니다.
 
 <br>
