@@ -207,7 +207,7 @@ java -jar gradle-wrapper.jar
 
 <br>
 
-- 사진 및 동영상 첨부를 위한 **WYSIWYG 에디터**로는 <strong>'Summernote'<strong>를 사용했습니다.
+- 사진 및 동영상 첨부를 위한 **WYSIWYG 에디터**로는 <strong>'Summernote'</strong>를 사용했습니다.
 - 첨부한 사진은 **FI_INFO_TB**을 통해 관리되며, 사진 객체는 **Amazon S3 bucket**에서 관리하고 있습니다.
 - 다음은 스터디 모집 글 작성을 위해 이미지를 첨부하는 시연 영상입니다.
 
@@ -273,7 +273,7 @@ public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
 
 <br>
 
-- Websocket을 사용할 수 없는 경우 대체(Fallback) 옵션을 사용하기 위해 SockJS 프로토콜을 <strong>'withSockjs()'<strong>를 사용해 활성화합니다.
+- Websocket을 사용할 수 없는 경우 대체(Fallback) 옵션을 사용하기 위해 SockJS 프로토콜을 <strong>'withSockjs()'</strong>를 사용해 활성화합니다.
 - 다음은 쪽지를 받았을 경우 알림창이 뜨고 쪽지함으로 이동하는 시연 영상입니다.
 
 <br>
@@ -315,7 +315,7 @@ public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
 
 <br>
 
-- 해당 프로젝트에서 <strong>인가(Authorization)<strong>를 위해 **Session**을 활용하고 있습니다.
+- 해당 프로젝트에서 <strong>인가(Authorization)</strong>를 위해 **Session**을 활용하고 있습니다.
 - 인가되지 않은 회원의 접근을 방지하기 위해 **Interceptor**를 활용하고 있습니다.
 - 다음은 인터셉터 설정 코드입니다.
 
@@ -377,8 +377,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
 <br>
 
-- <strong>preHandle<strong> 메서드는 컨트롤러가 실행되기 전에 호출되는 메서드로 회원이 인증된 사용자인지 체크하는 메서드입니다.
-- 인증되지 않은 회원의 경우 로그인 화면으로 <strong>redirect<strong>됩니다.
+- <strong>preHandle</strong> 메서드는 컨트롤러가 실행되기 전에 호출되는 메서드로 회원이 인증된 사용자인지 체크하는 메서드입니다.
+- 인증되지 않은 회원의 경우 로그인 화면으로 <strong>redirect</strong>됩니다.
 - 다음은 redirect될 경우 url 모습입니다.
 
 <br>
