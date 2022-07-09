@@ -383,8 +383,9 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
 <br>
 
-<center><img width="261" height="30" alt="redirect" src="https://user-images.githubusercontent.com/92250627/178099302-c810b49d-e157-49af-b4fa-85114e116906.png" ></center>
+<p align="center"><img width="261" height="20" alt="redirect" src="https://user-images.githubusercontent.com/92250627/178099302-c810b49d-e157-49af-b4fa-85114e116906.png" ></p>
 
+<br>
 
 ### 9. SSL 인증서
 
@@ -394,8 +395,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
 <br>
 
-<center><img width="400" alt="ssl인증" src="https://user-images.githubusercontent.com/92250627/178099412-4d583183-85af-455f-b86c-e7df319205ec.png" ></center>
-
+<p align="center"><img width="350" alt="ssl인증" src="https://user-images.githubusercontent.com/92250627/178099412-4d583183-85af-455f-b86c-e7df319205ec.png" ></>
 
 <br>
 <br>
