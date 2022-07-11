@@ -1,6 +1,6 @@
 package com.doit.study.profile.controller;
 
-import com.doit.study.board.service.BoardService;
+import com.doit.study.board.service.GetBoardService;
 import com.doit.study.file.service.S3Uploader;
 import com.doit.study.profile.dto.ProfileDto;
 import com.doit.study.member.service.MemberService;
@@ -32,7 +32,7 @@ public class ProfileController {
 
     private final MemberService memberService;
     private final ProfileService profileService;
-    private final BoardService boardService;
+    private final GetBoardService getBoardService;
     private final S3Uploader s3Uploader;
 
     /**
@@ -50,7 +50,7 @@ public class ProfileController {
         profileDto = memberService.findMember(id);
 
         //게시글 개수 가져오기
-        Integer size = boardService.getCountById(id);
+        Integer size = getBoardService.getCountById(id);
         profileDto.setSize(size);
 
         //프로파일 이미지 경로 설정

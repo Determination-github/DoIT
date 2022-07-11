@@ -3,20 +3,17 @@ package com.doit.study;
 
 import com.doit.study.alarm.dto.AlarmDto;
 import com.doit.study.alarm.service.AlarmService;
+import com.doit.study.board.service.GetBoardListService;
+import com.doit.study.board.service.GetBoardService;
 import com.doit.study.member.SessionConst;
 import com.doit.study.member.dto.MemberDto;
-
 import com.doit.study.board.domain.Pagination;
-import com.doit.study.board.service.BoardService;
-
-import com.doit.study.member.dto.SocialDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -27,8 +24,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final BoardService boardService;
+    private final GetBoardService getBoardService;
     private final AlarmService alarmService;
+
+    @Qualifier("getAllStudy")
+    private final GetBoardListService getAllStudyList;
 
     /**
      * 홈 컨트롤러
@@ -80,7 +80,7 @@ public class HomeController {
             }
         }
 
-        Integer totalRecordCount = boardService.getCount();
+        Integer totalRecordCount = getBoardService.getCount();
         if(totalRecordCount != null) {
 
             //페이징 처리
@@ -88,7 +88,7 @@ public class HomeController {
             pagination.setTotalRecordCount(totalRecordCount);
             model.addAttribute("pagination", pagination);
 
-            model.addAttribute("list", boardService.getStudyBoardList(id, pagination));
+            model.addAttribute("list", getAllStudyList.getBoardList(id, pagination));
         }
 
         return "index";

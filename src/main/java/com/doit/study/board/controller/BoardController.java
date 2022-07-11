@@ -4,6 +4,9 @@ import com.doit.study.board.domain.Pagination;
 import com.doit.study.board.dto.BoardDto;
 import com.doit.study.board.dto.SearchDto;
 import com.doit.study.board.service.BoardService;
+import com.doit.study.board.service.GetBoardListService;
+import com.doit.study.board.service.GetBoardService;
+import com.doit.study.board.service.SearchBoardService;
 import com.doit.study.comment.dto.CommentDto;
 import com.doit.study.file.dto.FileDto;
 import com.doit.study.file.service.FileService;
@@ -17,6 +20,7 @@ import com.doit.study.profile.service.ProfileService;
 import com.doit.study.wishlist.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -41,11 +45,18 @@ import java.util.*;
 public class BoardController {
 
     private final BoardService boardService;
+    private final GetBoardService getBoardService;
+    private final SearchBoardService searchBoardService;
     private final CommentService commentService;
     private final ProfileService profileService;
     private final WishListService wishListService;
     private final FileService fileService;
     private final S3Uploader s3Uploader;
+
+    private final GetBoardListService getAllStudyList;
+
+    @Qualifier("getMyStudy")
+    private final GetBoardListService getMyStudyList;
 
     /**
      * 스터디 페이지 페이징 처리용 컨트롤러
@@ -59,11 +70,10 @@ public class BoardController {
     public String list(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
                        @RequestParam(value = "pageSize", required = false, defaultValue = "4") int pageSize,
                        Model model,
-                       HttpServletRequest request,
-                       HttpServletResponse response) throws IOException {
+                       HttpServletRequest request) throws IOException {
 
         //총 글 개수
-        int totalRecordCount = boardService.getCount();
+        int totalRecordCount = getBoardService.getCount();
 
         //페이징
         Pagination pagination = paging(currentPage, pageSize, totalRecordCount, model);
@@ -72,9 +82,9 @@ public class BoardController {
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("id") != null) {
             Integer id = (int) session.getAttribute("id");
-            model.addAttribute("list", boardService.getStudyBoardList(id, pagination));
+            model.addAttribute("list", getAllStudyList.getBoardList(id, pagination));
         } else {
-            model.addAttribute("list", boardService.getStudyBoardList(null, pagination));
+            model.addAttribute("list", getAllStudyList.getBoardList(null, pagination));
         }
 
         return "index";
@@ -86,15 +96,13 @@ public class BoardController {
      * @param boardDto
      * @param model
      * @param board_id
-     * @param redirect
      * @return String
      */
     @RequestMapping(value = {"/write", "/write/{board_id}"}, method = RequestMethod.GET)
     public String write(HttpServletRequest request,
                         @ModelAttribute("boardDto") BoardDto boardDto,
                         Model model,
-                        @PathVariable Optional<Integer> board_id,
-                        RedirectAttributes redirect) {
+                        @PathVariable Optional<Integer> board_id) {
 
         if(!board_id.isPresent()) { //게시글 작성
             //세션에서 아이디 가져오기
@@ -114,7 +122,7 @@ public class BoardController {
             int study_id = board_id.get();
 
             //스터디 게시글 정보 가져오기
-            boardDto = boardService.findStudyById(study_id);
+            boardDto = getBoardService.findStudyById(study_id);
 
             //찾는 스터디 게시글 정보가 없을 경우 Exception 발생
             if(boardDto == null) {
@@ -219,7 +227,8 @@ public class BoardController {
     @GetMapping("/result/{id}")
     public String getStudyBoard(Model model,
                                 HttpServletRequest request,
-                                @PathVariable int id) throws IOException {
+                                @PathVariable Integer id) throws IOException {
+
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
         log.info("inputFlashMap={}",inputFlashMap); //redirect로 넘겨받은 정보
 
@@ -239,7 +248,7 @@ public class BoardController {
             }
 
             //게시글 정보 가져오기
-            boardDto = boardService.findResultById(id, boardDto);
+            boardDto = getBoardService.findResultById(id, boardDto);
 
             //게시글 정보 세팅
             getStudyInfo(model, id, session, boardDto);
@@ -248,7 +257,7 @@ public class BoardController {
             return "board/boardDetail";
 
         } else { //게시글 목록에서 게시글 세부화면으로 이동하는 경우
-            BoardDto boardDto = boardService.findStudyById(id);
+            BoardDto boardDto = getBoardService.findStudyById(id);
 
             if(boardDto == null) {
                 throw new NullPointerException();
@@ -338,13 +347,13 @@ public class BoardController {
         }
 
         //검색 게시글 개수
-        Integer totalRecordCount = boardService.getCountBySearching(searchDto);
+        Integer totalRecordCount = searchBoardService.getCountBySearching(searchDto);
         if(totalRecordCount != 0) {
             //페이징
             Pagination pagination = paging(currentPage, pageSize, totalRecordCount, model);
 
             //게시글 목록 정보 담기
-            model.addAttribute("list", boardService.getSearchStudyBoardList(id, searchDto, pagination));
+            model.addAttribute("list", searchBoardService.getSearchStudyBoardList(id, searchDto, pagination));
             model.addAttribute("searchDto", searchDto);
 
             return "board/boardSearching";
@@ -433,7 +442,7 @@ public class BoardController {
      * @param session
      * @param boardDto
      */
-    private void getStudyInfo(Model model, int id, HttpSession session, BoardDto boardDto) {
+    private void getStudyInfo(Model model, Integer id, HttpSession session, BoardDto boardDto) {
         //프로필 사진 가져오기
         String path = profileService.findImage(boardDto.getBoard_writerId());
         boardDto.setPath(path);
@@ -510,7 +519,7 @@ public class BoardController {
      * @return String
      */
     private String getUserStudyList(Model model, int currentPage, int pageSize, Integer id) {
-        Integer totalRecordCount = boardService.getCountById(id);
+        Integer totalRecordCount = getBoardService.getCountById(id);
         if (totalRecordCount != 0) {
             //페이징
             Pagination pagination = paging(currentPage, pageSize, totalRecordCount, model);
@@ -522,7 +531,7 @@ public class BoardController {
             model.addAttribute("pagination", pagination);
 
             //회원의 작성글 가져오기
-            model.addAttribute("list", boardService.getMyStudyBoardList(id, pagination));
+            model.addAttribute("list", getMyStudyList.getBoardList(id, pagination));
 
             //아이디값 담기
             model.addAttribute("id", id);

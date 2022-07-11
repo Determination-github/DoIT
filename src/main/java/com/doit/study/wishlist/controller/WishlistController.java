@@ -1,12 +1,12 @@
 package com.doit.study.wishlist.controller;
 
 import com.doit.study.board.domain.Pagination;
-import com.doit.study.board.service.BoardService;
+import com.doit.study.board.service.GetBoardListService;
 import com.doit.study.wishlist.dto.WishlistDto;
 import com.doit.study.wishlist.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +20,9 @@ import java.util.List;
 public class WishlistController {
 
     private final WishListService wishListService;
-    private final BoardService boardService;
+
+    @Qualifier("getWishStudy")
+    private final GetBoardListService getWishStudyList;
 
     /**
      * 위시리스트 저장
@@ -88,8 +90,12 @@ public class WishlistController {
 
             //위시리스트에 담긴 스터디 정보 가져오기
             List<WishlistDto> wishlist = wishListService.getWishlist(id);
-            boardService.getWishlistBoardListAll(id, wishlist, pagination);
-            model.addAttribute("list", boardService.getWishlistBoardListAll(id, wishlist, pagination));
+            if(wishlist != null) {
+                getWishStudyList.getBoardList(id, pagination);
+                model.addAttribute("list", getWishStudyList.getBoardList(id, pagination));
+            } else {
+                model.addAttribute("list", null);
+            }
             model.addAttribute("id", id);
         } else { //NULL값 담기
             model.addAttribute("list", null);
@@ -122,8 +128,8 @@ public class WishlistController {
         //위시리스트에 담긴 스터디 정보 가져오기
         List<WishlistDto> wishlist = wishListService.getWishlist(id);
         if(wishlist != null) {
-            boardService.getWishlistBoardListAll(id, wishlist, pagination);
-            model.addAttribute("list", boardService.getWishlistBoardListAll(id, wishlist, pagination));
+            getWishStudyList.getBoardList(id, pagination);
+            model.addAttribute("list", getWishStudyList.getBoardList(id, pagination));
         } else {
             model.addAttribute("list", null);
         }
