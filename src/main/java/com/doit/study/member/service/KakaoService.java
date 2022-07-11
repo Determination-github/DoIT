@@ -16,7 +16,7 @@ public interface KakaoService {
     //카카오 access token 발급
     String getAccessKakaoToken(String authorize_code);
 
-    //발급받은 access token으로 회원 정보 가졍괴
+    //발급받은 access token으로 회원 정보 가져오기
     HashMap<String, String> getKaKaoUserInfo(String access_Token) throws IOException, ParseException;
 
     //회원 정보 삭제
