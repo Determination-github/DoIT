@@ -3,11 +3,12 @@ package com.doit.study.profile.service;
 import com.doit.study.mapper.MemberMapper;
 import com.doit.study.mapper.ProfileMapper;
 import com.doit.study.member.domain.Social;
-import com.doit.study.member.service.KakaoService;
-import com.doit.study.member.service.NaverService;
+import com.doit.study.member.service.SocialService;
 import com.doit.study.profile.dto.ProfileDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,8 +23,14 @@ public class ProfileServiceImpl implements ProfileService{
 
     private final ProfileMapper profileMapper;
     private final MemberMapper memberMapper;
-    private final NaverService naverService;
-    private final KakaoService kakaoService;
+
+    @Autowired
+    @Qualifier("naverServiceImpl")
+    private SocialService naverService;
+
+    @Autowired
+    @Qualifier("kakaoServiceImpl")
+    private SocialService kakaoService;
 
     /**
      * 프로필 정보 가져오기
@@ -95,9 +102,10 @@ public class ProfileServiceImpl implements ProfileService{
                 naverService.deleteAccessToken(token);
             } else { //카카오 회원 탈퇴
                 memberMapper.deleteMemberById(result);
-                kakaoService.unlinkKakao(token);
+                kakaoService.deleteAccessToken(token);
             }
         } else { //일반 회원 탈퇴
+            log.info("id={}", profileDto.getId());
             memberMapper.deleteMemberById(profileDto.getId());
         }
     }
