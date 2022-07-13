@@ -51,8 +51,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession(false);
 
         Integer id = null;
-        String nickName;
-        String path;
 
         if(session!=null) {
 
@@ -61,13 +59,13 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             MemberDto memberDto = (MemberDto) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
             if (naverDto != null) {
-                setSession(session, naverDto);
+                id = setSession(session, naverDto);
                 getAlarm(session, id);
             } else if (kakaoDto != null) {
-                setSession(session, kakaoDto);
+                id = setSession(session, kakaoDto);
                 getAlarm(session, id);
             } else if (memberDto != null) {
-                setSession(session, memberDto);
+                id = setSession(session, memberDto);
                 getAlarm(session, id);
             }
         }
@@ -77,14 +75,17 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
      * 세션에 정보 저장
      * @param session
      * @param memberDto
+     * @return id
      */
-    private void setSession(HttpSession session, MemberDto memberDto) {
+    private Integer setSession(HttpSession session, MemberDto memberDto) {
         String nickName;
         Integer id;
         id = memberDto.getId();
         nickName = memberDto.getNickname();
         session.setAttribute("id", id);
         session.setAttribute("nickName", nickName);
+
+        return id;
     }
 
     /**
