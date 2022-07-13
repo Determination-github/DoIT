@@ -14,10 +14,6 @@ public class JoinCheckInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        String requestURI = request.getRequestURI();
-
-        log.info("인증 체크 인터셉터 실행 {}", requestURI);
-
         HttpSession session = request.getSession(false);
 
         if (session != null &&
