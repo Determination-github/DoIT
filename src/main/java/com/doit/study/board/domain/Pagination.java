@@ -8,7 +8,7 @@ public class Pagination {
     // 현재 페이지
     private int currentPage;
     // 한 페이지당 게시물 갯수
-    public int countPerPage = 3;
+    private int countPerPage = 3;
     // 화면 하단 페이지 사이즈
     private int pageSize;
     // 전체 데이터 개수
@@ -79,23 +79,15 @@ public class Pagination {
         }
 
         // 이전 페이지 존재 여부
-        hasPreviousPage = firstPage == 1 ? false : true;
-        if(hasPreviousPage == false) {
-            if(currentPage != firstPage) {
-                hasPreviousPage = true;
-            }else {
-                hasPreviousPage = false;
-            }
+        hasPreviousPage = firstPage != 1;
+        if(!hasPreviousPage) {
+            hasPreviousPage = currentPage != firstPage;
         }
 
         // 다음 페이지 존재 여부
-        hasNextPage = (lastPage * countPerPage) >= totalRecordCount ? false : true;
-        if(hasNextPage == false) {
-            if(currentPage != lastPage) {
-                hasNextPage = true;
-            }else {
-                hasNextPage = false;
-            }
+        hasNextPage = (lastPage * countPerPage) < totalRecordCount;
+        if(!hasNextPage) {
+            hasNextPage = currentPage != lastPage;
         }
     }
 }
