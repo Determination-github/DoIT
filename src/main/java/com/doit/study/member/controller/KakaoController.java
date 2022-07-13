@@ -4,12 +4,14 @@ import com.doit.study.member.SessionConst;
 import com.doit.study.member.domain.Gender;
 import com.doit.study.member.dto.MemberDto;
 import com.doit.study.member.dto.SocialDto;
-import com.doit.study.member.service.KakaoService;
 import com.doit.study.member.service.MemberService;
+import com.doit.study.member.service.SocialService;
+import com.github.scribejava.core.model.OAuth2AccessToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,7 +29,10 @@ import java.util.List;
 @Slf4j
 public class KakaoController {
 
-    private final KakaoService kakaoService;
+    @Autowired
+    @Qualifier("kakaoServiceImpl")
+    private SocialService kakaoService;
+
     private final MemberService memberService;
     private String accessToken;
 
@@ -44,38 +49,44 @@ public class KakaoController {
     }
 
     /**
-     * 카카오 로그인 콜백 컨트롤러
-     * @param code
+     * 카카오 로그인 성공시 callback호출 메서드
      * @param model
+     * @param code
+     * @param state
      * @param session
+     * @return String
+     * @throws IOException
+     * @throws ParseException
      */
     @RequestMapping(value = "/kakao/callback", method = {RequestMethod.GET, RequestMethod.POST})
     public String callback(@RequestParam String code,
+                           @RequestParam String state,
                            Model model,
                            HttpSession session) throws IOException, ParseException {
 
-        //access token 발급 받기
-        accessToken = kakaoService.getAccessKakaoToken(code);
-        if(accessToken == null) {
+        //토큰 발급
+        OAuth2AccessToken oauthToken;
+        oauthToken = kakaoService.getAccessToken(session, code, state);
+        if(oauthToken == null) {
             throw new IOException();
         }
 
-        //access token으로 얻은 로그인한 유저 정보 얻어오기
-        HashMap<String, String> userInfo = kakaoService.getKaKaoUserInfo(accessToken);
+        //accessToken 가져오기
+        String accessToken = oauthToken.getAccessToken();
+
+        //access token으로 로그인한 유저 정보 얻어오기
+        HashMap<String, String> userInfo = kakaoService.getSocialUserInfo(accessToken);
 
         //카카오 회원 고유 id값 가져오기
         String id = userInfo.get("id");
-
-        //카카오 회원 정보 가져오기
-        JSONObject kakaoInfo = new JSONObject(userInfo);
-
-        MemberDto memberDto;
 
         //kakaoDto 초기화
         SocialDto socialDto = new SocialDto(accessToken, id, userInfo.get("nickname"), userInfo.get("email"), userInfo.get("gender"));
 
         //회원타입 설정
         socialDto.setSocial_type("kakao");
+
+        MemberDto memberDto;
 
         if(kakaoService.findSocialMember(id) == null) { //찾는 회원이 회원가입되어 있지 않을 경우
             model.addAttribute("socialDto", socialDto);
