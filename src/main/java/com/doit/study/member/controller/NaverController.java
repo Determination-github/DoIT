@@ -5,11 +5,13 @@ import com.doit.study.member.domain.Gender;
 import com.doit.study.member.dto.MemberDto;
 import com.doit.study.member.dto.SocialDto;
 import com.doit.study.member.service.MemberService;
-import com.doit.study.member.service.NaverService;
+import com.doit.study.member.service.SocialService;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -28,7 +30,10 @@ import java.util.List;
 @Slf4j
 public class NaverController {
 
-    private final NaverService naverService;
+    @Autowired
+    @Qualifier("naverServiceImpl")
+    private SocialService naverService;
+
     private final MemberService memberService;
     private String apiResult;
 
@@ -45,7 +50,7 @@ public class NaverController {
     }
 
     /**
-     * 네이버 로그인 성공시 callback호출 메소드
+     * 네이버 로그인 성공시 callback호출 메서드
      * @param model
      * @param code
      * @param state
@@ -68,11 +73,11 @@ public class NaverController {
             throw new IOException();
         }
 
-        //1. 로그인 사용자 정보를 읽어온다.
+        //로그인 사용자 정보를 읽기
         apiResult = naverService.getUserProfile(oauthToken); //String형식의 json데이터
 
         //String형식인 apiResult를 json형태로 바꿈
-        HashMap<String, String> userInfo = naverService.getNaverUserInfo(apiResult);
+        HashMap<String, String> userInfo = naverService.getSocialUserInfo(apiResult);
 
         //accessToken 가져오기
         String accessToken = oauthToken.getAccessToken();
