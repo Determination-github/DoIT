@@ -3,22 +3,20 @@ package com.doit.study.member.controller;
 import com.doit.study.member.SessionConst;
 import com.doit.study.member.dto.LoginDto;
 import com.doit.study.member.dto.MemberDto;
-import com.doit.study.member.service.KakaoService;
 import com.doit.study.member.service.MemberService;
-import com.doit.study.member.service.NaverService;
+import com.doit.study.member.service.SocialService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -26,8 +24,14 @@ import java.util.Map;
 public class LoginController {
 
     private final MemberService memberService;
-    private final NaverService naverService;
-    private final KakaoService kakaoService;
+
+    @Autowired
+    @Qualifier("naverServiceImpl")
+    private SocialService naverService;
+
+    @Autowired
+    @Qualifier("kakaoServiceImpl")
+    private SocialService kakaoService;
 
     /**
      * 네이버/카카오 콜백 url 생성 및 로그인 컨트롤러
@@ -44,8 +48,8 @@ public class LoginController {
         //네이보 로그인을 위한 콜백 url 생성
         String naverAuthUrl = naverService.getAuthorizationUrl(session);
 
-        //카카오 콜백 url 생성
-        String kakaoAuthUrl = kakaoService.getKaKaoCallbackUrl();
+//        //카카오 콜백 url 생성
+        String kakaoAuthUrl = kakaoService.getAuthorizationUrl(session);
 
         //네이버, 카카오 콜백 url 저장
         model.addAttribute("naverUrl", naverAuthUrl);
@@ -87,8 +91,6 @@ public class LoginController {
         //세션에 회원 정보 저장
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER, memberDto);
-        session.setAttribute("id", memberDto.getId());
-        session.setAttribute("nickName", memberDto.getNickname());
         return "redirect:" + redirectURL;
     }
 
