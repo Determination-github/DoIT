@@ -60,32 +60,39 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             MemberDto kakaoDto = (MemberDto) session.getAttribute(SessionConst.KAKAO_MEMBER);
             MemberDto memberDto = (MemberDto) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
-            log.info("naverDto = " + naverDto);
-            log.info("kakaoDto = " + kakaoDto);
-            log.info("memberDto = " + memberDto);
-
             if (naverDto != null) {
-                id = naverDto.getId();
-                nickName = naverDto.getNickname();
-                session.setAttribute("id", id);
-                session.setAttribute("nickName", nickName);
+                setSession(session, naverDto);
                 getAlarm(session, id);
             } else if (kakaoDto != null) {
-                id = kakaoDto.getId();
-                nickName = kakaoDto.getNickname();
-                session.setAttribute("id", id);
-                session.setAttribute("nickName", nickName);
+                setSession(session, kakaoDto);
                 getAlarm(session, id);
             } else if (memberDto != null) {
-                id = memberDto.getId();
-                nickName = memberDto.getNickname();
-                session.setAttribute("id", id);
-                session.setAttribute("nickName", nickName);
+                setSession(session, memberDto);
                 getAlarm(session, id);
             }
         }
     }
 
+    /**
+     * 세션에 정보 저장
+     * @param session
+     * @param memberDto
+     */
+    private void setSession(HttpSession session, MemberDto memberDto) {
+        String nickName;
+        Integer id;
+        id = memberDto.getId();
+        nickName = memberDto.getNickname();
+        session.setAttribute("id", id);
+        session.setAttribute("nickName", nickName);
+    }
+
+    /**
+     * 알람 가져오기
+     * @param session
+     * @param id
+     * @throws Exception
+     */
     private void getAlarm(HttpSession session, Integer id) throws Exception {
         session.removeAttribute("alarmList");
         List<AlarmDto> alarm = alarmService.getAlarm(id);
