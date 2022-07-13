@@ -113,6 +113,27 @@ jobs:
         env:
           DEV_PROP: ${{ secrets.NAVER_SECRET }}
           
+      - name: make kakao_secret.properties
+        if: contains(github.ref, 'main')
+        run: |
+          echo "ls -a . & pwd"
+          pwd
+          ls -a .
+
+          echo "mkdir & touch"
+          mkdir -p ./src/main/resources 
+          cd ./src/main/resources
+          touch ./kakao_secret.properties
+          pwd
+          ls -a .
+
+          echo "copy properties"
+          echo $DEV_PROP >> ./kakao_secret.properties
+          cat kakao_secret.properties
+        shell: bash
+        env:
+          DEV_PROP: ${{ secrets.KAKAO_SECRET }}     
+          
       - name: make database_id.properties
         if: contains(github.ref, 'main')
         run: |

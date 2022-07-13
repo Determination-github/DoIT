@@ -319,8 +319,8 @@ public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
 
 <br>
 
-- 해당 프로젝트에서 <strong>인가(Authorization)</strong>를 위해 **Session**을 활용하고 있습니다.
-- 인가되지 않은 회원의 접근을 방지하기 위해 **Interceptor**를 활용하고 있습니다.
+- 해당 프로젝트에서 <strong>인증(Authentication)</strong>를 위해 **Session**을 활용하고 있습니다.
+- 인증되지 않은 회원의 접근을 방지하기 위해 **Interceptor**를 활용하고 있습니다.
 - 다음은 인터셉터 설정 코드입니다.
 
 <br>
@@ -350,7 +350,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
 <br>
 
-- 다음은 로그인 여부를 체크(회원이 인증(authentication)되었는지 체크하고 인가하는 LoginCheckInterceptor 일부입니다.
+- 다음은 로그인 여부를 체크(회원이 인증(authentication)되었는지 체크하고 인증하는 LoginCheckInterceptor 일부입니다.
 
 <br>
 
