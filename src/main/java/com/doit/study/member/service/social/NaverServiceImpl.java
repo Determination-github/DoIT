@@ -89,19 +89,21 @@ public class NaverServiceImpl implements SocialService {
     @Override
     public String getAuthorizationUrl(HttpSession session) {
 
-        /* 세션 유효성 검증을 위하여 난수를 생성 */
+        // 세션 유효성 검증을 위하여 난수를 생성
         String state = generateState();
         
-        /* 생성한 난수 값을 session에 저장 */
+        // 생성한 난수 값을 session에 저장
         setSession(session,state);
 
-        /* Scribe에서 제공하는 인증 URL 생성 기능을 이용하여 네아로 인증 URL 생성 */
+        // Scribe에서 제공하는 인증 URL 생성 기능을 이용하여 네아로 인증 URL 생성
         OAuth20Service oauthService = new ServiceBuilder()
                 .apiKey(CLIENT_ID)
                 .apiSecret(CLIENT_SECRET)
                 .callback(REDIRECT_URI)
                 .state(state) //앞서 생성한 난수값을 인증 URL생성시 사용함
                 .build(NaverLoginApi.instance());
+
+        log.info("인증 url={}", oauthService.getAuthorizationUrl());
 
         //인증 URL 리턴
         return oauthService.getAuthorizationUrl();
@@ -131,6 +133,9 @@ public class NaverServiceImpl implements SocialService {
 
             // Scribe에서 제공하는 AccessToken 획득 기능으로 네아로 Access Token을 획득
             OAuth2AccessToken accessToken = oauthService.getAccessToken(code);
+            
+            log.info("accessToken={}", oauthService.getAccessToken(code));
+
             return accessToken;
         }
         return null;
