@@ -1,4 +1,4 @@
-package com.doit.study.member.naver;
+package com.doit.study.member.social;
 
 import com.github.scribejava.core.builder.api.DefaultApi20;
 
