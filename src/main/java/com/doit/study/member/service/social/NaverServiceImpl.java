@@ -103,8 +103,6 @@ public class NaverServiceImpl implements SocialService {
                 .state(state) //앞서 생성한 난수값을 인증 URL생성시 사용함
                 .build(NaverLoginApi.instance());
 
-        log.info("인증 url={}", oauthService.getAuthorizationUrl());
-
         //인증 URL 리턴
         return oauthService.getAuthorizationUrl();
     }
@@ -133,8 +131,6 @@ public class NaverServiceImpl implements SocialService {
 
             // Scribe에서 제공하는 AccessToken 획득 기능으로 네아로 Access Token을 획득
             OAuth2AccessToken accessToken = oauthService.getAccessToken(code);
-            
-            log.info("accessToken={}", oauthService.getAccessToken(code));
 
             return accessToken;
         }
