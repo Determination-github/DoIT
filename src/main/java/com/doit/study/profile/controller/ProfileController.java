@@ -95,7 +95,7 @@ public class ProfileController {
      * @param model
      * @return
      */
-    @GetMapping("/profile/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String editProfile(@PathVariable Integer id,
                               Model model) {
         ProfileDto profileDto = memberService.findMember(id);
@@ -110,7 +110,7 @@ public class ProfileController {
      * @return ResponseEntity
      * @throws Exception
      */
-    @PutMapping("/profile/update/{id}")
+    @PutMapping("/profile/{id}")
     public ResponseEntity updateProfile(@PathVariable Integer id,
                                 @RequestBody ProfileDto profileDto) throws Exception {
 
@@ -131,7 +131,7 @@ public class ProfileController {
      * @return ResponseEntity
      * @throws Exception
      */
-    @DeleteMapping("/profile/delete/{id}")
+    @DeleteMapping("/profile/{id}")
     public ResponseEntity deleteProfile(@PathVariable Integer id,
                                            @RequestBody ProfileDto profileDto,
                                            HttpServletRequest request) throws Exception {

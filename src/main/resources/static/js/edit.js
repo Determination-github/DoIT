@@ -122,7 +122,7 @@ $("#modify-btn").click(function(){
     if (check === true) {
         $.ajax({
             type:"PUT",
-            url:"/profile/update/" + data.id,
+            url:"/profile/" + data.id,
             dataType : 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data),
@@ -150,7 +150,7 @@ $("#floatingDelete").click(function(){
         if (check === true) {
             $.ajax({
                 type:"DELETE",
-                url:"/profile/delete/" + data.id,
+                url:"/profile/" + data.id,
                 dataType : 'json',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data),
