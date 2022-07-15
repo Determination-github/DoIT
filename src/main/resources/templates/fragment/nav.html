@@ -3,6 +3,8 @@
 <body>
 <div th:fragment="fragment_nav">
 <!-- 네비게이션 바-->
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 <nav class="navbar">
 
   <div class="max-width">
