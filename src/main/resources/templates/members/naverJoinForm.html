@@ -15,6 +15,7 @@
         <form action="/join/naver" th:action th:object="${naverDto}" method="post">
         <input type="hidden" th:field="*{social_type}">
         <input type="hidden" th:field="*{token}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
             <div class="main_join_wrap">
                 <div class="main_join_box1">
