@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>알림창</title>
+</head>
+<body>
+
+</body>
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+    const message = [[${msg}]];
+    alert(message);
+    location.href = "/";
+
+</script>
+</html>

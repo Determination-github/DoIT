@@ -223,7 +223,7 @@ public class BoardController {
      * @param id
      * @return String
      */
-    @GetMapping("/result/{id}")
+    @GetMapping("/{id}")
     public String getStudyBoard(Model model,
                                 HttpServletRequest request,
                                 @PathVariable Integer id) throws IOException {
@@ -258,8 +258,10 @@ public class BoardController {
         } else { //게시글 목록에서 게시글 세부화면으로 이동하는 경우
             BoardDto boardDto = getBoardService.findStudyById(id);
 
+            //게시글 삭제 등으로 존재하지 않는 게시물을 조회하는 경우
             if(boardDto == null) {
-                throw new NullPointerException();
+                model.addAttribute("msg", "존재하지 않는 게시글입니다.");
+                return "board/alert";
             }
 
             //게시글 정보 세팅
@@ -370,7 +372,7 @@ public class BoardController {
      * @return ResponseEntity
      * @throws Exception
      */
-    @DeleteMapping("/delete/{study_id}")
+    @DeleteMapping("/{study_id}")
     public ResponseEntity deleteStudy(@PathVariable("study_id") Integer study_id) throws Exception {
         //삭제해야 할 파일이 있는지 확인
         List<FileDto> list = fileService.findFileByStudyId(study_id);
