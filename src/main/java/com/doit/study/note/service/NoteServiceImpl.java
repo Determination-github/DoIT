@@ -29,7 +29,7 @@ public class NoteServiceImpl implements NoteService{
      * @throws Exception
      */
     @Override
-    public void saveNote(NoteDto noteDto) throws Exception {
+    public void saveNote(NoteDto noteDto) {
 
         //보내는 사람 노트 DB 저장
         Note note = noteDto.toEntity(noteDto);
@@ -77,7 +77,7 @@ public class NoteServiceImpl implements NoteService{
      * @throws Exception
      */
     @Override
-    public void deleteNote(Integer note_id) throws Exception {
+    public void deleteNote(Integer note_id) {
         noteMapper.deleteNote(note_id);
     }
 

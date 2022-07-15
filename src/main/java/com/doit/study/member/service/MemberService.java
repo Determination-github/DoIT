@@ -8,10 +8,10 @@ import com.doit.study.member.dto.SocialDto;
 public interface MemberService {
 
     //회원가입
-    MemberDto join(MemberDto memberDto) throws Exception;
+    MemberDto join(MemberDto memberDto);
 
     //소셜 회원 가입
-    SocialDto joinSocial(SocialDto socialDto) throws Exception;
+    SocialDto joinSocial(SocialDto socialDto);
 
     //로그인
     MemberDto login(LoginDto loginDto);

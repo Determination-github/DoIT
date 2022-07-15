@@ -14,5 +14,5 @@ public interface FileService {
     List<FileDto> findFileByStudyId(Integer study_id);
 
     //파일 업데이트
-    void insertStudyId(Integer study_id, String file_id) throws Exception;
+    void insertStudyId(Integer study_id, String file_id);
 }

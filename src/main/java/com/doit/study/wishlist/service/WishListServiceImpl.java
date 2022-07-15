@@ -25,7 +25,7 @@ public class WishListServiceImpl implements WishListService{
      * @throws Exception
      */
     @Override
-    public void save(WishlistDto wishlistDto) throws Exception {
+    public void save(WishlistDto wishlistDto) {
         wishListMapper.save(wishlistDto);
     }
 
@@ -81,7 +81,7 @@ public class WishListServiceImpl implements WishListService{
      * @throws Exception
      */
     @Override
-    public void deleteWishlist(Integer id, Integer study_id) throws Exception {
+    public void deleteWishlist(Integer id, Integer study_id) {
         wishListMapper.deleteWishlist(id, study_id);
     }
 }

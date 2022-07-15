@@ -27,7 +27,7 @@ public class BoardServiceImpl implements BoardService {
      * @throws Exception
      */
     @Override
-    public Integer insertStudyBoard(BoardDto boardDto) throws Exception {
+    public Integer insertStudyBoard(BoardDto boardDto) {
 
         //dto to entity
         Board board = boardDto.toEntity(boardDto);
@@ -57,7 +57,7 @@ public class BoardServiceImpl implements BoardService {
      * @throws Exception
      */
     @Override
-    public BoardDto updateBoard(BoardDto boardDto) throws Exception {
+    public BoardDto updateBoard(BoardDto boardDto) {
 
         //dto to entity
         Board board = boardDto.toEntity(boardDto);
@@ -82,7 +82,7 @@ public class BoardServiceImpl implements BoardService {
      * @throws Exception
      */
     @Override
-    public Integer deleteBoard(int study_id) throws Exception {
+    public Integer deleteBoard(int study_id) {
         return boardMapper.deleteBoard(study_id);
     }
 

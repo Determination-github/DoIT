@@ -3,6 +3,7 @@ package com.doit.study.profile.service;
 import com.doit.study.profile.dto.ProfileDto;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 public interface ProfileService {
 
@@ -13,8 +14,8 @@ public interface ProfileService {
     String findImage(Integer id);
 
     //회원 정보 업데이트
-    void updateProfile(ProfileDto profileDto) throws Exception;
+    void updateProfile(ProfileDto profileDto);
 
     //회원 탈퇴
-    void deleteProfile(ProfileDto profileDto, HttpServletRequest request) throws Exception;
+    void deleteProfile(ProfileDto profileDto, HttpServletRequest request) throws IOException;
 }

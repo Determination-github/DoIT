@@ -50,7 +50,7 @@ public class FileServiceImpl implements FileService{
      * @param file_id
      */
     @Override
-    public void insertStudyId(Integer study_id, String file_id) throws Exception {
+    public void insertStudyId(Integer study_id, String file_id) {
         fileMapper.updateStudyId(study_id, file_id);
     }
 }

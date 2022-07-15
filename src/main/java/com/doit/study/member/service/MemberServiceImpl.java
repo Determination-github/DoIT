@@ -32,7 +32,7 @@ public class MemberServiceImpl implements MemberService{
      * @throws Exception
      */
     @Override
-    public MemberDto join(MemberDto memberDto) throws Exception {
+    public MemberDto join(MemberDto memberDto) {
 
         //password 암호화
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
@@ -57,7 +57,7 @@ public class MemberServiceImpl implements MemberService{
      * @throws Exception
      */
     @Override
-    public SocialDto joinSocial(SocialDto socialDto) throws Exception {
+    public SocialDto joinSocial(SocialDto socialDto) {
         Member member = socialDto.toEntity(socialDto);
 
         Integer result = memberMapper.insertSocialToUser(member);

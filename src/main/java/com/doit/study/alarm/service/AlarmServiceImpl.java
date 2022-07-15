@@ -22,10 +22,9 @@ public class AlarmServiceImpl implements AlarmService{
     /**
      * 알람 저장
      * @param alarmDto
-     * @throws Exception
      */
     @Override
-    public void saveAlarm(AlarmDto alarmDto) throws Exception {
+    public void saveAlarm(AlarmDto alarmDto) {
         //알람 메시지 만들기
         String msg = alarmDto.makeMsg(alarmDto.getGubun(), alarmDto.getMessage());
         alarmDto.setMessage(msg);
@@ -41,10 +40,9 @@ public class AlarmServiceImpl implements AlarmService{
      * 알람 가져오기
      * @param id
      * @return List<AlarmDto>
-     * @throws Exception
      */
     @Override
-    public List<AlarmDto> getAlarm(Integer id) throws Exception {
+    public List<AlarmDto> getAlarm(Integer id) {
 
         List<Alarm> alarmList = alarmMapper.getAlarm(id);
 
@@ -70,7 +68,7 @@ public class AlarmServiceImpl implements AlarmService{
      * @throws Exception
      */
     @Override
-    public void deleteAlarm(Integer id) throws Exception {
+    public void deleteAlarm(Integer id) {
         alarmMapper.deleteAlarm(id);
     }
 

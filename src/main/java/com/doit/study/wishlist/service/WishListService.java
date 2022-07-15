@@ -7,7 +7,7 @@ import java.util.List;
 public interface WishListService {
 
     //위시리스트 저장
-    void save(WishlistDto wishlistDto) throws Exception;
+    void save(WishlistDto wishlistDto);
 
     //위시리스트 개수 가져오기
     Integer getCountById(Integer id);
@@ -19,5 +19,5 @@ public interface WishListService {
     List<WishlistDto> getWishlist(Integer id);
 
     //위시리스트 삭제
-    void deleteWishlist(Integer id, Integer study_id) throws Exception;
+    void deleteWishlist(Integer id, Integer study_id);
 }

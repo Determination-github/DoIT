@@ -108,7 +108,7 @@ public class KakaoServiceImpl implements SocialService {
      * @return OAuth2AccessToken
      * @throws IOException
      */
-    public OAuth2AccessToken getAccessToken(HttpSession session, String code, String state) throws IOException {
+    public OAuth2AccessToken getAccessToken(HttpSession session, String code, String state) {
 
         // Callback으로 전달받은 세선검증용 난수값과 세션에 저장되어있는 값이 일치하는지 확인
         String sessionState = getSession(session);
@@ -122,7 +122,13 @@ public class KakaoServiceImpl implements SocialService {
                     .build(KakaoLoginApi.instance());
 
             // Scribe에서 제공하는 AccessToken 획득 기능으로 카카오 Access Token을 획득
-            OAuth2AccessToken accessToken = oauthService.getAccessToken(code);
+            OAuth2AccessToken accessToken = null;
+            try {
+                accessToken = oauthService.getAccessToken(code);
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException();
+            }
             return accessToken;
         }
         return null;
@@ -135,7 +141,7 @@ public class KakaoServiceImpl implements SocialService {
      * @throws ParseException
      */
     @Override
-    public HashMap<String, String> getSocialUserInfo(String access_Token) throws ParseException, IOException {
+    public HashMap<String, String> getSocialUserInfo(String access_Token) throws IOException, ParseException {
 
         //요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, String> userInfo = new HashMap<String, String>();

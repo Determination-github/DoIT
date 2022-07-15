@@ -117,7 +117,7 @@ public class NaverServiceImpl implements SocialService {
     @Override
     public OAuth2AccessToken getAccessToken(HttpSession session, String code, String state) throws IOException {
 
-        // Callback으로 전달받은 세선검증용 난수값과 세션에 저장되어있는 값이 일치하는지 확인
+        //Callback으로 전달받은 세선검증용 난수값과 세션에 저장되어있는 값이 일치하는지 확인
         String sessionState = getSession(session);
         if(StringUtils.pathEquals(sessionState, state)){
 
@@ -143,7 +143,7 @@ public class NaverServiceImpl implements SocialService {
      * @throws IOException
      */
     @Override
-    public String getUserProfile(OAuth2AccessToken oauthToken) throws IOException{
+    public String getUserProfile(OAuth2AccessToken oauthToken) throws IOException {
 
         //OAuth20Service 객체 정보 설정
         OAuth20Service oauthService = new ServiceBuilder()

@@ -10,14 +10,14 @@ public interface CommentService {
     Integer getCount(Integer study_id);
 
     //댓글 작성
-    void insertComment(CommentDto commentDto) throws Exception;
+    void insertComment(CommentDto commentDto);
 
     //댓글 목록 가져오기
     List<CommentDto> getComment(int study_id);
 
     //댓글 업데이트
-    void updateComment(CommentDto commentDto) throws Exception;
+    void updateComment(CommentDto commentDto);
 
     //댓글 삭제
-    void deleteComment(Integer comment_id) throws Exception;
+    void deleteComment(Integer comment_id);
 }

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Service
 @Slf4j
@@ -65,7 +66,7 @@ public class ProfileServiceImpl implements ProfileService{
      * @throws Exception
      */
     @Override
-    public void updateProfile(ProfileDto profileDto) throws Exception {
+    public void updateProfile(ProfileDto profileDto) {
         int result;
 
         if(profileDto.getPassword() != null) { //패스워드에 따라 다른 update sql문 실행
@@ -82,7 +83,7 @@ public class ProfileServiceImpl implements ProfileService{
      * @throws Exception
      */
     @Override
-    public void deleteProfile(ProfileDto profileDto, HttpServletRequest request) throws Exception {
+    public void deleteProfile(ProfileDto profileDto, HttpServletRequest request) throws IOException {
         //회원 정보 가져오기
         Integer result = memberMapper.checkSocialMember(profileDto.getId());
 
