@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 
 @Slf4j
 @ControllerAdvice
@@ -27,6 +28,12 @@ public class DoITExceptionHandler {
     @ExceptionHandler(IOException.class)
     public void exceptionI0(IOException ioException, HttpServletResponse response) throws IOException {
         log.error("IOException 실행", ioException.getMessage());
+        response.sendError(500);
+    }
+
+    @ExceptionHandler(ParseException.class)
+    public void parseException(ParseException parseException, HttpServletResponse response) throws IOException {
+        log.error("ParseException 실행", parseException.getMessage());
         response.sendError(500);
     }
 
