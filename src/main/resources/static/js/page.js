@@ -44,7 +44,7 @@ $(".btn_like").click(function(){
       }
       $.ajax({
           type:"POST",
-          url:"/like/save/" + data.id,
+          url:"/like/" + data.id,
           dataType : 'json',
           contentType: 'application/json; charset=utf-8',
           data: JSON.stringify(data),
@@ -85,7 +85,7 @@ $(".btn_like_delete").click(function(){
 
         $.ajax({
           type:"DELETE",
-          url:"/like/delete/" + data.id,
+          url:"/like/" + data.id,
           dataType : 'json',
           contentType: 'application/json; charset=utf-8',
           data: JSON.stringify(data),

@@ -31,7 +31,7 @@ public class WishlistController {
      * @return ResponseEntity
      * @throws Exception
      */
-    @PostMapping("/like/save/{id}")
+    @PostMapping("/like/{id}")
     public ResponseEntity like(@PathVariable("id") Integer id,
                                @RequestBody WishlistDto wishlistDto) throws Exception {
         //중복으로 담지 않도록 체크
@@ -51,7 +51,7 @@ public class WishlistController {
      * @return ResponseEntity
      * @throws Exception
      */
-    @DeleteMapping("/like/delete/{id}")
+    @DeleteMapping("/like/{id}")
     public ResponseEntity likeDelete(@PathVariable("id") Integer id,
                                      @RequestBody WishlistDto wishlistDto) throws Exception {
         //DB에서 정보 삭제하기

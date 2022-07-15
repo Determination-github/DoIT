@@ -13,7 +13,7 @@ $(".btn_like_delete").click(function(){
     if(check === true) {
         $.ajax({
             type:"DELETE",
-            url:"/like/delete/" + data.id,
+            url:"/like/" + data.id,
             dataType : 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data),
