@@ -28,7 +28,7 @@ dependencies {
 	//세션 저장
 	implementation 'org.springframework.session:spring-session-jdbc:2.7.0'
 
-	//OAuth 2.0 네이버 로그인
+	//OAuth 2.0 소셜 로그인
 	implementation 'com.github.scribejava:scribejava-apis:2.8.1'
 
 	//json
@@ -62,7 +62,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
-	implementation 'mysql:mysql-connector-java:8.0.28'
+	implementation 'mysql:mysql-connector-java:8.0.29'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
