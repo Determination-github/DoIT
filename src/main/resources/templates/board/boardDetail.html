@@ -171,10 +171,6 @@
                         </div>
                     </article>
                     <section class="comment">
-                        <form name="commentFrm" id="commentFrm">
-                            <input type="hidden" name="totalPage" value>
-                            <input type="hidden" name="page" value="0">
-                        </form>
                         <div class="card bg-light">
                             <div class="card-header">
                                 <h4 class="card-title">댓글([[${totalComment}]])</h4>
@@ -278,6 +274,7 @@
 </div>
 <th:block layout:fragment="extraJs">
     <script type="text/javascript" src="/js/comments.js"></script>
+    <script type="text/javascript" src="/js/page.js"></script>
 
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
