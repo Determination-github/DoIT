@@ -26,13 +26,15 @@ $(".profile-upload").click(function(){
             cache : false,
             contentType : false,
             processData : false,
-            enctype : 'multipart/form-data'
+            enctype : 'multipart/form-data',
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
         }).done(function (response) {
             let url = response.path;
             window.location.reload();
         }).fail(function (error) {
-            alert("실패");
-            alert(JSON.stringify(error));
+            alert("사진 업로드에 실패했습니다. 다시 시도해주세요.");
         });
     }
 });

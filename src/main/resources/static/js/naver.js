@@ -6,6 +6,10 @@ $('#nickname').focusout(function() {
             type : "post",
             data : {nickname:nickname},
             dataType : 'json',
+            cache : false,
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
             success : function(result) {
                 if(result == 0) {
                     $('#nicknameCheck').text('사용 가능한 닉네임입니다.');

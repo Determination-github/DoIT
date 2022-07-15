@@ -25,6 +25,9 @@ function sendFile(file, el) {
         contentType : false,
         enctype : 'multipart/form-data',
         processData : false,
+        beforeSend : function(xhr) {
+            xhr.setRequestHeader(header, token);
+        },
         success : function(url) {
             $(el).summernote('insertImage', url, function($image) {
                 $image.css('width', "50%");

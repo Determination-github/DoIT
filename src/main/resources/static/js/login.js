@@ -12,6 +12,9 @@ $("#sendTempPwd").click(function(){
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data),
             cache : false,
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
         }).done(function(response) {
             alert(response.result);
             window.location.reload();

@@ -16,6 +16,9 @@ $(".btn_like").click(function(){
           contentType: 'application/json; charset=utf-8',
           data: JSON.stringify(data),
           cache : false,
+          beforeSend : function(xhr) {
+                        xhr.setRequestHeader(header, token);
+          },
       }).done(function(response) {
           const check = confirm("스터디가 위시리스트에 담겼습니다. 위시리스트로 이동하시겠습니까?")
           if (check === true) {
@@ -54,6 +57,9 @@ $(".btn_like_delete").click(function(){
           contentType: 'application/json; charset=utf-8',
           data: JSON.stringify(data),
           cache : false,
+          beforeSend : function(xhr) {
+                      xhr.setRequestHeader(header, token);
+          },
       }).done(function(response) {
           const check = confirm("위시리스트에서 제거되었습니다. 위시리스트로 이동하시겠습니까?")
           if (check === true) {

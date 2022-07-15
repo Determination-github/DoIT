@@ -6,6 +6,10 @@ $('#nickname').focusout(function() {
             type : "post",
             data : {nickname:nickname},
             dataType : 'json',
+            cache : false,
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
             success : function(result) {
                 if(result == 0) {
                     $('#nicknameCheck').text('사용 가능한 닉네임입니다.');
@@ -37,6 +41,10 @@ $('#email').focusout(function() {
             type : "post",
             data : {email:email},
             dataType : 'json',
+            cache : false,
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
             success : function(result) {
                 if(result == 0) {
                     $('#emailCheck').text('사용 가능한 이메일입니다.');
@@ -66,6 +74,9 @@ $("#emailChk").click(function(){
         data : {email:email},
         dataType : 'json',
         cache : false,
+        beforeSend : function(xhr) {
+            xhr.setRequestHeader(header, token);
+        },
         success:function(result){
             if(result == "error"){
                 alert("이메일 주소가 올바르지 않습니다. 유효한 이메일 주소를 입력해주세요.");

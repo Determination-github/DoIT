@@ -85,8 +85,16 @@ function click_alarm(object) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(data),
         cache : false,
+        beforeSend : function(xhr) {
+            xhr.setRequestHeader(header, token);
+        },
     }).done(function() {
     }).fail(function (error) {
         alert(JSON.stringify(error));
     });
 }
+
+
+const token = $("meta[name='_csrf']").attr("content")
+const header = $("meta[name='_csrf_header']").attr("content");
+const name = $("#userName").val();

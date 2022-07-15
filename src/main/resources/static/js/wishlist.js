@@ -18,6 +18,9 @@ $(".btn_like_delete").click(function(){
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data),
             cache : false,
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
         }).done(function(response) {
             const check = confirm("위시리스트에서 제거되었습니다.")
             window.location.reload();

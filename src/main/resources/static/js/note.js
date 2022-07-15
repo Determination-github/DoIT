@@ -1,10 +1,4 @@
 $(function() {
-//    function removeNote() {
-//        $(".remove-note").off('click').on('click', function(event) {
-//          event.stopPropagation();
-//          $(this).parents('.single-note-item').remove();
-//        });
-//    }
 
     const $btns = $('.note-link').click(function() {
         if (this.id == 'all-category') {
@@ -39,6 +33,9 @@ function delete_note(object) {
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data),
                 cache : false,
+                beforeSend : function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
             }).done(function() {
                 alert("쪽지가 삭제되었습니다.");
                 window.location.reload();

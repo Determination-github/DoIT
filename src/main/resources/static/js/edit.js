@@ -12,6 +12,9 @@ $('#nickname').focusout(function() {
                 type : "post",
                 data : {nickname:nickname},
                 dataType : 'json',
+                beforeSend : function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
                 success : function(result) {
                     if(result == 0) {
                         $('#nicknameCheck').text('사용 가능한 닉네임입니다.');
@@ -52,6 +55,9 @@ $('#password').focusout(function() {
             type : "post",
             data : {password:password},
             dataType : 'json',
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
             success : function(result) {
                 if(result == 0) {
                     $('#passwordCheck').text('사용 가능한 비밀번호입니다.');
@@ -121,6 +127,9 @@ $("#modify-btn").click(function(){
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data),
             cache : false,
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
         }).done(function() {
             alert("회원정보가 수정되었습니다.");
             location.href = "/profile/"+data.id;
@@ -146,6 +155,9 @@ $("#floatingDelete").click(function(){
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data),
                 cache : false,
+                beforeSend : function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
             }).done(function() {
                 alert("회원정보가 성공적으로 삭제되었습니다.");
                 location.href = "/";
