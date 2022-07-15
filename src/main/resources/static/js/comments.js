@@ -16,7 +16,7 @@ $("#add-comment-btn").click(function(){
     } else {
         $.ajax({
             type:"POST",
-            url:"/comments/save/" + data.writer_id,
+            url:"/comments/" + data.writer_id,
             dataType : 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data),
@@ -78,7 +78,7 @@ $(".btn-light").click(function(){
         if (check === true) {
             $.ajax({
                 type:"DELETE",
-                url:"/comments/delete/reply/" + data.comment_id,
+                url:"/comments/" + data.comment_id,
                 dataType : 'json',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data),
@@ -118,7 +118,7 @@ $(".reply-btn").click(function(){
     } else {
         $.ajax({
             type:"POST",
-            url:"/comments/save/reply/" + data.writer_id,
+            url:"/comments/reply/" + data.writer_id,
             dataType : 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data),
@@ -166,7 +166,7 @@ $(".reply-modify-btn").click(function(){
     if (check === true) {
         $.ajax({
             type:"PUT",
-            url:"/comments/modify/reply/" + data.writer_id,
+            url:"/comments/" + data.writer_id,
             dataType : 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data),
