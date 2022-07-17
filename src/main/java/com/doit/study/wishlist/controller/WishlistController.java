@@ -6,6 +6,7 @@ import com.doit.study.wishlist.dto.WishlistDto;
 import com.doit.study.wishlist.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,9 @@ public class WishlistController {
 
     private final WishListService wishListService;
 
-    @Qualifier("getWishStudy")
-    private final GetBoardListService getWishStudyList;
+    @Autowired
+    @Qualifier("getWishBoardListImpl")
+    private GetBoardListService getWishStudyList;
 
     /**
      * 위시리스트 저장
@@ -90,6 +92,7 @@ public class WishlistController {
 
             //위시리스트에 담긴 스터디 정보 가져오기
             List<WishlistDto> wishlist = wishListService.getWishlist(id);
+            log.info("wishlist={}", wishlist);
             if(wishlist != null) {
                 getWishStudyList.getBoardList(id, pagination);
                 model.addAttribute("list", getWishStudyList.getBoardList(id, pagination));

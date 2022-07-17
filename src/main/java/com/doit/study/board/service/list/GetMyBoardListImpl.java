@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
-@Qualifier("getMyStudy")
+
 public class GetMyBoardListImpl implements GetBoardListService {
 
     private final BoardMapper boardMapper;

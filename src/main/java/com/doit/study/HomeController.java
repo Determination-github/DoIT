@@ -10,6 +10,7 @@ import com.doit.study.member.dto.MemberDto;
 import com.doit.study.board.domain.Pagination;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,8 +28,9 @@ public class HomeController {
     private final GetBoardService getBoardService;
     private final AlarmService alarmService;
 
-    @Qualifier("getAllStudy")
-    private final GetBoardListService getAllStudyList;
+    @Autowired
+    @Qualifier("getAllBoardListImpl")
+    private GetBoardListService getAllStudyList;
 
     /**
      * 홈 컨트롤러

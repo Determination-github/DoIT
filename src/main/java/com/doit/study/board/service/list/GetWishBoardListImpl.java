@@ -21,7 +21,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
-@Qualifier("getWishStudy")
 public class GetWishBoardListImpl implements GetBoardListService {
 
     private final BoardMapper boardMapper;
@@ -40,6 +39,8 @@ public class GetWishBoardListImpl implements GetBoardListService {
     public List<BoardDto> getBoardList(Integer id, Pagination pagination) {
         //위시리스트 list 가져오기
         List<Wishlist> wishlists = wishListMapper.getWishlist(id);
+
+        log.info("위시리스트 실행");
 
         //위시리스트 목록을 담을 list 객체 생성
         List<WishlistDto> wishlistDtos = new ArrayList<>();

@@ -13,6 +13,7 @@ import com.doit.study.file.service.FileService;
 import com.doit.study.file.service.S3Uploader;
 import com.doit.study.member.SessionConst;
 import com.doit.study.member.dto.MemberDto;
+import com.doit.study.member.service.SocialService;
 import com.doit.study.option.category.Interest;
 import com.doit.study.option.location.Address;
 import com.doit.study.comment.service.CommentService;
@@ -20,6 +21,7 @@ import com.doit.study.profile.service.ProfileService;
 import com.doit.study.wishlist.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,10 +54,13 @@ public class BoardController {
     private final FileService fileService;
     private final S3Uploader s3Uploader;
 
-    private final GetBoardListService getAllStudyList;
+    @Autowired
+    @Qualifier("getAllBoardListImpl")
+    private GetBoardListService getAllStudyList;
 
-    @Qualifier("getMyStudy")
-    private final GetBoardListService getMyStudyList;
+    @Autowired
+    @Qualifier("getMyBoardListImpl")
+    private GetBoardListService getMyStudyList;
 
     /**
      * 스터디 페이지 페이징 처리용 컨트롤러
