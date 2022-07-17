@@ -7,7 +7,6 @@ import com.doit.study.board.service.GetBoardListService;
 import com.doit.study.mapper.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +17,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
-@Primary
-public class GetAllStudyListImpl implements GetBoardListService {
+public class GetAllBoardListImpl implements GetBoardListService {
 
     private final BoardMapper boardMapper;
     private final MemberMapper memberMapper;
