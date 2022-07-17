@@ -1,6 +1,6 @@
 # 📖 DoIT 스터디 모집 사이트
 
-- ### 사이트 주소 : [DoIT - 스터디 모집 사이트](https://www.doit-study.com)
+- ### 사이트 주소 : [DoIT - 스터디 모집 사이트🔗](https://www.doit-study.com)
 <br>
 
 ## ⛏ 사용기술
@@ -27,7 +27,7 @@
 <br>
 
 ## 🗂️ 프로젝트 개요
-해당 프로젝트는 개발자를 위한 **스터디 모집 사이트**입니다. 해당 프로젝트를 기획하는 당시 코로나로 인한 비대면 수업 및 모임이 유행했습니다. 따라서 온라인/오프라인 여부를 선택할 수 있는 개발자를 위한 스터디 모집 사이트를 서비스할 수 있으면 좋겠다는 생각이 들어 프로젝트를 진행했습니다.
+해당 프로젝트의 목표는 개발자를 위한 **스터디 모집 사이트** 제작입니다. 해당 프로젝트를 기획하는 당시 코로나로 인한 비대면 수업 및 모임이 유행했습니다. 따라서 온라인/오프라인 여부를 선택할 수 있는 개발자를 위한 스터디 모집 사이트를 서비스할 수 있으면 좋겠다는 생각이 들어 프로젝트를 진행했습니다.
 
 <br>
 
@@ -407,7 +407,53 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
 ## 🎸ETC
 
+<br>
+
+### 프로젝트 관련 블로그 링크
+
+<br>
+
+[스프링 MVC와 계층형 아키텍처🔗](https://determination.tistory.com/entry/%EC%8A%A4%ED%94%84%EB%A7%81-MVC%EC%99%80-%EA%B3%84%EC%B8%B5%ED%98%95-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98Layered-Architecture)
+
+<br>
+
+[나는 ServiceImpl을 잘 활용했는가?🔗](https://determination.tistory.com/entry/%EB%82%98%EB%8A%94-ServiceImpl%EC%9D%84-%EC%9E%98-%ED%99%9C%EC%9A%A9%ED%96%88%EB%8A%94%EA%B0%80)
+
+<br>
+
+[프로젝트를 더욱 S.O.L.I.D 하게 수정해보기🔗](https://determination.tistory.com/entry/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A5%BC-%EB%8D%94%EC%9A%B1-SOLID-%ED%95%98%EA%B2%8C-%EC%88%98%EC%A0%95%ED%95%B4%EB%B3%B4%EA%B8%B0)
+
+<br>
+
+[세션 저장소로 데이터베이스 사용하기(MySQL)🔗](https://determination.tistory.com/entry/%EC%84%B8%EC%85%98-%EC%A0%80%EC%9E%A5%EC%86%8C%EB%A1%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0MySQL)
+
+<br>
+
+[스프링 인터셉터🔗](https://determination.tistory.com/entry/%EC%8A%A4%ED%94%84%EB%A7%81-%EC%9D%B8%ED%84%B0%EC%85%89%ED%84%B0Interceptor)
+
+<br>
+
+[OAuth2.0으로 네이버/카카오 로그인 구현하기🔗](https://determination.tistory.com/entry/OAuth20%EC%9C%BC%EB%A1%9C-%EB%84%A4%EC%9D%B4%EB%B2%84%EC%B9%B4%EC%B9%B4%EC%98%A4-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
+
+<br>
+
+[스프링 시큐리티(Spring Security) CSRF 설정(AJAX, POST FORM)🔗](https://determination.tistory.com/entry/%EC%8A%A4%ED%94%84%EB%A7%81-%EC%8B%9C%ED%81%90%EB%A6%AC%ED%8B%B0Spring-Security-CSRF-%EC%84%A4%EC%A0%95AJAX-POST-FORM)
+
+<br>
+
+[Github Actions로 properties 파일 만들어서 배포하기🔗](https://determination.tistory.com/entry/Github-Actions%EB%A1%9C-properties-%ED%8C%8C%EC%9D%BC-%EB%A7%8C%EB%93%A4%EC%96%B4%EC%84%9C-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0)
+
+<br>
+
+[Nginx client_max_body_size 수정하기🔗](https://determination.tistory.com/entry/Nginx-clientmaxbodysize-%EC%88%98%EC%A0%95%ED%95%98%EA%B8%B0)
+
+<br>
+
+[프로젝트를 RESTful하게 API 리팩토링하기🔗](https://determination.tistory.com/entry/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-RESTful%ED%95%98%EA%B2%8C-API-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81%ED%95%98%EA%B8%B0)
+
+<br>
+
+
 노션 링크
-블로그 정리
 
 
