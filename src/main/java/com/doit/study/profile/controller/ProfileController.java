@@ -5,6 +5,7 @@ import com.doit.study.file.service.S3Uploader;
 import com.doit.study.profile.dto.ProfileDto;
 import com.doit.study.member.service.MemberService;
 import com.doit.study.profile.service.ProfileService;
+import com.doit.study.wishlist.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class ProfileController {
     private final MemberService memberService;
     private final ProfileService profileService;
     private final GetBoardService getBoardService;
+    private final WishListService wishListService;
     private final S3Uploader s3Uploader;
 
     /**
@@ -56,6 +58,10 @@ public class ProfileController {
         //프로파일 이미지 경로 설정
         String path = profileService.findImage(id);
         profileDto.setFile_path(path);
+
+        //위시리스트 개수 가져오기
+        Integer countWishlist = wishListService.getCountById(id);
+        profileDto.setWishlist(countWishlist);
 
         model.addAttribute("profileDto", profileDto);
 

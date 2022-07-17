@@ -12,7 +12,7 @@ import java.sql.Date;
 @AllArgsConstructor
 public class ProfileDto {
 
-    private Integer id, size;
+    private Integer id, size, wishlist;
     private String email, name ,nickname, password;
     private String file_id, file_origin_name, file_path;
     private Date file_reg_date;
