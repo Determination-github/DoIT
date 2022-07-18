@@ -131,9 +131,8 @@ public class S3Uploader {
      * @param uploadFile
      * @param fileName
      * @return String
-     * @throws Exception
      */
-    private String putS3(File uploadFile, String fileName) throws Exception {
+    private String putS3(File uploadFile, String fileName) {
         amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
         return amazonS3Client.getUrl(bucket, fileName).toString();
     }
