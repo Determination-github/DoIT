@@ -1,13 +1,11 @@
 package com.doit.study.mapper;
 
 import com.doit.study.alarm.domain.Alarm;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
+@Mapper
 public interface AlarmMapper {
 
     //알람 정보 저장

@@ -2,11 +2,9 @@ package com.doit.study.mapper;
 
 import com.doit.study.profile.domain.Profile;
 import com.doit.study.profile.dto.ProfileDto;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
+@Mapper
 public interface ProfileMapper {
 
     //게시글 정보 넣기

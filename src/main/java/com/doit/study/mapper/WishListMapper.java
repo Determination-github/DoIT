@@ -2,13 +2,11 @@ package com.doit.study.mapper;
 
 import com.doit.study.wishlist.domain.Wishlist;
 import com.doit.study.wishlist.dto.WishlistDto;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
+@Mapper
 public interface WishListMapper {
 
     //위시리스트 저장
